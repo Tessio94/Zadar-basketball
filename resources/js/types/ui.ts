@@ -12,3 +12,7 @@ export type AuthLayoutProps = {
     title?: string;
     description?: string;
 };
+
+export type LandingLayoutProps = {
+    children: ReactNode;
+};
