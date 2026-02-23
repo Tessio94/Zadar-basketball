@@ -62,6 +62,8 @@
 
     --color-likar1: var(--likar1);
     --color-likar2: var(--likar2);
+    --color-likar3: var(--likar3);
+    --color-likar4: var(--likar4);
 }
 
 :root {
@@ -98,8 +100,10 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.87 0 0);
-    --likar1: #ff6f00;
-    --likar2: #7c7d7e;
+    --likar1: #ff6f0086;
+    --likar2: #7c7d7e59;
+    --likar3: #ff6e00;
+    --likar4: #7b7d7e;
 }
 
 .dark {
@@ -143,6 +147,6 @@
     }
 
     body {
-        @apply bg-background text-foreground;
+        @apply bg-[url('/snow.png')] bg-cover bg-no-repeat text-foreground;
     }
 }

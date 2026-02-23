@@ -1,17 +1,17 @@
 export default function Footer() {
     return (
-        <footer className="relative z-10 overflow-hidden px-10 py-5">
-            <img src="/hardwood.jpg" className="absolute inset-0 -z-20" />
-            <div className="absolute inset-0 -z-10 bg-orange-200/30 backdrop-blur-xs" />
-            <div className="mx-auto flex w-fit flex-col items-center justify-center gap-5 rounded-4xl bg-likar2/20 p-3">
+        <footer className="relative z-10 overflow-hidden bg-likar2 px-10 py-5">
+            <div className="mx-auto flex w-fit flex-col items-center justify-center gap-5 rounded-4xl border border-slate-100/30 bg-likar2/20 p-3">
                 <img
                     src="/logo.png"
                     className="h-30 w-30"
                     alt="Likar Krombacher"
                 />
                 <div className="flex flex-col items-center gap-4">
-                    <p className="text-lg">Zadar, Hrvatska 23000</p>
-                    <p className="text-lg">
+                    <p className="text-lg text-slate-100">
+                        Zadar, Hrvatska 23000
+                    </p>
+                    <p className="text-lg text-slate-100">
                         email: <span>likarzadar@gmail.com</span>
                     </p>
                 </div>

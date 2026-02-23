@@ -1,5 +1,5 @@
-import Footer from '@/components/myComponents/footer';
-import Header from '@/components/myComponents/header';
+import Footer from '@/components/myComponents/home/footer';
+import Header from '@/components/myComponents/home/header';
 import type { LandingLayoutProps } from '@/types';
 
 const LandingLayout = ({ children }: LandingLayoutProps) => {
