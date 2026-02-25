@@ -31,6 +31,13 @@ Route::get('tablica', function () {
     ]);
 })->name('table');
 
+// statistika
+Route::get('statistika', function () {
+    return Inertia::render('statistics', [
+        'canRegister' => Features::enabled(Features::registration()),
+    ]);
+})->name('stats');
+
 Route::get('dashboard', function () {
     return Inertia::render('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

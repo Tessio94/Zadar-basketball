@@ -124,7 +124,7 @@ export default function Header() {
                 </nav>
 
                 {/* ------------------mobile navigation---------------------------- */}
-                <div className="mr-4 ml-auto block rounded-2xl bg-likar1/60 p-2 sm:mr-6 lg:hidden">
+                <div className="block rounded-2xl bg-likar1/60 p-2 max-lg:order-2 lg:hidden">
                     <div
                         className="relative z-50 h-[35px] w-12.5 rotate-0 cursor-pointer transition-all duration-300 ease-in-out"
                         onClick={() => setHambActive((prev) => !prev)}
@@ -174,7 +174,7 @@ export default function Header() {
                             </li>
                             <li className="w-full">
                                 <a
-                                    href="/o-meni"
+                                    href="/novosti"
                                     className="relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize"
                                 >
                                     Novosti
@@ -182,7 +182,7 @@ export default function Header() {
                             </li>
                             <li className="w-full">
                                 <a
-                                    href=""
+                                    href="/tablica"
                                     className="relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize"
                                 >
                                     Tablica
@@ -190,7 +190,7 @@ export default function Header() {
                             </li>
                             <li className="w-full">
                                 <a
-                                    href=""
+                                    href="/statistika"
                                     className="relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize"
                                 >
                                     Statistika
@@ -219,7 +219,7 @@ export default function Header() {
                                         <ul className="flex flex-col">
                                             <li>
                                                 <a
-                                                    href=""
+                                                    href="/sezona/2025-2026"
                                                     className="block px-3 py-2 text-slate-100"
                                                 >
                                                     2025-2026
@@ -227,7 +227,7 @@ export default function Header() {
                                             </li>
                                             <li>
                                                 <a
-                                                    href=""
+                                                    href="/sezona/2024-2025"
                                                     className="block border-t border-slate-100 px-3 py-2 text-slate-100"
                                                 >
                                                     2024-2025
@@ -242,7 +242,7 @@ export default function Header() {
                             <ul className="flex flex-col gap-6 py-6 text-2xl">
                                 <li className="w-full">
                                     <a
-                                        href="/"
+                                        href="/0-nama"
                                         className="relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize"
                                     >
                                         O nama
@@ -250,7 +250,7 @@ export default function Header() {
                                 </li>
                                 <li className="w-full">
                                     <a
-                                        href="/o-meni"
+                                        href="/kontakt"
                                         className="relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize"
                                     >
                                         Kontakt
@@ -258,7 +258,7 @@ export default function Header() {
                                 </li>
                                 <li className="w-full">
                                     <a
-                                        href=""
+                                        href="/galerija"
                                         className="relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize"
                                     >
                                         Galerija
@@ -326,7 +326,7 @@ export default function Header() {
                         </div>
                     </div>
                 </nav>
-                <div className="flex h-13 w-13 items-center justify-center rounded-full border border-slate-100/60 bg-likar1/80">
+                <div className="mr-4 flex h-13 w-13 items-center justify-center rounded-full border border-slate-100/60 bg-likar1/80 max-lg:order-1 max-lg:ml-auto sm:mr-6">
                     <Search className="h-7 w-7 text-slate-100" />
                 </div>
             </div>
