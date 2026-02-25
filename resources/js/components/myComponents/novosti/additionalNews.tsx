@@ -1,6 +1,6 @@
 import { ArrowRight } from 'lucide-react';
 
-export default function News() {
+export default function AdditionalNews() {
     return (
         <>
             <section className="my-20">
@@ -10,8 +10,7 @@ export default function News() {
                     </h2>
                     <div className="grid w-fit items-stretch gap-10 rounded-2xl sm:grid-cols-2 xl:grid-cols-4">
                         <a
-                            href="https://zivotbezboli.com/"
-                            target="_blank"
+                            href="/novosti/1"
                             rel="noopener noreferrer"
                             className="group z-100 flex cursor-pointer flex-col overflow-hidden rounded-2xl border-2 border-likar1 shadow-lg shadow-likar1"
                         >
@@ -47,8 +46,7 @@ export default function News() {
                             </div>
                         </a>
                         <a
-                            href="https://zivotbezboli.com/"
-                            target="_blank"
+                            href="/novosti/1"
                             rel="noopener noreferrer"
                             className="group z-100 flex cursor-pointer flex-col overflow-hidden rounded-2xl border-2 border-likar1 shadow-lg shadow-likar1"
                         >
@@ -84,8 +82,7 @@ export default function News() {
                             </div>
                         </a>
                         <a
-                            href="https://zivotbezboli.com/"
-                            target="_blank"
+                            href="/novosti/1"
                             rel="noopener noreferrer"
                             className="group z-100 flex cursor-pointer flex-col overflow-hidden rounded-2xl border-2 border-likar1 shadow-lg shadow-likar1"
                         >
@@ -121,8 +118,7 @@ export default function News() {
                             </div>
                         </a>
                         <a
-                            href="https://zivotbezboli.com/"
-                            target="_blank"
+                            href="/novosti/1"
                             rel="noopener noreferrer"
                             className="group z-100 flex cursor-pointer flex-col overflow-hidden rounded-2xl border-2 border-likar1 shadow-lg shadow-likar1"
                         >
@@ -156,6 +152,14 @@ export default function News() {
                                     <ArrowRight className="text-likar3 transition-all duration-300 group-hover:translate-x-1.5" />
                                 </div>
                             </div>
+                        </a>
+                    </div>
+                    <div className="mx-auto mt-20 mb-25 w-fit">
+                        <a
+                            className="hover:bg-theme4 rounded-4xl border-2 border-transparent bg-likar2 px-5 py-2.5 font-text text-2xl font-semibold text-slate-100 transition-all duration-300 hover:border-likar1 hover:shadow-likar1 max-[1400px]:px-7 max-[1400px]:py-3 max-[640px]:text-2xl"
+                            href="/arhiva"
+                        >
+                            Arhiva vijesti
                         </a>
                     </div>
                 </div>

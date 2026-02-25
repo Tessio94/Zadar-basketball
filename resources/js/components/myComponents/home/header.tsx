@@ -1,5 +1,5 @@
 import { usePage } from '@inertiajs/react';
-import { ChevronDown, Search, YoutubeIcon } from 'lucide-react';
+import { ChevronDown, Search } from 'lucide-react';
 import { useEffect, useEffectEvent, useState } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -18,7 +18,12 @@ export default function Header() {
     }, [path]);
 
     return (
-        <header className="absolute right-0 left-0 z-200 bg-transparent px-10 py-5 max-[450px]:px-4 sm:px-12 lg:px-16 xl:px-18 2xl:px-20">
+        <header
+            className={cn(
+                'z-200 bg-transparent px-10 py-5 max-[450px]:px-4 sm:px-12 lg:px-16 xl:px-18 2xl:px-20',
+                path === '/' ? 'absolute right-0 left-0' : 'relative',
+            )}
+        >
             <div className="ml-auto hidden w-[calc(100%-96px)] rounded-tl-full rounded-tr-full bg-likar3/50 px-15 py-1 max-lg:mx-12 sm:block lg:mr-12 lg:w-fit">
                 <ul className="flex items-center gap-10 max-lg:justify-around lg:gap-14 xl:gap-14 2xl:gap-22">
                     <li>
@@ -49,7 +54,7 @@ export default function Header() {
                 </ul>
             </div>
             <div className="flex items-center justify-between rounded-full bg-likar4/70 px-5 py-1.5 shadow-md shadow-likar2/60">
-                <a href="#">
+                <a href="/">
                     <img src="/logo.png" alt="" className="h-22 w-22" />
                 </a>
 
@@ -75,7 +80,7 @@ export default function Header() {
                         <li>
                             <a
                                 className="relative inline-block cursor-pointer font-heading text-base font-semibold text-slate-100 before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 xl:text-lg 2xl:text-[20px]"
-                                href="/statistika"
+                                href="/tablica"
                             >
                                 Tablica
                             </a>
@@ -98,7 +103,7 @@ export default function Header() {
                                         <li>
                                             <a
                                                 className="block rounded-t-xl border border-b-0 border-slate-100 bg-likar4 px-3 py-2 text-nowrap text-slate-100 transition-all duration-300 hover:text-likar1"
-                                                href="/2025-2026"
+                                                href="/sezona/2025-2026"
                                             >
                                                 2025-2026
                                             </a>
@@ -106,7 +111,7 @@ export default function Header() {
                                         <li>
                                             <a
                                                 className="block rounded-b-xl border border-slate-100 bg-likar4 px-3 py-2 text-nowrap text-slate-100 transition-all duration-300 hover:text-likar1"
-                                                href="/2024-2025"
+                                                href="/sezona/2024-2025"
                                             >
                                                 2024-2025
                                             </a>

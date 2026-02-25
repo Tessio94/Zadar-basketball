@@ -155,3 +155,7 @@
         @apply bg-[url('/snow.png')] bg-cover bg-no-repeat text-foreground;
     }
 }
+
+html {
+    scroll-behavior: smooth;
+}
