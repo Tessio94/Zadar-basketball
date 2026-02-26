@@ -62,7 +62,7 @@ export default function TableResults() {
                 )}
 
                 <div
-                    className="scrollbar-thumb-rounded-full scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thin max-h-100 overflow-y-auto scrollbar-thumb-likar3 scrollbar-track-likar2 hover:scrollbar-thumb-likar3"
+                    className="scrollbar-thumb-rounded-full scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thin max-h-100 overflow-y-auto scrollbar-thumb-likar3 scrollbar-track-likar2"
                     ref={scrollRef}
                 >
                     <table className="w-full overflow-hidden rounded-b-xl">

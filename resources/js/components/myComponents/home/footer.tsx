@@ -2,7 +2,7 @@ export default function Footer() {
     return (
         <footer className="relative z-10 overflow-hidden border-t border-likar1 bg-likar2 bg-[url(/snow4.jpg)] bg-cover bg-no-repeat px-10 py-5">
             <div className="mx-auto flex w-fit flex-col items-center justify-center gap-5 rounded-4xl border border-slate-100/30 bg-likar4/50 p-3">
-                <a href="/#">
+                <a href="#">
                     <img
                         src="/logo.png"
                         className="h-30 w-30"

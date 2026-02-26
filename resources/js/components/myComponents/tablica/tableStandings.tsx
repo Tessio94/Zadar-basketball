@@ -59,7 +59,7 @@ export default function TableStandings() {
                 )}
 
                 <div
-                    className="scrollbar-thumb-rounded-full scrollbar-track-rounded-full mb-10 scrollbar-thin overflow-x-auto rounded-xl border border-likar1 shadow-xl shadow-likar1 scrollbar-thumb-likar3 scrollbar-track-likar3 hover:scrollbar-thumb-likar3"
+                    className="scrollbar-thumb-rounded-full scrollbar-track-rounded-full mb-10 scrollbar-thin overflow-x-auto rounded-xl border border-likar1 shadow-xl shadow-likar1 scrollbar-thumb-likar3 scrollbar-track-likar3"
                     ref={scrollRef}
                 >
                     <table className="w-full overflow-hidden rounded-xl">

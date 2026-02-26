@@ -1,3 +1,5 @@
+import { Link } from '@inertiajs/react';
+
 export default function Info() {
     return (
         <section className="relative h-[1559px] w-full bg-[url(/main-bg2-mb.png)] bg-cover bg-no-repeat min-[890px]:h-[1368px] min-[890px]:bg-[url(/main-bg2.png)]">
@@ -37,12 +39,12 @@ export default function Info() {
                     </p>
                 </div>
                 <div className="z-20 mt-2.5 sm:mt-5">
-                    <a
+                    <Link
                         className="hover:bg-theme4 rounded-4xl border-2 border-transparent bg-likar1 px-5 py-2.5 font-text text-2xl font-semibold text-slate-100 transition-all duration-300 hover:border-slate-100 hover:shadow-likar1 max-[1400px]:px-7 max-[1400px]:py-3 max-[640px]:text-2xl"
                         href="/o-nama"
                     >
                         O nama
-                    </a>
+                    </Link>
                 </div>
             </div>
         </section>

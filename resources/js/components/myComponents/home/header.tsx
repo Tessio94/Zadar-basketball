@@ -1,4 +1,4 @@
-import { usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { ChevronDown, Search } from 'lucide-react';
 import { useEffect, useEffectEvent, useState } from 'react';
 import { cn } from '@/lib/utils';
@@ -27,94 +27,135 @@ export default function Header() {
             <div className="ml-auto hidden w-[calc(100%-96px)] rounded-tl-full rounded-tr-full bg-likar3/50 px-15 py-1 max-lg:mx-12 sm:block lg:mr-12 lg:w-fit">
                 <ul className="flex items-center gap-10 max-lg:justify-around lg:gap-14 xl:gap-14 2xl:gap-22">
                     <li>
-                        <a
-                            className="relative inline-block cursor-pointer text-base font-semibold text-slate-100 before:absolute before:top-[90%] before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-[90%] after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 xl:text-lg"
+                        <Link
+                            className={cn(
+                                'relative inline-block cursor-pointer text-base font-semibold text-slate-100 xl:text-lg',
+                                path === '/o-nama'
+                                    ? 'rounded-lg text-slate-900'
+                                    : "before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
+                            )}
                             href="/o-nama"
                         >
                             O nama
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a
-                            className="relative inline-block cursor-pointer text-base font-semibold text-slate-100 before:absolute before:top-[90%] before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-[90%] after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 xl:text-lg"
+                        <Link
+                            className={cn(
+                                'relative inline-block cursor-pointer text-base font-semibold text-slate-100 xl:text-lg',
+                                path === '/arhiva'
+                                    ? 'rounded-lg text-slate-900'
+                                    : "before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
+                            )}
                             href="/arhiva"
                         >
                             Arhiva
-                        </a>
+                        </Link>
                     </li>
 
                     <li>
-                        <a
-                            className="relative inline-block cursor-pointer text-base font-semibold text-slate-100 before:absolute before:top-[90%] before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-[90%] after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 xl:text-lg"
+                        <Link
+                            className={cn(
+                                'relative inline-block cursor-pointer text-base font-semibold text-slate-100 xl:text-lg',
+                                path === '/galerija'
+                                    ? 'rounded-lg text-slate-900'
+                                    : "before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
+                            )}
                             href="/galerija"
                         >
                             Galerija
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </div>
             <div className="flex items-center justify-between rounded-full bg-likar4/70 px-5 py-1.5 shadow-md shadow-likar2/60">
-                <a href="/">
+                <Link href="/">
                     <img src="/logo.png" alt="" className="h-22 w-22" />
-                </a>
+                </Link>
 
                 <nav className="hidden lg:block">
                     <ul className="flex items-center lg:gap-14 xl:gap-18 2xl:gap-22">
                         <li>
-                            <a
-                                className="relative inline-block cursor-pointer font-heading text-base font-semibold text-slate-100 before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 xl:text-lg 2xl:text-[20px]"
+                            <Link
+                                className={cn(
+                                    'relative inline-block cursor-pointer font-heading text-base font-semibold text-slate-100 xl:text-lg 2xl:text-[20px]',
+                                    path === '/'
+                                        ? 'rounded-lg bg-likar1/70 p-1.5'
+                                        : "before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
+                                )}
                                 href="/"
                             >
                                 Naslovnica
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a
-                                className="relative inline-block cursor-pointer font-heading text-base font-semibold text-slate-100 before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 xl:text-lg 2xl:text-[20px]"
+                            <Link
+                                className={cn(
+                                    'relative inline-block cursor-pointer font-heading text-base font-semibold text-slate-100 xl:text-lg 2xl:text-[20px]',
+                                    path === '/novosti'
+                                        ? 'rounded-lg bg-likar1/70 p-1.5'
+                                        : "before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
+                                )}
                                 href="/novosti"
                             >
                                 Novosti
-                            </a>
+                            </Link>
                         </li>
 
                         <li>
-                            <a
-                                className="relative inline-block cursor-pointer font-heading text-base font-semibold text-slate-100 before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 xl:text-lg 2xl:text-[20px]"
+                            <Link
+                                className={cn(
+                                    'relative inline-block cursor-pointer font-heading text-base font-semibold text-slate-100 xl:text-lg 2xl:text-[20px]',
+                                    path === '/tablica'
+                                        ? 'rounded-lg bg-likar1/70 p-1.5'
+                                        : "before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
+                                )}
                                 href="/tablica"
                             >
                                 Tablica
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a
-                                className="relative inline-block cursor-pointer font-heading text-base font-semibold text-slate-100 before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 xl:text-lg 2xl:text-[20px]"
+                            <Link
+                                className={cn(
+                                    'relative inline-block cursor-pointer font-heading text-base font-semibold text-slate-100 xl:text-lg 2xl:text-[20px]',
+                                    path === '/statistika'
+                                        ? 'rounded-lg bg-likar1/70 p-1.5'
+                                        : "before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
+                                )}
                                 href="/statistika"
                             >
                                 Statistika
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <div className="group relative flex cursor-pointer items-center gap-2 font-heading text-base font-semibold text-slate-100 xl:text-lg">
+                            <div
+                                className={cn(
+                                    'group relative flex cursor-pointer items-center gap-2 font-heading text-base font-semibold text-slate-100 xl:text-lg',
+                                    path.startsWith('/sezona') &&
+                                        'rounded-lg bg-likar1/70 p-1.5',
+                                )}
+                            >
                                 <span className="2xl:text-[20px]">Sezona</span>
 
                                 <ChevronDown className="text-3xl transition-all duration-300 group-hover:rotate-x-180" />
                                 <div className="invisible absolute top-[130%] max-h-0 opacity-0 transition-all duration-300 group-hover:visible group-hover:max-h-250 group-hover:opacity-100">
                                     <ul className="flex flex-col">
                                         <li>
-                                            <a
+                                            <Link
                                                 className="block rounded-t-xl border border-b-0 border-slate-100 bg-likar4 px-3 py-2 text-nowrap text-slate-100 transition-all duration-300 hover:text-likar1"
                                                 href="/sezona/2025-2026"
                                             >
                                                 2025-2026
-                                            </a>
+                                            </Link>
                                         </li>
                                         <li>
-                                            <a
+                                            <Link
                                                 className="block rounded-b-xl border border-slate-100 bg-likar4 px-3 py-2 text-nowrap text-slate-100 transition-all duration-300 hover:text-likar1"
                                                 href="/sezona/2024-2025"
                                             >
                                                 2024-2025
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
                                 </div>
@@ -165,41 +206,58 @@ export default function Header() {
                     <div className="scrollbar-slate flex h-full max-h-screen flex-col justify-between gap-25 overflow-y-auto pt-12">
                         <ul className="flex flex-col gap-6 text-2xl">
                             <li className="w-full">
-                                <a
+                                <Link
                                     href="/"
-                                    className="relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize"
+                                    className={cn(
+                                        'relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                        path === '/' && 'text-slate-900',
+                                    )}
                                 >
                                     Naslovnica
-                                </a>
+                                </Link>
                             </li>
                             <li className="w-full">
-                                <a
+                                <Link
                                     href="/novosti"
-                                    className="relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize"
+                                    className={cn(
+                                        'relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                        path === '/novosti' && 'text-slate-900',
+                                    )}
                                 >
                                     Novosti
-                                </a>
+                                </Link>
                             </li>
                             <li className="w-full">
-                                <a
+                                <Link
                                     href="/tablica"
-                                    className="relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize"
+                                    className={cn(
+                                        'relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                        path === '/tablica' && 'text-slate-900',
+                                    )}
                                 >
                                     Tablica
-                                </a>
+                                </Link>
                             </li>
                             <li className="w-full">
-                                <a
+                                <Link
                                     href="/statistika"
-                                    className="relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize"
+                                    className={cn(
+                                        'relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                        path === '/statistika' &&
+                                            'text-slate-900',
+                                    )}
                                 >
                                     Statistika
-                                </a>
+                                </Link>
                             </li>
                             <li>
                                 <div>
                                     <p
-                                        className="text-md group relative flex w-full cursor-pointer items-center gap-2 px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize"
+                                        className={cn(
+                                            'text-md group relative flex w-full cursor-pointer items-center gap-2 px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                            path.startsWith('/sezona') &&
+                                                'text-slate-900',
+                                        )}
                                         onClick={() =>
                                             setSezonaDropdown((prev) => !prev)
                                         }
@@ -218,20 +276,20 @@ export default function Header() {
                                     >
                                         <ul className="flex flex-col">
                                             <li>
-                                                <a
+                                                <Link
                                                     href="/sezona/2025-2026"
                                                     className="block px-3 py-2 text-slate-100"
                                                 >
                                                     2025-2026
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li>
-                                                <a
+                                                <Link
                                                     href="/sezona/2024-2025"
                                                     className="block border-t border-slate-100 px-3 py-2 text-slate-100"
                                                 >
                                                     2024-2025
-                                                </a>
+                                                </Link>
                                             </li>
                                         </ul>
                                     </div>
@@ -241,28 +299,40 @@ export default function Header() {
                         <div>
                             <ul className="flex flex-col gap-6 py-6 text-2xl">
                                 <li className="w-full">
-                                    <a
-                                        href="/0-nama"
-                                        className="relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize"
+                                    <Link
+                                        href="/o-nama"
+                                        className={cn(
+                                            'relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                            path === '/o-nama' &&
+                                                'text-slate-900',
+                                        )}
                                     >
                                         O nama
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li className="w-full">
-                                    <a
+                                    <Link
                                         href="/arhiva"
-                                        className="relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize"
+                                        className={cn(
+                                            'relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                            path === '/arhiva' &&
+                                                'text-slate-900',
+                                        )}
                                     >
                                         Arhiva
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li className="w-full">
-                                    <a
+                                    <Link
                                         href="/galerija"
-                                        className="relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize"
+                                        className={cn(
+                                            'relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                            path === '/galerija' &&
+                                                'text-slate-900',
+                                        )}
                                     >
                                         Galerija
-                                    </a>
+                                    </Link>
                                 </li>
                             </ul>
 
