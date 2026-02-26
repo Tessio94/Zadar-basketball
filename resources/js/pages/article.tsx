@@ -12,8 +12,9 @@ export default function Article() {
                         className="w-full rounded-t-4xl"
                     />
                     <div className="p-5">
-                        <div className="relative flex w-full flex-row gap-8">
-                            <div className="my-15 flex basis-[70%] flex-col items-center justify-center gap-6">
+                        <div className="relative flex w-full flex-row justify-between gap-8">
+                            <div className="relative my-15 flex grow flex-col items-center justify-center gap-6 2xl:basis-[70%]">
+                                {/* <div className="absolute inset-0 z-0 bg-linear-to-r from-transparent via-likar2 to-transparent" /> */}
                                 <span className="font-jet w-fit rounded-xl bg-slate-600 px-2 py-1 font-heading text-base text-slate-100 transition-colors duration-300 group-hover:bg-likar1">
                                     2025-2026
                                 </span>
@@ -27,10 +28,10 @@ export default function Article() {
                                     2026.
                                 </time>
                             </div>
-                            <div className="shrink-0 basis-[30%]" />
+                            <div className="hidden shrink-0 max-2xl:w-[224px] md:block 2xl:basis-[30%]" />
                         </div>
-                        <div className="relative flex w-full flex-row gap-8">
-                            <div className="mb-15 flex basis-[70%] flex-col justify-start gap-6">
+                        <div className="relative flex w-full flex-col justify-between gap-8 md:flex-row">
+                            <div className="mb-15 flex flex-col justify-start gap-6 max-2xl:grow 2xl:basis-[70%]">
                                 <p className="font-text text-xl text-slate-100">
                                     Lorem ipsum dolor sit amet consectetur
                                     adipisicing elit. At non dignissimos
@@ -82,7 +83,7 @@ export default function Article() {
                                     </span>
                                 </div>
                             </div>
-                            <aside className="sticky top-20 shrink-0 basis-[30%] self-start bg-likar2">
+                            <aside className="sticky top-20 shrink-0 self-start bg-likar2 max-md:w-full 2xl:basis-[30%]">
                                 <div className="border-y-2 border-likar1">
                                     <div className="p-3">
                                         <div className="border-b border-slate-100/60 py-3">
@@ -90,14 +91,14 @@ export default function Article() {
                                                 Zadnje novosti
                                             </h3>
                                         </div>
-                                        <div className="flex w-full flex-col py-3">
-                                            <article className="flex w-full flex-row justify-between gap-3 border-b border-slate-100/60 py-3">
+                                        <div className="flex w-full flex-row py-3 max-md:flex-wrap max-md:justify-between md:flex-col">
+                                            <article className="flex w-full flex-col justify-between gap-3 border-b border-slate-100/60 py-3 max-[500px]:w-full! max-[500px]:px-0! max-md:w-1/2 max-md:odd:pr-3 max-md:even:pl-3 2xl:flex-row">
                                                 <img
                                                     src="/landing.jpg"
                                                     alt=""
-                                                    className="aspect-video w-50 rounded-lg"
+                                                    className="aspect-video rounded-lg md:w-50"
                                                 />
-                                                <h3 className="grow font-text text-xl font-semibold text-slate-200">
+                                                <h3 className="grow font-text text-xl font-semibold text-slate-200 max-2xl:w-50 max-md:w-auto">
                                                     <a href="">
                                                         Likar Krombacher - liga
                                                         rekreativaca Zadar
@@ -108,13 +109,13 @@ export default function Article() {
                                                     </time>
                                                 </h3>
                                             </article>
-                                            <article className="flex w-full flex-row justify-between gap-3 border-b border-slate-100/60 py-3">
+                                            <article className="flex w-full flex-col justify-between gap-3 border-b border-slate-100/60 py-3 max-[500px]:w-full! max-[500px]:px-0! max-md:w-1/2 max-md:odd:pr-3 max-md:even:pl-3 2xl:flex-row">
                                                 <img
                                                     src="/landing.jpg"
                                                     alt=""
-                                                    className="aspect-video w-50 rounded-lg"
+                                                    className="aspect-video rounded-lg md:w-50"
                                                 />
-                                                <h3 className="grow font-text text-xl font-semibold text-slate-200">
+                                                <h3 className="grow font-text text-xl font-semibold text-slate-200 max-2xl:w-50 max-md:w-auto">
                                                     <a href="">
                                                         Likar Krombacher - liga
                                                         rekreativaca Zadar
@@ -125,13 +126,13 @@ export default function Article() {
                                                     </time>
                                                 </h3>
                                             </article>
-                                            <article className="flex w-full flex-row justify-between gap-3 border-b border-slate-100/60 py-3">
+                                            <article className="flex w-full flex-col justify-between gap-3 border-b border-slate-100/60 py-3 max-[500px]:w-full! max-[500px]:px-0! max-md:w-1/2 max-md:odd:pr-3 max-md:even:pl-3 2xl:flex-row">
                                                 <img
                                                     src="/landing.jpg"
                                                     alt=""
-                                                    className="aspect-video w-50 rounded-lg"
+                                                    className="aspect-video rounded-lg md:w-50"
                                                 />
-                                                <h3 className="grow font-text text-xl font-semibold text-slate-200">
+                                                <h3 className="grow font-text text-xl font-semibold text-slate-200 max-2xl:w-50 max-md:w-auto">
                                                     <a href="">
                                                         Likar Krombacher - liga
                                                         rekreativaca Zadar
@@ -142,13 +143,13 @@ export default function Article() {
                                                     </time>
                                                 </h3>
                                             </article>
-                                            <article className="flex w-full flex-row justify-between gap-3 border-b border-slate-100/60 py-3">
+                                            <article className="flex w-full flex-col justify-between gap-3 border-b border-slate-100/60 py-3 max-[500px]:w-full! max-[500px]:px-0! max-md:w-1/2 max-md:odd:pr-3 max-md:even:pl-3 2xl:flex-row">
                                                 <img
                                                     src="/landing.jpg"
                                                     alt=""
-                                                    className="aspect-video w-50 rounded-lg"
+                                                    className="aspect-video rounded-lg md:w-50"
                                                 />
-                                                <h3 className="grow font-text text-xl font-semibold text-slate-200">
+                                                <h3 className="grow font-text text-xl font-semibold text-slate-200 max-2xl:w-50 max-md:w-auto">
                                                     <a href="">
                                                         Likar Krombacher - liga
                                                         rekreativaca Zadar
