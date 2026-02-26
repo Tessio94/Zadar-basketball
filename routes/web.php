@@ -38,6 +38,20 @@ Route::get('statistika', function () {
     ]);
 })->name('stats');
 
+// o nama
+Route::get('o-nama', function () {
+    return Inertia::render('about', [
+        'canRegister' => Features::enabled(Features::registration()),
+    ]);
+})->name('about');
+
+// arhiva
+Route::get('arhiva', function () {
+    return Inertia::render('archive', [
+        'canRegister' => Features::enabled(Features::registration()),
+    ]);
+})->name('archive');
+
 Route::get('dashboard', function () {
     return Inertia::render('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

@@ -39,7 +39,7 @@ export default function Info() {
                 <div className="z-20 mt-2.5 sm:mt-5">
                     <a
                         className="hover:bg-theme4 rounded-4xl border-2 border-transparent bg-likar1 px-5 py-2.5 font-text text-2xl font-semibold text-slate-100 transition-all duration-300 hover:border-slate-100 hover:shadow-likar1 max-[1400px]:px-7 max-[1400px]:py-3 max-[640px]:text-2xl"
-                        href="/p-nama"
+                        href="/o-nama"
                     >
                         O nama
                     </a>

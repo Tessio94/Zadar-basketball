@@ -6,7 +6,7 @@ export default function AdditionalNews() {
             <section className="my-20">
                 <div className="px-[5%]">
                     <h2 className="mb-10 font-heading text-5xl font-semibold text-slate-100">
-                        Posljednje vijesti
+                        Ostale vijesti
                     </h2>
                     <div className="grid w-fit items-stretch gap-10 rounded-2xl sm:grid-cols-2 xl:grid-cols-4">
                         <a

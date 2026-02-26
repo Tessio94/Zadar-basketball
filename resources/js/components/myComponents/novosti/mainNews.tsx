@@ -2,12 +2,12 @@ import { Clock } from 'lucide-react';
 
 export default function MainNews() {
     return (
-        <section className="my-20">
-            <div className="grid w-full grid-cols-1 grid-rows-5 items-stretch rounded-2xl px-[5%] max-sm:gap-10 sm:aspect-square sm:grid-cols-2 md:grid-rows-3 lg:aspect-2/1 lg:grid-cols-4 lg:grid-rows-2 xl:aspect-3/1 xl:grid-cols-5">
+        <section className="my-20 px-[5%]">
+            <div className="grid w-full grid-cols-1 grid-rows-5 items-stretch max-sm:gap-10 sm:aspect-square sm:grid-cols-2 sm:grid-rows-3 lg:aspect-2/1 lg:grid-cols-4 lg:grid-rows-2 xl:aspect-3/1 xl:grid-cols-5">
                 <a
                     href="/novosti/1"
                     rel="noopener noreferrer"
-                    className="group relative z-100 flex cursor-pointer flex-col justify-end overflow-hidden rounded-2xl border-2 border-likar1 bg-[url(/landing.jpg)] bg-cover bg-no-repeat shadow-lg shadow-likar1 max-sm:aspect-square sm:col-span-1 sm:row-span-2 lg:col-span-2 lg:row-span-1 xl:col-span-2 xl:row-span-2"
+                    className="group relative z-100 flex cursor-pointer flex-col justify-end overflow-hidden border-2 border-likar1 bg-[url(/landing.jpg)] bg-cover bg-no-repeat shadow-lg shadow-likar1 max-sm:aspect-square max-sm:rounded-2xl sm:col-span-1 sm:row-span-2 sm:rounded-tl-2xl lg:col-span-2 lg:row-span-1 xl:col-span-2 xl:row-span-2 xl:rounded-l-2xl"
                 >
                     <div className="relative z-20 p-3">
                         <div className="absolute inset-0 -z-10 bg-linear-to-t from-slate-900 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -28,7 +28,7 @@ export default function MainNews() {
                 <a
                     href="/novosti/1"
                     rel="noopener noreferrer"
-                    className="group relative z-100 flex cursor-pointer flex-col justify-end gap-4 overflow-hidden rounded-2xl border-2 border-likar1 bg-[url(/landing.jpg)] bg-cover bg-no-repeat shadow-lg shadow-likar1 max-sm:aspect-square lg:col-span-1 lg:row-span-2 xl:col-span-2 xl:row-span-1"
+                    className="group relative z-100 flex cursor-pointer flex-col justify-end gap-4 overflow-hidden border-2 border-likar1 bg-[url(/landing.jpg)] bg-cover bg-no-repeat shadow-lg shadow-likar1 max-sm:aspect-square max-sm:rounded-2xl sm:rounded-tr-2xl lg:col-span-1 lg:row-span-2 lg:rounded-tr-none xl:col-span-2 xl:row-span-1"
                 >
                     <div className="relative z-20 p-3">
                         <div className="absolute inset-0 -z-10 bg-linear-to-t from-slate-900 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -49,7 +49,7 @@ export default function MainNews() {
                 <a
                     href="/novosti/1"
                     rel="noopener noreferrer"
-                    className="group relative z-100 flex cursor-pointer flex-col justify-end gap-4 overflow-hidden rounded-2xl border-2 border-likar1 bg-[url(/landing.jpg)] bg-cover bg-no-repeat shadow-lg shadow-likar1 max-sm:aspect-square lg:col-span-1 lg:row-span-2 xl:col-span-1 xl:row-span-2"
+                    className="group relative z-100 flex cursor-pointer flex-col justify-end gap-4 overflow-hidden border-2 border-likar1 bg-[url(/landing.jpg)] bg-cover bg-no-repeat shadow-lg shadow-likar1 max-sm:aspect-square max-sm:rounded-2xl lg:col-span-1 lg:row-span-2 lg:rounded-r-2xl xl:col-span-1 xl:row-span-2"
                 >
                     <div className="relative z-20 p-3">
                         <div className="absolute inset-0 -z-10 bg-linear-to-t from-slate-900 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -70,7 +70,7 @@ export default function MainNews() {
                 <a
                     href="/novosti/1"
                     rel="noopener noreferrer"
-                    className="group relative z-100 flex cursor-pointer flex-col justify-end gap-4 overflow-hidden rounded-2xl border-2 border-likar1 bg-[url(/landing.jpg)] bg-cover bg-no-repeat shadow-lg shadow-likar1 max-sm:aspect-square lg:col-span-1 lg:row-span-1 xl:col-span-1 xl:row-span-1"
+                    className="group relative z-100 flex cursor-pointer flex-col justify-end gap-4 overflow-hidden border-2 border-likar1 bg-[url(/landing.jpg)] bg-cover bg-no-repeat shadow-lg shadow-likar1 max-sm:aspect-square max-sm:rounded-2xl sm:rounded-bl-2xl lg:col-span-1 lg:row-span-1 xl:col-span-1 xl:row-span-1 xl:rounded-bl-none"
                 >
                     <div className="relative z-20 p-3">
                         <div className="absolute inset-0 -z-10 bg-linear-to-t from-slate-900 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -91,7 +91,7 @@ export default function MainNews() {
                 <a
                     href="/novosti/1"
                     rel="noopener noreferrer"
-                    className="group relative z-100 flex cursor-pointer flex-col justify-end gap-4 overflow-hidden rounded-2xl border-2 border-likar1 bg-[url(/landing.jpg)] bg-cover bg-no-repeat shadow-lg shadow-likar1 max-sm:aspect-square lg:col-span-1 lg:row-span-1 xl:col-span-1 xl:row-span-1"
+                    className="group relative z-100 flex cursor-pointer flex-col justify-end gap-4 overflow-hidden border-2 border-likar1 bg-[url(/landing.jpg)] bg-cover bg-no-repeat shadow-lg shadow-likar1 max-sm:aspect-square max-sm:rounded-2xl sm:rounded-br-2xl lg:col-span-1 lg:row-span-1 lg:rounded-br-none xl:col-span-1 xl:row-span-1"
                 >
                     <div className="relative z-20 p-3">
                         <div className="absolute inset-0 -z-10 bg-linear-to-t from-slate-900 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />

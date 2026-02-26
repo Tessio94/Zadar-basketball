@@ -156,6 +156,16 @@
     }
 }
 
+@utility my-text-stroke {
+    -webkit-text-stroke: var(--likar1);
+    -webkit-text-stroke-width: 2px;
+}
+
+@utility my-text-stroke2 {
+    -webkit-text-stroke: oklch(0.968 0.007 247.896 / 0.803);
+    -webkit-text-stroke-width: 1px;
+}
+
 html {
     scroll-behavior: smooth;
 }
