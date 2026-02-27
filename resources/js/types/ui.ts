@@ -16,3 +16,7 @@ export type AuthLayoutProps = {
 export type LandingLayoutProps = {
     children: ReactNode;
 };
+
+export type GamesLayoutProps = {
+    children: ReactNode;
+};

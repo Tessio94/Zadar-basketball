@@ -1,9 +1,13 @@
 <?php
 
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\ResultController;
+use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
 
+////////////////////////////menu//////////////////////////////
 Route::get('/', function () {
     return Inertia::render('welcome', [
         'canRegister' => Features::enabled(Features::registration()),
@@ -25,11 +29,16 @@ Route::get('novosti/1', function () {
 })->name('article');
 
 // tablica
-Route::get('tablica', function () {
-    return Inertia::render('table', [
-        'canRegister' => Features::enabled(Features::registration()),
-    ]);
-})->name('table');
+// Route::get('tablica', function () {
+//     return Inertia::render('table', [
+//         'canRegister' => Features::enabled(Features::registration()),
+//     ]);
+// })->name('table');
+// Route::get('/teams', [TeamController::class, 'index'])->name('teams.index');
+
+// Tablica
+Route::get('/tablica', [ResultController::class, 'index'])->name('table');
+// Route::get('/tablica', [StandingsController::class, 'index'])->name('table');
 
 // statistika
 Route::get('statistika', function () {
@@ -38,6 +47,11 @@ Route::get('statistika', function () {
     ]);
 })->name('stats');
 
+////////////////////////////van menua//////////////////////////////
+// Utakmice
+Route::get('utakmice/1', [GameController::class, 'index'])->name('games');
+
+////////////////////////////gornji menu//////////////////////////////
 // o nama
 Route::get('o-nama', function () {
     return Inertia::render('about', [
@@ -51,6 +65,13 @@ Route::get('arhiva', function () {
         'canRegister' => Features::enabled(Features::registration()),
     ]);
 })->name('archive');
+
+// galerija
+Route::get('galerija', function () {
+    return Inertia::render('gallery', [
+        'canRegister' => Features::enabled(Features::registration()),
+    ]);
+})->name('gallery');
 
 Route::get('dashboard', function () {
     return Inertia::render('dashboard');

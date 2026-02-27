@@ -8,18 +8,21 @@ use App\Http\Requests\UpdateGameRequest;
 use App\Services\StandingsService;
 use Inertia\Inertia;
 
-class GameController extends Controller
+class ResultController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(StandingsService $standingsService)
     {
+        $standings = $standingsService->getStandings();
+
         $games = Game::with(['homeTeam', 'awayTeam'])
             ->orderBy('game_date')
             ->get();
 
-        return Inertia::render('games', [
+        return Inertia::render('table', [
+            'standings' => $standings,
             'games' => $games,
         ]);
     }
