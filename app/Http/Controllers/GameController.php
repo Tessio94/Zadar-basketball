@@ -15,13 +15,7 @@ class GameController extends Controller
      */
     public function index(StandingsService $standingsService)
     {
-        $games = Game::with(['homeTeam', 'awayTeam'])
-            ->orderBy('game_date')
-            ->get();
 
-        return Inertia::render('games', [
-            'games' => $games,
-        ]);
     }
 
     /**
@@ -45,7 +39,27 @@ class GameController extends Controller
      */
     public function show(Game $game)
     {
-        //
+        $games = Game::with(['homeTeam', 'awayTeam'])
+            ->orderBy('game_date')
+            ->get();
+
+
+        $game->load([
+            'homeTeam',
+            'awayTeam',
+            // 'homeTeam.players' => function ($query) use ($game) {
+            //     $query->wherePivot('season_id', $game->season_id);
+            // },
+            // 'awayTeam.players' => function ($query) use ($game) {
+            //     $query->wherePivot('season_id', $game->season_id);
+            // },
+            'playerStats.player'
+        ]);
+
+        return Inertia::render('games', [
+            'games' => $games,
+            'game'  => $game,
+        ]);
     }
 
     /**
@@ -71,4 +85,5 @@ class GameController extends Controller
     {
         //
     }
+
 }

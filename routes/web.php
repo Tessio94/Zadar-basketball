@@ -49,7 +49,10 @@ Route::get('statistika', function () {
 
 ////////////////////////////van menua//////////////////////////////
 // Utakmice
-Route::get('utakmice/1', [GameController::class, 'index'])->name('games');
+Route::get('utakmice/{game}', [GameController::class, 'show'])->name('games');
+
+// Ekipe
+Route::get('ekipe', [TeamController::class, 'index'])->name('teams');
 
 ////////////////////////////gornji menu//////////////////////////////
 // o nama

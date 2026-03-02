@@ -60,52 +60,79 @@ class LeagueSeeder extends Seeder
                 }
             }
 
-            // 4️ Create 20 games
-            for ($i = 1; $i <= 20; $i++) {
+            // Create balanced schedule (max 1 game difference)
 
-                $home = $teams->random();
-                $away = $teams->where('id', '!=', $home->id)->random();
+            $matchups = collect();
+
+            // Generate all unique team combinations (round robin)
+            for ($i = 0; $i < $teams->count(); $i++) {
+                for ($j = $i + 1; $j < $teams->count(); $j++) {
+
+                    $matchups->push([
+                        'home' => $teams[$i],
+                        'away' => $teams[$j],
+                    ]);
+                }
+            }
+
+            // Shuffle matchups
+            $matchups = $matchups->shuffle();
+
+            // Take only 30 games (or however many you want)
+            $gamesToPlay = $matchups->take(20)->values();
+
+            foreach ($gamesToPlay as $index => $match) {
 
                 $game = Game::create([
                     'season_id' => $season->id,
-                    'home_team_id' => $home->id,
-                    'away_team_id' => $away->id,
-                    'game_date' => now()->addDays($i),
-                    'round_number' => ceil($i / 4),
+                    'home_team_id' => $match['home']->id,
+                    'away_team_id' => $match['away']->id,
+                    'game_date' => now()->addDays($index + 1),
+                    'round_number' => ceil(($index + 1) / 4),
                     'status' => 'finished',
                 ]);
 
-                $this->generateBoxscore($game, $home);
-                $this->generateBoxscore($game, $away);
+                $this->generateBoxscore($game, $match['home']);
+                $this->generateBoxscore($game, $match['away']);
 
                 // Update final score
                 $homePoints = PlayerGameStat::where('game_id', $game->id)
-                    ->where('team_id', $home->id)
+                    ->where('team_id', $match['home']->id)
                     ->sum('points');
 
                 $awayPoints = PlayerGameStat::where('game_id', $game->id)
-                    ->where('team_id', $away->id)
+                    ->where('team_id', $match['away']->id)
                     ->sum('points');
 
                 $game->update([
                     'home_score' => $homePoints,
                     'away_score' => $awayPoints,
                 ]);
+
+                $margin = $homePoints - $awayPoints;
+
+                $this->assignPlusMinus($game, $match['home'], $match['away'], $margin);
             }
         });
     }
 
     private function generateBoxscore($game, $team)
     {
-        $players = $team->players;
+        $players = $team->players->shuffle();
 
-        foreach ($players as $player) {
+        foreach ($players as $index => $player) {
 
-            $minutes = rand(5, 35);
+            $isStarter = $index < 5;
+
+            // Starters play more minutes
+            $minutes = $isStarter ? rand(20, 35) : rand(5, 20);
+
             $fg2a = rand(0, 10);
             $fg2m = rand(0, $fg2a);
+
             $fg3a = rand(0, 8);
             $fg3m = rand(0, $fg3a);
+
             $fta = rand(0, 6);
             $ftm = rand(0, $fta);
 
@@ -114,12 +141,16 @@ class LeagueSeeder extends Seeder
             $rebOff = rand(0, 3);
             $rebDef = rand(0, 7);
 
+            $assists = rand(0, 8);
+            $steals = rand(0, 4);
+            $blocks = rand(0, 3);
+            $turnovers = rand(0, 5);
+            $fouls = rand(0, 5);
+
             $eff = $points
                 + $rebOff + $rebDef
-                + rand(0, 7)
-                + rand(0, 4)
-                + rand(0, 3)
-                - rand(0, 5);
+                + $assists + $steals + $blocks
+                - $turnovers;
 
             PlayerGameStat::create([
                 'game_id' => $game->id,
@@ -135,12 +166,46 @@ class LeagueSeeder extends Seeder
                 'ft_attempted' => $fta,
                 'offensive_rebounds' => $rebOff,
                 'defensive_rebounds' => $rebDef,
-                'assists' => rand(0, 8),
-                'steals' => rand(0, 4),
-                'blocks' => rand(0, 3),
-                'turnovers' => rand(0, 5),
-                'fouls' => rand(0, 5),
+                'assists' => $assists,
+                'steals' => $steals,
+                'blocks' => $blocks,
+                'turnovers' => $turnovers,
+                'fouls' => $fouls,
                 'efficiency' => $eff,
+                'is_starter' => $isStarter,
+                'plus_minus' => 0,
+            ]);
+        }
+    }
+
+    private function assignPlusMinus($game, $home, $away, $margin)
+    {
+        // Home team
+        $homeStats = PlayerGameStat::where('game_id', $game->id)
+            ->where('team_id', $home->id)
+            ->get();
+
+        foreach ($homeStats as $stat) {
+
+            // Starters influenced more
+            $variation = rand(-5, 5);
+
+            $stat->update([
+                'plus_minus' => $margin + $variation
+            ]);
+        }
+
+        // Away team
+        $awayStats = PlayerGameStat::where('game_id', $game->id)
+            ->where('team_id', $away->id)
+            ->get();
+
+        foreach ($awayStats as $stat) {
+
+            $variation = rand(-5, 5);
+
+            $stat->update([
+                'plus_minus' => (-$margin) + $variation
             ]);
         }
     }

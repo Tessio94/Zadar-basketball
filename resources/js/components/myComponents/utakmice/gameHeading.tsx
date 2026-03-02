@@ -18,7 +18,7 @@ const GameHeading = ({ games }) => {
         onNextButtonClick,
     } = usePrevNextButtons(emblaApi);
 
-    console.log(games);
+    // console.log(games);
 
     return (
         <header className="bg-likar2 pb-3">

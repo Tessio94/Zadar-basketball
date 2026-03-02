@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Team;
 use App\Http\Requests\StoreTeamRequest;
 use App\Http\Requests\UpdateTeamRequest;
+use Inertia\Inertia;
 
 class TeamController extends Controller
 {
@@ -13,7 +14,9 @@ class TeamController extends Controller
      */
     public function index()
     {
-        //
+        $teams = Team::all();
+
+        return Inertia::render('teams', ['teams' => $teams]);
     }
 
     /**

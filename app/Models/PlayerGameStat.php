@@ -46,4 +46,52 @@ class PlayerGameStat extends Model
     {
         return $this->belongsTo(Team::class);
     }
+
+    public function getFgTotalMadeAttribute()
+    {
+        return $this->fg2_made + $this->fg3_made;
+    }
+
+    public function getFgTotalAttemptedAttribute()
+    {
+        return $this->fg2_attempted + $this->fg3_attempted;
+    }
+
+    public function getFgPercentageAttribute()
+    {
+        if ($this->fg_total_attempted === 0) {
+            return 0;
+        }
+
+        return round(
+            ($this->fg_total_made / $this->fg_total_attempted) * 100
+        );
+    }
+
+    public function getFg2PercentageAttribute()
+    {
+        if ($this->fg2_attempted === 0) {
+            return 0;
+        }
+
+        return round(($this->fg2_made / $this->fg2_attempted) * 100);
+    }
+
+    public function getFg3PercentageAttribute()
+    {
+        if ($this->fg3_attempted === 0) {
+            return 0;
+        }
+
+        return round(($this->fg3_made / $this->fg3_attempted) * 100);
+    }
+
+    public function getFtPercentageAttribute()
+    {
+        if ($this->ft_attempted === 0) {
+            return 0;
+        }
+
+        return round(($this->ft_made / $this->ft_attempted) * 100);
+    }
 }
