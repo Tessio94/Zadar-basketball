@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, Dribbble } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import StandingRow from './standingRow';
 

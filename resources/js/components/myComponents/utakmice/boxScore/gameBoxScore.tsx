@@ -59,9 +59,9 @@ export default function GameBoxScore({ id, team, score, players }) {
                 </button>
             )}
 
-            <div className="relative overflow-hidden rounded-xl">
+            <div className="relative overflow-hidden rounded-xl border border-likar3/40">
                 <div
-                    className="flex flex-row justify-between bg-likar4"
+                    className="flex flex-row justify-between border-b border-likar3/40 bg-likar4/60"
                     ref={scrollRef}
                 >
                     <div className="flex flex-row items-center gap-5 p-3">

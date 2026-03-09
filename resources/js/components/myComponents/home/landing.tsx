@@ -35,9 +35,9 @@ export default function Landing() {
                         <div>
                             <Link
                                 className="hover:bg-theme4 rounded-4xl border-2 border-transparent bg-likar2 px-5 py-2.5 font-text text-2xl font-semibold text-slate-100 transition-all duration-300 hover:border-likar1 hover:shadow-likar1 max-[1400px]:px-7 max-[1400px]:py-3 max-[640px]:text-2xl"
-                                href="/rezultati"
+                                href="/ekipe"
                             >
-                                Rezultati
+                                Ekipe
                             </Link>
                         </div>
                     </div>

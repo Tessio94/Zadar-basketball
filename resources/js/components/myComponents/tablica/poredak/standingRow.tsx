@@ -1,5 +1,9 @@
+import { Link } from '@inertiajs/react';
+import { show } from '@/actions/App/Http/Controllers/TeamController';
+
 export default function StandingRow({ standing, index }) {
     const {
+        id,
         name,
         logo,
         played,
@@ -16,14 +20,17 @@ export default function StandingRow({ standing, index }) {
                 {index + 1}
             </td>
             <td className="border-r border-likar4 p-2">
-                <p className="flex flex-row flex-nowrap items-center justify-center gap-4 text-nowrap">
+                <Link
+                    href={show(id)}
+                    className="flex flex-row flex-nowrap items-center justify-center gap-4 text-nowrap hover:underline"
+                >
                     <img
                         src={logo}
                         alt={`${name} logo`}
                         className="h-6 w-6 rounded-full bg-white"
                     />
                     <span>{name}</span>
-                </p>
+                </Link>
             </td>
             <td className="border-r border-likar4 p-2 text-center">{played}</td>
             <td className="border-r border-likar4 p-2 text-center">

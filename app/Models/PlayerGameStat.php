@@ -32,6 +32,11 @@ class PlayerGameStat extends Model
         'efficiency'
     ];
 
+    protected $appends = [
+        'fg_percentage',
+        'fg3_percentage'
+    ];
+
     public function game()
     {
         return $this->belongsTo(Game::class);

@@ -6,7 +6,7 @@ export default function GameScore({
 }) {
     return (
         <section className="px-[5%] py-3">
-            <div className="flex flex-row flex-wrap items-stretch justify-between overflow-hidden rounded-xl bg-likar4">
+            <div className="flex flex-row flex-wrap items-stretch justify-between overflow-hidden rounded-xl border border-likar3/40 bg-likar4/60">
                 <div className="flex w-1/2 flex-row items-center justify-between gap-5 border-r border-slate-100 px-3 max-xl:order-1 max-xl:border-b max-xl:border-b-slate-100 max-xl:py-3 max-xl:pt-3 max-sm:flex-col max-sm:justify-start xl:w-1/3">
                     <img
                         src={homeTeam.logo}

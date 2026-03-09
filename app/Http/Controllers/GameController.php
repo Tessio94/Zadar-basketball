@@ -47,18 +47,61 @@ class GameController extends Controller
         $game->load([
             'homeTeam',
             'awayTeam',
-            // 'homeTeam.players' => function ($query) use ($game) {
-            //     $query->wherePivot('season_id', $game->season_id);
-            // },
-            // 'awayTeam.players' => function ($query) use ($game) {
-            //     $query->wherePivot('season_id', $game->season_id);
-            // },
-            'playerStats.player'
+            'playerStats.player',
+            'playerStats.team',
         ]);
+
+        $leaders = [
+            'points' => $game->playerStats
+                ->sortByDesc('points')
+                ->take(5)
+                ->values(),
+
+            'rebounds' => $game->playerStats
+                ->sortByDesc(fn($s) => $s->offensive_rebounds + $s->defensive_rebounds)
+                ->take(5)
+                ->values(),
+
+            'assists' => $game->playerStats
+                ->sortByDesc('assists')
+                ->take(5)
+                ->values(),
+
+            'blocks' => $game->playerStats
+                ->sortByDesc('blocks')
+                ->take(5)
+                ->values(),
+
+            'steals' => $game->playerStats
+                ->sortByDesc('steals')
+                ->take(5)
+                ->values(),
+
+            'shootingPercentage' => $game->playerStats
+                ->sortByDesc('fg_percentage')
+                ->take(5)
+                ->values(),
+
+            'madeThrees' => $game->playerStats
+                ->sortByDesc('fg3_made')
+                ->take(5)
+                ->values(),
+
+            'threesPercentage' => $game->playerStats
+                ->sortByDesc('fg3_percentage')
+                ->take(5)
+                ->values(),
+
+            'efficiency' => $game->playerStats
+                ->sortByDesc('efficiency')
+                ->take(5)
+                ->values(),
+        ];
 
         return Inertia::render('games', [
             'games' => $games,
             'game'  => $game,
+            'leaders' => $leaders
         ]);
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Team;
+use App\Models\Game;
 use App\Http\Requests\StoreTeamRequest;
 use App\Http\Requests\UpdateTeamRequest;
 use Inertia\Inertia;
@@ -15,7 +16,6 @@ class TeamController extends Controller
     public function index()
     {
         $teams = Team::all();
-
         return Inertia::render('teams', ['teams' => $teams]);
     }
 
@@ -40,7 +40,22 @@ class TeamController extends Controller
      */
     public function show(Team $team)
     {
-        //
+
+        $team->load([
+            'players',
+
+        ]);
+
+         $games = Game::with(['homeTeam', 'awayTeam'])
+            ->where('home_team_id', $team->id)
+            ->orWhere('away_team_id', $team->id)
+            ->orderBy('round_number')
+            ->get();
+
+        return Inertia::render('team', [
+            'team' => $team,
+            'games' => $games,
+        ]);
     }
 
     /**

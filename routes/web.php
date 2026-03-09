@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
@@ -52,7 +53,14 @@ Route::get('statistika', function () {
 Route::get('utakmice/{game}', [GameController::class, 'show'])->name('games');
 
 // Ekipe
-Route::get('ekipe', [TeamController::class, 'index'])->name('teams');
+// Ekipe listing
+Route::get('ekipe', [TeamController::class, 'index'])->name('teams.index');
+
+// Ekipe show
+Route::get('ekipe/{team}', [TeamController::class, 'show'])->name('teams.show');
+
+// igrač show
+Route::get('igrac/{player}', [PlayerController::class, 'show'])->name('player.show');
 
 ////////////////////////////gornji menu//////////////////////////////
 // o nama

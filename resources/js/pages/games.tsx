@@ -1,15 +1,15 @@
 import { useState } from 'react';
 
-import GameBoxScore from '@/components/myComponents/utakmice/gameBoxScore';
-import GameDetailButtons from '@/components/myComponents/utakmice/gameDetailButtons';
-import GameScore from '@/components/myComponents/utakmice/gameScore';
-import GameTitle from '@/components/myComponents/utakmice/gameTitle';
+import GameBoxScore from '@/components/myComponents/utakmice/boxScore/gameBoxScore';
+import GameDetailButtons from '@/components/myComponents/utakmice/headerSection/gameDetailButtons';
+import GameScore from '@/components/myComponents/utakmice/headerSection/gameScore';
+import GameTitle from '@/components/myComponents/utakmice/headerSection/gameTitle';
+import GameLeaders from '@/components/myComponents/utakmice/leaders/gameLeaders';
 import GamesLayout from '@/layouts/games/games-layout';
-import GameLeaders from '@/components/myComponents/utakmice/gameLeaders';
 
-export default function Games({ game }) {
-    console.log('game', game);
-    const [active] = useState('tab2');
+export default function Games({ game, leaders }) {
+    // console.log('game', game);
+    const [active, setActive] = useState('tab1');
 
     const {
         home_team,
@@ -29,7 +29,7 @@ export default function Games({ game }) {
         (player) => player.team_id === away_team_id,
     );
 
-    console.log(homePlayers);
+    // console.log(homePlayers);
     return (
         <GamesLayout>
             <GameTitle />
@@ -39,7 +39,7 @@ export default function Games({ game }) {
                 awayTeam={away_team}
                 awayScore={away_score}
             />
-            <GameDetailButtons active={active} />
+            <GameDetailButtons active={active} setActive={setActive} />
             {active === 'tab1' && (
                 <>
                     <GameBoxScore
@@ -56,7 +56,7 @@ export default function Games({ game }) {
                     />
                 </>
             )}
-            {active === 'tab2' && <GameLeaders />}
+            {active === 'tab2' && <GameLeaders leaders={leaders} />}
         </GamesLayout>
     );
 }
