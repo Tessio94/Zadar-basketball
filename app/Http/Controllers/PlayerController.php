@@ -39,6 +39,12 @@ class PlayerController extends Controller
     public function show(Player $player)
     {
         //
+        $player->load([
+            'teams',
+            'gameStats'
+        ]);
+
+
          return Inertia::render('player', [
             'player' => $player,
         ]);

@@ -4,20 +4,6 @@ export type LandingLayoutProps = {
     children: ReactNode;
 };
 
-// export type TeamInfo = {
-//     away_games: Game[];
-//     city: string;
-//     created_at: string;
-//     founded_year: string | null;
-//     home_games: Game[];
-//     id: number;
-//     logo: string;
-//     name: string;
-//     players: Players;
-//     short_name: string;
-//     updated_at: string;
-// };
-
 export type Team = {
     id: number;
     name: string;
@@ -32,7 +18,7 @@ export type Team = {
 export type Teams = Team[];
 
 export type TeamWithPlayers = Team & {
-    players: Players;
+    players: PlayersWithTeam;
 };
 
 export type TeamsWithPlayers = TeamWithPlayers[];
@@ -61,24 +47,64 @@ export type GameWithTeams = Game & {
 export type GamesWithTeams = GameWithTeams[];
 
 export type Player = {
-    created_at: string;
+    id: number;
     date_of_birth: string;
     first_name: string;
-    height: number;
-    id: number;
     last_name: string;
-    pivot: PlayerTeamInfo;
-    position: 'PG' | 'SG' | 'SF' | 'PF' | 'C';
+    height: number;
+    created_at: string;
     updated_at: string;
+    position: 'PG' | 'SG' | 'SF' | 'PF' | 'C';
 };
 
 export type Players = Player[];
 
-export type PlayerTeamInfo = {
-    created_at: string;
+export type PlayerWithTeam = Player & {
+    pivot: PlayerTeam;
+};
+
+export type PlayersWithTeam = PlayerWithTeam[];
+
+export type PlayerTeam = {
     jersey_number: number;
     player_id: number;
     season_id: number;
     team_id: number;
+    created_at: string;
     updated_at: string;
 };
+
+export type PlayerWithTeamAndGames = Player & {
+    game_stats: GamesStats;
+    teams: TeamsWithPlayers;
+};
+
+export type GameStats = {
+    id: number;
+    player_id: number;
+    team_id: number;
+    game_id: number;
+    is_starter: boolean;
+    points: number;
+    assists: number;
+    blocks: number;
+    defensive_rebounds: number;
+    offensive_rebounds: number;
+    fg2_attempted: number;
+    fg2_made: number;
+    fg3_attempted: number;
+    fg3_made: number;
+    fg3_percentage: number;
+    fouls: number;
+    ft_attempted: number;
+    ft_made: number;
+    steals: number;
+    turnovers: number;
+    plus_minus: number;
+    efficiency: number;
+    minutes_played: number;
+    created_at: string;
+    updated_at: string;
+};
+
+export type GamesStats = GameStats[];

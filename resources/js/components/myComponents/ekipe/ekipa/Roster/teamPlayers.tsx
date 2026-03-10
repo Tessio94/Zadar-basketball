@@ -1,8 +1,8 @@
-import type { Players } from '@/types/propTypes';
+import type { PlayersWithTeam } from '@/types/propTypes';
 import RosterRowData from './rosterRowData';
 import RosterRowHeader from './rosterRowHeader';
 
-export default function TeamPlayers({ players }: { players: Players }) {
+export default function TeamPlayers({ players }: { players: PlayersWithTeam }) {
     return (
         <div className="p-5">
             <table className="w-full overflow-hidden rounded-2xl">

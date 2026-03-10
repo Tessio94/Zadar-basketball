@@ -10,7 +10,7 @@ export default function LastFive({ games }: { games: GamesWithTeams }) {
                 {numberOfGames === 1 && 'Posljednja utakmica'}
                 {numberOfGames === 2 && 'Posljednje dvije utakmice'}
                 {numberOfGames === 3 && 'Posljednje tri utakmice'}
-                {numberOfGames === 4 && 'Posljednje četiri utakmica'}
+                {numberOfGames === 4 && 'Posljednje četiri utakmice'}
                 {numberOfGames >= 5 && 'Posljednjih pet utakmica'}
             </h4>
             <div className="max-xl:flex max-xl:w-full max-xl:flex-row max-xl:flex-wrap max-xl:gap-y-5">
