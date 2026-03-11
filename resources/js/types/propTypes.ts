@@ -17,6 +17,12 @@ export type Team = {
 
 export type Teams = Team[];
 
+export type TeamWithPlayer = Team & {
+    pivot: PlayerTeamPivot;
+};
+
+export type TeamsWithPlayer = TeamWithPlayer[];
+
 export type TeamWithPlayers = Team & {
     players: PlayersWithTeam;
 };
@@ -60,23 +66,23 @@ export type Player = {
 export type Players = Player[];
 
 export type PlayerWithTeam = Player & {
-    pivot: PlayerTeam;
+    pivot: PlayerTeamPivot;
 };
 
 export type PlayersWithTeam = PlayerWithTeam[];
 
-export type PlayerTeam = {
-    jersey_number: number;
+export type PlayerTeamPivot = {
     player_id: number;
     season_id: number;
     team_id: number;
     created_at: string;
+    jersey_number: number;
     updated_at: string;
 };
 
 export type PlayerWithTeamAndGames = Player & {
     game_stats: GamesStats;
-    teams: TeamsWithPlayers;
+    teams: TeamsWithPlayer;
 };
 
 export type GameStats = {
@@ -108,3 +114,43 @@ export type GameStats = {
 };
 
 export type GamesStats = GameStats[];
+
+export type PlayerTotals = {
+    minutes: number;
+    games: number;
+    points: number;
+    assists: number;
+    blocks: number;
+    steals: number;
+    turnovers: number;
+    offensive_rebounds: number;
+    defensive_rebounds: number;
+    fg2_made: number;
+    fg2_attempted: number;
+    fg3_made: number;
+    fg3_attempted: number;
+    ft_made: number;
+    ft_attempted: number;
+    fouls: number;
+    plus_minus: number;
+    efficiency: number;
+};
+
+export type PlayerAverages = {
+    minutes: number;
+    points: number;
+    assists: number;
+    steals: number;
+    blocks: number;
+    turnovers: number;
+    offensive_rebounds: number;
+    defensive_rebounds: number;
+    rebounds: number;
+    fouls: number;
+    fg_percentage: number;
+    fg2_percentage: number;
+    fg3_percentage: number;
+    ft_percentage: number;
+    plus_minus: number;
+    efficiency: number;
+};

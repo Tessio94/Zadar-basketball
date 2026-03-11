@@ -1,14 +1,26 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import type { GamesStats } from '@/types/propTypes';
+import type {
+    GamesStats,
+    PlayerAverages,
+    PlayerTotals,
+} from '@/types/propTypes';
+import PlayerAveragesRow from './playerAveragesRow';
 import PlayerBoxScoreHeader from './playerBoxScoreHeader';
 import PlayerBoxScoreRow from './playerBoxScoreRow';
+import PlayerTotalsRow from './playerTotalsRow';
+
+interface PlayerStatsProps {
+    game_stats: GamesStats;
+    totals: PlayerTotals;
+    averages: PlayerAverages;
+}
 
 export default function PlayerStats({
     game_stats,
-}: {
-    game_stats: GamesStats;
-}) {
+    averages,
+    totals,
+}: PlayerStatsProps) {
     const scrollRef = useRef<HTMLDivElement | null>(null);
     const [canScrollRight, setCanScrollRight] = useState(false);
     const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -75,6 +87,20 @@ export default function PlayerStats({
                                     key={stats.id}
                                 />
                             ))}
+                            <tr className="bg-likar4">
+                                <th></th>
+                                <th colSpan={999}>
+                                    <span>Ukupno</span>
+                                </th>
+                            </tr>
+                            <PlayerTotalsRow totals={totals} />
+                            <tr className="bg-likar4">
+                                <th></th>
+                                <th colSpan={999}>
+                                    <span>Prosjek</span>
+                                </th>
+                            </tr>
+                            <PlayerAveragesRow averages={averages} />
                         </tbody>
                     </table>
                 </div>

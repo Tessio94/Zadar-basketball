@@ -1,9 +1,19 @@
 import PlayerHeader from '@/components/igrac/playerHeader';
 import PlayerStats from '@/components/igrac/playerStats';
 import LandingLayout from '@/layouts/landing/landing-layout';
-import type { PlayerWithTeamAndGames } from '@/types/propTypes';
+import type {
+    PlayerAverages,
+    PlayerTotals,
+    PlayerWithTeamAndGames,
+} from '@/types/propTypes';
 
-export default function player({ player }: { player: PlayerWithTeamAndGames }) {
+interface PlayerProps {
+    player: PlayerWithTeamAndGames;
+    totals: PlayerTotals;
+    averages: PlayerAverages;
+}
+
+export default function player({ player, totals, averages }: PlayerProps) {
     console.log('player', player);
     const {
         date_of_birth,
@@ -29,7 +39,11 @@ export default function player({ player }: { player: PlayerWithTeamAndGames }) {
                             teams={teams}
                         />
 
-                        <PlayerStats game_stats={game_stats} />
+                        <PlayerStats
+                            game_stats={game_stats}
+                            totals={totals}
+                            averages={averages}
+                        />
                     </div>
                 </div>
             </section>

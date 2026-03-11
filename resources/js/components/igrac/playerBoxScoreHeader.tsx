@@ -2,6 +2,7 @@ export default function PlayerBoxScoreHeader() {
     return (
         <thead>
             <tr className="border-b border-likar1 bg-likar2 text-slate-100">
+                <th className="p-1 text-center text-nowrap">VS</th>
                 <th className="p-1 text-center text-nowrap">MIN</th>
                 <th className="p-1 text-center text-nowrap">PTS</th>
                 <th className="p-1 text-center text-nowrap">ŠUT</th>

@@ -1,5 +1,5 @@
 import { User2Icon } from 'lucide-react';
-import type { TeamsWithPlayers } from '@/types/propTypes';
+import type { TeamsWithPlayer } from '@/types/propTypes';
 
 export default function PlayerHeader({
     date_of_birth,
@@ -14,7 +14,7 @@ export default function PlayerHeader({
     last_name: string;
     position: 'PG' | 'SG' | 'SF' | 'PF' | 'C';
     height: number;
-    teams: TeamsWithPlayers;
+    teams: TeamsWithPlayer;
 }) {
     const name = first_name + ' ' + last_name;
 
