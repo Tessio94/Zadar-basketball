@@ -8,6 +8,43 @@ use Illuminate\Support\Facades\DB;
 
 class StatisticsService
 {
+
+    const TYPE_AVG = 'avg';
+    const TYPE_PERCENTAGE = 'pcg';
+
+    private function buildAvgLeaderboard(string $title, string $type, $collection, string $avgKey,string $totalKey,?string $totalKeyTwo = null)
+    {
+        return $type === self::TYPE_AVG ? [
+            'title' => $title,
+            'type' => $type,
+            'topFive' => $collection
+                ->sortByDesc($avgKey)
+                ->take(5)
+                ->map(fn ($p) => [
+                    'player' => $p->player,
+                    'games' => $p->games,
+                    'total' => $p->$totalKey,
+                    'avg' => $p->$avgKey,
+                ])
+                ->values()
+            ] :
+            [
+            'title' => $title,
+            'type' => $type,
+            'topFive' => $collection
+                ->sortByDesc($avgKey)
+                ->take(5)
+                ->map(fn ($p) => [
+                    'player' => $p->player,
+                    'games' => $p->games,
+                    'total_made' => $p->$totalKey,
+                    'total_attempted' => $p -> $totalKeyTwo,
+                    'pcg' => $p->$avgKey,
+                ])
+                ->values()
+            ];
+    }
+
     public function seasonLeaders()
     {
         $averages = PlayerGameStat::select(
@@ -63,190 +100,20 @@ class StatisticsService
         ->each->setAppends([]);
 
         return [
-            'ppg' => [
-                'title' => "Poeni po utakmici",
-                'type' => 'avg',
-                'topFive' => $averages
-                    ->sortByDesc('ppg')
-                    ->take(5)
-                    ->map(fn ($p) => [
-                        'player' => $p->player,
-                        'games' => $p->games,
-                        'total' => $p->points_total,
-                        'avg' => $p->ppg,
-                    ])
-                    ->values()],
-            'drpg' => [
-                'title' => "Obrambeni skokovi po utakmici",
-                'type' => 'avg',
-                'topFive' => $averages
-                    ->sortByDesc('drpg')
-                    ->take(5)
-                    ->map(fn ($p) => [
-                        'player' => $p->player,
-                        'games' => $p->games,
-                        'total' => $p->defensive_rebounds_total,
-                        'avg' => $p->drpg,
-                    ])
-                ->values()
-                ],
-            'orpg' => [
-                'title' => "Napadački skokovi po utakmici",
-                'type' => 'avg',
-                'topFive' => $averages
-                    ->sortByDesc('orpg')
-                    ->take(5)
-                    ->map(fn ($p) => [
-                        'player' => $p->player,
-                        'games' => $p->games,
-                        'total' => $p->offensive_rebounds_total,
-                        'avg' => $p->orpg,
-                    ])
-                    ->values()
-                ],
-            'rpg' => [
-                'title' => "Skokovi po utakmici",
-                'type' => 'avg',
-                'topFive' => $averages
-                    ->sortByDesc('rpg')
-                    ->take(5)
-                    ->map(fn ($p) => [
-                        'player' => $p->player,
-                        'games' => $p->games,
-                        'total' => $p->rebounds_total,
-                        'avg' => $p->rpg,
-                    ])
-                    ->values()
-                ],
-            'apg' => [
-                'title' => "Asistencije po utakmici",
-                'type' => 'avg',
-                'topFive' =>$averages
-                    ->sortByDesc('apg')
-                    ->take(5)
-                    ->map(fn ($p) => [
-                        'player' => $p->player,
-                        'games' => $p->games,
-                        'total' => $p->assists_total,
-                        'avg' => $p->apg,
-                    ])
-                    ->values()
-                ],
-            'bpg' => [
-                'title' => "Blokade po utakmici",
-                'type' => 'avg',
-                'topFive' =>$averages
-                    ->sortByDesc('bpg')
-                    ->take(5)
-                    ->map(fn ($p) => [
-                        'player' => $p->player,
-                        'games' => $p->games,
-                        'total' => $p->blocks_total,
-                        'avg' => $p->bpg,
-                    ])
-                    ->values()
-                ],
-            'spg' => [
-                'title' => "Ukradene po utakmici",
-                'type' => 'avg',
-                'topFive' =>$averages
-                    ->sortByDesc('spg')
-                    ->take(5)
-                    ->map(fn ($p) => [
-                        'player' => $p->player,
-                        'games' => $p->games,
-                        'total' => $p->steals_total,
-                        'avg' => $p->spg,
-                    ])
-                    ->values()
-                ],
-            'tpg' => [
-                'title' => "Izgubljene po utakmici",
-                'type' => 'avg',
-                'topFive' =>$averages
-                    ->sortByDesc('tpg')
-                    ->take(5)
-                    ->map(fn ($p) => [
-                        'player' => $p->player,
-                        'games' => $p->games,
-                        'total' => $p->turnovers_total,
-                        'avg' => $p->tpg,
-                    ])
-                    ->values()
-                ],
-            'tppg' => [
-                'title' => "Zabijene trice po utakmici",
-                'type' => 'avg',
-                'topFive' => $averages
-                    ->sortByDesc('tppg')
-                    ->take(5)
-                    ->map(fn ($p) => [
-                        'player' => $p->player,
-                        'games' => $p->games,
-                        'total' => $p->three_points_total,
-                        'avg' => $p->tppg,
-                    ])
-                    ->values()
-                ],
-            'fg2prc' => [
-                'title' => "Postotak šuta za dva",
-                'type' => 'pcg',
-                'topFive' => $averages
-                ->sortByDesc('fg2prc')
-                ->take(5)
-                ->map(fn ($p) => [
-                    'player' => $p->player,
-                    'games' => $p->games,
-                    'total_made' => $p->two_made_total,
-                    'total_attempted' => $p->two_attempted_total,
-                    'pcg' => $p->fg2prc,
-                ])
-                ->values()
-            ],
-            'fg3prc' => [
-                'title' => "Postotak šuta za tri",
-                'type' => 'pcg',
-                'topFive' => $averages
-                ->sortByDesc('fg3prc')
-                ->take(5)
-                ->map(fn ($p) => [
-                    'player' => $p->player,
-                    'games' => $p->games,
-                    'total_made' => $p->three_made_total,
-                    'total_attempted' => $p->three_attempted_total,
-                    'pcg' => $p->fg3prc,
-                ])
-                ->values()
-            ],
-            'ftprc' => [
-                'title' => "Postotak šuta za jedan",
-                'type' => 'pcg',
-                'topFive' => $averages
-                ->sortByDesc('ftprc')
-                ->take(5)
-                ->map(fn ($p) => [
-                    'player' => $p->player,
-                    'games' => $p->games,
-                    'total_made' => $p->free_throw_made_total,
-                    'total_attempted' => $p->free_throw_attempted_total,
-                    'pcg' => $p->ftprc,
-                ])
-                ->values()
-            ],
-            'epg' => [
-                'title' => "Efikasnost po utakmici",
-                'type' => 'avg',
-                'topFive' => $averages
-                ->sortByDesc('epg')
-                ->take(5)
-                ->map(fn ($p) => [
-                    'player' => $p->player,
-                    'games' => $p->games,
-                    'total' => $p->efficiency_total,
-                    'avg' => $p->epg,
-                ])
-                ->values()
-            ],
+            'ppg' => $this->buildAvgLeaderboard("Poeni po utakmici", self::TYPE_AVG, $averages, 'ppg', 'points_total'),
+            'drpg' => $this->buildAvgLeaderboard("Obrambeni skokovi po utakmici", self::TYPE_AVG, $averages, 'drpg', 'defensive_rebounds_total'),
+            'orpg' => $this->buildAvgLeaderboard("Napadački skokovi po utakmici", self::TYPE_AVG, $averages, 'orpg', 'offensive_rebounds_total'),
+            'rpg' => $this->buildAvgLeaderboard("Skokovi po utakmici", self::TYPE_AVG, $averages, 'rpg', 'rebounds_total'),
+            'apg' => $this->buildAvgLeaderboard("Asistencije po utakmici po utakmici", self::TYPE_AVG, $averages, 'apg', 'assists_total'),
+            'bpg' => $this->buildAvgLeaderboard("Blokade po utakmici", self::TYPE_AVG, $averages, 'bpg', 'blocks_total'),
+            'spg' => $this->buildAvgLeaderboard("Ukradene po utakmici", self::TYPE_AVG, $averages, 'spg', 'steals_total'),
+            'tpg' => $this->buildAvgLeaderboard("Izgubljene po utakmici", self::TYPE_AVG, $averages, 'tpg', 'turnovers_total'),
+            'tppg' => $this->buildAvgLeaderboard("Zabijene trice po utakmici", self::TYPE_AVG, $averages, 'tppg', 'three_points_total'),
+            'epg' => $this->buildAvgLeaderboard("Prosječna efikasnost", self::TYPE_AVG, $averages, 'epg', 'efficiency_total'),
+            'fg2prc' => $this->buildAvgLeaderboard("Postotak šuta za dva", self::TYPE_PERCENTAGE, $averages, 'fg2prc', 'two_made_total', 'two_attempted_total'),
+            'fg3prc' => $this->buildAvgLeaderboard("Postotak šuta za tri", self::TYPE_PERCENTAGE, $averages, 'fg3prc', 'three_made_total', 'three_attempted_total'),
+            'ftprc' => $this->buildAvgLeaderboard("Postotak šuta za jedan", self::TYPE_PERCENTAGE, $averages, 'ftprc', 'free_throw_made_total', 'free_throw_attempted_total'),
+
         ];
 
     }
