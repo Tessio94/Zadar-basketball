@@ -49,7 +49,7 @@ export default function LeadersRow({ type, player, place }) {
                     <img
                         src={player.team.logo}
                         alt=""
-                        className="h-5 w-5 shrink-0 max-[500px]:h-3.5 max-[500px]:w-3.5"
+                        className="h-5 w-5 shrink-0 rounded-full border border-slate-100/80 max-[500px]:h-3.5 max-[500px]:w-3.5"
                     />
                 </div>
             </td>

@@ -52,6 +52,12 @@ export type GameWithTeams = Game & {
 
 export type GamesWithTeams = GameWithTeams[];
 
+export type GameWithAwayTeam = Game & {
+    away_team: Team;
+};
+
+export type GamesWithAwayTeams = GameWithAwayTeam[];
+
 export type Player = {
     id: number;
     date_of_birth: string;
@@ -81,7 +87,12 @@ export type PlayerTeamPivot = {
 };
 
 export type PlayerWithTeamAndGames = Player & {
-    game_stats: GamesStats;
+    game_stats: GamesStatsWithOpponent;
+    teams: TeamsWithPlayer;
+};
+
+export type PlayerWithTeamAndGamesAndOpponent = Player & {
+    game_stats: GamesStatsWithOpponent;
     teams: TeamsWithPlayer;
 };
 
@@ -115,9 +126,41 @@ export type GameStats = {
 
 export type GamesStats = GameStats[];
 
+export type GameStatsWithOpponent = {
+    id: number;
+    player_id: number;
+    team_id: number;
+    game_id: number;
+    is_starter: boolean;
+    points: number;
+    assists: number;
+    blocks: number;
+    defensive_rebounds: number;
+    offensive_rebounds: number;
+    fg2_attempted: number;
+    fg2_made: number;
+    fg3_attempted: number;
+    fg3_made: number;
+    fg3_percentage: number;
+    fouls: number;
+    ft_attempted: number;
+    ft_made: number;
+    steals: number;
+    turnovers: number;
+    plus_minus: number;
+    efficiency: number;
+    minutes_played: number;
+    created_at: string;
+    updated_at: string;
+    game: GameWithAwayTeam;
+    opponent: Team;
+};
+
+export type GamesStatsWithOpponent = GameStatsWithOpponent[];
+
 export type PlayerTotals = {
-    minutes: number;
     games: number;
+    minutes: number;
     points: number;
     assists: number;
     blocks: number;

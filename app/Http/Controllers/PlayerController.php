@@ -42,8 +42,6 @@ class PlayerController extends Controller
         $player->load([
             'teams',
             'gameStats',
-            'gameStats.game.homeTeam',
-            'gameStats.game.awayTeam',
         ]);
 
         $stats = $player->gameStats();

@@ -125,7 +125,7 @@ export default function GameBoxScore({ id, team, score, players }) {
                                     <span>Ukupno Ekipa</span>
                                 </th>
                             </tr>
-                            <tr className="text-slate-100 odd:bg-likar2 even:bg-likar2/60">
+                            <tr className="bg-likar1/60 text-slate-100">
                                 <td
                                     className="p-1 text-center font-semibold text-nowrap"
                                     colSpan={4}

@@ -17,6 +17,7 @@ export default function BoxScoreRow({ player }) {
         blocks,
         fouls,
         plus_minus,
+        efficiency,
     } = player;
 
     const fgTotalMade = fg2_made + fg3_made;
@@ -36,6 +37,7 @@ export default function BoxScoreRow({ player }) {
                 {fgTotalAttempted > 0
                     ? ((fgTotalMade / fgTotalAttempted) * 100).toFixed(0)
                     : 0}
+                %
             </td>
             <td className="p-1 text-center text-nowrap">
                 {fg2_made}-{fg2_attempted}
@@ -44,6 +46,7 @@ export default function BoxScoreRow({ player }) {
                 {fg2_attempted > 0
                     ? ((fg2_made / fg2_attempted) * 100).toFixed(0)
                     : 0}
+                %
             </td>
             <td className="p-1 text-center text-nowrap">
                 {fg3_made}-{fg3_attempted}
@@ -52,15 +55,17 @@ export default function BoxScoreRow({ player }) {
                 {fg3_attempted > 0
                     ? ((fg3_made / fg3_attempted) * 100).toFixed(0)
                     : 0}
+                %
             </td>
             <td className="p-1 text-center text-nowrap">
                 {ft_made}-{ft_attempted}
             </td>
-            <td className="p-1 text-center text-nowrap">100</td>
+
             <td className="p-1 text-center text-nowrap">
                 {ft_attempted > 0
                     ? ((ft_made / ft_attempted) * 100).toFixed(0)
                     : 0}
+                %
             </td>
             <td className="p-1 text-center text-nowrap">
                 {offensive_rebounds}
@@ -68,13 +73,16 @@ export default function BoxScoreRow({ player }) {
             <td className="p-1 text-center text-nowrap">
                 {defensive_rebounds}
             </td>
-            <td className="p-1 text-center text-nowrap">8</td>
+            <td className="p-1 text-center text-nowrap">
+                {offensive_rebounds + defensive_rebounds}
+            </td>
             <td className="p-1 text-center text-nowrap">{assists}</td>
             <td className="p-1 text-center text-nowrap">{turnovers}</td>
             <td className="p-1 text-center text-nowrap">{steals}</td>
             <td className="p-1 text-center text-nowrap">{blocks}</td>
             <td className="p-1 text-center text-nowrap">{fouls}</td>
             <td className="p-1 text-center text-nowrap">{plus_minus}</td>
+            <td className="p-1 text-center text-nowrap">{efficiency}</td>
         </tr>
     );
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\PlayerGameStatController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
@@ -29,24 +30,12 @@ Route::get('novosti/1', function () {
     ]);
 })->name('article');
 
-// tablica
-// Route::get('tablica', function () {
-//     return Inertia::render('table', [
-//         'canRegister' => Features::enabled(Features::registration()),
-//     ]);
-// })->name('table');
-// Route::get('/teams', [TeamController::class, 'index'])->name('teams.index');
-
 // Tablica
 Route::get('/tablica', [ResultController::class, 'index'])->name('table');
 // Route::get('/tablica', [StandingsController::class, 'index'])->name('table');
 
 // statistika
-Route::get('statistika', function () {
-    return Inertia::render('statistics', [
-        'canRegister' => Features::enabled(Features::registration()),
-    ]);
-})->name('stats');
+Route::get('statistika', [PlayerGameStatController::class, 'index'])->name('stats.index');
 
 ////////////////////////////van menua//////////////////////////////
 // Utakmice

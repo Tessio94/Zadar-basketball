@@ -1,5 +1,5 @@
-import PlayerHeader from '@/components/igrac/playerHeader';
-import PlayerStats from '@/components/igrac/playerStats';
+import PlayerHeader from '@/components/myComponents/igrac/playerHeader';
+import PlayerStats from '@/components/myComponents/igrac/playerStats';
 import LandingLayout from '@/layouts/landing/landing-layout';
 import type {
     PlayerAverages,

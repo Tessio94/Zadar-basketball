@@ -1,7 +1,7 @@
 export default function BoxScoreHeader() {
     return (
         <thead>
-            <tr className="border-b border-likar1 bg-likar2 text-slate-100">
+            <tr className="border-b border-likar1 bg-slate-900 text-slate-100">
                 <th className="p-1 text-center text-nowrap">BR.</th>
                 <th className="p-1 text-center text-nowrap">IGRAČ</th>
                 <th className="p-1 text-center text-nowrap">POZ</th>

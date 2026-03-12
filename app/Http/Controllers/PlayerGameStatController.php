@@ -5,17 +5,27 @@ namespace App\Http\Controllers;
 use App\Models\PlayerGameStat;
 use App\Http\Requests\StorePlayerGameStatRequest;
 use App\Http\Requests\UpdatePlayerGameStatRequest;
+use App\Models\Game;
+use App\Services\StatisticsService;
+use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class PlayerGameStatController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(StatisticsService $stats)
     {
-        //
-    }
 
+
+
+
+        return Inertia::render('statistics', [
+            'leaders' => $stats->seasonLeaders(),
+        ]);
+
+    }
     /**
      * Show the form for creating a new resource.
      */
