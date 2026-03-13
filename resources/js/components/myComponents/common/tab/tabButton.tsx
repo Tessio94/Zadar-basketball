@@ -40,10 +40,13 @@ export default function TabButton({
                 type="button"
                 onClick={() => setActive(tabId)}
                 className={cn(
-                    'text-heading cursor-pointer border border-likar3 px-10 py-2 font-semibold text-slate-100 uppercase max-md:rounded-b-xl md:-ml-8.5 md:rounded-full lg:text-2xl',
+                    'text-heading cursor-pointer border border-likar3 px-10 py-2 font-semibold text-slate-100 uppercase max-md:rounded-b-xl md:rounded-full lg:text-2xl',
                     active === tabId
                         ? 'z-50 bg-likar3 text-xl md:rounded-l-full lg:text-2xl'
                         : 'z-20 bg-[#a14614] text-base md:rounded-l-none lg:text-xl',
+                    tabId === `tab${lastTab}` &&
+                        tabId !== 'tab2' &&
+                        'md:-ml-8.5',
                 )}
             >
                 {title}

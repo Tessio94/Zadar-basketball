@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from 'react';
 import type { GamesStatsWithPlayerAndTeam, Team } from '@/types/propTypes';
 import BoxScoreHeader from './boxScoreHeader';
 import BoxScoreRow from './boxScoreRow';
+import { Link } from '@inertiajs/react';
+import { show } from '@/actions/App/Http/Controllers/TeamController';
 
 export default function GameBoxScore({
     team,
@@ -71,16 +73,19 @@ export default function GameBoxScore({
                     className="flex flex-row justify-between border-b border-likar3/40 bg-likar4/60"
                     ref={scrollRef}
                 >
-                    <div className="flex flex-row items-center gap-5 p-3">
+                    <Link
+                        href={show(team.id)}
+                        className="pointer-events-none flex w-fit flex-row items-center gap-5 p-3"
+                    >
                         <img
                             src={team.logo}
                             alt={`${team.name}`}
-                            className="aspect-square w-15 rounded-2xl max-sm:w-5"
+                            className="pointer-events-auto aspect-square w-15 cursor-pointer rounded-2xl max-sm:w-5"
                         />
-                        <p className="font-heading font-semibold text-slate-100">
+                        <p className="pointer-events-auto cursor-pointer font-heading font-semibold text-slate-100 hover:underline">
                             {team.name}
                         </p>
-                    </div>
+                    </Link>
                     <div className="flex flex-row items-center gap-5 p-3">
                         <p className="font-heading font-semibold text-slate-100">
                             Trener:
