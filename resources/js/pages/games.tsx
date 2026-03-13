@@ -1,15 +1,27 @@
 import { useState } from 'react';
 
+import TabComponent from '@/components/myComponents/common/tab/tabComponent';
 import GameBoxScore from '@/components/myComponents/utakmice/boxScore/gameBoxScore';
-import GameDetailButtons from '@/components/myComponents/utakmice/headerSection/gameDetailButtons';
+// import GameDetailButtons from '@/components/myComponents/utakmice/headerSection/gameDetailButtons';
 import GameScore from '@/components/myComponents/utakmice/headerSection/gameScore';
 import GameTitle from '@/components/myComponents/utakmice/headerSection/gameTitle';
 import GameLeaders from '@/components/myComponents/utakmice/leaders/gameLeaders';
 import GamesLayout from '@/layouts/games/games-layout';
+import type {
+    GameBoxscore,
+    GameLeaders as GameLeadersType,
+} from '@/types/propTypes';
 
-export default function Games({ game, leaders }) {
-    // console.log('game', game);
-    const [active, setActive] = useState('tab1');
+export default function Games({
+    game,
+    leaders,
+}: {
+    game: GameBoxscore;
+    leaders: GameLeadersType;
+}) {
+    console.log('game', game);
+    // console.log('leaders', leaders);
+    const [active, setActive] = useState<string>('tab1');
 
     const {
         home_team,
@@ -29,7 +41,6 @@ export default function Games({ game, leaders }) {
         (player) => player.team_id === away_team_id,
     );
 
-    // console.log(homePlayers);
     return (
         <GamesLayout>
             <GameTitle />
@@ -39,19 +50,28 @@ export default function Games({ game, leaders }) {
                 awayTeam={away_team}
                 awayScore={away_score}
             />
-            <GameDetailButtons active={active} setActive={setActive} />
+            {/* <GameDetailButtons active={active} setActive={setActive} /> */}
+            <TabComponent
+                active={active}
+                setActive={setActive}
+                tabs={[
+                    { id: 'tab1', title: 'Statistika utakmice' },
+                    { id: 'tab2', title: 'Najbolji pojedinci' },
+                    { id: 'tab3', title: 'Play by Play' },
+                ]}
+            />
             {active === 'tab1' && (
                 <>
                     <GameBoxScore
-                        id={home_team_id}
+                        // id={home_team_id}
                         team={home_team}
-                        score={home_score}
+                        // score={home_score}
                         players={homePlayers}
                     />
                     <GameBoxScore
-                        id={away_team_id}
+                        // id={away_team_id}
                         team={away_team}
-                        score={away_score}
+                        // score={away_score}
                         players={awayPlayers}
                     />
                 </>

@@ -1,8 +1,13 @@
-import type { PlayersWithTeam } from '@/types/propTypes';
+import type { PlayersWithPivot } from '@/types/propTypes';
 import RosterRowData from './rosterRowData';
 import RosterRowHeader from './rosterRowHeader';
 
-export default function TeamPlayers({ players }: { players: PlayersWithTeam }) {
+export default function TeamPlayers({
+    players,
+}: {
+    players: PlayersWithPivot;
+}) {
+    console.log('players', players);
     return (
         <div className="p-5">
             <table className="w-full overflow-hidden rounded-2xl">

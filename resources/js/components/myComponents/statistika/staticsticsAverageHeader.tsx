@@ -1,4 +1,8 @@
-export default function StatisticsAverageHeader({ type }) {
+export default function StatisticsAverageHeader({
+    type,
+}: {
+    type: 'avg' | 'pcg';
+}) {
     const headers =
         type === 'avg'
             ? ['', 'Tim', 'Igrač', 'Utakmice', 'Ukupno', 'Prosjek']

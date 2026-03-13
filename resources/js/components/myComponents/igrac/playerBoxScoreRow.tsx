@@ -1,3 +1,5 @@
+import { Link } from '@inertiajs/react';
+import { show } from '@/actions/App/Http/Controllers/TeamController';
 import type { GameStatsWithOpponent } from '@/types/propTypes';
 
 export default function PlayerBoxScoreRow({
@@ -32,7 +34,9 @@ export default function PlayerBoxScoreRow({
     return (
         <tr className="text-slate-100 odd:bg-likar2 even:bg-likar2/60">
             <td className="p-1 text-center text-nowrap">
-                {opponent.short_name}
+                <Link href={show(opponent.id)} className="hover:underline">
+                    {opponent.short_name}
+                </Link>
             </td>
             <td className="p-1 text-center text-nowrap">{minutes_played}</td>
             <td className="p-1 text-center text-nowrap">{points}</td>

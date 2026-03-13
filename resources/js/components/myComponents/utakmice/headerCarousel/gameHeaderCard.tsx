@@ -1,14 +1,15 @@
 import { Link } from '@inertiajs/react';
 import { show } from '@/actions/App/Http/Controllers/GameController';
+import type { GameWithTeams } from '@/types/propTypes';
 
-export default function GameHeaderCard({ game }) {
+export default function GameHeaderCard({ game }: { game: GameWithTeams }) {
     const { home_team, away_team, home_score, away_score } = game;
 
     return (
         <div className="embla__slide relative px-2.5 first:pl-0 last:pr-0">
             <Link href={show(game.id)}>
                 {/* <div className="bg-theme4/85 absolute inset-0 rounded-2xl"></div> */}
-                <div className="relative rounded-xl border border-likar3/40 bg-likar4/60 p-2.5">
+                <div className="relative rounded-xl border border-likar3/40 bg-likar4/60 p-2.5 transition-colors duration-300 hover:bg-likar4/30">
                     <div className="flex flex-row gap-5">
                         <div className="flex flex-col items-start justify-between">
                             <p className="flex flex-row flex-nowrap items-center justify-center gap-4 text-nowrap text-slate-100">

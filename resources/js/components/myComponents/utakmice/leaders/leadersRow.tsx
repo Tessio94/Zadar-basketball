@@ -1,6 +1,18 @@
+import { Link } from '@inertiajs/react';
 import { User2Icon } from 'lucide-react';
+import { show } from '@/actions/App/Http/Controllers/PlayerController';
+import { show as showTeam } from '@/actions/App/Http/Controllers/TeamController';
+import type { GameStatsWithPlayerAndTeam } from '@/types/propTypes';
 
-export default function LeadersRow({ type, player, place }) {
+export default function LeadersRow({
+    type,
+    player,
+    place,
+}: {
+    type: string;
+    player: GameStatsWithPlayerAndTeam;
+    place: number;
+}) {
     const getValue = () => {
         switch (type) {
             case 'points':
@@ -46,14 +58,20 @@ export default function LeadersRow({ type, player, place }) {
 
             <td className="p-2 max-[500px]:p-1">
                 <div className="flex flex-row items-center justify-center">
-                    <img
-                        src={player.team.logo}
-                        alt=""
-                        className="h-5 w-5 shrink-0 rounded-full border border-slate-100/80 max-[500px]:h-3.5 max-[500px]:w-3.5"
-                    />
+                    <Link href={showTeam(player.team.id)}>
+                        <img
+                            src={player.team.logo}
+                            alt=""
+                            className="h-5 w-5 shrink-0 rounded-full border border-slate-100/80 max-[500px]:h-3.5 max-[500px]:w-3.5"
+                        />
+                    </Link>
                 </div>
             </td>
-            <td className="p-2 max-[500px]:p-1">{`${player.player.first_name} ${player.player.last_name}`}</td>
+            <td className="p-2 max-[500px]:p-1">
+                <Link href={show(player.id)} className="hover:underline">
+                    {`${player.player.first_name} ${player.player.last_name}`}
+                </Link>
+            </td>
 
             <td className="p-2 max-[500px]:p-1">{getValue()}</td>
         </tr>

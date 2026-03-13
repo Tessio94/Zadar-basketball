@@ -1,8 +1,17 @@
+import type { TopFiveAvg, TopFivePcg } from '@/types/propTypes';
 import StaticsticsAverageHeader from './staticsticsAverageHeader';
 import StatisticsAverageRow from './statisticsAverageRow';
 import StatisticsTableTitle from './statisticsTableTitle';
 
-export default function StatisticsTable({ type, avgLeaders, title }) {
+export default function StatisticsTable({
+    type,
+    avgLeaders,
+    title,
+}: {
+    type: 'avg' | 'pcg';
+    title: string;
+    avgLeaders: TopFiveAvg[] | TopFivePcg[];
+}) {
     return (
         <div className="p-3">
             <StatisticsTableTitle title={title} />

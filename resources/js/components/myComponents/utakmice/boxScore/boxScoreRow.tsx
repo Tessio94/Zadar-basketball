@@ -1,6 +1,14 @@
-export default function BoxScoreRow({ player }) {
+import { show } from '@/actions/App/Http/Controllers/PlayerController';
+import type { GameStatsWithPlayerAndTeam } from '@/types/propTypes';
+import { Link } from '@inertiajs/react';
+
+export default function BoxScoreRow({
+    player,
+}: {
+    player: GameStatsWithPlayerAndTeam;
+}) {
     const {
-        player: { first_name, last_name, position },
+        player: { id, first_name, last_name, position },
         minutes_played,
         points,
         fg2_made,
@@ -26,7 +34,12 @@ export default function BoxScoreRow({ player }) {
     return (
         <tr className="text-slate-100 odd:bg-likar2 even:bg-likar2/60">
             <td className="p-1 text-center text-nowrap">4</td>
-            <td className="p-1 text-center text-nowrap">{`${first_name} ${last_name}`}</td>
+            <td className="p-1 text-center text-nowrap">
+                <Link
+                    href={show(id)}
+                    className="hover:underline"
+                >{`${first_name} ${last_name}`}</Link>
+            </td>
             <td className="p-1 text-center text-nowrap">{position}</td>
             <td className="p-1 text-center text-nowrap">{minutes_played}</td>
             <td className="p-1 text-center text-nowrap">{points}</td>

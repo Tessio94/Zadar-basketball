@@ -1,9 +1,10 @@
 import StatisticsTable from '@/components/myComponents/statistika/statisticsTable';
 import LandingLayout from '@/layouts/landing/landing-layout';
+import type { StatsLeader } from '@/types/propTypes';
 
-export default function Statistics({ leaders }) {
+export default function Statistics({ leaders }: { leaders: StatsLeader[] }) {
     const leadersArr = Object.values(leaders);
-
+    console.log(leadersArr);
     return (
         <LandingLayout>
             <section className="my-20 px-[5%]">

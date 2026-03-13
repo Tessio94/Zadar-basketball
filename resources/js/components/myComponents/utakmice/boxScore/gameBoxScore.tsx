@@ -1,19 +1,26 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import type { GamesStatsWithPlayerAndTeam, Team } from '@/types/propTypes';
 import BoxScoreHeader from './boxScoreHeader';
 import BoxScoreRow from './boxScoreRow';
 
-export default function GameBoxScore({ id, team, score, players }) {
-    const scrollRef = useRef(null);
+export default function GameBoxScore({
+    team,
+    players,
+}: {
+    team: Team;
+    players: GamesStatsWithPlayerAndTeam;
+}) {
+    const scrollRef = useRef<HTMLDivElement | null>(null);
     const [canScrollRight, setCanScrollRight] = useState(false);
     const [canScrollLeft, setCanScrollLeft] = useState(false);
 
     useEffect(() => {
         const el = scrollRef.current;
 
-        const checkScroll = () => {
-            if (!el) return;
+        if (!el) return;
 
+        const checkScroll = () => {
             setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth);
             setCanScrollLeft(el.scrollLeft > 0);
         };
@@ -33,7 +40,7 @@ export default function GameBoxScore({ id, team, score, players }) {
             {canScrollLeft && (
                 <button
                     onClick={() =>
-                        scrollRef.current.scrollBy({
+                        scrollRef.current?.scrollBy({
                             left: -300,
                             behavior: 'smooth',
                         })
@@ -48,7 +55,7 @@ export default function GameBoxScore({ id, team, score, players }) {
             {canScrollRight && (
                 <button
                     onClick={() =>
-                        scrollRef.current.scrollBy({
+                        scrollRef.current?.scrollBy({
                             left: 300,
                             behavior: 'smooth',
                         })

@@ -1,7 +1,7 @@
+import type { GameLeaders } from '@/types/propTypes';
 import LeadersRow from './leadersRow';
 
-export default function GameLeaders({ leaders }) {
-    console.log('leaders', leaders);
+export default function GameLeaders({ leaders }: { leaders: GameLeaders }) {
     const {
         points,
         assists,

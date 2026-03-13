@@ -6,9 +6,10 @@ import {
     PrevButton,
     NextButton,
 } from '@/components/myComponents/ui/carousel/CarouselArrows';
+import type { GamesWithTeams } from '@/types/propTypes';
 import GameHeaderCard from './gameHeaderCard';
 
-const GameHeading = ({ games }) => {
+const GameHeading = ({ games }: { games: GamesWithTeams }) => {
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
 
     const {
@@ -17,8 +18,6 @@ const GameHeading = ({ games }) => {
         onPrevButtonClick,
         onNextButtonClick,
     } = usePrevNextButtons(emblaApi);
-
-    // console.log(games);
 
     return (
         <header className="bg-likar2 pb-3">
