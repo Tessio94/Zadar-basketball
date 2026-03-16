@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\PlayerGameStat;
+use App\Models\Game;
 use App\Http\Requests\StorePlayerGameStatRequest;
 use App\Http\Requests\UpdatePlayerGameStatRequest;
-use App\Models\Game;
 use App\Services\StatisticsService;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -23,6 +23,7 @@ class PlayerGameStatController extends Controller
 
         return Inertia::render('statistics', [
             'leaders' => $stats->seasonLeaders(),
+            'lastRound' => $stats->lastRoundLeaders()
         ]);
 
     }

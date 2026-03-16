@@ -28,7 +28,7 @@ export type TeamWithPlayer = Team & {
 export type TeamsWithPlayer = TeamWithPlayer[];
 
 export type TeamWithPlayers = Team & {
-    players: PlayersWithTeam;
+    players: PlayersWithPivot;
 };
 
 export type TeamsWithPlayers = TeamWithPlayers[];
@@ -328,5 +328,15 @@ export type TopFivePcg = {
     games: number;
     total_attempted: number;
     total_made: number;
+    player: PlayerWithTeamPivot;
+};
+
+export type StatsDailyLeader = {
+    title: string;
+    topFive: TopFiveDaily[];
+};
+
+export type TopFiveDaily = {
+    total: number;
     player: PlayerWithTeamPivot;
 };

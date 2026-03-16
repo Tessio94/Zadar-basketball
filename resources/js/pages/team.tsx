@@ -1,21 +1,31 @@
 import { useState } from 'react';
 import TabComponent from '@/components/myComponents/common/tab/tabComponent';
 import LastFive from '@/components/myComponents/ekipe/ekipa/lastFive/lastFive';
-import TeamPlayers from '@/components/myComponents/ekipe/ekipa/Roster/teamPlayers';
+import TeamPlayers from '@/components/myComponents/ekipe/ekipa/roster/teamPlayers';
 import TeamHeading from '@/components/myComponents/ekipe/ekipa/teamHeading';
+import TeamResults from '@/components/myComponents/ekipe/ekipa/utakmice/teamResults';
+import StatisticsTable from '@/components/myComponents/statistika/statisticsTable';
 import LandingLayout from '@/layouts/landing/landing-layout';
-import type { GamesWithTeams, TeamWithPlayers } from '@/types/propTypes';
+import type {
+    GamesWithTeams,
+    StatsLeader,
+    TeamWithPlayers,
+} from '@/types/propTypes';
 
 export default function Team({
     team,
     games,
+    stats,
 }: {
     team: TeamWithPlayers;
     games: GamesWithTeams;
+    stats: StatsLeader[];
 }) {
     const [active, setActive] = useState<string>('tab1');
 
     const { logo, name, players } = team;
+
+    const teamLeaders = Object.values(stats);
 
     return (
         <LandingLayout>
@@ -32,7 +42,23 @@ export default function Team({
                                 { id: 'tab3', title: 'Statistika' },
                             ]}
                         />
-                        <TeamPlayers players={players} />
+                        {active === 'tab1' && <TeamPlayers players={players} />}
+                        {active === 'tab2' && <TeamResults games={games} />}
+                        {active === 'tab3' && (
+                            <div className="mx-auto grid w-full items-stretch gap-10 rounded-2xl bg-likar1/30 p-2 lg:grid-cols-2">
+                                {teamLeaders.map((category, i) => {
+                                    const { type, title, topFive } = category;
+                                    return (
+                                        <StatisticsTable
+                                            key={i}
+                                            title={title}
+                                            type={type}
+                                            leaders={topFive}
+                                        />
+                                    );
+                                })}
+                            </div>
+                        )}
                     </div>
                     {games.length > 0 && <LastFive games={games} />}
                 </div>

@@ -79,7 +79,7 @@ class LeagueSeeder extends Seeder
             $matchups = $matchups->shuffle();
 
             // Take only 30 games (or however many you want)
-            $gamesToPlay = $matchups->take(20)->values();
+            $gamesToPlay = $matchups->take(40)->values();
 
             foreach ($gamesToPlay as $index => $match) {
 

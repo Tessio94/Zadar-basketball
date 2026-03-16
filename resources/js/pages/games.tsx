@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import TabComponent from '@/components/myComponents/common/tab/tabComponent';
 import GameBoxScore from '@/components/myComponents/utakmice/boxScore/gameBoxScore';
-// import GameDetailButtons from '@/components/myComponents/utakmice/headerSection/gameDetailButtons';
 import GameScore from '@/components/myComponents/utakmice/headerSection/gameScore';
 import GameTitle from '@/components/myComponents/utakmice/headerSection/gameTitle';
 import GameLeaders from '@/components/myComponents/utakmice/leaders/gameLeaders';
@@ -19,8 +18,6 @@ export default function Games({
     game: GameBoxscore;
     leaders: GameLeadersType;
 }) {
-    console.log('game', game);
-    // console.log('leaders', leaders);
     const [active, setActive] = useState<string>('tab1');
 
     const {
@@ -50,7 +47,6 @@ export default function Games({
                 awayTeam={away_team}
                 awayScore={away_score}
             />
-            {/* <GameDetailButtons active={active} setActive={setActive} /> */}
             <TabComponent
                 active={active}
                 setActive={setActive}
@@ -62,18 +58,8 @@ export default function Games({
             />
             {active === 'tab1' && (
                 <>
-                    <GameBoxScore
-                        // id={home_team_id}
-                        team={home_team}
-                        // score={home_score}
-                        players={homePlayers}
-                    />
-                    <GameBoxScore
-                        // id={away_team_id}
-                        team={away_team}
-                        // score={away_score}
-                        players={awayPlayers}
-                    />
+                    <GameBoxScore team={home_team} players={homePlayers} />
+                    <GameBoxScore team={away_team} players={awayPlayers} />
                 </>
             )}
             {active === 'tab2' && <GameLeaders leaders={leaders} />}

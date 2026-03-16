@@ -6,6 +6,7 @@ use App\Models\Team;
 use App\Models\Game;
 use App\Http\Requests\StoreTeamRequest;
 use App\Http\Requests\UpdateTeamRequest;
+use App\Services\StatisticsService;
 use Inertia\Inertia;
 
 class TeamController extends Controller
@@ -38,12 +39,11 @@ class TeamController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Team $team)
+    public function show(Team $team, StatisticsService $stats)
     {
 
         $team->load([
             'players',
-
         ]);
 
          $games = Game::with(['homeTeam', 'awayTeam'])
@@ -55,6 +55,7 @@ class TeamController extends Controller
         return Inertia::render('team', [
             'team' => $team,
             'games' => $games,
+            'stats' => $stats->seasonLeaders($team->id)
         ]);
     }
 

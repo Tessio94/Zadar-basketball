@@ -1,16 +1,16 @@
-import type { TopFiveAvg, TopFivePcg } from '@/types/propTypes';
+import type { TopFiveAvg, TopFiveDaily, TopFivePcg } from '@/types/propTypes';
 import StaticsticsAverageHeader from './staticsticsAverageHeader';
 import StatisticsAverageRow from './statisticsAverageRow';
 import StatisticsTableTitle from './statisticsTableTitle';
 
 export default function StatisticsTable({
     type,
-    avgLeaders,
+    leaders,
     title,
 }: {
-    type: 'avg' | 'pcg';
+    type: 'avg' | 'pcg' | 'daily';
     title: string;
-    avgLeaders: TopFiveAvg[] | TopFivePcg[];
+    leaders: TopFiveAvg[] | TopFivePcg[] | TopFiveDaily[];
 }) {
     return (
         <div className="p-3">
@@ -19,7 +19,7 @@ export default function StatisticsTable({
             <table className="w-full overflow-hidden rounded-t-xl rounded-b-xl">
                 <StaticsticsAverageHeader type={type} />
                 <tbody>
-                    {avgLeaders.map((leader, i) => (
+                    {leaders.map((leader, i) => (
                         <StatisticsAverageRow
                             key={i}
                             type={type}

@@ -7,7 +7,7 @@ export default function TeamPlayers({
 }: {
     players: PlayersWithPivot;
 }) {
-    console.log('players', players);
+    // console.log('players', players);
     return (
         <div className="p-5">
             <table className="w-full overflow-hidden rounded-2xl">

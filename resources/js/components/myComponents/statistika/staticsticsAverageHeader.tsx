@@ -1,12 +1,14 @@
 export default function StatisticsAverageHeader({
     type,
 }: {
-    type: 'avg' | 'pcg';
+    type: 'avg' | 'pcg' | 'daily';
 }) {
     const headers =
         type === 'avg'
             ? ['', 'Tim', 'Igrač', 'Utakmice', 'Ukupno', 'Prosjek']
-            : ['', 'Tim', 'Igrač', 'Pokušaji', 'Ubačaji', 'Prosjek'];
+            : type === 'pcg'
+              ? ['', 'Tim', 'Igrač', 'Pokušaji', 'Ubačaji', 'Prosjek']
+              : ['', 'Tim', 'Igrač', 'Ukupno'];
 
     return (
         <thead>
