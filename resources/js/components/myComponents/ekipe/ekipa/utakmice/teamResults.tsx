@@ -1,8 +1,9 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import type { GameWithTeams } from '@/types/propTypes';
 import TeamResultsRow from './teamResultsRow';
 
-export default function TeamResults({ games }) {
+export default function TeamResults({ games }: { games: GameWithTeams[] }) {
     const scrollRef = useRef<HTMLDivElement>(null);
     const [canScrollRight, setCanScrollRight] = useState(false);
     const [canScrollLeft, setCanScrollLeft] = useState(false);

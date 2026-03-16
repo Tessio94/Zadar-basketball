@@ -1,4 +1,5 @@
-import { useState } from 'react';
+// import { useState } from 'react';
+import { useRemember } from '@inertiajs/react';
 import TabComponent from '@/components/myComponents/common/tab/tabComponent';
 import LastFive from '@/components/myComponents/ekipe/ekipa/lastFive/lastFive';
 import TeamPlayers from '@/components/myComponents/ekipe/ekipa/roster/teamPlayers';
@@ -7,7 +8,7 @@ import TeamResults from '@/components/myComponents/ekipe/ekipa/utakmice/teamResu
 import StatisticsTable from '@/components/myComponents/statistika/statisticsTable';
 import LandingLayout from '@/layouts/landing/landing-layout';
 import type {
-    GamesWithTeams,
+    GameWithTeams,
     StatsLeader,
     TeamWithPlayers,
 } from '@/types/propTypes';
@@ -18,10 +19,10 @@ export default function Team({
     stats,
 }: {
     team: TeamWithPlayers;
-    games: GamesWithTeams;
+    games: GameWithTeams[];
     stats: StatsLeader[];
 }) {
-    const [active, setActive] = useState<string>('tab1');
+    const [active, setActive] = useRemember<string>('tab1');
 
     const { logo, name, players } = team;
 

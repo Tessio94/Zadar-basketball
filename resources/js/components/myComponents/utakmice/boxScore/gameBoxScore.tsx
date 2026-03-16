@@ -1,17 +1,17 @@
+import { Link } from '@inertiajs/react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import type { GamesStatsWithPlayerAndTeam, Team } from '@/types/propTypes';
+import { show } from '@/actions/App/Http/Controllers/TeamController';
+import type { GameStatsWithPlayerAndTeam, Team } from '@/types/propTypes';
 import BoxScoreHeader from './boxScoreHeader';
 import BoxScoreRow from './boxScoreRow';
-import { Link } from '@inertiajs/react';
-import { show } from '@/actions/App/Http/Controllers/TeamController';
 
 export default function GameBoxScore({
     team,
     players,
 }: {
     team: Team;
-    players: GamesStatsWithPlayerAndTeam;
+    players: GameStatsWithPlayerAndTeam[];
 }) {
     const scrollRef = useRef<HTMLDivElement | null>(null);
     const [canScrollRight, setCanScrollRight] = useState(false);

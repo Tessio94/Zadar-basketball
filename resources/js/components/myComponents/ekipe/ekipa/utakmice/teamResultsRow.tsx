@@ -1,8 +1,9 @@
 import { Link } from '@inertiajs/react';
 import { show } from '@/actions/App/Http/Controllers/GameController';
 import { show as showTeam } from '@/actions/App/Http/Controllers/TeamController';
+import type { GameWithTeams } from '@/types/propTypes';
 
-export default function TeamResultsRow({ game }) {
+export default function TeamResultsRow({ game }: { game: GameWithTeams }) {
     const {
         id,
         game_date,
@@ -15,7 +16,7 @@ export default function TeamResultsRow({ game }) {
     } = game;
 
     const date = new Date(game_date);
-    console.log('game', game);
+
     return (
         <tr className="text-slate-100 odd:bg-likar2 even:bg-likar2/60">
             <td className="border-r border-likar4 p-2 text-center text-nowrap">

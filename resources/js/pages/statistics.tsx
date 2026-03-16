@@ -1,4 +1,5 @@
-import { useState } from 'react';
+// import { useState } from 'react';
+import { useRemember } from '@inertiajs/react';
 import TabComponent from '@/components/myComponents/common/tab/tabComponent';
 import StatisticsTable from '@/components/myComponents/statistika/statisticsTable';
 import LandingLayout from '@/layouts/landing/landing-layout';
@@ -11,7 +12,7 @@ export default function Statistics({
     leaders: StatsLeader[];
     lastRound: StatsDailyLeader[];
 }) {
-    const [active, setActive] = useState<string>('tab1');
+    const [active, setActive] = useRemember<string>('tab1');
 
     const avgLeadersArr = Object.values(leaders);
     const dailyLeadersArr = Object.values(lastRound);

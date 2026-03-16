@@ -1,15 +1,13 @@
-// import { EmblaOptionsType } from "embla-carousel";
-
 import useEmblaCarousel from 'embla-carousel-react';
 import {
     usePrevNextButtons,
     PrevButton,
     NextButton,
 } from '@/components/myComponents/ui/carousel/CarouselArrows';
-import type { GamesWithTeams } from '@/types/propTypes';
+import type { GameWithTeams } from '@/types/propTypes';
 import GameHeaderCard from './gameHeaderCard';
 
-const GameHeading = ({ games }: { games: GamesWithTeams }) => {
+const GameHeading = ({ games }: { games: GameWithTeams[] }) => {
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
 
     const {

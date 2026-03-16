@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import type {
-    GamesStatsWithOpponent,
+    GameStatsWithOpponent,
     PlayerAverages,
     PlayerTotals,
 } from '@/types/propTypes';
@@ -11,7 +11,7 @@ import PlayerBoxScoreRow from './playerBoxScoreRow';
 import PlayerTotalsRow from './playerTotalsRow';
 
 interface PlayerStatsProps {
-    game_stats: GamesStatsWithOpponent;
+    game_stats: GameStatsWithOpponent[];
     totals: PlayerTotals;
     averages: PlayerAverages;
 }

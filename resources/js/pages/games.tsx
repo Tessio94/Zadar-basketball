@@ -1,5 +1,6 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 
+import { useRemember } from '@inertiajs/react';
 import TabComponent from '@/components/myComponents/common/tab/tabComponent';
 import GameBoxScore from '@/components/myComponents/utakmice/boxScore/gameBoxScore';
 import GameScore from '@/components/myComponents/utakmice/headerSection/gameScore';
@@ -18,7 +19,7 @@ export default function Games({
     game: GameBoxscore;
     leaders: GameLeadersType;
 }) {
-    const [active, setActive] = useState<string>('tab1');
+    const [active, setActive] = useRemember<string>('tab1');
 
     const {
         home_team,

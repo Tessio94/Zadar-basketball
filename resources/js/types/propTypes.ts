@@ -19,19 +19,13 @@ export type Team = {
     updated_at: string;
 };
 
-export type Teams = Team[];
-
 export type TeamWithPlayer = Team & {
     pivot: PlayerTeamPivot;
 };
 
-export type TeamsWithPlayer = TeamWithPlayer[];
-
 export type TeamWithPlayers = Team & {
-    players: PlayersWithPivot;
+    players: PlayerWithPivot[];
 };
-
-export type TeamsWithPlayers = TeamWithPlayers[];
 
 /**
  *  Game types
@@ -51,28 +45,20 @@ export type Game = {
     updated_at: string;
 };
 
-export type Games = Game[];
-
 export type GameBoxscore = Game & {
     away_team: Team;
     home_team: Team;
     player_stats: GameStatsWithPlayerAndTeam[];
 };
 
-export type GamesWithTeamsAns = GameWithTeams[];
-
 export type GameWithTeams = Game & {
     away_team: Team;
     home_team: Team;
 };
 
-export type GamesWithTeams = GameWithTeams[];
-
 export type GameWithAwayTeam = Game & {
     away_team: Team;
 };
-
-export type GamesWithAwayTeams = GameWithAwayTeam[];
 
 export type GameStats = {
     id: number;
@@ -102,8 +88,6 @@ export type GameStats = {
     updated_at: string;
 };
 
-export type GamesStats = GameStats[];
-
 export type GameStatsWithPlayer = {
     id: number;
     player_id: number;
@@ -132,8 +116,6 @@ export type GameStatsWithPlayer = {
     updated_at: string;
     player: Player;
 };
-
-export type GamesStatsWithPlayer = GameStatsWithPlayer[];
 
 export type GameStatsWithPlayerAndTeam = {
     id: number;
@@ -166,8 +148,6 @@ export type GameStatsWithPlayerAndTeam = {
     team: Team;
 };
 
-export type GamesStatsWithPlayerAndTeam = GameStatsWithPlayerAndTeam[];
-
 export type GameStatsWithOpponent = {
     id: number;
     player_id: number;
@@ -198,8 +178,6 @@ export type GameStatsWithOpponent = {
     opponent: Team;
 };
 
-export type GamesStatsWithOpponent = GameStatsWithOpponent[];
-
 export type GameLeaders = {
     points: GameStatsWithPlayerAndTeam[];
     assists: GameStatsWithPlayerAndTeam[];
@@ -227,25 +205,17 @@ export type Player = {
     position: 'PG' | 'SG' | 'SF' | 'PF' | 'C';
 };
 
-export type Players = Player[];
-
 export type PlayerWithPivot = Player & {
     pivot: PlayerTeamPivot;
 };
-
-export type PlayersWithPivot = PlayerWithPivot[];
 
 export type PlayerWithTeam = Player & {
     teams: Team[];
 };
 
-export type PlayersWithTeam = PlayerWithTeam[];
-
 export type PlayerWithTeamPivot = Player & {
     teams: TeamWithPlayer[];
 };
-
-export type PlayersWithTeamPivot = PlayerWithTeam[];
 
 export type PlayerTeamPivot = {
     player_id: number;
@@ -257,13 +227,13 @@ export type PlayerTeamPivot = {
 };
 
 export type PlayerWithTeamAndGames = Player & {
-    game_stats: GamesStatsWithOpponent;
-    teams: TeamsWithPlayer;
+    game_stats: GameStatsWithOpponent[];
+    teams: TeamWithPlayer[];
 };
 
 export type PlayerWithTeamAndGamesAndOpponent = Player & {
-    game_stats: GamesStatsWithOpponent;
-    teams: TeamsWithPlayer;
+    game_stats: GameStatsWithOpponent[];
+    teams: TeamWithPlayer[];
 };
 
 export type PlayerTotals = {

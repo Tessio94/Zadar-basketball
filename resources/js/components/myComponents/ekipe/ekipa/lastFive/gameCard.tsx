@@ -7,7 +7,6 @@ export default function GameCard({ game }: { game: GameWithTeams }) {
     return (
         <div className="relative last:border-b-0 last:pb-0 max-xl:w-1/2 max-xl:odd:pr-2.5 max-xl:even:pl-2.5 max-sm:w-full max-sm:p-0! xl:border-b xl:border-slate-100/60 xl:py-2.5">
             <Link href={show(id)}>
-                {/* <div className="bg-theme4/85 absolute inset-0 rounded-2xl"></div> */}
                 <div className="relative rounded-xl border border-likar3/40 bg-likar4/60 p-2.5 transition-colors duration-300 hover:bg-likar4/30">
                     <div className="flex flex-row justify-between gap-5">
                         <div className="flex flex-col items-start justify-between">

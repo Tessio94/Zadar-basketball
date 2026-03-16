@@ -1,7 +1,7 @@
-import type { GamesWithTeams } from '@/types/propTypes';
+import type { GameWithTeams } from '@/types/propTypes';
 import GameCard from './gameCard';
 
-export default function LastFive({ games }: { games: GamesWithTeams }) {
+export default function LastFive({ games }: { games: GameWithTeams[] }) {
     const numberOfGames = games.length;
 
     return (

@@ -1,8 +1,8 @@
 import TeamCard from '@/components/myComponents/ekipe/teamCard';
 import LandingLayout from '@/layouts/landing/landing-layout';
-import type { Teams } from '@/types/propTypes';
+import type { Team } from '@/types/propTypes';
 
-export default function Teams({ teams }: { teams: Teams }) {
+export default function Teams({ teams }: { teams: Team[] }) {
     return (
         <LandingLayout>
             <section className="my-20 px-[5%]">
