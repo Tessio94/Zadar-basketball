@@ -116,21 +116,17 @@ const GalleryCarousel = () => {
                     </div>
                 </div>
 
-                <div className="absolute top-[calc(50%+6px)] left-6 flex h-12 w-12 -translate-y-1/2 flex-col items-center justify-center rounded-full bg-likar3 p-2 text-slate-100">
-                    <div>
-                        <PrevButton
-                            onClick={onPrevButtonClick}
-                            disabled={prevBtnDisabled}
-                        />
-                    </div>
+                <div className="absolute top-[calc(50%+6px)] left-6 -translate-y-1/2 text-slate-100">
+                    <PrevButton
+                        onClick={onPrevButtonClick}
+                        disabled={prevBtnDisabled}
+                    />
                 </div>
-                <div className="absolute top-[calc(50%+6px)] right-6 flex h-12 w-12 -translate-y-1/2 flex-col items-center justify-center rounded-full bg-likar3 p-2 text-slate-100">
-                    <div>
-                        <NextButton
-                            onClick={onNextButtonClick}
-                            disabled={nextBtnDisabled}
-                        />
-                    </div>
+                <div className="absolute top-[calc(50%+6px)] right-6 -translate-y-1/2 text-slate-100">
+                    <NextButton
+                        onClick={onNextButtonClick}
+                        disabled={nextBtnDisabled}
+                    />
                 </div>
             </div>
         </div>

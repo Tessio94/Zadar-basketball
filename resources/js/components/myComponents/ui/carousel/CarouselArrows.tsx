@@ -3,6 +3,7 @@
 import type { EmblaCarouselType } from 'embla-carousel';
 import type { ComponentPropsWithRef } from 'react';
 import { useCallback, useEffect, useState } from 'react';
+import { cn } from '@/lib/utils';
 
 type UsePrevNextButtonsType = {
     prevBtnDisabled: boolean;
@@ -52,9 +53,14 @@ export const PrevButton = (props: PropType) => {
     const { children, disabled, ...restProps } = props;
     return (
         <button
-            className={'embla__button embla__button--prev'.concat(
-                disabled ? 'embla__button--disabled' : '',
+            // className={'embla__button embla__button--prev h-12 w-12 p-2!'.concat(
+            //     disabled ? 'embla__button--disabled' : '',
+            // )}
+            className={cn(
+                'embla__button embla__button--prev h-12 w-12 rounded-full border border-transparent bg-likar3 p-2 transition-all duration-300 hover:border-likar3 hover:bg-likar3/40',
+                disabled && 'pointer-events-none cursor-not-allowed bg-likar4',
             )}
+            disabled={disabled}
             type="button"
             {...restProps}
         >
@@ -75,9 +81,11 @@ export const NextButton = (props: PropType) => {
     const { children, disabled, ...restProps } = props;
     return (
         <button
-            className={'embla__button embla__button--next'.concat(
-                disabled ? 'embla__button--disabled' : '',
+            className={cn(
+                'embla__button embla__button--prev h-12 w-12 rounded-full border border-transparent bg-likar3 p-2 transition-all duration-300 hover:border-likar3 hover:bg-likar3/40',
+                disabled && 'pointer-events-none cursor-not-allowed bg-likar4',
             )}
+            disabled={disabled}
             type="button"
             {...restProps}
         >
