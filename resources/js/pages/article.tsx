@@ -7,7 +7,7 @@ export default function Article() {
             <section className="my-20 px-[5%]">
                 <div className="rounded-4xl border border-likar1 bg-likar2 shadow-2xl shadow-likar1">
                     <img
-                        src="/landing.jpg"
+                        src="/images/design/landing.jpg"
                         alt=""
                         className="w-full rounded-t-4xl"
                     />
@@ -52,7 +52,7 @@ export default function Article() {
                                     esse rem deserunt autem cupiditate?
                                 </p>
                                 <img
-                                    src="/landing.jpg"
+                                    src="/images/design/landing.jpg"
                                     alt=""
                                     className="mb-4 w-full rounded-3xl"
                                 />
@@ -94,7 +94,7 @@ export default function Article() {
                                         <div className="flex w-full flex-row py-3 max-md:flex-wrap max-md:justify-between md:flex-col">
                                             <article className="flex w-full flex-col justify-between gap-3 border-b border-slate-100/60 py-3 max-[500px]:w-full! max-[500px]:px-0! max-md:w-1/2 max-md:odd:pr-3 max-md:even:pl-3 2xl:flex-row">
                                                 <img
-                                                    src="/landing.jpg"
+                                                    src="/images/design/landing.jpg"
                                                     alt=""
                                                     className="aspect-video rounded-lg md:w-50"
                                                 />
@@ -111,7 +111,7 @@ export default function Article() {
                                             </article>
                                             <article className="flex w-full flex-col justify-between gap-3 border-b border-slate-100/60 py-3 max-[500px]:w-full! max-[500px]:px-0! max-md:w-1/2 max-md:odd:pr-3 max-md:even:pl-3 2xl:flex-row">
                                                 <img
-                                                    src="/landing.jpg"
+                                                    src="/images/design/landing.jpg"
                                                     alt=""
                                                     className="aspect-video rounded-lg md:w-50"
                                                 />
@@ -128,7 +128,7 @@ export default function Article() {
                                             </article>
                                             <article className="flex w-full flex-col justify-between gap-3 border-b border-slate-100/60 py-3 max-[500px]:w-full! max-[500px]:px-0! max-md:w-1/2 max-md:odd:pr-3 max-md:even:pl-3 2xl:flex-row">
                                                 <img
-                                                    src="/landing.jpg"
+                                                    src="/images/design/landing.jpg"
                                                     alt=""
                                                     className="aspect-video rounded-lg md:w-50"
                                                 />
@@ -145,7 +145,7 @@ export default function Article() {
                                             </article>
                                             <article className="flex w-full flex-col justify-between gap-3 border-b border-slate-100/60 py-3 max-[500px]:w-full! max-[500px]:px-0! max-md:w-1/2 max-md:odd:pr-3 max-md:even:pl-3 2xl:flex-row">
                                                 <img
-                                                    src="/landing.jpg"
+                                                    src="/images/design/landing.jpg"
                                                     alt=""
                                                     className="aspect-video rounded-lg md:w-50"
                                                 />

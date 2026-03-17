@@ -277,6 +277,23 @@ export type PlayerAverages = {
 };
 
 /**
+ *  Standings types
+ */
+
+export type TableStandings = {
+    allowed: number;
+    difference: number;
+    id: number;
+    logo: string;
+    losses: number;
+    name: string;
+    played: number;
+    scored: number;
+    wins: number;
+    form: ('W' | 'L')[];
+};
+
+/**
  *  Stats types
  */
 
@@ -309,4 +326,14 @@ export type StatsDailyLeader = {
 export type TopFiveDaily = {
     total: number;
     player: PlayerWithTeamPivot;
+};
+
+/**
+ *  Images types
+ */
+
+export type GalleryImage = {
+    id: number;
+    url: string;
+    alt: string;
 };

@@ -1,4 +1,4 @@
-import TeamCard from '@/components/myComponents/ekipe/teamCard';
+import TeamCard from '@/components/myComponents/stranice/ekipe/teamCard';
 import LandingLayout from '@/layouts/landing/landing-layout';
 import type { Team } from '@/types/propTypes';
 

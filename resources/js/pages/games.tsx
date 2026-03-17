@@ -2,10 +2,10 @@
 
 import { useRemember } from '@inertiajs/react';
 import TabComponent from '@/components/myComponents/common/tab/tabComponent';
-import GameBoxScore from '@/components/myComponents/utakmice/boxScore/gameBoxScore';
-import GameScore from '@/components/myComponents/utakmice/headerSection/gameScore';
-import GameTitle from '@/components/myComponents/utakmice/headerSection/gameTitle';
-import GameLeaders from '@/components/myComponents/utakmice/leaders/gameLeaders';
+import GameBoxScore from '@/components/myComponents/stranice/utakmice/boxScore/gameBoxScore';
+import GameScore from '@/components/myComponents/stranice/utakmice/headerSection/gameScore';
+import GameTitle from '@/components/myComponents/stranice/utakmice/headerSection/gameTitle';
+import GameLeaders from '@/components/myComponents/stranice/utakmice/leaders/gameLeaders';
 import GamesLayout from '@/layouts/games/games-layout';
 import type {
     GameBoxscore,

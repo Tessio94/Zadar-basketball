@@ -1,7 +1,7 @@
 // import { useState } from 'react';
 import { useRemember } from '@inertiajs/react';
 import TabComponent from '@/components/myComponents/common/tab/tabComponent';
-import StatisticsTable from '@/components/myComponents/statistika/statisticsTable';
+import StatisticsTable from '@/components/myComponents/stranice/statistika/statisticsTable';
 import LandingLayout from '@/layouts/landing/landing-layout';
 import type { StatsDailyLeader, StatsLeader } from '@/types/propTypes';
 

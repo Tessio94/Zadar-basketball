@@ -4,11 +4,12 @@ export default function About() {
     return (
         <LandingLayout>
             <section className="my-20 px-[5%]">
-                <div className="relative flex min-h-270 flex-row items-start overflow-hidden rounded-2xl border border-likar1 bg-[url('/hardwood.jpg')] bg-cover bg-no-repeat shadow-2xl shadow-likar1 max-2xl:bg-position-[30%] max-xl:bg-position-[50%] max-md:bg-position-[70%]">
+                <div className="relative flex min-h-270 flex-row items-start overflow-hidden rounded-2xl border border-likar1 bg-[url('/images/design/hardwood.jpg')] bg-cover bg-no-repeat shadow-2xl shadow-likar1 max-2xl:bg-position-[30%] max-xl:bg-position-[50%] max-md:bg-position-[70%]">
                     <div className="absolute inset-0 bg-linear-to-r from-slate-900/80 to-transparent" />
+
                     <div className="z-0 flex h-full min-h-270 w-full flex-col justify-between gap-10 p-8 px-4 sm:p-10 lg:p-15 xl:w-2/3 xl:p-20 2xl:w-1/2">
                         <h4 className="font-heading text-7xl font-bold text-likar3 my-text-stroke2">
-                            Vrati se onome što voliš
+                            Likar Krombacher Zadar
                         </h4>
                         <p className="font-text text-2xl text-slate-100">
                             Šest godina nakon osnutka, LIKAR – Liga košarkaških

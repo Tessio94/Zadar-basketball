@@ -18,7 +18,7 @@ Route::get('/', function () {
 
 // novosti listing
 Route::get('novosti', function () {
-    return Inertia::render('novosti', [
+    return Inertia::render('news', [
         'canRegister' => Features::enabled(Features::registration()),
     ]);
 })->name('news');
@@ -29,6 +29,7 @@ Route::get('novosti/1', function () {
         'canRegister' => Features::enabled(Features::registration()),
     ]);
 })->name('article');
+
 
 // Tablica
 Route::get('/tablica', [ResultController::class, 'index'])->name('table');
@@ -66,8 +67,15 @@ Route::get('arhiva', function () {
     ]);
 })->name('archive');
 
-// galerija
+// galerija listing
 Route::get('galerija', function () {
+    return Inertia::render('galleries', [
+        'canRegister' => Features::enabled(Features::registration()),
+    ]);
+})->name('galleries');
+
+// galerija show
+Route::get('galerija/1', function () {
     return Inertia::render('gallery', [
         'canRegister' => Features::enabled(Features::registration()),
     ]);

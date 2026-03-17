@@ -1,11 +1,11 @@
 // import { useState } from 'react';
 import { useRemember } from '@inertiajs/react';
 import TabComponent from '@/components/myComponents/common/tab/tabComponent';
-import LastFive from '@/components/myComponents/ekipe/ekipa/lastFive/lastFive';
-import TeamPlayers from '@/components/myComponents/ekipe/ekipa/roster/teamPlayers';
-import TeamHeading from '@/components/myComponents/ekipe/ekipa/teamHeading';
-import TeamResults from '@/components/myComponents/ekipe/ekipa/utakmice/teamResults';
-import StatisticsTable from '@/components/myComponents/statistika/statisticsTable';
+import LastFive from '@/components/myComponents/stranice/ekipe/ekipa/lastFive/lastFive';
+import TeamPlayers from '@/components/myComponents/stranice/ekipe/ekipa/roster/teamPlayers';
+import TeamHeading from '@/components/myComponents/stranice/ekipe/ekipa/teamHeading';
+import TeamResults from '@/components/myComponents/stranice/ekipe/ekipa/utakmice/teamResults';
+import StatisticsTable from '@/components/myComponents/stranice/statistika/statisticsTable';
 import LandingLayout from '@/layouts/landing/landing-layout';
 import type {
     GameWithTeams,
