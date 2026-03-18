@@ -1,8 +1,6 @@
-// import { useState } from 'react';
 import { useRemember } from '@inertiajs/react';
 import TabComponent from '@/components/myComponents/common/tab/tabComponent';
 import StatisticsTable from '@/components/myComponents/stranice/statistika/statisticsTable';
-import LandingLayout from '@/layouts/landing/landing-layout';
 import type { StatsDailyLeader, StatsLeader } from '@/types/propTypes';
 
 export default function Statistics({
@@ -18,7 +16,7 @@ export default function Statistics({
     const dailyLeadersArr = Object.values(lastRound);
 
     return (
-        <LandingLayout>
+        <>
             <section className="my-20 px-[5%]">
                 <TabComponent
                     active={active}
@@ -28,7 +26,7 @@ export default function Statistics({
                         { id: 'tab2', title: 'Posljednje kolo' },
                     ]}
                 />
-                <div className="mx-auto grid w-full items-stretch gap-10 rounded-2xl bg-likar1/30 p-2 lg:grid-cols-2">
+                <div className="mx-auto w-full rounded-2xl bg-likar1/30 p-2 sm:grid sm:items-stretch sm:gap-10 lg:grid-cols-2">
                     {active === 'tab1' &&
                         avgLeadersArr.map((category, i) => {
                             const { type, title, topFive } = category;
@@ -55,6 +53,6 @@ export default function Statistics({
                         })}
                 </div>
             </section>
-        </LandingLayout>
+        </>
     );
 }

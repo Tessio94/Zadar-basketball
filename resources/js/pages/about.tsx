@@ -1,8 +1,6 @@
-import LandingLayout from '@/layouts/landing/landing-layout';
-
 export default function About() {
     return (
-        <LandingLayout>
+        <>
             <section className="my-20 px-[5%]">
                 <div className="relative flex min-h-270 flex-row items-start overflow-hidden rounded-2xl border border-likar1 bg-[url('/images/design/hardwood.jpg')] bg-cover bg-no-repeat shadow-2xl shadow-likar1 max-2xl:bg-position-[30%] max-xl:bg-position-[50%] max-md:bg-position-[70%]">
                     <div className="absolute inset-0 bg-linear-to-r from-slate-900/80 to-transparent" />
@@ -37,6 +35,6 @@ export default function About() {
                     </div>
                 </div>
             </section>
-        </LandingLayout>
+        </>
     );
 }

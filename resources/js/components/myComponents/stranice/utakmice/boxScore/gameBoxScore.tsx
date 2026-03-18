@@ -1,7 +1,7 @@
 import { Link } from '@inertiajs/react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { show } from '@/actions/App/Http/Controllers/TeamController';
+import ButtonScroll from '@/components/myComponents/common/ButtonScroll';
 import type { GameStatsWithPlayerAndTeam, Team } from '@/types/propTypes';
 import BoxScoreHeader from './boxScoreHeader';
 import BoxScoreRow from './boxScoreRow';
@@ -14,59 +14,10 @@ export default function GameBoxScore({
     players: GameStatsWithPlayerAndTeam[];
 }) {
     const scrollRef = useRef<HTMLDivElement | null>(null);
-    const [canScrollRight, setCanScrollRight] = useState(false);
-    const [canScrollLeft, setCanScrollLeft] = useState(false);
-
-    useEffect(() => {
-        const el = scrollRef.current;
-
-        if (!el) return;
-
-        const checkScroll = () => {
-            setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth);
-            setCanScrollLeft(el.scrollLeft > 0);
-        };
-
-        checkScroll();
-        el.addEventListener('scroll', checkScroll);
-        window.addEventListener('resize', checkScroll);
-
-        return () => {
-            el.removeEventListener('scroll', checkScroll);
-            window.removeEventListener('resize', checkScroll);
-        };
-    }, []);
 
     return (
         <section className="relative mx-auto mb-10 px-[5%]">
-            {canScrollLeft && (
-                <button
-                    onClick={() =>
-                        scrollRef.current?.scrollBy({
-                            left: -300,
-                            behavior: 'smooth',
-                        })
-                    }
-                    className="absolute top-1/2 left-0 z-10 -translate-y-1/2 rounded-r-xl bg-likar3/80 p-2"
-                >
-                    <ChevronLeft className="text-white" />
-                </button>
-            )}
-
-            {/* RIGHT ARROW */}
-            {canScrollRight && (
-                <button
-                    onClick={() =>
-                        scrollRef.current?.scrollBy({
-                            left: 300,
-                            behavior: 'smooth',
-                        })
-                    }
-                    className="absolute top-1/2 right-0 z-10 -translate-y-1/2 rounded-l-xl bg-likar3/80 p-2"
-                >
-                    <ChevronRight className="text-white" />
-                </button>
-            )}
+            <ButtonScroll scrollRef={scrollRef} />
 
             <div className="relative overflow-hidden rounded-xl border border-likar3/40">
                 <div
@@ -80,7 +31,7 @@ export default function GameBoxScore({
                         <img
                             src={team.logo}
                             alt={`${team.name}`}
-                            className="pointer-events-auto aspect-square w-15 cursor-pointer rounded-2xl max-sm:w-5"
+                            className="pointer-events-auto aspect-square w-15 shrink-0 cursor-pointer rounded-2xl max-sm:w-5"
                         />
                         <p className="pointer-events-auto cursor-pointer font-heading font-semibold text-slate-100 hover:underline">
                             {team.name}

@@ -26,7 +26,7 @@ export default function PlayerTotalsRow({ totals }: { totals: PlayerTotals }) {
     const fgTotalAttempted = fg2_attempted + fg3_attempted;
 
     return (
-        <tr className="bg-likar1/20 text-slate-100">
+        <tr className="bg-likar1/20 font-semibold text-slate-100">
             <td className="p-1 text-center text-nowrap">{games}</td>
             <td className="p-1 text-center text-nowrap">{minutes}</td>
             <td className="p-1 text-center text-nowrap">{points}</td>

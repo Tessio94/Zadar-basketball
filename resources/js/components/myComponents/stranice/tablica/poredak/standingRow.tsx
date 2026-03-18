@@ -34,7 +34,7 @@ export default function StandingRow({
                     <img
                         src={logo}
                         alt={`${name} logo`}
-                        className="h-6 w-6 rounded-full bg-white"
+                        className="h-6 w-6 shrink-0 rounded-full bg-white"
                     />
                     <span>{name}</span>
                 </Link>

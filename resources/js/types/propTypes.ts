@@ -1,8 +1,23 @@
+import type { PageProps as InertiaPageProps } from '@inertiajs/core';
 import type { ReactNode } from 'react';
+
+/**
+ *  Layout types
+ */
 
 export type LandingLayoutProps = {
     children: ReactNode;
 };
+
+export type TeamHeader = {
+    id: number;
+    name: string;
+    logo: string;
+};
+
+export interface HeaderProps extends InertiaPageProps {
+    teams: TeamHeader[];
+}
 
 /**
  *  Team types

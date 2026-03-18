@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Team;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -42,6 +43,10 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
+            'teams' => fn () => cache()->remember(
+                'teams.header',
+                now()->addHours(6),
+                fn () => Team::select('id', 'name', 'logo')->get())
         ];
     }
 }

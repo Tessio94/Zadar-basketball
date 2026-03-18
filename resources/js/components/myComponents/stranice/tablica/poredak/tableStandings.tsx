@@ -1,5 +1,5 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
+import ButtonScroll from '@/components/myComponents/common/ButtonScroll';
 import type { TableStandings } from '@/types/propTypes';
 import StandingRow from './standingRow';
 
@@ -9,60 +9,11 @@ export default function TableStandings({
     standings: TableStandings[];
 }) {
     const scrollRef = useRef<HTMLDivElement | null>(null);
-    const [canScrollRight, setCanScrollRight] = useState(false);
-    const [canScrollLeft, setCanScrollLeft] = useState(false);
-
-    useEffect(() => {
-        const el = scrollRef.current;
-
-        if (!el) return;
-
-        const checkScroll = () => {
-            setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth);
-            setCanScrollLeft(el.scrollLeft > 0);
-        };
-
-        checkScroll();
-        el.addEventListener('scroll', checkScroll);
-        window.addEventListener('resize', checkScroll);
-
-        return () => {
-            el.removeEventListener('scroll', checkScroll);
-            window.removeEventListener('resize', checkScroll);
-        };
-    }, []);
 
     return (
         <div className="mb-10">
             <div className="relative">
-                {canScrollLeft && (
-                    <button
-                        onClick={() =>
-                            scrollRef.current?.scrollBy({
-                                left: -300,
-                                behavior: 'smooth',
-                            })
-                        }
-                        className="absolute top-1/2 -left-[6%] z-10 -translate-y-1/2 rounded-r-xl bg-likar3/80 p-2"
-                    >
-                        <ChevronLeft className="text-white" />
-                    </button>
-                )}
-
-                {/* RIGHT ARROW */}
-                {canScrollRight && (
-                    <button
-                        onClick={() =>
-                            scrollRef.current?.scrollBy({
-                                left: 300,
-                                behavior: 'smooth',
-                            })
-                        }
-                        className="absolute top-1/2 -right-[6%] z-10 -translate-y-1/2 rounded-l-xl bg-likar3/80 p-2"
-                    >
-                        <ChevronRight className="text-white" />
-                    </button>
-                )}
+                <ButtonScroll scrollRef={scrollRef} />
 
                 <div
                     className="scrollbar-thumb-rounded-full scrollbar-track-rounded-full mb-10 scrollbar-thin overflow-x-auto rounded-xl border border-likar1 shadow-xl shadow-likar1 scrollbar-thumb-likar3 scrollbar-track-likar3"

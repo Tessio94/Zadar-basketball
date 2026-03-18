@@ -29,21 +29,19 @@ const GameHeading = ({ games }: { games: GameWithTeams[] }) => {
                         </div>
                     </div>
 
-                    <div className="absolute top-[calc(50%+6px)] -left-4.5 flex h-[calc(100%-12px)] w-6 -translate-y-1/2 flex-col items-center justify-center rounded-l-xl bg-likar3 text-slate-100">
-                        <div>
-                            <PrevButton
-                                onClick={onPrevButtonClick}
-                                disabled={prevBtnDisabled}
-                            />
-                        </div>
+                    <div className="absolute top-0 bottom-0 -left-4.5 translate-y-3 text-slate-100">
+                        <PrevButton
+                            onClick={onPrevButtonClick}
+                            disabled={prevBtnDisabled}
+                            buttonOrigin="gamesHeader"
+                        />
                     </div>
-                    <div className="absolute top-[calc(50%+6px)] -right-4.5 flex h-[calc(100%-12px)] w-6 -translate-y-1/2 flex-col items-center justify-center rounded-r-xl bg-likar3 text-slate-100">
-                        <div>
-                            <NextButton
-                                onClick={onNextButtonClick}
-                                disabled={nextBtnDisabled}
-                            />
-                        </div>
+                    <div className="absolute top-0 -right-4.5 bottom-0 translate-y-3 text-slate-100">
+                        <NextButton
+                            onClick={onNextButtonClick}
+                            disabled={nextBtnDisabled}
+                            buttonOrigin="gamesHeader"
+                        />
                     </div>
                 </div>
             </div>

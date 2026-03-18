@@ -33,7 +33,7 @@ export default function TeamResultsRow({ game }: { game: GameWithTeams }) {
                     <img
                         src={home_team.logo}
                         alt={`${home_team.name} logo`}
-                        className="h-6 w-6 rounded-full bg-white"
+                        className="h-6 w-6 shrink-0 rounded-full bg-white"
                     />
                     <span>{home_team.name}</span>
                 </Link>
@@ -50,7 +50,7 @@ export default function TeamResultsRow({ game }: { game: GameWithTeams }) {
                     <img
                         src={away_team.logo}
                         alt={`${away_team.name} logo`}
-                        className="h-6 w-6 rounded-full bg-white"
+                        className="h-6 w-6 shrink-0 rounded-full bg-white"
                     />
                     {away_team.name}
                 </Link>

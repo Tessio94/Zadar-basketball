@@ -1,6 +1,5 @@
-import PlayerHeader from '@/components/myComponents/igrac/playerHeader';
-import PlayerStats from '@/components/myComponents/igrac/playerStats';
-import LandingLayout from '@/layouts/landing/landing-layout';
+import PlayerHeader from '@/components/myComponents/stranice/igrac/playerHeader';
+import PlayerStats from '@/components/myComponents/stranice/igrac/playerStats';
 import type {
     PlayerAverages,
     PlayerTotals,
@@ -14,7 +13,6 @@ interface PlayerProps {
 }
 
 export default function player({ player, totals, averages }: PlayerProps) {
-    console.log('player', player);
     const {
         date_of_birth,
         first_name,
@@ -26,7 +24,7 @@ export default function player({ player, totals, averages }: PlayerProps) {
     } = player;
 
     return (
-        <LandingLayout>
+        <>
             <section className="my-20 px-[5%]">
                 <div className="flex flex-col items-start justify-between gap-10 xl:flex-row">
                     <div className="mx-auto w-full rounded-2xl bg-likar1/30">
@@ -47,6 +45,6 @@ export default function player({ player, totals, averages }: PlayerProps) {
                     </div>
                 </div>
             </section>
-        </LandingLayout>
+        </>
     );
 }

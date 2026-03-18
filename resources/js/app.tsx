@@ -4,16 +4,28 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import '../css/app.css';
 import { initializeTheme } from './hooks/use-appearance';
+import LandingLayout from './layouts/landing/landing-layout';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
-    resolve: (name) =>
-        resolvePageComponent(
+    resolve: async (name) => {
+        const page = (await resolvePageComponent(
             `./pages/${name}.tsx`,
             import.meta.glob('./pages/**/*.tsx'),
-        ),
+        )) as {
+            default: {
+                layout?: (page: React.ReactNode) => React.ReactNode;
+            };
+        };
+        console.log('page', page);
+        page.default.layout =
+            page.default.layout ||
+            ((page) => <LandingLayout children={page} />);
+        return page;
+    },
+
     setup({ el, App, props }) {
         const root = createRoot(el);
 

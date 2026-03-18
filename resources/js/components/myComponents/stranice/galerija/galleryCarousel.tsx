@@ -120,12 +120,14 @@ const GalleryCarousel = () => {
                     <PrevButton
                         onClick={onPrevButtonClick}
                         disabled={prevBtnDisabled}
+                        buttonOrigin="galerija"
                     />
                 </div>
                 <div className="absolute top-[calc(50%+6px)] right-6 -translate-y-1/2 text-slate-100">
                     <NextButton
                         onClick={onNextButtonClick}
                         disabled={nextBtnDisabled}
+                        buttonOrigin="galerija"
                     />
                 </div>
             </div>

@@ -25,7 +25,7 @@ export default function PlayerAveragesRow({
     } = averages;
 
     return (
-        <tr className="bg-likar1/60 text-slate-100">
+        <tr className="bg-likar1/60 font-semibold text-slate-100">
             <td className="p-1 text-center text-nowrap">{}</td>
             <td className="p-1 text-center text-nowrap">{minutes}</td>
             <td className="p-1 text-center text-nowrap">{points}</td>

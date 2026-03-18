@@ -1,5 +1,3 @@
-// import { useState } from 'react';
-
 import { useRemember } from '@inertiajs/react';
 import TabComponent from '@/components/myComponents/common/tab/tabComponent';
 import GameBoxScore from '@/components/myComponents/stranice/utakmice/boxScore/gameBoxScore';
@@ -12,13 +10,13 @@ import type {
     GameLeaders as GameLeadersType,
 } from '@/types/propTypes';
 
-export default function Games({
+const Games = ({
     game,
     leaders,
 }: {
     game: GameBoxscore;
     leaders: GameLeadersType;
-}) {
+}) => {
     const [active, setActive] = useRemember<string>('tab1');
 
     const {
@@ -40,7 +38,7 @@ export default function Games({
     );
 
     return (
-        <GamesLayout>
+        <>
             <GameTitle />
             <GameScore
                 homeTeam={home_team}
@@ -64,6 +62,10 @@ export default function Games({
                 </>
             )}
             {active === 'tab2' && <GameLeaders leaders={leaders} />}
-        </GamesLayout>
+        </>
     );
-}
+};
+
+Games.layout = (page: React.ReactNode) => <GamesLayout children={page} />;
+
+export default Games;

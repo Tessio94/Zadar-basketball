@@ -1,9 +1,8 @@
 import { Clock } from 'lucide-react';
-import LandingLayout from '@/layouts/landing/landing-layout';
 
 export default function Article() {
     return (
-        <LandingLayout>
+        <>
             <section className="my-20 px-[5%]">
                 <div className="rounded-4xl border border-likar1 bg-likar2 shadow-2xl shadow-likar1">
                     <img
@@ -168,6 +167,6 @@ export default function Article() {
                     </div>
                 </div>
             </section>
-        </LandingLayout>
+        </>
     );
 }

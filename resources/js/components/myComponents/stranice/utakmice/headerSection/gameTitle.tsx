@@ -8,7 +8,7 @@ export default function GameTitle() {
                 className="flex w-fit flex-row items-center justify-start gap-6"
             >
                 <img
-                    src="/logo.png"
+                    src="/images/design/logo.png"
                     alt="Likar Krombacher logo"
                     className="h-8 w-8"
                 />

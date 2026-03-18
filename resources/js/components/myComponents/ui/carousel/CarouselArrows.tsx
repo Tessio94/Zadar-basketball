@@ -49,15 +49,18 @@ export const usePrevNextButtons = (
 };
 
 type PropType = ComponentPropsWithRef<'button'>;
-export const PrevButton = (props: PropType) => {
-    const { children, disabled, ...restProps } = props;
+
+type MyButtonPropType = PropType & { buttonOrigin: string };
+export const PrevButton = (props: MyButtonPropType) => {
+    const { children, disabled, buttonOrigin, ...restProps } = props;
     return (
         <button
-            // className={'embla__button embla__button--prev h-12 w-12 p-2!'.concat(
-            //     disabled ? 'embla__button--disabled' : '',
-            // )}
             className={cn(
-                'embla__button embla__button--prev h-12 w-12 rounded-full border border-transparent bg-likar3 p-2 transition-all duration-300 hover:border-likar3 hover:bg-likar3/40',
+                'embla__button embla__button--prev',
+                buttonOrigin === 'galerija' &&
+                    'h-12 w-12 rounded-full border border-transparent bg-likar3 p-2 transition-all duration-300 hover:border-likar3 hover:bg-likar3/40',
+                buttonOrigin === 'gamesHeader' &&
+                    'flex h-[calc(100%-12px)] w-6 flex-col items-center justify-center rounded-l-xl border border-transparent bg-likar3 transition-all duration-300 hover:border-likar3 hover:bg-likar3/40',
                 disabled && 'pointer-events-none cursor-not-allowed bg-likar4',
             )}
             disabled={disabled}
@@ -77,12 +80,16 @@ export const PrevButton = (props: PropType) => {
     );
 };
 
-export const NextButton = (props: PropType) => {
-    const { children, disabled, ...restProps } = props;
+export const NextButton = (props: MyButtonPropType) => {
+    const { children, disabled, buttonOrigin, ...restProps } = props;
     return (
         <button
             className={cn(
-                'embla__button embla__button--prev h-12 w-12 rounded-full border border-transparent bg-likar3 p-2 transition-all duration-300 hover:border-likar3 hover:bg-likar3/40',
+                'embla__button embla__button--prev',
+                buttonOrigin === 'galerija' &&
+                    'h-12 w-12 rounded-full border border-transparent bg-likar3 p-2 transition-all duration-300 hover:border-likar3 hover:bg-likar3/40',
+                buttonOrigin === 'gamesHeader' &&
+                    'flex h-[calc(100%-12px)] w-6 flex-col items-center justify-center rounded-r-xl border border-transparent bg-likar3 transition-all duration-300 hover:border-likar3 hover:bg-likar3/40',
                 disabled && 'pointer-events-none cursor-not-allowed bg-likar4',
             )}
             disabled={disabled}

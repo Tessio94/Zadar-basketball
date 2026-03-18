@@ -1,6 +1,6 @@
+import { Link } from '@inertiajs/react';
 import { show } from '@/actions/App/Http/Controllers/PlayerController';
 import type { GameStatsWithPlayerAndTeam } from '@/types/propTypes';
-import { Link } from '@inertiajs/react';
 
 export default function BoxScoreRow({
     player,

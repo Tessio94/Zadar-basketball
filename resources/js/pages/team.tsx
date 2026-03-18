@@ -6,7 +6,6 @@ import TeamPlayers from '@/components/myComponents/stranice/ekipe/ekipa/roster/t
 import TeamHeading from '@/components/myComponents/stranice/ekipe/ekipa/teamHeading';
 import TeamResults from '@/components/myComponents/stranice/ekipe/ekipa/utakmice/teamResults';
 import StatisticsTable from '@/components/myComponents/stranice/statistika/statisticsTable';
-import LandingLayout from '@/layouts/landing/landing-layout';
 import type {
     GameWithTeams,
     StatsLeader,
@@ -29,7 +28,7 @@ export default function Team({
     const teamLeaders = Object.values(stats);
 
     return (
-        <LandingLayout>
+        <>
             <section className="my-20 px-[5%]">
                 <div className="flex flex-col items-start justify-between gap-10 xl:flex-row">
                     <div className="mx-auto w-full rounded-2xl bg-likar1/30">
@@ -46,7 +45,7 @@ export default function Team({
                         {active === 'tab1' && <TeamPlayers players={players} />}
                         {active === 'tab2' && <TeamResults games={games} />}
                         {active === 'tab3' && (
-                            <div className="mx-auto grid w-full items-stretch gap-10 rounded-2xl bg-likar1/30 p-2 lg:grid-cols-2">
+                            <div className="mx-auto w-full rounded-2xl bg-likar1/30 p-2 sm:grid sm:items-stretch sm:gap-10 lg:grid-cols-2">
                                 {teamLeaders.map((category, i) => {
                                     const { type, title, topFive } = category;
                                     return (
@@ -64,6 +63,6 @@ export default function Team({
                     {games.length > 0 && <LastFive games={games} />}
                 </div>
             </section>
-        </LandingLayout>
+        </>
     );
 }

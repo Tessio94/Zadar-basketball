@@ -1,11 +1,13 @@
 import { Link, usePage } from '@inertiajs/react';
 import { ChevronDown, Search } from 'lucide-react';
 import { useEffect, useEffectEvent, useState } from 'react';
+import { show } from '@/actions/App/Http/Controllers/TeamController';
 import { cn } from '@/lib/utils';
+import type { HeaderProps } from '@/types/propTypes';
 
 export default function Header() {
     const [hambActive, setHambActive] = useState<boolean>(false);
-    const [sezonaDrodown, setSezonaDropdown] = useState<boolean>(false);
+    const [ekipeDropdown, setEkipeDropdown] = useState<boolean>(false);
 
     const { url: path } = usePage();
 
@@ -16,6 +18,8 @@ export default function Header() {
     useEffect(() => {
         removeSidebar();
     }, [path]);
+
+    const { teams } = usePage<HeaderProps>().props;
 
     return (
         <header
@@ -136,31 +140,37 @@ export default function Header() {
                             <div
                                 className={cn(
                                     'group relative flex cursor-pointer items-center gap-2 font-heading text-base font-semibold text-slate-100 xl:text-lg',
-                                    path.startsWith('/sezona') &&
+                                    path.startsWith('/ekipe') &&
                                         'rounded-lg bg-likar1/70 p-1.5',
                                 )}
                             >
-                                <span className="2xl:text-[20px]">Sezona</span>
+                                <span className="2xl:text-[20px]">Ekipe</span>
 
                                 <ChevronDown className="text-3xl transition-all duration-300 group-hover:rotate-x-180" />
                                 <div className="invisible absolute top-[130%] max-h-0 opacity-0 transition-all duration-300 group-hover:visible group-hover:max-h-250 group-hover:opacity-100">
                                     <ul className="flex flex-col">
-                                        <li>
-                                            <Link
-                                                className="block rounded-t-xl border border-b-0 border-slate-100 bg-likar4 px-3 py-2 text-nowrap text-slate-100 transition-all duration-300 hover:text-likar1"
-                                                href="/sezona/2025-2026"
+                                        {teams.map((team) => (
+                                            <li
+                                                key={team.id}
+                                                className="overflow-hidden border border-b-0 border-slate-100 first:rounded-t-xl last:rounded-b-xl last:border-b"
                                             >
-                                                2025-2026
-                                            </Link>
-                                        </li>
-                                        <li>
+                                                <Link
+                                                    className="block bg-likar4 px-3 py-2 text-nowrap text-slate-100 transition-all duration-300 hover:text-likar1"
+                                                    href={show(team.id)}
+                                                >
+                                                    {team.name}
+                                                </Link>
+                                            </li>
+                                        ))}
+
+                                        {/* <li>
                                             <Link
                                                 className="block rounded-b-xl border border-slate-100 bg-likar4 px-3 py-2 text-nowrap text-slate-100 transition-all duration-300 hover:text-likar1"
                                                 href="/sezona/2024-2025"
                                             >
                                                 2024-2025
                                             </Link>
-                                        </li>
+                                        </li> */}
                                     </ul>
                                 </div>
                             </div>
@@ -259,42 +269,36 @@ export default function Header() {
                                     <p
                                         className={cn(
                                             'text-md group relative flex w-full cursor-pointer items-center gap-2 px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
-                                            path.startsWith('/sezona') &&
+                                            path.startsWith('/ekipe') &&
                                                 'text-slate-900',
                                         )}
                                         onClick={() =>
-                                            setSezonaDropdown((prev) => !prev)
+                                            setEkipeDropdown((prev) => !prev)
                                         }
                                     >
-                                        Sezona
+                                        Ekipe
                                         <ChevronDown className="text-3xl transition-all duration-300 group-hover:rotate-x-180" />
                                     </p>
 
                                     <div
                                         className={cn(
                                             'transition-all duration-300',
-                                            sezonaDrodown
+                                            ekipeDropdown
                                                 ? 'visible max-h-250 opacity-100'
                                                 : 'invisible max-h-0 opacity-0',
                                         )}
                                     >
                                         <ul className="flex flex-col">
-                                            <li>
-                                                <Link
-                                                    href="/sezona/2025-2026"
-                                                    className="block px-3 py-2 text-slate-100"
-                                                >
-                                                    2025-2026
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link
-                                                    href="/sezona/2024-2025"
-                                                    className="block border-t border-slate-100 px-3 py-2 text-slate-100"
-                                                >
-                                                    2024-2025
-                                                </Link>
-                                            </li>
+                                            {teams.map((team) => (
+                                                <li key={team.id}>
+                                                    <Link
+                                                        className="block px-3 py-2 text-slate-100"
+                                                        href={show(team.id)}
+                                                    >
+                                                        {team.name}
+                                                    </Link>
+                                                </li>
+                                            ))}
                                         </ul>
                                     </div>
                                 </div>
