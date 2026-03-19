@@ -1,4 +1,4 @@
-import { useRemember } from '@inertiajs/react';
+import { Head, useRemember } from '@inertiajs/react';
 import TabComponent from '@/components/myComponents/common/tab/tabComponent';
 import StatisticsTable from '@/components/myComponents/stranice/statistika/statisticsTable';
 import type { StatsDailyLeader, StatsLeader } from '@/types/propTypes';
@@ -17,6 +17,10 @@ export default function Statistics({
 
     return (
         <>
+            <Head>
+                <title>Statistika | Likar Krombacker</title>
+                <meta name="description" content="Your page description" />
+            </Head>
             <section className="my-20 px-[5%]">
                 <TabComponent
                     active={active}

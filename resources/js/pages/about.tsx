@@ -1,4 +1,10 @@
+import { Head } from '@inertiajs/react';
+
 export default function About() {
+    <Head>
+        <title>O nama | Likar Krombacker</title>
+        <meta name="description" content="Your page description" />
+    </Head>;
     return (
         <>
             <section className="my-20 px-[5%]">

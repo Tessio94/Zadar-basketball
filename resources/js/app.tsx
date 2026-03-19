@@ -6,10 +6,10 @@ import '../css/app.css';
 import { initializeTheme } from './hooks/use-appearance';
 import LandingLayout from './layouts/landing/landing-layout';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = 'Likar Krombacher | Zadar';
 
 createInertiaApp({
-    title: (title) => (title ? `${title} - ${appName}` : appName),
+    title: (title) => (title ? title : appName),
     resolve: async (name) => {
         const page = (await resolvePageComponent(
             `./pages/${name}.tsx`,

@@ -1,6 +1,11 @@
+import { Head } from '@inertiajs/react';
 import GalleryGrid from '@/components/myComponents/stranice/galerija/galleryGrid';
 
 export default function Galleries() {
+    <Head>
+        <title>Galerija | Likar Krombacker</title>
+        <meta name="description" content="Your page description" />
+    </Head>;
     return (
         <>
             <section className="my-20 px-[5%]">

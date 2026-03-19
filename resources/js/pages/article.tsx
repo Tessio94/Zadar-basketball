@@ -1,8 +1,16 @@
+import { Head } from '@inertiajs/react';
 import { Clock } from 'lucide-react';
 
 export default function Article() {
     return (
         <>
+            <Head>
+                <title>
+                    Dobrodošli na službenu stranicu Likar Krombacher - Lige
+                    košarkaških amatera i rekreativaca | Likar Krombacker
+                </title>
+                <meta name="description" content="Your page description" />
+            </Head>
             <section className="my-20 px-[5%]">
                 <div className="rounded-4xl border border-likar1 bg-likar2 shadow-2xl shadow-likar1">
                     <img

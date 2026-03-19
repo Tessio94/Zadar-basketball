@@ -1,6 +1,11 @@
+import { Head } from '@inertiajs/react';
 import GalleryCarousel from '@/components/myComponents/stranice/galerija/galleryCarousel';
 
 export default function Gallery() {
+    <Head>
+        <title>Galerija | Likar Krombacker</title>
+        <meta name="description" content="Your page description" />
+    </Head>;
     return (
         <>
             <section className="my-20 px-[5%]">

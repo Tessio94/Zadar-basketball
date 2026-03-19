@@ -1,3 +1,4 @@
+import { Head } from '@inertiajs/react';
 import TableStandings from '@/components/myComponents/stranice/tablica/poredak/tableStandings';
 import TableResults from '@/components/myComponents/stranice/tablica/rezultati/tableResults';
 import type {
@@ -14,6 +15,10 @@ export default function Table({
 }) {
     return (
         <>
+            <Head>
+                <title>Tablica | Likar Krombacker</title>
+                <meta name="description" content="Your page description" />
+            </Head>
             <section id="tablica" className="my-20 px-[5%]">
                 <h1 className="mb-10 font-heading text-4xl font-semibold text-slate-100">
                     Tablica

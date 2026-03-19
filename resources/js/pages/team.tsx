@@ -1,5 +1,4 @@
-// import { useState } from 'react';
-import { useRemember } from '@inertiajs/react';
+import { Head, useRemember } from '@inertiajs/react';
 import TabComponent from '@/components/myComponents/common/tab/tabComponent';
 import LastFive from '@/components/myComponents/stranice/ekipe/ekipa/lastFive/lastFive';
 import TeamPlayers from '@/components/myComponents/stranice/ekipe/ekipa/roster/teamPlayers';
@@ -29,6 +28,13 @@ export default function Team({
 
     return (
         <>
+            <Head>
+                <title>{`${name} | Likar Krombacker`}</title>
+                <meta
+                    name="description"
+                    content={`Pogledajte roster, raspored utakmica i statistiku ekipe ${name}`}
+                />
+            </Head>
             <section className="my-20 px-[5%]">
                 <div className="flex flex-col items-start justify-between gap-10 xl:flex-row">
                     <div className="mx-auto w-full rounded-2xl bg-likar1/30">

@@ -6,7 +6,10 @@ import Landing from '@/components/myComponents/stranice/naslovnica/landing';
 export default function Welcome() {
     return (
         <>
-            <Head title="Naslovnica"></Head>
+            <Head>
+                <title>Likar Krombacker | Zadar</title>
+                <meta name="description" content="Your page description" />
+            </Head>
             <Landing />
             <Intro />
             <Info />
