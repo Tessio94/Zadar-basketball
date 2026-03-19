@@ -1,3 +1,4 @@
+import SideArticleCard from '@/components/myComponents/stranice/novosti/clanak/sideArticleGrid';
 import { Head } from '@inertiajs/react';
 import { Clock } from 'lucide-react';
 
@@ -90,87 +91,7 @@ export default function Article() {
                                     </span>
                                 </div>
                             </div>
-                            <aside className="sticky top-20 shrink-0 self-start bg-likar2 max-md:w-full 2xl:basis-[30%]">
-                                <div className="border-y-2 border-likar1">
-                                    <div className="p-3">
-                                        <div className="border-b border-slate-100/60 py-3">
-                                            <h3 className="font-heading text-xl font-semibold text-slate-200 uppercase">
-                                                Zadnje novosti
-                                            </h3>
-                                        </div>
-                                        <div className="flex w-full flex-row py-3 max-md:flex-wrap max-md:justify-between md:flex-col">
-                                            <article className="flex w-full flex-col justify-between gap-3 border-b border-slate-100/60 py-3 max-[500px]:w-full! max-[500px]:px-0! max-md:w-1/2 max-md:odd:pr-3 max-md:even:pl-3 2xl:flex-row">
-                                                <img
-                                                    src="/images/design/landing.jpg"
-                                                    alt=""
-                                                    className="aspect-video rounded-lg md:w-50"
-                                                />
-                                                <h3 className="grow font-text text-xl font-semibold text-slate-200 max-2xl:w-50 max-md:w-auto">
-                                                    <a href="">
-                                                        Likar Krombacher - liga
-                                                        rekreativaca Zadar
-                                                    </a>
-                                                    <time className="flex flex-row items-center gap-3 font-text text-base text-slate-100">
-                                                        <Clock className="h-4 w-4" />{' '}
-                                                        23. veljače 2026.
-                                                    </time>
-                                                </h3>
-                                            </article>
-                                            <article className="flex w-full flex-col justify-between gap-3 border-b border-slate-100/60 py-3 max-[500px]:w-full! max-[500px]:px-0! max-md:w-1/2 max-md:odd:pr-3 max-md:even:pl-3 2xl:flex-row">
-                                                <img
-                                                    src="/images/design/landing.jpg"
-                                                    alt=""
-                                                    className="aspect-video rounded-lg md:w-50"
-                                                />
-                                                <h3 className="grow font-text text-xl font-semibold text-slate-200 max-2xl:w-50 max-md:w-auto">
-                                                    <a href="">
-                                                        Likar Krombacher - liga
-                                                        rekreativaca Zadar
-                                                    </a>
-                                                    <time className="flex flex-row items-center gap-3 font-text text-base text-slate-100">
-                                                        <Clock className="h-4 w-4" />{' '}
-                                                        23. veljače 2026.
-                                                    </time>
-                                                </h3>
-                                            </article>
-                                            <article className="flex w-full flex-col justify-between gap-3 border-b border-slate-100/60 py-3 max-[500px]:w-full! max-[500px]:px-0! max-md:w-1/2 max-md:odd:pr-3 max-md:even:pl-3 2xl:flex-row">
-                                                <img
-                                                    src="/images/design/landing.jpg"
-                                                    alt=""
-                                                    className="aspect-video rounded-lg md:w-50"
-                                                />
-                                                <h3 className="grow font-text text-xl font-semibold text-slate-200 max-2xl:w-50 max-md:w-auto">
-                                                    <a href="">
-                                                        Likar Krombacher - liga
-                                                        rekreativaca Zadar
-                                                    </a>
-                                                    <time className="flex flex-row items-center gap-3 font-text text-base text-slate-100">
-                                                        <Clock className="h-4 w-4" />{' '}
-                                                        23. veljače 2026.
-                                                    </time>
-                                                </h3>
-                                            </article>
-                                            <article className="flex w-full flex-col justify-between gap-3 border-b border-slate-100/60 py-3 max-[500px]:w-full! max-[500px]:px-0! max-md:w-1/2 max-md:odd:pr-3 max-md:even:pl-3 2xl:flex-row">
-                                                <img
-                                                    src="/images/design/landing.jpg"
-                                                    alt=""
-                                                    className="aspect-video rounded-lg md:w-50"
-                                                />
-                                                <h3 className="grow font-text text-xl font-semibold text-slate-200 max-2xl:w-50 max-md:w-auto">
-                                                    <a href="">
-                                                        Likar Krombacher - liga
-                                                        rekreativaca Zadar
-                                                    </a>
-                                                    <time className="flex flex-row items-center gap-3 font-text text-base text-slate-100">
-                                                        <Clock className="h-4 w-4" />{' '}
-                                                        23. veljače 2026.
-                                                    </time>
-                                                </h3>
-                                            </article>
-                                        </div>
-                                    </div>
-                                </div>
-                            </aside>
+                            <SideArticleCard />
                         </div>
                     </div>
                 </div>

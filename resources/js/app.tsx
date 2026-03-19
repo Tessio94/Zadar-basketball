@@ -19,7 +19,7 @@ createInertiaApp({
                 layout?: (page: React.ReactNode) => React.ReactNode;
             };
         };
-        console.log('page', page);
+
         page.default.layout =
             page.default.layout ||
             ((page) => <LandingLayout children={page} />);
