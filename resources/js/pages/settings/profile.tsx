@@ -1,5 +1,6 @@
 import { Transition } from '@headlessui/react';
 import { Form, Head, Link, usePage } from '@inertiajs/react';
+import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileController';
 import DeleteUser from '@/components/delete-user';
 import Heading from '@/components/heading';
 import InputError from '@/components/input-error';
@@ -8,14 +9,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
-import type { BreadcrumbItem } from '@/types';
-import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileController';
 import { edit } from '@/routes/profile';
 import { send } from '@/routes/verification';
+import type { BreadcrumbItem } from '@/types';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Profile settings',
+        title: 'Postavke profila',
         href: edit().url,
     },
 ];
@@ -30,17 +30,17 @@ export default function Profile({
     const { auth } = usePage().props;
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Profile settings" />
+        <>
+            <Head title="Postavke profila" />
 
-            <h1 className="sr-only">Profile Settings</h1>
+            <h1 className="sr-only">Postavke profila</h1>
 
             <SettingsLayout>
                 <div className="space-y-6">
                     <Heading
                         variant="small"
-                        title="Profile information"
-                        description="Update your name and email address"
+                        title="Informacije profila"
+                        description="Promijenite ime i email adresu"
                     />
 
                     <Form
@@ -53,7 +53,7 @@ export default function Profile({
                         {({ processing, recentlySuccessful, errors }) => (
                             <>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="name">Name</Label>
+                                    <Label htmlFor="name">Ime</Label>
 
                                     <Input
                                         id="name"
@@ -62,7 +62,7 @@ export default function Profile({
                                         name="name"
                                         required
                                         autoComplete="name"
-                                        placeholder="Full name"
+                                        placeholder="Ime i prezime"
                                     />
 
                                     <InputError
@@ -72,7 +72,7 @@ export default function Profile({
                                 </div>
 
                                 <div className="grid gap-2">
-                                    <Label htmlFor="email">Email address</Label>
+                                    <Label htmlFor="email">Email adresa</Label>
 
                                     <Input
                                         id="email"
@@ -82,7 +82,7 @@ export default function Profile({
                                         name="email"
                                         required
                                         autoComplete="username"
-                                        placeholder="Email address"
+                                        placeholder="Email adresa"
                                     />
 
                                     <InputError
@@ -123,7 +123,7 @@ export default function Profile({
                                         disabled={processing}
                                         data-test="update-profile-button"
                                     >
-                                        Save
+                                        Spremi
                                     </Button>
 
                                     <Transition
@@ -145,6 +145,10 @@ export default function Profile({
 
                 <DeleteUser />
             </SettingsLayout>
-        </AppLayout>
+        </>
     );
 }
+
+Profile.layout = (page: React.ReactNode) => (
+    <AppLayout children={page} breadcrumbs={breadcrumbs} />
+);

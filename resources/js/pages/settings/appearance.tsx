@@ -3,19 +3,19 @@ import AppearanceTabs from '@/components/appearance-tabs';
 import Heading from '@/components/heading';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
-import type { BreadcrumbItem } from '@/types';
 import { edit as editAppearance } from '@/routes/appearance';
+import type { BreadcrumbItem } from '@/types';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Appearance settings',
+        title: 'Postavke izgleda admin panela',
         href: editAppearance().url,
     },
 ];
 
 export default function Appearance() {
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <>
             <Head title="Appearance settings" />
 
             <h1 className="sr-only">Appearance Settings</h1>
@@ -24,12 +24,16 @@ export default function Appearance() {
                 <div className="space-y-6">
                     <Heading
                         variant="small"
-                        title="Appearance settings"
-                        description="Update your account's appearance settings"
+                        title="Postavke izgleda aplikacije"
+                        description="Upravljajte postavkama izgleda aplikacije"
                     />
                     <AppearanceTabs />
                 </div>
             </SettingsLayout>
-        </AppLayout>
+        </>
     );
 }
+
+Appearance.layout = (page: React.ReactNode) => (
+    <AppLayout children={page} breadcrumbs={breadcrumbs} />
+);

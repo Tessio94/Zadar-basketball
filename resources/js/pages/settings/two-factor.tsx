@@ -9,8 +9,8 @@ import { Button } from '@/components/ui/button';
 import { useTwoFactorAuth } from '@/hooks/use-two-factor-auth';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
-import type { BreadcrumbItem } from '@/types';
 import { disable, enable, show } from '@/routes/two-factor';
+import type { BreadcrumbItem } from '@/types';
 
 type Props = {
     requiresConfirmation?: boolean;
@@ -19,7 +19,7 @@ type Props = {
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Two-Factor Authentication',
+        title: 'Dvofaktorska autentifikacija',
         href: show.url(),
     },
 ];
@@ -41,26 +41,26 @@ export default function TwoFactor({
     const [showSetupModal, setShowSetupModal] = useState<boolean>(false);
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <>
             <Head title="Two-Factor Authentication" />
 
-            <h1 className="sr-only">Two-Factor Authentication Settings</h1>
+            <h1 className="sr-only">Postavke Dvofaktorske autentifikacije</h1>
 
             <SettingsLayout>
                 <div className="space-y-6">
                     <Heading
                         variant="small"
-                        title="Two-Factor Authentication"
-                        description="Manage your two-factor authentication settings"
+                        title="Dvofaktorska autentifikacija"
+                        description="Upravljajte postavkama dvofaktorske autentifikacije"
                     />
                     {twoFactorEnabled ? (
                         <div className="flex flex-col items-start justify-start space-y-4">
-                            <Badge variant="default">Enabled</Badge>
+                            <Badge variant="default">Uključena</Badge>
                             <p className="text-muted-foreground">
-                                With two-factor authentication enabled, you will
-                                be prompted for a secure, random pin during
-                                login, which you can retrieve from the
-                                TOTP-supported application on your phone.
+                                Kada je uključena dvofaktorska autentifikacija,
+                                tijekom prijave bit ćete zatraženi da unesete
+                                siguran, nasumičan PIN koji možete preuzeti iz
+                                TOTP aplikacije na svom telefonu.
                             </p>
 
                             <TwoFactorRecoveryCodes
@@ -85,12 +85,12 @@ export default function TwoFactor({
                         </div>
                     ) : (
                         <div className="flex flex-col items-start justify-start space-y-4">
-                            <Badge variant="destructive">Disabled</Badge>
+                            <Badge variant="destructive">Isključena</Badge>
                             <p className="text-muted-foreground">
-                                When you enable two-factor authentication, you
-                                will be prompted for a secure pin during login.
-                                This pin can be retrieved from a TOTP-supported
-                                application on your phone.
+                                Kada je omogućena dvofaktorska autentifikacija,
+                                tijekom prijave bit ćete zatraženi da unesete
+                                siguran, nasumičan PIN koji možete preuzeti iz
+                                TOTP aplikacije na svom telefonu.
                             </p>
 
                             <div>
@@ -114,7 +114,7 @@ export default function TwoFactor({
                                                 disabled={processing}
                                             >
                                                 <ShieldCheck />
-                                                Enable 2FA
+                                                Uključi 2FA
                                             </Button>
                                         )}
                                     </Form>
@@ -136,6 +136,10 @@ export default function TwoFactor({
                     />
                 </div>
             </SettingsLayout>
-        </AppLayout>
+        </>
     );
 }
+
+TwoFactor.layout = (page: React.ReactNode) => (
+    <AppLayout children={page} breadcrumbs={breadcrumbs} />
+);

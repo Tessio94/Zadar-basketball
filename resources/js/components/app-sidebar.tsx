@@ -1,5 +1,14 @@
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
+import {
+    BookOpen,
+    Dribbble,
+    Folder,
+    ShieldHalfIcon,
+    Images,
+    LayoutGrid,
+    Newspaper,
+    User2Icon,
+} from 'lucide-react';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
@@ -12,15 +21,40 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import { dashboard } from '@/routes';
 import type { NavItem } from '@/types';
 import AppLogo from './app-logo';
-import { dashboard } from '@/routes';
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Dashboard',
+        title: 'Admin panel',
         href: dashboard(),
         icon: LayoutGrid,
+    },
+    {
+        title: 'Ekipe',
+        href: dashboard(),
+        icon: ShieldHalfIcon,
+    },
+    {
+        title: 'Igrači',
+        href: dashboard(),
+        icon: User2Icon,
+    },
+    {
+        title: 'Utakmice',
+        href: dashboard(),
+        icon: Dribbble,
+    },
+    {
+        title: 'Novosti',
+        href: dashboard(),
+        icon: Newspaper,
+    },
+    {
+        title: 'Galerije',
+        href: dashboard(),
+        icon: Images,
     },
 ];
 

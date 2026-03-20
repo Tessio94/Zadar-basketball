@@ -11,10 +11,7 @@ import { store } from '@/routes/register';
 
 export default function Register() {
     return (
-        <AuthLayout
-            title="Create an account"
-            description="Enter your details below to create your account"
-        >
+        <>
             <Head title="Register" />
             <Form
                 {...store.form()}
@@ -26,7 +23,7 @@ export default function Register() {
                     <>
                         <div className="grid gap-6">
                             <div className="grid gap-2">
-                                <Label htmlFor="name">Name</Label>
+                                <Label htmlFor="name">Ime i prezime</Label>
                                 <Input
                                     id="name"
                                     type="text"
@@ -35,7 +32,7 @@ export default function Register() {
                                     tabIndex={1}
                                     autoComplete="name"
                                     name="name"
-                                    placeholder="Full name"
+                                    placeholder="Ime i prezime"
                                 />
                                 <InputError
                                     message={errors.name}
@@ -44,7 +41,7 @@ export default function Register() {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="email">Email address</Label>
+                                <Label htmlFor="email">Email adresa</Label>
                                 <Input
                                     id="email"
                                     type="email"
@@ -52,13 +49,13 @@ export default function Register() {
                                     tabIndex={2}
                                     autoComplete="email"
                                     name="email"
-                                    placeholder="email@example.com"
+                                    placeholder="email@primjer.com"
                                 />
                                 <InputError message={errors.email} />
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="password">Password</Label>
+                                <Label htmlFor="password">Lozinka</Label>
                                 <Input
                                     id="password"
                                     type="password"
@@ -66,14 +63,14 @@ export default function Register() {
                                     tabIndex={3}
                                     autoComplete="new-password"
                                     name="password"
-                                    placeholder="Password"
+                                    placeholder="Lozinka"
                                 />
                                 <InputError message={errors.password} />
                             </div>
 
                             <div className="grid gap-2">
                                 <Label htmlFor="password_confirmation">
-                                    Confirm password
+                                    Potvrdite Lozinku
                                 </Label>
                                 <Input
                                     id="password_confirmation"
@@ -82,7 +79,7 @@ export default function Register() {
                                     tabIndex={4}
                                     autoComplete="new-password"
                                     name="password_confirmation"
-                                    placeholder="Confirm password"
+                                    placeholder="Potvrdite lozinku"
                                 />
                                 <InputError
                                     message={errors.password_confirmation}
@@ -96,19 +93,27 @@ export default function Register() {
                                 data-test="register-user-button"
                             >
                                 {processing && <Spinner />}
-                                Create account
+                                Napravite račun
                             </Button>
                         </div>
 
                         <div className="text-center text-sm text-muted-foreground">
-                            Already have an account?{' '}
+                            Već imate račun?{' '}
                             <TextLink href={login()} tabIndex={6}>
-                                Log in
+                                Prijavite se
                             </TextLink>
                         </div>
                     </>
                 )}
             </Form>
-        </AuthLayout>
+        </>
     );
 }
+
+Register.layout = (page: React.ReactNode) => (
+    <AuthLayout
+        children={page}
+        title="Izradite račun"
+        description="Ispunite svoje detalje kako biste kreirali račun"
+    />
+);
