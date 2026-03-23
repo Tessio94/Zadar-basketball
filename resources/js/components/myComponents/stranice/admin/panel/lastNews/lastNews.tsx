@@ -1,4 +1,5 @@
 import LastNewsCard from '../lastNews/lastNewsCard';
+import DashboardButton from '../ui/dashboardButton';
 
 export default function LastNews() {
     return (
@@ -15,9 +16,7 @@ export default function LastNews() {
             </div>
 
             <div className="flex flex-row items-center justify-center p-5">
-                <button className="rounded-xl bg-likar2 px-3 py-1.5 text-slate-100">
-                    Pregledaj sve
-                </button>
+                <DashboardButton type="link" text="Pregledaj sve" />
             </div>
         </div>
     );

@@ -1,3 +1,4 @@
+import DashboardButton from '../ui/dashboardButton';
 import LastGamesCard from './lastGamesCard';
 
 export default function LastGames() {
@@ -16,9 +17,7 @@ export default function LastGames() {
                 </div>
             </div>
             <div className="flex flex-row items-center justify-center p-5">
-                <button className="rounded-xl bg-likar2 px-3 py-1.5 text-slate-100">
-                    Pregledaj sve
-                </button>
+                <DashboardButton type="link" text="Pregledaj sve" />
             </div>
         </div>
     );

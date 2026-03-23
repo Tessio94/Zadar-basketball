@@ -1,9 +1,9 @@
 export default function LastNewsCard() {
     return (
-        <div className="flex flex-row items-center gap-4 rounded-xl bg-linear-to-l from-transparent to-likar2 px-3 py-1.5">
+        <div className="flex flex-row items-center gap-4 rounded-xl bg-linear-to-l from-transparent to-likar2 px-3 py-1.5 inset-shadow-transparent transition-all duration-300 hover:inset-shadow-[0px_8px_20px] hover:inset-shadow-likar1">
             <div className="h-2.5 w-2.5 shrink-0 rounded-full bg-likar3" />
             <div className="flex flex-col gap-2">
-                <h4 className="font-heading text-xl font-medium text-slate-100">
+                <h4 className="font-heading text-lg font-medium text-slate-100 sm:text-xl">
                     Dobrodošli na službenu stranicu Likar Krombacher - Lige
                     košarkaških amatera i rekreativaca
                 </h4>

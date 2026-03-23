@@ -19,11 +19,11 @@ export default function Dashboard() {
         <>
             <Head title="Admin panel" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-                <div className="grid auto-rows-min gap-4 md:grid-cols-2">
+                <div className="grid auto-rows-min gap-4 xl:grid-cols-2">
                     <UpcomingGames />
                     <AddOptions />
                 </div>
-                <div className="grid min-h-screen flex-1 gap-4 md:min-h-min md:grid-cols-2">
+                <div className="grid min-h-screen flex-1 gap-4 xl:min-h-min xl:grid-cols-2">
                     <LastGames />
                     <LastNews />
                 </div>

@@ -1,4 +1,5 @@
 import BasketballIcon from '@/components/myComponents/ui/icons/basketballIcon';
+import DashboardButton from './ui/dashboardButton';
 
 export default function UpcomingGames() {
     return (
@@ -14,20 +15,21 @@ export default function UpcomingGames() {
                     </p>
                 </div>
             </div>
-            <div className="relative flex flex-row items-center justify-between p-5">
+            <div className="relative flex flex-col items-center justify-between p-2.5 max-sm:gap-3 max-sm:border-t max-sm:border-t-likar3 max-sm:bg-linear-to-t max-sm:from-likar3 max-sm:to-transparent sm:flex-row sm:p-5">
                 <img
                     src="/images/design/shortSnow2.png"
                     alt=""
-                    className="absolute inset-0 z-0 h-full w-full"
+                    className="absolute inset-0 -z-10 h-full w-full max-sm:hidden"
                 />
                 <div className="z-10 font-semibold text-slate-300">
                     <span>Runda 5 -</span>{' '}
                     <time dateTime="2026-04-04">04. 04. 2026</time>
                 </div>
                 <div>
-                    <button className="rounded-xl bg-likar2 px-3 py-1.5 text-base font-semibold text-slate-100">
-                        Pregledaj utakmice
-                    </button>
+                    <DashboardButton
+                        type="link"
+                        text={'Pregledaj sve utakmice'}
+                    />
                 </div>
             </div>
         </div>
