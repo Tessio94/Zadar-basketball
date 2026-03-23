@@ -344,6 +344,25 @@ export type TopFiveDaily = {
 };
 
 /**
+ *  Article types
+ */
+
+export type Article = {
+    id: number;
+    title: string;
+    slug: string;
+    content: string;
+    excerpt: string | null;
+    main_image: string | null;
+    meta_description: string | null;
+    meta_title: string | null;
+    status: string;
+    created_at: string;
+    published_at: string;
+    updated_at: string;
+};
+
+/**
  *  Images types
  */
 
@@ -352,3 +371,24 @@ export type GalleryImage = {
     url: string;
     alt: string;
 };
+
+/**
+ *  Generics
+ */
+
+export interface Paginated<T> {
+    current_page: number;
+    data: T[];
+    first_page_url: string;
+    last_page: number;
+    last_page_url: string;
+    next_page_url: string | null;
+    prev_page_url: string | null;
+    per_page: number;
+    total: number;
+    links: {
+        url: string | null;
+        label: string;
+        active: boolean;
+    }[];
+}

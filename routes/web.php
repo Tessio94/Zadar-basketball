@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\PlayerGameStatController;
@@ -17,18 +18,16 @@ Route::get('/', function () {
 })->name('home');
 
 // novosti listing
-Route::get('novosti', function () {
-    return Inertia::render('news', [
-        'canRegister' => Features::enabled(Features::registration()),
-    ]);
-})->name('news');
+Route::get('/novosti', [ArticleController::class, 'index'])->name('news');
 
 // novosti show
-Route::get('novosti/1', function () {
-    return Inertia::render('article', [
-        'canRegister' => Features::enabled(Features::registration()),
-    ]);
-})->name('article');
+// Route::get('novosti/1', function () {
+//     return Inertia::render('article', [
+//         'canRegister' => Features::enabled(Features::registration()),
+//     ]);
+// })->name('article');
+Route::get('/novosti/{article}', [ArticleController::class, 'show'])->name('article');
+
 
 
 // Tablica
@@ -61,11 +60,12 @@ Route::get('o-nama', function () {
 })->name('about');
 
 // arhiva
-Route::get('arhiva', function () {
-    return Inertia::render('archive', [
-        'canRegister' => Features::enabled(Features::registration()),
-    ]);
-})->name('archive');
+// Route::get('arhiva', function () {
+//     return Inertia::render('archive', [
+//         'canRegister' => Features::enabled(Features::registration()),
+//     ]);
+// })->name('archive');
+Route::get('/arhiva', [ArticleController::class, 'archive'])->name('archive');
 
 // galerija listing
 Route::get('galerija', function () {
@@ -73,6 +73,7 @@ Route::get('galerija', function () {
         'canRegister' => Features::enabled(Features::registration()),
     ]);
 })->name('galleries');
+
 
 // galerija show
 Route::get('galerija/1', function () {
