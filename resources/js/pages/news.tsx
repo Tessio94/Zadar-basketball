@@ -10,8 +10,6 @@ export default function Novosti({
     mainArticles: Article[];
     additionalArticles: Article[];
 }) {
-    console.log(mainArticles);
-    console.log(additionalArticles);
     return (
         <>
             <Head>

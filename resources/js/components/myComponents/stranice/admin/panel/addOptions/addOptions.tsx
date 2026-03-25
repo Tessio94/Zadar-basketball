@@ -1,4 +1,4 @@
-import DashboardButton from './ui/dashboardButton';
+import DashboardButton from '../ui/dashboardButton';
 
 export default function AddOptions() {
     return (

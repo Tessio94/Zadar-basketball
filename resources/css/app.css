@@ -273,3 +273,8 @@ html {
 .embla-thumbs__slide--selected .embla-thumbs__slide__number {
     opacity: 1;
 }
+
+select,
+::picker(select) {
+    appearance: base-select;
+}

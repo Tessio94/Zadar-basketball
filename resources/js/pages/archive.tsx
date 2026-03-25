@@ -22,7 +22,7 @@ export default function Archive({
                 <ArchiveNews articles={articles} />
             </section>
             <section className="my-20 flex flex-row justify-center px-[5%]">
-                <Pagination links={articles.links} />
+                <Pagination links={articles.links} type="front" />
             </section>
         </>
     );

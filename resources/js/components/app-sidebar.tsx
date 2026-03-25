@@ -9,6 +9,7 @@ import {
     Newspaper,
     User2Icon,
 } from 'lucide-react';
+import { index } from '@/actions/App/Http/Controllers/Admin/ArticleController';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
@@ -21,39 +22,39 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard } from '@/routes';
+import { panel } from '@/routes/admin';
 import type { NavItem } from '@/types';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
     {
         title: 'Admin panel',
-        href: dashboard(),
+        href: panel(),
         icon: LayoutGrid,
     },
     {
         title: 'Ekipe',
-        href: dashboard(),
+        href: panel(),
         icon: ShieldHalfIcon,
     },
     {
         title: 'Igrači',
-        href: dashboard(),
+        href: panel(),
         icon: User2Icon,
     },
     {
         title: 'Utakmice',
-        href: dashboard(),
+        href: panel(),
         icon: Dribbble,
     },
     {
         title: 'Novosti',
-        href: dashboard(),
+        href: index(),
         icon: Newspaper,
     },
     {
         title: 'Galerije',
-        href: dashboard(),
+        href: panel(),
         icon: Images,
     },
 ];
@@ -78,7 +79,7 @@ export function AppSidebar() {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton size="lg" asChild>
-                            <Link href={dashboard()} prefetch>
+                            <Link href={panel()} prefetch>
                                 <AppLogo />
                             </Link>
                         </SidebarMenuButton>
