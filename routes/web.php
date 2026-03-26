@@ -73,13 +73,17 @@ Route::get('galerija/1', function () {
  *  admin panel pages
  */
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('admin-panel', function () {
+Route::middleware(['auth', 'verified'])->prefix('admin-panel')->group(function () {
+    Route::get('/', function () {
         return Inertia::render('admin/dashboard');
     })->name('admin.panel');
 
 
-    Route::resource('novosti', AdminArticleController::class);
+    Route::resource('novosti', AdminArticleController::class)
+        ->parameters(['novosti' => 'article']);
+
+    Route::post('/admin/novosti/upload-image', [AdminArticleController::class, 'uploadImage'])
+    ->name('admin.novosti.upload-image');
 });
 
 

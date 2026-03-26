@@ -26,7 +26,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+          return Inertia::render('admin/novosti/createArticle');
     }
 
     /**
@@ -48,17 +48,28 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Article $article)
     {
-        //
+
+
+        return Inertia::render('admin/novosti/editArticle', [
+            'article' => $article
+        ]);
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id, Article $article)
     {
-        //
+        $article->update($request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'published_at' => 'nullable|date',
+        ]));
+
+        return redirect()->route('admin.articles.index');
     }
 
     /**
@@ -67,5 +78,20 @@ class ArticleController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function uploadImage(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $path = $request->file('file')->store('editor-images', 'public');
+
+            return response()->json([
+                'location' => asset('storage/' . $path)
+            ]);
+        }
+
+        return response()->json([
+            'error' => 'No file uploaded'
+        ], 400);
     }
 }

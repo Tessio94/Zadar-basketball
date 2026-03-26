@@ -1,10 +1,16 @@
 import { Head, Link } from '@inertiajs/react';
-import { index } from '@/actions/App/Http/Controllers/Admin/ArticleController';
+import {
+    create,
+    destroy,
+    edit,
+    index,
+} from '@/actions/App/Http/Controllers/Admin/ArticleController';
 import Pagination from '@/components/myComponents/common/pagination/Pagination';
 import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
 import type { Article, Paginated } from '@/types/propTypes';
+import { cn } from '@/lib/utils';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -24,17 +30,17 @@ export default function News({ articles }: { articles: Paginated<Article> }) {
                         <h1 className="text-xl font-bold">Arhiva novosti</h1>
 
                         <Link
-                            href={'admin.articles.create().url'}
+                            href={create()}
                             className="rounded-lg bg-likar2 p-2 text-center!"
                         >
                             Kreiraj članak
                         </Link>
                     </div>
-                    <div className="rounded-xl border">
-                        <div className="overflow-hidden rounded-xl">
+                    <div className="grow rounded-xl">
+                        <div className="overflow-hidden rounded-xl border">
                             <table className="w-full">
                                 <thead>
-                                    <tr className="rounded-t-xl bg-likar1 *:border-r *:p-5 *:text-start *:last:border-0">
+                                    <tr className="rounded-t-xl bg-likar1 *:border-r *:p-5 *:text-start *:last:border-0 max-[500px]:*:p-2">
                                         <th className="text-center!">No.</th>
                                         <th>Naslov</th>
                                         <th
@@ -50,28 +56,37 @@ export default function News({ articles }: { articles: Paginated<Article> }) {
                                     {articles.data.map((article) => (
                                         <tr
                                             key={article.id}
-                                            className="*:border-r *:p-5 *:text-start *:last:border-0 even:bg-slate-200/60"
+                                            className="*:border-r *:p-5 *:text-start *:last:border-0 even:bg-slate-200/60 max-[500px]:*:px-2 max-[500px]:*:py-3"
                                         >
                                             <td className="text-center!">
-                                                {article.id}
+                                                <span
+                                                    className={cn(
+                                                        'flex h-8 w-8 items-center justify-center rounded-full',
+                                                        article.status ===
+                                                            'published' &&
+                                                            'bg-green-500/70',
+                                                        article.status ===
+                                                            'draft' &&
+                                                            'bg-likar1/70',
+                                                    )}
+                                                >
+                                                    {' '}
+                                                    {article.id}
+                                                </span>
                                             </td>
                                             <td>{article.title}</td>
                                             <td className="text-center!">
                                                 <Link
-                                                    href={
-                                                        'admin.articles.edit(article.id).url'
-                                                    }
-                                                    className="rounded-lg bg-likar2 p-1.5 text-center!"
+                                                    href={edit(article.id)}
+                                                    className="rounded-lg bg-likar2 px-2 py-1.5 text-center!"
                                                 >
                                                     Uredi
                                                 </Link>
                                             </td>
                                             <td className="text-center!">
                                                 <Link
-                                                    href={
-                                                        'admin.articles.delete(article.id).url'
-                                                    }
-                                                    className="rounded-lg bg-likar3/70 p-1.5 text-center!"
+                                                    href={destroy(article.id)}
+                                                    className="rounded-lg bg-likar3/70 px-2 py-1.5 text-center!"
                                                 >
                                                     Izbriši
                                                 </Link>
