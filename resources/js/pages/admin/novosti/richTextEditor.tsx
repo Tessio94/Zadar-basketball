@@ -14,10 +14,10 @@ export default function RichTextEditor({
 
     return (
         <Editor
-            apiKey={apikey}
-            onInit={(_evt, editor) => (editorRef.current = editor)}
             id="content"
             textareaName="content"
+            apiKey={apikey}
+            onInit={(_evt, editor) => (editorRef.current = editor)}
             value={value}
             onEditorChange={(content) => onChange(content)}
             init={{
@@ -50,32 +50,45 @@ export default function RichTextEditor({
                     'removeformat | help',
                 content_style:
                     'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+                image_caption: true,
+                image_list: [
+                    {
+                        title: 'Luka Bolić',
+                        value: '/images/articles/article1.jpg',
+                    },
+                    {
+                        title: 'Dinko Kamber',
+                        value: '/images/articles/article2.jpg',
+                    },
+                ],
+                image_uploadtab: true,
+                // images_upload_base_path: '/admin/novosti/upload-image',
                 images_upload_url: '/admin/novosti/upload-image',
                 automatic_uploads: true,
                 file_picker_types: 'image',
-                images_upload_handler: async (blobInfo) => {
-                    const formData = new FormData();
-                    formData.append('file', blobInfo.blob());
+                // images_upload_handler: async (blobInfo) => {
+                //     const formData = new FormData();
+                //     formData.append('file', blobInfo.blob());
 
-                    const response = await fetch(
-                        '/admin/novosti/upload-image',
-                        {
-                            method: 'POST',
-                            headers: {
-                                'X-CSRF-TOKEN':
-                                    document
-                                        .querySelector(
-                                            'meta[name="csrf-token"]',
-                                        )
-                                        ?.getAttribute('content') || '',
-                            },
-                            body: formData,
-                        },
-                    );
+                //     const response = await fetch(
+                //         '/admin/novosti/upload-image',
+                //         {
+                //             method: 'POST',
+                //             headers: {
+                //                 'X-CSRF-TOKEN':
+                //                     document
+                //                         .querySelector(
+                //                             'meta[name="csrf-token"]',
+                //                         )
+                //                         ?.getAttribute('content') || '',
+                //             },
+                //             body: formData,
+                //         },
+                //     );
 
-                    const json = await response.json();
-                    return json.location;
-                },
+                //     const json = await response.json();
+                //     return json.location;
+                // },
             }}
         />
     );

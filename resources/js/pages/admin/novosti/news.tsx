@@ -8,9 +8,9 @@ import {
 import Pagination from '@/components/myComponents/common/pagination/Pagination';
 import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
 import AppLayout from '@/layouts/app-layout';
+import { cn } from '@/lib/utils';
 import type { BreadcrumbItem } from '@/types';
 import type { Article, Paginated } from '@/types/propTypes';
-import { cn } from '@/lib/utils';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -31,7 +31,7 @@ export default function News({ articles }: { articles: Paginated<Article> }) {
 
                         <Link
                             href={create()}
-                            className="rounded-lg bg-likar2 p-2 text-center!"
+                            className="rounded-lg bg-likar2 p-2 text-center! transition-colors duration-300 hover:bg-likar4 hover:text-slate-100"
                         >
                             Kreiraj članak
                         </Link>
@@ -58,7 +58,7 @@ export default function News({ articles }: { articles: Paginated<Article> }) {
                                             key={article.id}
                                             className="*:border-r *:p-5 *:text-start *:last:border-0 even:bg-slate-200/60 max-[500px]:*:px-2 max-[500px]:*:py-3"
                                         >
-                                            <td className="text-center!">
+                                            <td className="flex items-center justify-center">
                                                 <span
                                                     className={cn(
                                                         'flex h-8 w-8 items-center justify-center rounded-full',
@@ -78,7 +78,7 @@ export default function News({ articles }: { articles: Paginated<Article> }) {
                                             <td className="text-center!">
                                                 <Link
                                                     href={edit(article.id)}
-                                                    className="rounded-lg bg-likar2 px-2 py-1.5 text-center!"
+                                                    className="rounded-lg bg-likar2 px-2 py-1.5 text-center! transition-colors duration-300 hover:bg-likar4 hover:text-slate-100"
                                                 >
                                                     Uredi
                                                 </Link>
@@ -86,7 +86,7 @@ export default function News({ articles }: { articles: Paginated<Article> }) {
                                             <td className="text-center!">
                                                 <Link
                                                     href={destroy(article.id)}
-                                                    className="rounded-lg bg-likar3/70 px-2 py-1.5 text-center!"
+                                                    className="rounded-lg bg-likar3/70 px-2 py-1.5 text-center! transition-colors duration-300 hover:bg-likar3 hover:text-slate-100"
                                                 >
                                                     Izbriši
                                                 </Link>
