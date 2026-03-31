@@ -1,4 +1,5 @@
 import { Editor } from '@tinymce/tinymce-react';
+import axios from 'axios';
 import { useRef } from 'react';
 
 export default function RichTextEditor({
@@ -14,14 +15,14 @@ export default function RichTextEditor({
 
     return (
         <Editor
-            id="content"
-            textareaName="content"
+            id="sadrzaj"
+            textareaName="sadrzaj"
             apiKey={apikey}
             onInit={(_evt, editor) => (editorRef.current = editor)}
             value={value}
-            onEditorChange={(content) => onChange(content)}
+            onEditorChange={(sadrzaj) => onChange(sadrzaj)}
             init={{
-                height: 500,
+                height: '100%',
                 menubar: false,
                 plugins: [
                     'advlist',
@@ -46,7 +47,7 @@ export default function RichTextEditor({
                 toolbar:
                     'undo redo | blocks | ' +
                     'bold italic forecolor code | alignleft aligncenter ' +
-                    'alignright alignjustify | bullist numlist outdent indent | table link image |' +
+                    'alignright alignjustify | bullist numlist outdent indent | table link image | ' +
                     'removeformat | help',
                 content_style:
                     'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
@@ -63,32 +64,29 @@ export default function RichTextEditor({
                 ],
                 image_uploadtab: true,
                 // images_upload_base_path: '/admin/novosti/upload-image',
-                images_upload_url: '/admin/novosti/upload-image',
+                // images_upload_url: '/admin-panel/novosti/upload-image',
                 automatic_uploads: true,
                 file_picker_types: 'image',
-                // images_upload_handler: async (blobInfo) => {
-                //     const formData = new FormData();
-                //     formData.append('file', blobInfo.blob());
+                // images_upload_credentials: true,
+                images_upload_handler: (blobInfo) => {
+                    return new Promise((resolve, reject) => {
+                        const formData = new FormData();
+                        formData.append(
+                            'file',
+                            blobInfo.blob(),
+                            blobInfo.filename(),
+                        );
 
-                //     const response = await fetch(
-                //         '/admin/novosti/upload-image',
-                //         {
-                //             method: 'POST',
-                //             headers: {
-                //                 'X-CSRF-TOKEN':
-                //                     document
-                //                         .querySelector(
-                //                             'meta[name="csrf-token"]',
-                //                         )
-                //                         ?.getAttribute('content') || '',
-                //             },
-                //             body: formData,
-                //         },
-                //     );
-
-                //     const json = await response.json();
-                //     return json.location;
-                // },
+                        axios
+                            .post('/admin-panel/novosti/upload-image', formData)
+                            .then((res) => {
+                                resolve(res.data.location);
+                            })
+                            .catch((err) => {
+                                reject(err.response?.data || 'Upload failed');
+                            });
+                    });
+                },
             }}
         />
     );

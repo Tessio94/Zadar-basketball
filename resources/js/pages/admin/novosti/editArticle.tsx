@@ -24,7 +24,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const APP_URL = import.meta.env.VITE_APP_URL;
 
-console.log('APP_url', APP_URL);
+// console.log('APP_url', APP_URL);
 
 export default function EditArticle({ article }: { article: Article }) {
     // console.log(article);
@@ -40,7 +40,7 @@ export default function EditArticle({ article }: { article: Article }) {
         main_image: article.main_image || '',
     });
 
-    console.log('data', data);
+    // console.log('data', data);
     function submit(e: React.SubmitEvent) {
         e.preventDefault();
         put(update(article.id).url);
@@ -136,11 +136,10 @@ export default function EditArticle({ article }: { article: Article }) {
                                 type="file"
                                 accept=".png,.jpg,.gif,.webp,image/jpeg,image/gif,image/webp,image/png"
                                 onChange={(e) => {
-                                    console.log(e);
                                     setData(
                                         'main_image',
                                         e.target.files
-                                            ? e.target.files[0].name
+                                            ? `/images/articles/${e.target.files[0].name}`
                                             : '',
                                     );
                                 }}
@@ -166,13 +165,20 @@ export default function EditArticle({ article }: { article: Article }) {
                             <div>
                                 <img
                                     src={`${APP_URL}${data.main_image}`}
-                                    className="mb-2 h-auto w-full rounded"
+                                    className="h-auto w-full rounded"
                                 />
                             </div>
                         )}
                     </div>
 
-                    <div className="xl:w-1/2 xl:pl-5 2xl:pl-10">
+                    <div className="flex flex-col gap-1 max-xl:min-h-125 xl:w-1/2 xl:pl-5 2xl:pl-10">
+                        <label
+                            htmlFor="sadrzaj"
+                            className="block font-semibold"
+                        >
+                            Sadržaj
+                        </label>
+
                         <RichTextEditor
                             value={data.content}
                             onChange={(value: string) =>
@@ -181,7 +187,7 @@ export default function EditArticle({ article }: { article: Article }) {
                         />
                     </div>
 
-                    <div className="space-y-6 xl:w-1/2 xl:pr-5 2xl:pr-10">
+                    <div className="space-y-6 xl:w-1/2 xl:pt-6 xl:pr-5 2xl:pr-10">
                         <div>
                             <label
                                 htmlFor="status"
@@ -239,7 +245,7 @@ export default function EditArticle({ article }: { article: Article }) {
                             <button
                                 type="submit"
                                 disabled={processing}
-                                className="rounded bg-black px-4 py-2 text-white"
+                                className="cursor-pointer rounded border border-transparent bg-likar3 px-6 py-2 font-semibold text-white transition-all duration-300 hover:border-likar3 hover:bg-likar1/40 hover:text-likar3"
                             >
                                 Spremi
                             </button>

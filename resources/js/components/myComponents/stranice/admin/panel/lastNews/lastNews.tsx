@@ -1,3 +1,4 @@
+import { index } from '@/actions/App/Http/Controllers/Admin/ArticleController';
 import LastNewsCard from '../lastNews/lastNewsCard';
 import DashboardButton from '../ui/dashboardButton';
 
@@ -16,7 +17,11 @@ export default function LastNews() {
             </div>
 
             <div className="flex flex-row items-center justify-center p-5">
-                <DashboardButton type="link" text="Pregledaj sve" />
+                <DashboardButton
+                    type="link"
+                    text="Pregledaj sve"
+                    href={index().url}
+                />
             </div>
         </div>
     );

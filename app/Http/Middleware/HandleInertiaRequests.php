@@ -36,17 +36,23 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        return [
+        $shared = [
             ...parent::share($request),
             'name' => config('app.name'),
             'auth' => [
                 'user' => $request->user(),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
-            'teams' => fn () => cache()->remember(
+        ];
+
+        if (! $request->is('admin-panel/*')) {
+            $shared['teams'] = fn () => cache()->remember(
                 'teams.header',
                 now()->addHours(6),
-                fn () => Team::select('id', 'name', 'logo')->get())
-        ];
+                fn () => Team::select('id', 'name', 'logo')->get()
+            );
+        }
+
+        return $shared;
     }
 }

@@ -8,15 +8,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-    --font-sans:
-        'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
-        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-        'Noto Color Emoji';
-    --font-heading: 'Oswald', sans-serif;
-    --font-text:
-        'Inter', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
-        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-        'Noto Color Emoji';
+    --font-sans: var(--font-sans);
+    --font-heading: var(--font-heading);
+    --font-text: var(--font-text);
 
     --radius-lg: var(--radius);
     --radius-md: calc(var(--radius) - 2px);
@@ -110,6 +104,17 @@
     --likar3: #ff6e00;
     --likar4: #7b7d7e;
     --slide-size: 20%;
+    --font-sans:
+        'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+        'Noto Color Emoji';
+
+    --font-heading: 'Oswald', sans-serif;
+
+    --font-text:
+        'Inter', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+        'Noto Color Emoji';
 }
 
 .dark {
@@ -277,4 +282,10 @@ html {
 select,
 ::picker(select) {
     appearance: base-select;
+}
+
+.tox-tinymce {
+    border: 1px solid var(--border) !important;
+    border-radius: 4px !important;
+    font-family: var(--text) !important;
 }

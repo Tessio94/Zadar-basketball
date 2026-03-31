@@ -61,15 +61,19 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id, Article $article)
+    public function update(Request $request, Article $article)
     {
         $article->update($request->validate([
             'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:articles,slug,' . $article->id,
+            'excerpt' => 'nullable|string',
             'content' => 'required|string',
+            'status' => 'required|in:published,draft',
             'published_at' => 'nullable|date',
+            'main_image' => 'nullable|string',
         ]));
 
-        return redirect()->route('admin.articles.index');
+        return redirect()->route('novosti.index');
     }
 
     /**

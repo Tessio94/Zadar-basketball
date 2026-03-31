@@ -82,8 +82,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin-panel')->group(function (
     Route::resource('novosti', AdminArticleController::class)
         ->parameters(['novosti' => 'article']);
 
-    Route::post('/admin/novosti/upload-image', [AdminArticleController::class, 'uploadImage'])
-    ->name('admin.novosti.upload-image');
+    Route::post('novosti/upload-image', [AdminArticleController::class, 'uploadImage']);
 });
 
 

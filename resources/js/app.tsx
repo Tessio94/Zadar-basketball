@@ -1,10 +1,14 @@
 import { createInertiaApp } from '@inertiajs/react';
+import axios from 'axios';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import '../css/app.css';
 import { initializeTheme } from './hooks/use-appearance';
 import LandingLayout from './layouts/landing/landing-layout';
+
+axios.defaults.withCredentials = true;
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 const appName = 'Likar Krombacher | Zadar';
 
@@ -35,6 +39,7 @@ createInertiaApp({
             </StrictMode>,
         );
     },
+
     progress: {
         color: '#ff6e00',
     },
