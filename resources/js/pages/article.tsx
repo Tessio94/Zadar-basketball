@@ -3,6 +3,8 @@ import { Clock } from 'lucide-react';
 import SideArticleCard from '@/components/myComponents/stranice/novosti/clanak/sideArticleGrid';
 import type { Article } from '@/types/propTypes';
 
+const APP_URL = import.meta.env.VITE_APP_URL;
+
 export default function Article({ article }: { article: Article }) {
     return (
         <>
@@ -25,11 +27,19 @@ export default function Article({ article }: { article: Article }) {
             <section className="my-20 px-[5%]">
                 <div className="rounded-4xl border border-likar1 bg-likar2 shadow-2xl shadow-likar1">
                     {article.main_image ? (
-                        <img
-                            src={article.main_image}
-                            alt=""
-                            className="w-full rounded-t-4xl"
-                        />
+                        <div className="relative">
+                            <img
+                                src={`${APP_URL}/storage/${article.main_image}`}
+                                alt=""
+                                className="h-screen w-full rounded-t-4xl"
+                            />
+                            <div className="absolute bottom-0 left-0 z-20 w-full px-5 py-10">
+                                <p className="z-20 font-text text-xl font-medium text-slate-100">
+                                    {article.excerpt}
+                                </p>
+                                <div className="absolute inset-0 -z-10 bg-linear-to-t from-slate-900 via-slate-900 to-transparent" />
+                            </div>
+                        </div>
                     ) : (
                         <img
                             src="/images/design/landing.jpg"
@@ -56,41 +66,17 @@ export default function Article({ article }: { article: Article }) {
                         </div>
                         <div className="relative flex w-full flex-col justify-between gap-8 md:flex-row">
                             <div className="mb-15 flex flex-col justify-start gap-6 max-2xl:grow 2xl:basis-[70%]">
+                                <div className="rounded-xl border border-likar4 bg-likar2 p-3.5">
+                                    <p className="z-20 font-text text-xl font-medium text-slate-100">
+                                        {article.excerpt}
+                                    </p>
+                                </div>
                                 <div
                                     className="mb-15 flex flex-col justify-start gap-6 font-text text-xl text-slate-100"
                                     dangerouslySetInnerHTML={{
                                         __html: article.content,
                                     }}
-                                >
-                                    {/* <p className="font-text text-xl text-slate-100">
-                                    {article.content}
-                                    </p>
-                                    <p className="font-text text-xl text-slate-100">
-                                    {article.content}
-                                    </p>
-                                    <p className="font-text text-xl text-slate-100">
-                                    {article.content}
-                                    </p>
-                                    {article.main_image ? (
-                                        <img
-                                        src={article.main_image}
-                                        alt=""
-                                        className="mb-4 w-full rounded-3xl"
-                                        />
-                                        ) : (
-                                            <img
-                                            src="/images/design/landing.jpg"
-                                            alt=""
-                                            className="mb-4 w-full rounded-3xl"
-                                            />
-                                            )}
-                                            <p className="font-text text-xl text-slate-100">
-                                            {article.content}
-                                            </p>
-                                            <p className="font-text text-xl text-slate-100">
-                                            {article.content}
-                                </p> */}
-                                </div>
+                                ></div>
                                 <div className="mt-3 flex flex-wrap gap-2 text-slate-100">
                                     <span className="font-jet rounded-xl bg-slate-600 px-2 py-1 font-heading text-sm">
                                         2025-2026

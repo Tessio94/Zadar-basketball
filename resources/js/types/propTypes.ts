@@ -353,13 +353,23 @@ export type Article = {
     slug: string;
     content: string;
     excerpt: string | null;
-    main_image: string | null;
+    main_image: File | null;
     meta_description: string | null;
     meta_title: string | null;
     status: string;
     created_at: string;
     published_at: string;
     updated_at: string;
+};
+
+export type ArticleForm = {
+    title: string;
+    published_at: string;
+    excerpt: string;
+    content: string;
+    main_image: File | null;
+    status: string;
+    slug: string;
 };
 
 /**

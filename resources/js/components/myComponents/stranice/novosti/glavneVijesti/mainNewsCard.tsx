@@ -4,6 +4,8 @@ import { show } from '@/actions/App/Http/Controllers/ArticleController';
 import { cn } from '@/lib/utils';
 import type { Article } from '@/types/propTypes';
 
+const APP_URL = import.meta.env.VITE_APP_URL;
+
 export default function MainNewsCard({
     article,
     articleNo,
@@ -30,7 +32,8 @@ export default function MainNewsCard({
             )}
             style={{
                 backgroundImage: article.main_image
-                    ? `url(${article.main_image})`
+                    ? // ? `url(${article.main_image})`
+                      `url(${APP_URL}/storage/${article.main_image})`
                     : "url('/images/design/landing.jpg')",
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',

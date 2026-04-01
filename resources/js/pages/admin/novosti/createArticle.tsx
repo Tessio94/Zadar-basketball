@@ -3,11 +3,12 @@ import { ImageIcon } from 'lucide-react';
 import { useRef } from 'react';
 import {
     index,
-    create,
+    store,
 } from '@/actions/App/Http/Controllers/Admin/ArticleController';
 import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
+import type { ArticleForm } from '@/types/propTypes';
 import RichTextEditor from './richTextEditor';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -21,24 +22,24 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const APP_URL = import.meta.env.VITE_APP_URL;
+// const APP_URL = import.meta.env.VITE_APP_URL;
 
 export default function CreateArticle() {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors } = useForm<ArticleForm>({
         title: '',
         published_at: '',
         excerpt: '',
         content: '',
         slug: '',
         status: '',
-        main_image: '',
+        main_image: null,
     });
 
     function submit(e: React.SubmitEvent) {
         e.preventDefault();
-        post(create().url);
+        post(store().url);
     }
     return (
         <>
@@ -130,12 +131,12 @@ export default function CreateArticle() {
                                 type="file"
                                 accept=".png,.jpg,.gif,.webp,image/jpeg,image/gif,image/webp,image/png"
                                 onChange={(e) => {
-                                    setData(
-                                        'main_image',
-                                        e.target.files
-                                            ? e.target.files[0].name
-                                            : '',
-                                    );
+                                    if (e.target.files && e.target.files[0]) {
+                                        setData(
+                                            'main_image',
+                                            e.target.files[0],
+                                        );
+                                    }
                                 }}
                                 ref={fileInputRef}
                                 className="sr-only"
@@ -157,7 +158,7 @@ export default function CreateArticle() {
                         {data.main_image && (
                             <div>
                                 <img
-                                    src={`${APP_URL}/images/articles/${data.main_image}`}
+                                    src={URL.createObjectURL(data.main_image)}
                                     className="h-auto w-full rounded"
                                 />
                             </div>

@@ -3,6 +3,8 @@ import { ArrowRight } from 'lucide-react';
 import { show } from '@/actions/App/Http/Controllers/ArticleController';
 import type { Article } from '@/types/propTypes';
 
+const APP_URL = import.meta.env.VITE_APP_URL;
+
 export default function AdditionalNewsCard({ article }: { article: Article }) {
     return (
         <Link
@@ -13,7 +15,7 @@ export default function AdditionalNewsCard({ article }: { article: Article }) {
             <div className="shrink-0 overflow-hidden">
                 {article.main_image ? (
                     <img
-                        src={article.main_image}
+                        src={`${APP_URL}/storage/${article.main_image}`}
                         alt=""
                         loading="lazy"
                         className="transition-transform duration-300 group-hover:scale-110"

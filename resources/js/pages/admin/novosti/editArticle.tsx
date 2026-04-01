@@ -30,7 +30,7 @@ export default function EditArticle({ article }: { article: Article }) {
     // console.log(article);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    const { data, setData, put, processing, errors } = useForm({
+    const { data, setData, put, processing, errors } = useForm<Article>({
         title: article.title || '',
         published_at: article.published_at || '',
         excerpt: article.excerpt || '',

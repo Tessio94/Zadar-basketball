@@ -13,10 +13,12 @@ class Article extends Model
     public $fillable = [
         'title',
         'slug',
-        'excerpt',
         'content',
+        'excerpt',
         'status',
         'published_at',
-        'main_image'
+        'main_image',
+        'meta_title',
+        'meta_description',
     ];
 }

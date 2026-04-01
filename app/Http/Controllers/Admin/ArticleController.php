@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ArticleController extends Controller
@@ -34,8 +35,33 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:articles,slug',
+            'content' => 'required|string',
+            'excerpt' => 'nullable|string',
+            'status' => 'nullable|in:published,draft',
+            'published_at' => 'nullable|date',
+            'main_image' => 'nullable|image|mimes:jpg,jpeg,png,webp,gif|max:2048',
+        ]);
+
+        $validated['status'] = $validated['status'] ?? 'draft';
+
+        if ($request->hasFile('main_image')) {
+            $path = $request->file('main_image')->store('articles', 'public');
+            $validated['main_image'] = $path;
+        }
+
+        $validated['meta_title'] = $validated['title'];
+        $validated['meta_description'] = Str::limit(strip_tags($validated['content']), 160);
+
+        $article = Article::create($validated);
+
+        return redirect()
+            ->route('novosti.index')
+            ->with('success', 'Članak uspješno kreiran!');
+        }
 
     /**
      * Display the specified resource.
@@ -50,8 +76,6 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-
-
         return Inertia::render('admin/novosti/editArticle', [
             'article' => $article
         ]);
