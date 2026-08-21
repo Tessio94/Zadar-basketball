@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import {
     create,
@@ -86,12 +86,25 @@ export default function News({ articles }: { articles: Paginated<Article> }) {
                                                 </Link>
                                             </td>
                                             <td className="text-center!">
-                                                <Link
-                                                    href={destroy(article.id)}
-                                                    className="rounded-lg bg-likar3 px-6 py-2 text-center! font-semibold text-slate-100 transition-colors duration-300 hover:bg-likar3 hover:text-slate-100"
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        if (
+                                                            confirm(
+                                                                'Jeste li sigurni da želite izbrisati ovaj članak?',
+                                                            )
+                                                        ) {
+                                                            router.delete(
+                                                                destroy(
+                                                                    article.id,
+                                                                ).url,
+                                                            );
+                                                        }
+                                                    }}
+                                                    className="cursor-pointer rounded-lg bg-likar3 px-6 py-2 text-center! font-semibold text-slate-100 transition-colors duration-300 hover:bg-likar4 hover:text-slate-100"
                                                 >
                                                     Izbriši
-                                                </Link>
+                                                </button>
                                             </td>
                                         </tr>
                                     ))}

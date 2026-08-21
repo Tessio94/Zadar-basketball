@@ -21,7 +21,7 @@ export default function Footer() {
                     <a
                         href="https://www.instagram.com/ivan_radicev/"
                         target="_blank"
-                        className="group text-pink-600"
+                        className="group rounded-lg text-slate-100 transition-all duration-300 hover:bg-slate-100 hover:text-pink-600"
                     >
                         <svg
                             stroke="currentColor"
@@ -40,7 +40,7 @@ export default function Footer() {
                     <a
                         href="https://web.facebook.com/RadicevIvan/?locale=hr_HR&amp;_rdc=1&amp;_rdr#"
                         target="_blank"
-                        className="group text-blue-600"
+                        className="group rounded-lg text-slate-100 transition-all duration-300 hover:bg-slate-100 hover:text-blue-600"
                     >
                         <svg
                             stroke="currentColor"
@@ -58,14 +58,14 @@ export default function Footer() {
                     <a
                         href="https://www.youtube.com/@ivanradicev7934"
                         target="_blank"
-                        className="group text-red-600"
+                        className="group rounded-lg text-slate-100 transition-all duration-300 hover:bg-slate-100 hover:text-red-600"
                     >
                         <svg
                             stroke="currentColor"
                             fill="currentColor"
                             strokeWidth="0"
                             viewBox="0 0 512 512"
-                            className="h-9 w-9 rounded-xl p-1 transition-all duration-300 group-hover:scale-120"
+                            className="h-9 w-9 rounded-xl p-1 transition-all duration-300 group-hover:scale-110"
                             height="1em"
                             width="1em"
                             xmlns="http://www.w3.org/2000/svg"

@@ -1,17 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use App\Models\Game;
 use App\Models\PlayerGameStat;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
 class StatisticsService
 {
+    public const TYPE_AVG = 'avg';
 
-    const TYPE_AVG = 'avg';
-    const TYPE_PERCENTAGE = 'pcg';
+    public const TYPE_PERCENTAGE = 'pcg';
 
     private function buildAvgLeaderboard(string $title, string $type, $collection, string $avgKey, string $totalKey, ?string $totalKeyTwo = null)
     {
@@ -21,28 +22,28 @@ class StatisticsService
             'topFive' => $collection
                 ->sortByDesc($avgKey)
                 ->take(5)
-                ->map(fn ($p) => [
+                ->map(fn($p) => [
                     'player' => $p->player,
                     'games' => $p->games,
                     'total' => $p->$totalKey,
                     'avg' => $p->$avgKey,
                 ])
-                ->values()
-            ] :
+                ->values(),
+        ] :
             [
-            'title' => $title,
-            'type' => $type,
-            'topFive' => $collection
-                ->sortByDesc($avgKey)
-                ->take(5)
-                ->map(fn ($p) => [
-                    'player' => $p->player,
-                    'games' => $p->games,
-                    'total_made' => $p->$totalKey,
-                    'total_attempted' => $p -> $totalKeyTwo,
-                    'pcg' => $p->$avgKey,
-                ])
-                ->values()
+                'title' => $title,
+                'type' => $type,
+                'topFive' => $collection
+                    ->sortByDesc($avgKey)
+                    ->take(5)
+                    ->map(fn($p) => [
+                        'player' => $p->player,
+                        'games' => $p->games,
+                        'total_made' => $p->$totalKey,
+                        'total_attempted' => $p->$totalKeyTwo,
+                        'pcg' => $p->$avgKey,
+                    ])
+                    ->values(),
             ];
     }
 
@@ -97,52 +98,50 @@ class StatisticsService
             DB::raw('SUM(ft_attempted) as free_throw_attempted_total'),
             DB::raw('ROUND((SUM(ft_made)::decimal / NULLIF(SUM(ft_attempted),0)) * 100, 1) as ftprc')
         )
-        ->when($teamId, function ($query) use ($teamId) {
-            $query->where('team_id', $teamId);
-        })
-        ->with('player.teams')
-        ->groupBy('player_id')
-        ->havingRaw('COUNT(*) >= 3')
-        ->get()
-        ->each->setAppends([]);
+            ->when($teamId, function($query) use ($teamId): void {
+                $query->where('team_id', $teamId);
+            })
+            ->with('player.teams')
+            ->groupBy('player_id')
+            ->havingRaw('COUNT(*) >= 3')
+            ->get()
+            ->each->setAppends([]);
 
         return [
-            'mpg' => $this->buildAvgLeaderboard("Minute po utakmici", self::TYPE_AVG, $averages, 'mpg', 'minutes_total'),
-            'ppg' => $this->buildAvgLeaderboard("Poeni po utakmici", self::TYPE_AVG, $averages, 'ppg', 'points_total'),
-            'drpg' => $this->buildAvgLeaderboard("Obrambeni skokovi po utakmici", self::TYPE_AVG, $averages, 'drpg', 'defensive_rebounds_total'),
-            'orpg' => $this->buildAvgLeaderboard("Napadački skokovi po utakmici", self::TYPE_AVG, $averages, 'orpg', 'offensive_rebounds_total'),
-            'rpg' => $this->buildAvgLeaderboard("Skokovi po utakmici", self::TYPE_AVG, $averages, 'rpg', 'rebounds_total'),
-            'apg' => $this->buildAvgLeaderboard("Asistencije po utakmici", self::TYPE_AVG, $averages, 'apg', 'assists_total'),
-            'bpg' => $this->buildAvgLeaderboard("Blokade po utakmici", self::TYPE_AVG, $averages, 'bpg', 'blocks_total'),
-            'spg' => $this->buildAvgLeaderboard("Ukradene po utakmici", self::TYPE_AVG, $averages, 'spg', 'steals_total'),
-            'tpg' => $this->buildAvgLeaderboard("Izgubljene po utakmici", self::TYPE_AVG, $averages, 'tpg', 'turnovers_total'),
-            'tppg' => $this->buildAvgLeaderboard("Zabijene trice po utakmici", self::TYPE_AVG, $averages, 'tppg', 'three_points_total'),
-            'epg' => $this->buildAvgLeaderboard("Prosječna efikasnost", self::TYPE_AVG, $averages, 'epg', 'efficiency_total'),
-            'fg2prc' => $this->buildAvgLeaderboard("Postotak šuta za dva", self::TYPE_PERCENTAGE, $averages, 'fg2prc', 'two_made_total', 'two_attempted_total'),
-            'fg3prc' => $this->buildAvgLeaderboard("Postotak šuta za tri", self::TYPE_PERCENTAGE, $averages, 'fg3prc', 'three_made_total', 'three_attempted_total'),
-            'ftprc' => $this->buildAvgLeaderboard("Postotak šuta za jedan", self::TYPE_PERCENTAGE, $averages, 'ftprc', 'free_throw_made_total', 'free_throw_attempted_total'),
+            'mpg' => $this->buildAvgLeaderboard('Minute po utakmici', self::TYPE_AVG, $averages, 'mpg', 'minutes_total'),
+            'ppg' => $this->buildAvgLeaderboard('Poeni po utakmici', self::TYPE_AVG, $averages, 'ppg', 'points_total'),
+            'drpg' => $this->buildAvgLeaderboard('Obrambeni skokovi po utakmici', self::TYPE_AVG, $averages, 'drpg', 'defensive_rebounds_total'),
+            'orpg' => $this->buildAvgLeaderboard('Napadački skokovi po utakmici', self::TYPE_AVG, $averages, 'orpg', 'offensive_rebounds_total'),
+            'rpg' => $this->buildAvgLeaderboard('Skokovi po utakmici', self::TYPE_AVG, $averages, 'rpg', 'rebounds_total'),
+            'apg' => $this->buildAvgLeaderboard('Asistencije po utakmici', self::TYPE_AVG, $averages, 'apg', 'assists_total'),
+            'bpg' => $this->buildAvgLeaderboard('Blokade po utakmici', self::TYPE_AVG, $averages, 'bpg', 'blocks_total'),
+            'spg' => $this->buildAvgLeaderboard('Ukradene po utakmici', self::TYPE_AVG, $averages, 'spg', 'steals_total'),
+            'tpg' => $this->buildAvgLeaderboard('Izgubljene po utakmici', self::TYPE_AVG, $averages, 'tpg', 'turnovers_total'),
+            'tppg' => $this->buildAvgLeaderboard('Zabijene trice po utakmici', self::TYPE_AVG, $averages, 'tppg', 'three_points_total'),
+            'epg' => $this->buildAvgLeaderboard('Prosječna efikasnost', self::TYPE_AVG, $averages, 'epg', 'efficiency_total'),
+            'fg2prc' => $this->buildAvgLeaderboard('Postotak šuta za dva', self::TYPE_PERCENTAGE, $averages, 'fg2prc', 'two_made_total', 'two_attempted_total'),
+            'fg3prc' => $this->buildAvgLeaderboard('Postotak šuta za tri', self::TYPE_PERCENTAGE, $averages, 'fg3prc', 'three_made_total', 'three_attempted_total'),
+            'ftprc' => $this->buildAvgLeaderboard('Postotak šuta za jedan', self::TYPE_PERCENTAGE, $averages, 'ftprc', 'free_throw_made_total', 'free_throw_attempted_total'),
 
         ];
 
     }
 
-
-
     private function buildLastRoundLeaderboard(string $title, $collection, string $categoryKey)
     {
-    // var_dump($collection);
+        // var_dump($collection);
 
         return [
             'title' => $title,
             'topFive' => $collection
                 ->sortByDesc($categoryKey)
                 ->take(5)
-                ->map(fn ($p) => [
+                ->map(fn($p) => [
                     'player' => $p->player,
                     'total' => $p->$categoryKey,
                 ])
-                ->values()
-            ];
+                ->values(),
+        ];
 
     }
 
@@ -165,28 +164,28 @@ class StatisticsService
             DB::raw('SUM(ft_made) as free_throw_made'),
             DB::raw('SUM(efficiency) as efficiency')
         )
-        ->whereHas('game', function ($q) use ($lastRound) {
-            $q->where('round_number', $lastRound);
-        })
-        ->with('player.teams')
-        ->groupBy('player_id')
-        ->get()
-        ->each->setAppends([]);
+            ->whereHas('game', function($q) use ($lastRound): void {
+                $q->where('round_number', $lastRound);
+            })
+            ->with('player.teams')
+            ->groupBy('player_id')
+            ->get()
+            ->each->setAppends([]);
 
-       return [
-            'minutes' => $this->buildLastRoundLeaderboard("Minute po utakmici", $lastRoundLeaders, 'minutes'),
-            'points' => $this->buildLastRoundLeaderboard("Poeni po utakmici", $lastRoundLeaders, 'points'),
-            'defensive_rebounds' => $this->buildLastRoundLeaderboard("Obrambeni skokovi po utakmici", $lastRoundLeaders, 'defensive_rebounds'),
-            'offensive_rebounds' => $this->buildLastRoundLeaderboard("Napadački skokovi po utakmici", $lastRoundLeaders, 'offensive_rebounds'),
-            'rebounds_total' => $this->buildLastRoundLeaderboard("Skokovi po utakmici", $lastRoundLeaders, 'total_rebounds'),
-            'assists' => $this->buildLastRoundLeaderboard("Asistencije", $lastRoundLeaders, 'assists'),
-            'blocks' => $this->buildLastRoundLeaderboard("Blokade", $lastRoundLeaders, 'blocks'),
-            'steals' => $this->buildLastRoundLeaderboard("Ukradene", $lastRoundLeaders, 'steals'),
-            'turnovers' => $this->buildLastRoundLeaderboard("Izgubljene", $lastRoundLeaders, 'turnovers'),
-            'three_made' => $this->buildLastRoundLeaderboard("Zabijene trice", $lastRoundLeaders, 'three_made'),
-            'free_throw_made' => $this->buildLastRoundLeaderboard("Slobodna bacanja", $lastRoundLeaders, 'free_throw_made'),
-            'efficiency' => $this->buildLastRoundLeaderboard("Efikasnost", $lastRoundLeaders, 'efficiency'),
-       ];
+        return [
+            'minutes' => $this->buildLastRoundLeaderboard('Minute po utakmici', $lastRoundLeaders, 'minutes'),
+            'points' => $this->buildLastRoundLeaderboard('Poeni po utakmici', $lastRoundLeaders, 'points'),
+            'defensive_rebounds' => $this->buildLastRoundLeaderboard('Obrambeni skokovi po utakmici', $lastRoundLeaders, 'defensive_rebounds'),
+            'offensive_rebounds' => $this->buildLastRoundLeaderboard('Napadački skokovi po utakmici', $lastRoundLeaders, 'offensive_rebounds'),
+            'rebounds_total' => $this->buildLastRoundLeaderboard('Skokovi po utakmici', $lastRoundLeaders, 'total_rebounds'),
+            'assists' => $this->buildLastRoundLeaderboard('Asistencije', $lastRoundLeaders, 'assists'),
+            'blocks' => $this->buildLastRoundLeaderboard('Blokade', $lastRoundLeaders, 'blocks'),
+            'steals' => $this->buildLastRoundLeaderboard('Ukradene', $lastRoundLeaders, 'steals'),
+            'turnovers' => $this->buildLastRoundLeaderboard('Izgubljene', $lastRoundLeaders, 'turnovers'),
+            'three_made' => $this->buildLastRoundLeaderboard('Zabijene trice', $lastRoundLeaders, 'three_made'),
+            'free_throw_made' => $this->buildLastRoundLeaderboard('Slobodna bacanja', $lastRoundLeaders, 'free_throw_made'),
+            'efficiency' => $this->buildLastRoundLeaderboard('Efikasnost', $lastRoundLeaders, 'efficiency'),
+        ];
 
     }
 }

@@ -29,11 +29,10 @@ export default function CreateArticle() {
 
     const { data, setData, post, processing, errors } = useForm<ArticleForm>({
         title: '',
-        published_at: '',
         excerpt: '',
         content: '',
         slug: '',
-        status: '',
+        status: 'draft',
         main_image: null,
     });
 
@@ -76,7 +75,7 @@ export default function CreateArticle() {
                             )}
                         </div>
 
-                        <div>
+                        {/* <div>
                             <label
                                 htmlFor="datum"
                                 className="mb-1 block font-semibold"
@@ -93,7 +92,7 @@ export default function CreateArticle() {
                                 }
                                 className="w-full rounded border p-2"
                             />
-                        </div>
+                        </div> */}
 
                         <div>
                             <label
@@ -192,8 +191,22 @@ export default function CreateArticle() {
                                 id="status"
                                 name="status"
                                 value={data.status}
-                                onChange={(e) =>
-                                    setData('status', e.target.value)
+                                onChange={
+                                    (e) => setData('status', e.target.value)
+                                    // const status = e.target.value as
+                                    //     | 'published'
+                                    //     | 'draft';
+
+                                    // setData('status', status);
+
+                                    // if (status === 'published') {
+                                    //     const today = new Date()
+                                    //         .toISOString()
+                                    //         .split('T')[0];
+                                    //     setData('published_at', today);
+                                    // } else {
+                                    //     setData('published_at', '');
+                                    // }
                                 }
                                 className="w-full rounded border p-2 *:px-2 *:py-1 [&::picker(select)]:rounded [&::picker(select)]:border-slate-300 [&::picker(select)]:bg-slate-100 [&::picker-icon]:transition-transform [&::picker-icon]:duration-300 [&:open::picker-icon]:rotate-180"
                             >

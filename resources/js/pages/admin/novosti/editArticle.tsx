@@ -32,7 +32,7 @@ export default function EditArticle({ article }: { article: Article }) {
 
     const { data, setData, put, processing, errors } = useForm<Article>({
         title: article.title || '',
-        published_at: article.published_at || '',
+        published_at: article.published_at.substring(0, 10) || '',
         excerpt: article.excerpt || '',
         content: article.content || '',
         status: article.status || '',
@@ -164,7 +164,7 @@ export default function EditArticle({ article }: { article: Article }) {
                         {article.main_image && (
                             <div>
                                 <img
-                                    src={`${APP_URL}${data.main_image}`}
+                                    src={`${APP_URL}/storage/${data.main_image}`}
                                     className="h-auto w-full rounded"
                                 />
                             </div>

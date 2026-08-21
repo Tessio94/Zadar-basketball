@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -21,7 +23,7 @@ class PlayerFactory extends Factory
             'last_name' => $this->faker->lastName(),
             'date_of_birth' => $this->faker->date(),
             'height' => $this->faker->numberBetween(175, 210),
-            'position' => $this->faker->randomElement(['PG','SG','SF','PF','C']),
+            'position' => $this->faker->randomElement(['PG', 'SG', 'SF', 'PF', 'C']),
         ];
     }
 }

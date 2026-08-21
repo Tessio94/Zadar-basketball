@@ -1,46 +1,104 @@
 import { Link } from '@inertiajs/react';
+import { ChevronRight, Newspaper } from 'lucide-react';
 
 export default function Landing() {
     return (
         <section className="relative z-100">
+            <div className="absolute inset-0 z-20 bg-linear-to-br from-likar4 to-transparent to-45%" />
+            <div className="absolute inset-0 z-20 bg-linear-to-bl from-likar4 to-transparent to-45%" />
             <img
                 src="/images/design/bg-shadow.png"
                 alt=""
                 className="absolute inset-0 z-10 min-h-[1080px] object-cover min-[1920px]:w-full"
             />
             <div className="flex h-270 items-center justify-start">
-                <div className="z-100 flex w-full flex-col items-start gap-6 px-10 max-[1400px]:gap-4 max-[1024px]:gap-6 max-[450px]:px-4 sm:-mt-10 sm:px-12 lg:w-auto lg:px-16 xl:px-18 2xl:px-20">
-                    <h1 className="relative text-start font-heading text-8xl font-bold text-slate-100 my-text-stroke after:absolute after:top-[105%] after:right-0 after:left-0 after:h-1 after:bg-linear-to-r after:from-transparent after:via-likar3 after:to-transparent after:content-[''] max-[1700px]:text-8xl max-[1500px]:text-7xl max-[640px]:text-6xl max-sm:mb-7 max-sm:w-full max-sm:text-center">
-                        Likar{' '}
-                        <span className="text-likar3 my-text-stroke2">
-                            Krombacher
-                        </span>
-                    </h1>
-                    <h3 className="text-start font-text text-3xl text-slate-100 max-[400px]:text-2xl">
-                        Lika košarkaških amatera i rekreativaca
-                    </h3>
-                    <p className="text-start font-text text-3xl text-slate-100 max-[400px]:text-2xl">
-                        Kontakt: likarzadar@gmail.com
-                    </p>
+                <div className="z-100 mb-40 flex w-full flex-col items-start gap-6 px-10 max-[1400px]:gap-4 max-[1024px]:gap-6 max-[450px]:px-4 sm:-mt-10 sm:px-12 lg:w-auto lg:px-16 xl:px-18 2xl:px-20">
+                    <div className="hero-heading">
+                        <div className="hero-eyebrow">
+                            KOŠARKA. DRUŽENJE. EKIPA.
+                        </div>
 
-                    <div className="mt-5 flex flex-row items-center gap-5 max-sm:mx-auto max-sm:mt-8">
-                        <div>
+                        <h1>
+                            <span className="title-white">Likar Zadar</span>
+                            <span className="title-orange">
+                                Košarkaška liga amatera i rekreativaca
+                            </span>
+                        </h1>
+
+                        <div className="brush-line"></div>
+                    </div>
+                </div>
+                <div className="z-100 mb-40 ml-auto flex w-full flex-col items-start gap-6 px-10 max-[1400px]:gap-4 max-[1024px]:gap-6 max-[450px]:px-4 sm:-mt-10 sm:px-12 lg:w-auto lg:px-16 xl:px-18 2xl:px-20">
+                    <ul>
+                        <li>
                             <Link
-                                className="hover:bg-theme4 rounded-4xl border-2 border-transparent bg-likar3 px-5 py-2.5 font-text text-2xl font-semibold text-slate-100 transition-all duration-300 hover:border-slate-100 max-[1400px]:px-7 max-[1400px]:py-3 max-[640px]:text-2xl"
+                                className="border-xl flex flex-row items-center justify-between gap-3 rounded-t-lg border border-likar4 bg-likar2 p-2.5"
                                 href="/novosti"
                             >
-                                Novosti
+                                <Newspaper className="shrink-0 text-8xl text-likar3" />
+                                <div>
+                                    <h5 className="font-heading text-2xl font-semibold text-slate-100">
+                                        Novosti
+                                    </h5>
+                                    <p className="text-slate-300">
+                                        Sve aktualnosti s terena
+                                    </p>
+                                </div>
+                                <ChevronRight className="shrink-0 text-2xl text-slate-100" />
                             </Link>
-                        </div>
-                        <div>
+                        </li>
+                        <li>
                             <Link
-                                className="hover:bg-theme4 rounded-4xl border-2 border-transparent bg-likar4 px-5 py-2.5 font-text text-2xl font-semibold text-slate-100 transition-all duration-300 hover:border-likar1 hover:shadow-likar1 max-[1400px]:px-7 max-[1400px]:py-3 max-[640px]:text-2xl"
-                                href="/ekipe"
+                                className="border-xl flex flex-row items-center justify-between gap-3 border border-likar4 bg-likar2 p-2.5"
+                                href="/novosti"
                             >
-                                Ekipe
+                                <Newspaper className="shrink-0 text-8xl text-likar3" />
+                                <div>
+                                    <h5 className="font-heading text-2xl font-semibold text-slate-100">
+                                        Novosti
+                                    </h5>
+                                    <p className="text-slate-300">
+                                        Sve aktualnosti s terena
+                                    </p>
+                                </div>
+                                <ChevronRight className="shrink-0 text-2xl text-slate-100" />
                             </Link>
-                        </div>
-                    </div>
+                        </li>
+                        <li>
+                            <Link
+                                className="border-xl flex flex-row items-center justify-between gap-3 border border-likar4 bg-likar2 p-2.5"
+                                href="/novosti"
+                            >
+                                <Newspaper className="shrink-0 text-8xl text-likar3" />
+                                <div>
+                                    <h5 className="font-heading text-2xl font-semibold text-slate-100">
+                                        Novosti
+                                    </h5>
+                                    <p className="text-slate-300">
+                                        Sve aktualnosti s terena
+                                    </p>
+                                </div>
+                                <ChevronRight className="shrink-0 text-2xl text-slate-100" />
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                className="border-xl flex flex-row items-center justify-between gap-3 rounded-b-lg border border-likar4 bg-likar2 p-2.5"
+                                href="/novosti"
+                            >
+                                <Newspaper className="shrink-0 text-8xl text-likar3" />
+                                <div>
+                                    <h5 className="font-heading text-2xl font-semibold text-slate-100">
+                                        Novosti
+                                    </h5>
+                                    <p className="text-slate-300">
+                                        Sve aktualnosti s terena
+                                    </p>
+                                </div>
+                                <ChevronRight className="shrink-0 text-2xl text-slate-100" />
+                            </Link>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </section>

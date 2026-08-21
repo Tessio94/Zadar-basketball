@@ -4,7 +4,7 @@ import { useEffect, useEffectEvent, useState } from 'react';
 import { show } from '@/actions/App/Http/Controllers/TeamController';
 import { cn } from '@/lib/utils';
 import type { HeaderProps } from '@/types/propTypes';
-import SearchComponent from './SearchComponent';
+import SearchComponent from './searchComponent';
 
 export default function Header() {
     const [hambActive, setHambActive] = useState<boolean>(false);
@@ -31,120 +31,111 @@ export default function Header() {
                     path === '/' ? 'absolute right-0 left-0' : 'relative',
                 )}
             >
-                <div className="ml-auto hidden w-[calc(100%-96px)] rounded-tl-full rounded-tr-full bg-likar3/50 px-15 py-1 max-lg:mx-12 sm:block lg:mr-12 lg:w-fit">
-                    <ul className="flex items-center gap-10 max-lg:justify-around lg:gap-14 xl:gap-14 2xl:gap-22">
-                        <li>
-                            <Link
-                                className={cn(
-                                    'relative inline-block cursor-pointer text-base font-semibold text-slate-100 xl:text-lg',
-                                    path === '/o-nama'
-                                        ? 'rounded-lg text-slate-900'
-                                        : "before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
-                                )}
-                                href="/o-nama"
-                            >
-                                O nama
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                className={cn(
-                                    'relative inline-block cursor-pointer text-base font-semibold text-slate-100 xl:text-lg',
-                                    path === '/arhiva'
-                                        ? 'rounded-lg text-slate-900'
-                                        : "before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
-                                )}
-                                href="/arhiva"
-                            >
-                                Arhiva
-                            </Link>
-                        </li>
-
-                        <li>
-                            <Link
-                                className={cn(
-                                    'relative inline-block cursor-pointer text-base font-semibold text-slate-100 xl:text-lg',
-                                    path === '/galerija'
-                                        ? 'rounded-lg text-slate-900'
-                                        : "before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
-                                )}
-                                href="/galerija"
-                            >
-                                Galerija
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
-                <div className="flex items-center justify-between rounded-full bg-likar4/70 px-5 py-1.5 shadow-md shadow-likar2/60">
-                    <Link href="/">
+                <div className="flex items-center justify-between">
+                    <Link
+                        href="/"
+                        className="flex flex-row items-stretch gap-5"
+                    >
                         <img
                             src="/images/design/logo.png"
                             alt=""
                             className="h-22 w-22"
                         />
+                        <div className="flex flex-col items-start justify-center gap-1">
+                            <h1 className="font-heading text-2xl font-semibold text-slate-100">
+                                Likar{' '}
+                                <span className="text-likar3">Krombacher</span>
+                            </h1>
+                            <p className="font-text text-xl font-normal text-slate-300">
+                                Liga košarkaških amatera
+                            </p>
+                        </div>
                     </Link>
 
-                    <nav className="hidden lg:block">
-                        <ul className="flex items-center lg:gap-14 xl:gap-18 2xl:gap-22">
-                            <li>
+                    <nav className="hidden rounded-full border-b border-likar3 bg-likar4/70 p-3 shadow-md shadow-likar3/30 lg:block">
+                        <ul className="flex items-center">
+                            <li
+                                className={cn(
+                                    'relative',
+                                    path === '/'
+                                        ? 'rounded-full bg-likar1/70'
+                                        : "before:absolute before:top-[calc(100%-6px)] before:right-5 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-[calc(100%-6px)] after:right-full after:left-5 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
+                                )}
+                            >
                                 <Link
-                                    className={cn(
-                                        'relative inline-block cursor-pointer font-heading text-base font-semibold text-slate-100 xl:text-lg 2xl:text-[20px]',
-                                        path === '/'
-                                            ? 'rounded-lg bg-likar1/70 p-1.5'
-                                            : "before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
-                                    )}
+                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 xl:text-lg 2xl:px-5 2xl:text-[20px]"
                                     href="/"
                                 >
                                     Naslovnica
                                 </Link>
                             </li>
-                            <li>
+                            <li
+                                className={cn(
+                                    'relative',
+                                    path === '/o-nama'
+                                        ? 'rounded-full bg-likar1/70'
+                                        : "before:absolute before:top-[calc(100%-6px)] before:right-5 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-[calc(100%-6px)] after:right-full after:left-5 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
+                                )}
+                            >
                                 <Link
-                                    className={cn(
-                                        'relative inline-block cursor-pointer font-heading text-base font-semibold text-slate-100 xl:text-lg 2xl:text-[20px]',
-                                        path === '/novosti'
-                                            ? 'rounded-lg bg-likar1/70 p-1.5'
-                                            : "before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
-                                    )}
-                                    href="/novosti"
+                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 xl:text-lg 2xl:px-5 2xl:text-[20px]"
+                                    href="/o-nama"
                                 >
-                                    Novosti
+                                    O nama
                                 </Link>
                             </li>
 
-                            <li>
+                            <li
+                                className={cn(
+                                    'relative',
+                                    path === '/arhiva'
+                                        ? 'rounded-full bg-likar1/70'
+                                        : "before:absolute before:top-[calc(100%-6px)] before:right-5 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-[calc(100%-6px)] after:right-full after:left-5 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
+                                )}
+                            >
                                 <Link
-                                    className={cn(
-                                        'relative inline-block cursor-pointer font-heading text-base font-semibold text-slate-100 xl:text-lg 2xl:text-[20px]',
-                                        path === '/tablica'
-                                            ? 'rounded-lg bg-likar1/70 p-1.5'
-                                            : "before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
-                                    )}
-                                    href="/tablica"
+                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 xl:text-lg 2xl:px-5 2xl:text-[20px]"
+                                    href="/arhiva"
                                 >
-                                    Tablica
+                                    Arhiva
                                 </Link>
                             </li>
-                            <li>
+                            <li
+                                className={cn(
+                                    'relative',
+                                    path === '/galerija'
+                                        ? 'rounded-full bg-likar1/70'
+                                        : "before:absolute before:top-[calc(100%-6px)] before:right-5 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-[calc(100%-6px)] after:right-full after:left-5 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
+                                )}
+                            >
                                 <Link
-                                    className={cn(
-                                        'relative inline-block cursor-pointer font-heading text-base font-semibold text-slate-100 xl:text-lg 2xl:text-[20px]',
-                                        path === '/statistika'
-                                            ? 'rounded-lg bg-likar1/70 p-1.5'
-                                            : "before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
-                                    )}
-                                    href="/statistika"
+                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 xl:text-lg 2xl:px-5 2xl:text-[20px]"
+                                    href="/galerija"
                                 >
-                                    Statistika
+                                    Galerija
                                 </Link>
                             </li>
-                            <li>
+                            <li
+                                className={cn(
+                                    'relative',
+                                    path === '/kontakt'
+                                        ? 'rounded-full bg-likar1/70'
+                                        : "before:absolute before:top-[calc(100%-6px)] before:right-5 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-[calc(100%-6px)] after:right-full after:left-5 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
+                                )}
+                            >
+                                <Link
+                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 xl:text-lg 2xl:px-5 2xl:text-[20px]"
+                                    href="/kontakt"
+                                >
+                                    Kontakt
+                                </Link>
+                            </li>
+                            {/* <li>
                                 <div
                                     className={cn(
-                                        'group relative flex cursor-pointer items-center gap-2 font-heading text-base font-semibold text-slate-100 xl:text-lg',
+                                        'group relative flex cursor-pointer items-center gap-2 py-1.5 font-heading text-base font-semibold text-slate-100 xl:text-lg 2xl:px-5',
                                         path.startsWith('/ekipe') &&
-                                            'rounded-lg bg-likar1/70 p-1.5',
+                                            'rounded-full bg-likar1/70',
                                     )}
                                 >
                                     <span className="2xl:text-[20px]">
@@ -166,9 +157,9 @@ export default function Header() {
                                                         {team.name}
                                                     </Link>
                                                 </li>
-                                            ))}
+                                            ))} */}
 
-                                            {/* <li>
+                            {/* <li>
                                             <Link
                                                 className="block rounded-b-xl border border-slate-100 bg-likar4 px-3 py-2 text-nowrap text-slate-100 transition-all duration-300 hover:text-likar1"
                                                 href="/sezona/2024-2025"
@@ -176,12 +167,76 @@ export default function Header() {
                                                 2024-2025
                                                 </Link>
                                         </li> */}
-                                        </ul>
+                            {/* </ul>
                                     </div>
                                 </div>
-                            </li>
+                            </li> */}
                         </ul>
                     </nav>
+
+                    <div className="relative flex flex-row items-center">
+                        {/* <div className="hidden max-lg:mx-12 sm:block lg:mr-10 lg:w-fit">
+                            <ul className="flex flex-row items-center p-3 max-lg:justify-around">
+                                <li
+                                    className={cn(
+                                        'relative',
+                                        path === '/o-nama'
+                                            ? 'rounded-lg text-slate-900'
+                                            : "before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
+                                    )}
+                                >
+                                    <Link
+                                        className="inline-block cursor-pointer border-r border-r-slate-100 px-3 py-1.5 text-base font-semibold text-slate-100 xl:text-lg"
+                                        href="/o-nama"
+                                    >
+                                        O nama
+                                    </Link>
+                                </li>
+                                <li
+                                    className={cn(
+                                        'relative',
+                                        path === '/arhiva'
+                                            ? 'rounded-lg text-slate-900'
+                                            : "before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
+                                    )}
+                                >
+                                    <Link
+                                        className="inline-block cursor-pointer border-r border-r-slate-100 px-3 py-1.5 text-base font-semibold text-slate-100 xl:text-lg"
+                                        href="/arhiva"
+                                    >
+                                        Arhiva
+                                    </Link>
+                                </li>
+
+                                <li
+                                    className={cn(
+                                        'relative',
+                                        path === '/galerija'
+                                            ? 'rounded-lg text-slate-900'
+                                            : "before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
+                                    )}
+                                >
+                                    <Link
+                                        className="inline-block cursor-pointer px-3 py-1.5 text-base font-semibold text-slate-100 xl:text-lg"
+                                        href="/galerija"
+                                    >
+                                        Galerija
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div> */}
+                        <button
+                            className="group mr-4 flex h-13 w-13 cursor-pointer items-center justify-center rounded-full border border-slate-100/60 bg-likar1/80 transition-all duration-300 hover:border-likar3 hover:bg-slate-100 max-lg:order-1 max-lg:ml-auto sm:mr-6"
+                            onClick={() => setOpenSearch((prev) => !prev)}
+                        >
+                            {openSearch ? (
+                                <SearchX className="h-7 w-7 text-slate-100 transition-colors duration-300 group-hover:text-likar3" />
+                            ) : (
+                                <Search className="h-7 w-7 text-slate-100 transition-colors duration-300 group-hover:text-likar3" />
+                            )}
+                        </button>
+                        <SearchComponent open={openSearch} />
+                    </div>
 
                     {/* ------------------mobile navigation---------------------------- */}
                     <div className="block rounded-2xl bg-likar1/60 p-2 max-lg:order-2 lg:hidden">
@@ -355,7 +410,7 @@ export default function Header() {
 
                                 <div className="to-likar4-40 flex items-center gap-5 bg-linear-to-bl from-likar4/80 px-5 py-2">
                                     <a
-                                        href="https://www.instagram.com/ivan_radicev/"
+                                        href="https://www.instagram.com/"
                                         target="_blank"
                                         className="group text-pink-600"
                                     >
@@ -374,7 +429,7 @@ export default function Header() {
                                         </svg>
                                     </a>
                                     <a
-                                        href="https://web.facebook.com/RadicevIvan/?locale=hr_HR&amp;_rdc=1&amp;_rdr#"
+                                        href="https://web.facebook.com/"
                                         target="_blank"
                                         className="group text-blue-600"
                                     >
@@ -392,7 +447,7 @@ export default function Header() {
                                         </svg>
                                     </a>
                                     <a
-                                        href="https://www.youtube.com/@ivanradicev7934"
+                                        href="https://www.youtube.com/"
                                         target="_blank"
                                         className="group text-red-600"
                                     >
@@ -413,19 +468,6 @@ export default function Header() {
                             </div>
                         </div>
                     </nav>
-                    <div className="relative">
-                        <button
-                            className="group mr-4 flex h-13 w-13 cursor-pointer items-center justify-center rounded-full border border-slate-100/60 bg-likar1/80 transition-all duration-300 hover:border-likar3 hover:bg-slate-100 max-lg:order-1 max-lg:ml-auto sm:mr-6"
-                            onClick={() => setOpenSearch((prev) => !prev)}
-                        >
-                            {openSearch ? (
-                                <SearchX className="h-7 w-7 text-slate-100 transition-colors duration-300 group-hover:text-likar3" />
-                            ) : (
-                                <Search className="h-7 w-7 text-slate-100 transition-colors duration-300 group-hover:text-likar3" />
-                            )}
-                        </button>
-                        <SearchComponent open={openSearch} />
-                    </div>
                 </div>
             </header>
         </>

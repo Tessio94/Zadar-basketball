@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use App\Models\Team;
-use Illuminate\Http\Request;
 use Inertia\Middleware;
+use Illuminate\Http\Request;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -46,10 +48,10 @@ class HandleInertiaRequests extends Middleware
         ];
 
         if (! $request->is('admin-panel/*')) {
-            $shared['teams'] = fn () => cache()->remember(
+            $shared['teams'] = fn() => cache()->remember(
                 'teams.header',
                 now()->addHours(6),
-                fn () => Team::select('id', 'name', 'logo')->get()
+                fn() => Team::select('id', 'name', 'logo')->get()
             );
         }
 

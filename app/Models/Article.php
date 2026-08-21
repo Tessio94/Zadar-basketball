@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Article extends Model
 {
@@ -20,5 +22,9 @@ class Article extends Model
         'main_image',
         'meta_title',
         'meta_description',
+    ];
+
+    protected $casts = [
+        'published_at' => 'datetime',
     ];
 }

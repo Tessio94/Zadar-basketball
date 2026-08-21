@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Game;
+use Inertia\Inertia;
+use App\Services\StandingsService;
 use App\Http\Requests\StoreGameRequest;
 use App\Http\Requests\UpdateGameRequest;
-use App\Services\StandingsService;
-use Inertia\Inertia;
 
 class ResultController extends Controller
 {
@@ -30,7 +32,7 @@ class ResultController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): void
     {
         //
     }
@@ -38,7 +40,7 @@ class ResultController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreGameRequest $request)
+    public function store(StoreGameRequest $request): void
     {
         //
     }
@@ -46,7 +48,7 @@ class ResultController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Game $game)
+    public function show(Game $game): void
     {
         //
     }
@@ -54,7 +56,7 @@ class ResultController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Game $game)
+    public function edit(Game $game): void
     {
         //
     }
@@ -62,7 +64,7 @@ class ResultController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateGameRequest $request, Game $game)
+    public function update(UpdateGameRequest $request, Game $game): void
     {
         //
     }
@@ -70,7 +72,7 @@ class ResultController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Game $game)
+    public function destroy(Game $game): void
     {
         //
     }

@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Game extends Model
 {
     /** @use HasFactory<\Database\Factories\GameFactory> */
     use HasFactory;
 
-     protected $fillable = [
+    protected $fillable = [
         'season_id',
         'home_team_id',
         'away_team_id',
@@ -18,7 +20,7 @@ class Game extends Model
         'round_number',
         'home_score',
         'away_score',
-        'status'
+        'status',
     ];
 
     public function season()
@@ -40,5 +42,4 @@ class Game extends Model
     {
         return $this->hasMany(PlayerGameStat::class);
     }
-
 }

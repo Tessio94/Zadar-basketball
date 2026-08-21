@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Article;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
-use Inertia\Inertia;
 
 class ArticleController extends Controller
 {
@@ -14,17 +16,21 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $mainArticles = Article::orderBy('created_at', 'desc')->limit(5)->get();
+        $mainArticles = Article::whereNotNull('published_at')
+            ->orderBy('published_at', 'desc')
+            ->limit(5)
+            ->get();
 
-        $additionalArticles = Article::orderBy('created_at', 'desc')
+        $additionalArticles = Article::whereNotNull('published_at')
+            ->orderBy('published_at', 'desc')
             ->skip(5)
             ->limit(4)
             ->get();
 
-        return Inertia::render('news',
-            ['mainArticles' => $mainArticles,
-            'additionalArticles' => $additionalArticles
-        ]);
+        return Inertia::render('news', [
+                'mainArticles' => $mainArticles,
+                'additionalArticles' => $additionalArticles,
+            ]);
     }
 
     public function archive()
@@ -32,14 +38,14 @@ class ArticleController extends Controller
         $articles = Article::latest()->paginate(10);
 
         return Inertia::render('archive', [
-            'articles' => $articles
+            'articles' => $articles,
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): void
     {
         //
     }
@@ -47,7 +53,7 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreArticleRequest $request)
+    public function store(StoreArticleRequest $request): void
     {
         //
     }
@@ -64,7 +70,7 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Article $article)
+    public function edit(Article $article): void
     {
         //
     }
@@ -72,7 +78,7 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateArticleRequest $request, Article $article)
+    public function update(UpdateArticleRequest $request, Article $article): void
     {
         //
     }
@@ -80,7 +86,7 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Article $article)
+    public function destroy(Article $article): void
     {
         //
     }

@@ -6,11 +6,11 @@ export default function ArticleCard() {
             <img
                 src="/images/design/landing.jpg"
                 alt=""
-                className="aspect-video rounded-lg transition-transform duration-300 group-hover:scale-90 md:w-50"
+                className="aspect-video rounded-lg transition-transform duration-300 group-hover:scale-90 md:w-30"
             />
-            <h3 className="grow font-text text-xl font-semibold text-slate-200 transition-colors duration-300 group-hover:text-likar3 max-2xl:w-50 max-md:w-auto">
+            <h3 className="grow font-text text-base font-semibold text-slate-200 transition-colors duration-300 group-hover:text-likar3 max-2xl:w-50 max-md:w-auto">
                 <a href="">Likar Krombacher - liga rekreativaca Zadar</a>
-                <time className="flex flex-row items-center gap-3 font-text text-base text-slate-100">
+                <time className="mt-2 flex flex-row items-center gap-3 font-text text-sm font-normal text-slate-300">
                     <Clock className="h-4 w-4" /> 23. veljače 2026.
                 </time>
             </h3>

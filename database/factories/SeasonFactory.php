@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -16,7 +18,7 @@ class SeasonFactory extends Factory
      */
     public function definition(): array
     {
-       return [
+        return [
             'name' => '2025-2026',
             'start_date' => now(),
             'end_date' => now()->addMonths(8),

@@ -1,24 +1,24 @@
 <?php
 
-use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\GameController;
-use App\Http\Controllers\PlayerController;
-use App\Http\Controllers\PlayerGameStatController;
-use App\Http\Controllers\ResultController;
-use App\Http\Controllers\TeamController;
-use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+declare(strict_types=1);
 
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\TeamController;
+use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\ResultController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\PlayerGameStatController;
+use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
+use App\Http\Controllers\Admin\DashboardController;
 
 /**
  *  Navigation menu pages
  */
 
 // naslovnica
-Route::get('/', function () {
-    return Inertia::render('welcome');
-})->name('home');
+Route::get('/', fn() => Inertia::render('welcome'))->name('home');
 
 // novosti listing
 Route::get('novosti', [ArticleController::class, 'index'])->name('news');
@@ -51,33 +51,23 @@ Route::get('igrac/{player}', [PlayerController::class, 'show'])->name('player.sh
  *  upper small menu pages
  */
 // o nama
-Route::get('o-nama', function () {
-    return Inertia::render('about');
-})->name('about');
+Route::get('o-nama', fn() => Inertia::render('about'))->name('about');
 
 // arhiva
 Route::get('arhiva', [ArticleController::class, 'archive'])->name('archive');
 
 // galerija listing
-Route::get('galerija', function () {
-    return Inertia::render('galleries');
-})->name('galleries');
+Route::get('galerija', fn() => Inertia::render('galleries'))->name('galleries');
 
 // galerija show
-Route::get('galerija/1', function () {
-    return Inertia::render('gallery');
-})->name('gallery');
-
+Route::get('galerija/1', fn() => Inertia::render('gallery'))->name('gallery');
 
 /**
  *  admin panel pages
  */
-
-Route::middleware(['auth', 'verified'])->prefix('admin-panel')->group(function () {
-    Route::get('/', function () {
-        return Inertia::render('admin/dashboard');
-    })->name('admin.panel');
-
+Route::middleware(['auth', 'verified'])->prefix('admin-panel')->group(function(): void {
+    // Route::get('/', fn() => Inertia::render('admin/dashboard'))->name('admin.panel');
+    Route::get('/', [DashboardController::class, 'index'])->name('admin.panel');
 
     Route::resource('novosti', AdminArticleController::class)
         ->parameters(['novosti' => 'article']);
@@ -85,7 +75,4 @@ Route::middleware(['auth', 'verified'])->prefix('admin-panel')->group(function (
     Route::post('novosti/upload-image', [AdminArticleController::class, 'uploadImage']);
 });
 
-
-
-
-require __DIR__.'/settings.php';
+require __DIR__ . '/settings.php';

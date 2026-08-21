@@ -9,6 +9,12 @@ import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminM
 import AppLayout from '@/layouts/app-layout';
 import { panel } from '@/routes/admin';
 import type { BreadcrumbItem } from '@/types';
+import type { AdminArticleListItem, Game } from '@/types/propTypes';
+
+interface DashboardProps {
+    lastGames: Game[];
+    lastNews: AdminArticleListItem[];
+}
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -17,7 +23,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Dashboard() {
+export default function Dashboard({ lastGames, lastNews }: DashboardProps) {
     return (
         <>
             <Head title="Admin panel" />
@@ -27,8 +33,8 @@ export default function Dashboard() {
                     <AddOptions />
                 </AdminUpperGrid>
                 <AdminLowerGrid>
-                    <LastGames />
-                    <LastNews />
+                    <LastGames games={lastGames} />
+                    <LastNews articles={lastNews} />
                 </AdminLowerGrid>
             </AdminMainContent>
         </>

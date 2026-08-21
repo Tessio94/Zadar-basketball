@@ -364,12 +364,18 @@ export type Article = {
 
 export type ArticleForm = {
     title: string;
-    published_at: string;
+    // published_at: string;
     excerpt: string;
     content: string;
     main_image: File | null;
     status: string;
     slug: string;
+};
+
+export type AdminArticleListItem = {
+    id: number;
+    title: string;
+    published_at: string | null;
 };
 
 /**

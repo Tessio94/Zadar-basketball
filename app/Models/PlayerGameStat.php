@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PlayerGameStat extends Model
 {
@@ -29,12 +31,12 @@ class PlayerGameStat extends Model
         'blocks',
         'turnovers',
         'fouls',
-        'efficiency'
+        'efficiency',
     ];
 
     protected $appends = [
         'fg_percentage',
-        'fg3_percentage'
+        'fg3_percentage',
     ];
 
     public function game()

@@ -1,12 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use App\Http\Controllers\Controller;
-use App\Models\Article;
 use Inertia\Inertia;
+use App\Models\Article;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -18,7 +22,7 @@ class ArticleController extends Controller
         $articles = Article::latest()->paginate(10);
 
         return Inertia::render('admin/novosti/news', [
-            'articles' => $articles
+            'articles' => $articles,
         ]);
     }
 
@@ -27,7 +31,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-          return Inertia::render('admin/novosti/createArticle');
+        return Inertia::render('admin/novosti/createArticle');
     }
 
     /**
@@ -42,11 +46,16 @@ class ArticleController extends Controller
             'content' => 'required|string',
             'excerpt' => 'nullable|string',
             'status' => 'nullable|in:published,draft',
-            'published_at' => 'nullable|date',
             'main_image' => 'nullable|image|mimes:jpg,jpeg,png,webp,gif|max:2048',
         ]);
 
         $validated['status'] = $validated['status'] ?? 'draft';
+
+        if ($validated['status'] === 'published') {
+            $validated['published_at'] = now();
+        } else {
+            $validated['published_at'] = null;
+        }
 
         if ($request->hasFile('main_image')) {
             $path = $request->file('main_image')->store('articles', 'public');
@@ -61,12 +70,12 @@ class ArticleController extends Controller
         return redirect()
             ->route('novosti.index')
             ->with('success', 'Članak uspješno kreiran!');
-        }
+    }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id): void
     {
         //
     }
@@ -76,8 +85,10 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
+        $article->published_at = $article->published_at?->format('Y-m-d');
+
         return Inertia::render('admin/novosti/editArticle', [
-            'article' => $article
+            'article' => $article,
         ]);
 
     }
@@ -103,9 +114,15 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Article $article): RedirectResponse
     {
-        //
+        if ($article->main_image) {
+            Storage::disk('public')->delete($article->main_image);
+        }
+
+        $article->delete();
+
+        return redirect()->back();
     }
 
     public function uploadImage(Request $request)
@@ -114,12 +131,12 @@ class ArticleController extends Controller
             $path = $request->file('file')->store('editor-images', 'public');
 
             return response()->json([
-                'location' => asset('storage/' . $path)
+                'location' => asset('storage/' . $path),
             ]);
         }
 
         return response()->json([
-            'error' => 'No file uploaded'
+            'error' => 'No file uploaded',
         ], 400);
     }
 }

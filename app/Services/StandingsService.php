@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
-use App\Models\Team;
 use App\Models\Game;
-
+use App\Models\Team;
 
 class StandingsService
 {
@@ -12,13 +13,13 @@ class StandingsService
     {
         $teams = Team::all();
 
-        return $teams->map(function ($team) use ($seasonId) {
+        return $teams->map(function($team) use ($seasonId) {
 
             $games = Game::where('status', 'finished')
                 ->when($seasonId, fn($q) => $q->where('season_id', $seasonId))
-                ->where(function ($query) use ($team) {
+                ->where(function($query) use ($team): void {
                     $query->where('home_team_id', $team->id)
-                          ->orWhere('away_team_id', $team->id);
+                        ->orWhere('away_team_id', $team->id);
                 })
                 ->orderByDesc('game_date')
                 ->get();
@@ -35,7 +36,7 @@ class StandingsService
                 $isHome = $game->home_team_id === $team->id;
 
                 $teamScore = $isHome ? $game->home_score : $game->away_score;
-                $oppScore  = $isHome ? $game->away_score : $game->home_score;
+                $oppScore = $isHome ? $game->away_score : $game->home_score;
 
                 $scored += $teamScore;
                 $allowed += $oppScore;
@@ -47,11 +48,11 @@ class StandingsService
                 }
             }
 
-            $lastFive = $games->take(5)->map(function ($game) use ($team) {
+            $lastFive = $games->take(5)->map(function($game) use ($team) {
 
                 $isHome = $game->home_team_id === $team->id;
                 $teamScore = $isHome ? $game->home_score : $game->away_score;
-                $oppScore  = $isHome ? $game->away_score : $game->home_score;
+                $oppScore = $isHome ? $game->away_score : $game->home_score;
 
                 return $teamScore > $oppScore ? 'W' : 'L';
             });
@@ -69,10 +70,10 @@ class StandingsService
                 'form' => $lastFive->values(),
             ];
         })
-        ->sortBy([
-            ['wins', 'desc'],
-            ['difference', 'desc'],
-        ])
-        ->values();
+            ->sortBy([
+                ['wins', 'desc'],
+                ['difference', 'desc'],
+            ])
+            ->values();
     }
 }

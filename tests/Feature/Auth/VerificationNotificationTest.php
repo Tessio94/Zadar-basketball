@@ -1,10 +1,12 @@
 <?php
 
-use App\Models\User;
-use Illuminate\Auth\Notifications\VerifyEmail;
-use Illuminate\Support\Facades\Notification;
+declare(strict_types=1);
 
-test('sends verification notification', function () {
+use App\Models\User;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Auth\Notifications\VerifyEmail;
+
+test('sends verification notification', function(): void {
     Notification::fake();
 
     $user = User::factory()->unverified()->create();
@@ -16,7 +18,7 @@ test('sends verification notification', function () {
     Notification::assertSentTo($user, VerifyEmail::class);
 });
 
-test('does not send verification notification if email is verified', function () {
+test('does not send verification notification if email is verified', function(): void {
     Notification::fake();
 
     $user = User::factory()->create();

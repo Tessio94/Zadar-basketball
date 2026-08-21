@@ -1,21 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
-use App\Models\Season;
+use App\Models\Game;
 use App\Models\Team;
 use App\Models\Player;
-use App\Models\Game;
+use App\Models\Season;
+use Illuminate\Support\Str;
 use App\Models\PlayerGameStat;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
 class LeagueSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::transaction(function () {
+        DB::transaction(function(): void {
 
             // 1 Create Season
             $season = Season::create([
@@ -116,7 +118,7 @@ class LeagueSeeder extends Seeder
         });
     }
 
-    private function generateBoxscore($game, $team)
+    private function generateBoxscore($game, $team): void
     {
         $players = $team->players->shuffle();
 
@@ -178,7 +180,7 @@ class LeagueSeeder extends Seeder
         }
     }
 
-    private function assignPlusMinus($game, $home, $away, $margin)
+    private function assignPlusMinus($game, $home, $away, $margin): void
     {
         // Home team
         $homeStats = PlayerGameStat::where('game_id', $game->id)
@@ -191,7 +193,7 @@ class LeagueSeeder extends Seeder
             $variation = rand(-5, 5);
 
             $stat->update([
-                'plus_minus' => $margin + $variation
+                'plus_minus' => $margin + $variation,
             ]);
         }
 
@@ -205,7 +207,7 @@ class LeagueSeeder extends Seeder
             $variation = rand(-5, 5);
 
             $stat->update([
-                'plus_minus' => (-$margin) + $variation
+                'plus_minus' => (-$margin) + $variation,
             ]);
         }
     }

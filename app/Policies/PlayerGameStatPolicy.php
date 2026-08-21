@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
-use App\Models\PlayerGameStat;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
+use App\Models\PlayerGameStat;
 
 class PlayerGameStatPolicy
 {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Season;
@@ -11,7 +13,7 @@ class SeasonController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): void
     {
         //
     }
@@ -19,7 +21,7 @@ class SeasonController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): void
     {
         //
     }
@@ -27,7 +29,7 @@ class SeasonController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSeasonRequest $request)
+    public function store(StoreSeasonRequest $request): void
     {
         //
     }
@@ -35,7 +37,7 @@ class SeasonController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Season $season)
+    public function show(Season $season): void
     {
         //
     }
@@ -43,7 +45,7 @@ class SeasonController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Season $season)
+    public function edit(Season $season): void
     {
         //
     }
@@ -51,7 +53,7 @@ class SeasonController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSeasonRequest $request, Season $season)
+    public function update(UpdateSeasonRequest $request, Season $season): void
     {
         //
     }
@@ -59,7 +61,7 @@ class SeasonController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Season $season)
+    public function destroy(Season $season): void
     {
         //
     }
