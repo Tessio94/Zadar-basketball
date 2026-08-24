@@ -14,10 +14,10 @@ export default function LastGamesCard({ game }: { game: Game }) {
                             alt=""
                             className="h-10 w-10 rounded-full max-sm:h-9 max-sm:w-9"
                         />
-                        <span className="hidden sm:inline">
+                        <span className="hidden text-start sm:inline">
                             {game.home_team.name}
                         </span>
-                        <span className="inline sm:hidden">
+                        <span className="inline text-start sm:hidden">
                             {game.home_team.short_name}
                         </span>
                     </div>
@@ -28,10 +28,10 @@ export default function LastGamesCard({ game }: { game: Game }) {
                     </div>
                     <div className="flex w-[40%] flex-row justify-end">
                         <div className="flex flex-row items-center gap-2 max-sm:gap-1.5">
-                            <span className="hidden sm:inline">
+                            <span className="hidden text-end sm:inline">
                                 {game.away_team.name}
                             </span>
-                            <span className="inline sm:hidden">
+                            <span className="inline text-end sm:hidden">
                                 {game.away_team.short_name}
                             </span>
                             <img

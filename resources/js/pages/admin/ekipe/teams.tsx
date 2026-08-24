@@ -11,7 +11,7 @@ import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminM
 import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
 import type { BreadcrumbItem } from '@/types';
-import type { Article, Paginated } from '@/types/propTypes';
+import type { Team, Paginated } from '@/types/propTypes';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -20,22 +20,22 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function News({ articles }: { articles: Paginated<Article> }) {
-    console.log('articles', articles);
+export default function Teams({ teams }: { teams: Paginated<Team> }) {
+    console.log('Teams', teams);
     return (
         <>
-            <Head title="Admin panel | Novosti" />
+            <Head title="Admin panel | Ekipe" />
             <AdminMainContent>
                 <div className="flex min-h-full flex-col justify-between">
                     <div className="mb-4 flex justify-between">
-                        <h1 className="text-xl font-bold">Arhiva novosti</h1>
+                        <h1 className="text-xl font-bold">Ekipe</h1>
 
                         <Link
                             href={create()}
                             className="group flex flex-row items-center gap-2 rounded-lg border border-transparent bg-likar3 px-6 py-2 text-center! font-semibold text-slate-100 transition-colors duration-300 hover:border-likar3 hover:bg-likar1/40 hover:text-likar3"
                         >
                             <Plus className="transition-transform duration-300 group-hover:rotate-180" />{' '}
-                            Kreiraj članak
+                            Kreiraj Ekipu
                         </Link>
                     </div>
                     <div className="grow rounded-xl">
@@ -44,7 +44,7 @@ export default function News({ articles }: { articles: Paginated<Article> }) {
                                 <thead>
                                     <tr className="rounded-t-xl bg-linear-to-r from-likar3 via-likar1 to-likar3 text-slate-100 *:border-r *:p-5 *:text-start *:last:border-0 max-[500px]:*:p-2">
                                         <th className="text-center!">No.</th>
-                                        <th style={{ width: '70%' }}>Naslov</th>
+                                        <th style={{ width: '70%' }}>Ekipa</th>
                                         <th
                                             colSpan={2}
                                             className="text-center!"
@@ -55,31 +55,20 @@ export default function News({ articles }: { articles: Paginated<Article> }) {
                                 </thead>
 
                                 <tbody>
-                                    {articles.data.map((article) => (
+                                    {teams.data.map((team) => (
                                         <tr
-                                            key={article.id}
+                                            key={team.id}
                                             className="*:border-r *:p-5 *:text-start *:last:border-0 even:bg-slate-200/60 max-[500px]:*:px-2 max-[500px]:*:py-3"
                                         >
                                             <td className="flex items-center justify-center">
-                                                <span
-                                                    className={cn(
-                                                        'flex h-8 w-8 items-center justify-center rounded-full',
-                                                        article.status ===
-                                                            'published' &&
-                                                            'bg-likar3 text-slate-100',
-                                                        article.status ===
-                                                            'draft' &&
-                                                            'bg-likar1/50 text-slate-600',
-                                                    )}
-                                                >
-                                                    {' '}
-                                                    {article.id}
+                                                <span className="flex h-8 w-8 items-center justify-center rounded-full">
+                                                    {team.id}
                                                 </span>
                                             </td>
-                                            <td>{article.title}</td>
+                                            <td>{team.name}</td>
                                             <td className="text-center!">
                                                 <Link
-                                                    href={edit(article.id)}
+                                                    href={edit(team.id)}
                                                     className="rounded-lg bg-likar2 px-6 py-2 text-center! font-semibold transition-colors duration-300 hover:bg-likar4 hover:text-slate-100"
                                                 >
                                                     Uredi
@@ -95,9 +84,8 @@ export default function News({ articles }: { articles: Paginated<Article> }) {
                                                             )
                                                         ) {
                                                             router.delete(
-                                                                destroy(
-                                                                    article.id,
-                                                                ).url,
+                                                                destroy(team.id)
+                                                                    .url,
                                                             );
                                                         }
                                                     }}
@@ -113,7 +101,7 @@ export default function News({ articles }: { articles: Paginated<Article> }) {
                         </div>
                     </div>
                     <div className="flex flex-row justify-center">
-                        <Pagination links={articles.links} type="admin" />
+                        <Pagination links={teams.links} type="admin" />
                     </div>
                 </div>
             </AdminMainContent>
@@ -121,6 +109,6 @@ export default function News({ articles }: { articles: Paginated<Article> }) {
     );
 }
 
-News.layout = (page: React.ReactNode) => (
+Teams.layout = (page: React.ReactNode) => (
     <AppLayout breadcrumbs={breadcrumbs} children={page} />
 );

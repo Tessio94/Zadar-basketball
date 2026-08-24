@@ -75,25 +75,6 @@ export default function CreateArticle() {
                             )}
                         </div>
 
-                        {/* <div>
-                            <label
-                                htmlFor="datum"
-                                className="mb-1 block font-semibold"
-                            >
-                                Datum objave
-                            </label>
-                            <input
-                                id="datum"
-                                name="datum"
-                                type="date"
-                                value={data.published_at}
-                                onChange={(e) =>
-                                    setData('published_at', e.target.value)
-                                }
-                                className="w-full rounded border p-2"
-                            />
-                        </div> */}
-
                         <div>
                             <label
                                 htmlFor="uvod"

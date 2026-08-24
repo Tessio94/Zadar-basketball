@@ -24,6 +24,9 @@ export default function RichTextEditor({
             init={{
                 height: '100%',
                 menubar: false,
+                relative_urls: false,
+                remove_script_host: false,
+                convert_urls: false,
                 plugins: [
                     'advlist',
                     'autolink',

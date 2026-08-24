@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GameController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\ResultController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PlayerGameStatController;
 use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
+use App\Http\Controllers\Admin\TeamController as AdminTeamController;
 use App\Http\Controllers\Admin\DashboardController;
 
 /**
@@ -73,6 +75,9 @@ Route::middleware(['auth', 'verified'])->prefix('admin-panel')->group(function()
         ->parameters(['novosti' => 'article']);
 
     Route::post('novosti/upload-image', [AdminArticleController::class, 'uploadImage']);
+
+    Route::resource('ekipe', AdminTeamController::class)
+        ->parameters(['ekipe' => 'team']);
 });
 
 require __DIR__ . '/settings.php';

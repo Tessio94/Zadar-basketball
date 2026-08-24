@@ -27,12 +27,12 @@ const APP_URL = import.meta.env.VITE_APP_URL;
 // console.log('APP_url', APP_URL);
 
 export default function EditArticle({ article }: { article: Article }) {
-    // console.log(article);
+    console.log(article);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const { data, setData, put, processing, errors } = useForm<Article>({
         title: article.title || '',
-        published_at: article.published_at.substring(0, 10) || '',
+        published_at: article?.published_at?.substring(0, 10) || '',
         excerpt: article.excerpt || '',
         content: article.content || '',
         status: article.status || '',
@@ -81,7 +81,7 @@ export default function EditArticle({ article }: { article: Article }) {
                             )}
                         </div>
 
-                        <div>
+                        {/* <div>
                             <label
                                 htmlFor="datum"
                                 className="mb-1 block font-semibold"
@@ -98,7 +98,34 @@ export default function EditArticle({ article }: { article: Article }) {
                                 }
                                 className="w-full rounded border p-2"
                             />
-                        </div>
+                        </div> */}
+                        {data.status === 'published' && (
+                            <div>
+                                <label
+                                    htmlFor="datum"
+                                    className="mb-1 block font-semibold"
+                                >
+                                    Datum objave
+                                </label>
+
+                                <input
+                                    id="datum"
+                                    name="datum"
+                                    type="date"
+                                    value={data.published_at ?? ''}
+                                    onChange={(e) =>
+                                        setData('published_at', e.target.value)
+                                    }
+                                    className="w-full rounded border p-2"
+                                />
+
+                                {errors.published_at && (
+                                    <div className="text-sm text-red-500">
+                                        {errors.published_at}
+                                    </div>
+                                )}
+                            </div>
+                        )}
 
                         <div>
                             <label

@@ -98,15 +98,25 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        $article->update($request->validate([
+
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:articles,slug,' . $article->id,
+            'slug' => 'required|string|max:255|unique:articles,  slug,' . $article->id,
             'excerpt' => 'nullable|string',
             'content' => 'required|string',
             'status' => 'required|in:published,draft',
             'published_at' => 'nullable|date',
             'main_image' => 'nullable|string',
-        ]));
+        ]);
+
+        if ($validated['status'] === 'draft') {
+            $validated['published_at'] = null;
+        } elseif ($article->status === 'draft') {
+
+            $validated['published_at'] = now();
+        }
+
+        $article->update($validated);
 
         return redirect()->route('novosti.index');
     }

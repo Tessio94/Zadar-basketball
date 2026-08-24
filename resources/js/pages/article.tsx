@@ -49,7 +49,7 @@ export default function Article({ article }: { article: Article }) {
                     )}
                     <div className="p-5">
                         <div className="relative flex w-full flex-row justify-between gap-8">
-                            <div className="relative my-8 flex grow flex-col items-center justify-center gap-6 2xl:basis-[70%]">
+                            <div className="relative my-4 flex grow flex-col items-center justify-center gap-6 rounded-xl bg-likar4/40 p-3.5 2xl:basis-[70%]">
                                 {/* <div className="absolute inset-0 z-0 bg-linear-to-r from-transparent via-likar2 to-transparent" /> */}
                                 <span className="font-jet w-fit rounded-xl bg-slate-600 px-2 py-1 font-heading text-base text-slate-100 transition-colors duration-300 group-hover:bg-likar1">
                                     2025-2026

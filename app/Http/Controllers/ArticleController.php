@@ -35,7 +35,9 @@ class ArticleController extends Controller
 
     public function archive()
     {
-        $articles = Article::latest()->paginate(10);
+        $articles = Article::whereNotNull('published_at')
+            ->latest('published_at')
+            ->paginate(10);
 
         return Inertia::render('archive', [
             'articles' => $articles,
@@ -64,7 +66,11 @@ class ArticleController extends Controller
     public function show(Article $article)
     {
         //
-        return Inertia::render('article', ['article' => $article]);
+        abort_if($article->published_at === null, 404);
+
+        return Inertia::render('article', [
+            'article' => $article
+        ]);
     }
 
     /**

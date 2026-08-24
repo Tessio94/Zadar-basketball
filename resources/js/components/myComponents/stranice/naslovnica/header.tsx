@@ -134,14 +134,14 @@ export default function Header() {
                             <ul className="flex flex-row items-center py-1 max-lg:justify-around xl:py-1.5">
                                 <li
                                     className={cn(
-                                        'relative',
+                                        'border-r border-r-slate-100 md:px-2.5 2xl:px-3',
                                         path === '/o-nama'
-                                            ? 'rounded-lg text-slate-900'
-                                            : "before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
+                                            ? 'text-likar3'
+                                            : 'text-slate-100',
                                     )}
                                 >
                                     <Link
-                                        className="inline-block cursor-pointer border-r border-r-slate-100 text-sm font-semibold text-slate-100 md:px-2.5 xl:text-lg 2xl:px-3"
+                                        className="relative inline-block cursor-pointer rounded-lg text-sm font-semibold before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 xl:text-lg"
                                         href="/o-nama"
                                     >
                                         O nama
@@ -149,14 +149,14 @@ export default function Header() {
                                 </li>
                                 <li
                                     className={cn(
-                                        'relative',
+                                        'border-r border-r-slate-100 md:px-2.5 2xl:px-3',
                                         path === '/arhiva'
-                                            ? 'rounded-lg text-slate-900'
-                                            : "before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
+                                            ? 'text-likar3'
+                                            : 'text-slate-100',
                                     )}
                                 >
                                     <Link
-                                        className="inline-block cursor-pointer border-r border-r-slate-100 text-sm font-semibold text-slate-100 md:px-2.5 xl:text-lg 2xl:px-3"
+                                        className="relative inline-block cursor-pointer rounded-lg text-sm font-semibold before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 xl:text-lg"
                                         href="/arhiva"
                                     >
                                         Arhiva
@@ -165,14 +165,14 @@ export default function Header() {
 
                                 <li
                                     className={cn(
-                                        'relative',
+                                        'md:px-2.5 2xl:px-3',
                                         path === '/galerija'
-                                            ? 'rounded-lg text-slate-900'
-                                            : "before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
+                                            ? 'text-likar3'
+                                            : 'text-slate-100',
                                     )}
                                 >
                                     <Link
-                                        className="inline-block cursor-pointer text-sm font-semibold text-slate-100 md:px-2.5 xl:text-lg 2xl:px-3"
+                                        className="relative inline-block cursor-pointer rounded-lg text-sm font-semibold before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 xl:text-lg"
                                         href="/galerija"
                                     >
                                         Galerija

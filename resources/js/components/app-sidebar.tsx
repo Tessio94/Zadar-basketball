@@ -9,7 +9,7 @@ import {
     Newspaper,
     User2Icon,
 } from 'lucide-react';
-import { index } from '@/actions/App/Http/Controllers/Admin/ArticleController';
+import { index as adminArticleIndex } from '@/actions/App/Http/Controllers/Admin/ArticleController';
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
@@ -25,6 +25,7 @@ import {
 import { panel } from '@/routes/admin';
 import type { NavItem } from '@/types';
 import AppLogo from './app-logo';
+import { index as adminTeamController } from '@/actions/App/Http/Controllers/Admin/TeamController';
 
 const mainNavItems: NavItem[] = [
     {
@@ -34,7 +35,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Ekipe',
-        href: panel(),
+        href: adminTeamController(),
         icon: ShieldHalfIcon,
     },
     {
@@ -49,7 +50,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Novosti',
-        href: index(),
+        href: adminArticleIndex(),
         icon: Newspaper,
     },
     {
