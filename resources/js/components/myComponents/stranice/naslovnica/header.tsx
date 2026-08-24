@@ -3,12 +3,10 @@ import { ChevronDown, Search, SearchX } from 'lucide-react';
 import { useEffect, useEffectEvent, useState } from 'react';
 import { show } from '@/actions/App/Http/Controllers/TeamController';
 import { cn } from '@/lib/utils';
-import type { HeaderProps } from '@/types/propTypes';
 import SearchComponent from './searchComponent';
 
 export default function Header() {
     const [hambActive, setHambActive] = useState<boolean>(false);
-    const [ekipeDropdown, setEkipeDropdown] = useState<boolean>(false);
     const [openSearch, setOpenSearch] = useState<boolean>(false);
 
     const { url: path } = usePage();
@@ -21,27 +19,25 @@ export default function Header() {
         removeSidebar();
     }, [path]);
 
-    const { teams } = usePage<HeaderProps>().props;
-
     return (
         <>
             <header
                 className={cn(
-                    'z-200 bg-transparent px-10 py-5 max-[450px]:px-4 sm:px-12 lg:px-16 xl:px-18 2xl:px-20',
+                    'z-200 bg-transparent px-10 pt-8 pb-5 max-[450px]:px-4 sm:px-12 lg:px-16 xl:px-18 xl:py-5 2xl:px-20',
                     path === '/' ? 'absolute right-0 left-0' : 'relative',
                 )}
             >
-                <div className="flex items-center justify-between">
+                <div className="relative flex flex-row items-center justify-between">
                     <Link
                         href="/"
-                        className="flex flex-row items-stretch gap-5"
+                        className="flex flex-row items-stretch xl:gap-2.5 2xl:gap-5"
                     >
                         <img
                             src="/images/design/logo.png"
                             alt=""
                             className="h-22 w-22"
                         />
-                        <div className="flex flex-col items-start justify-center gap-1">
+                        <div className="hidden flex-col items-start justify-center gap-1 xl:flex">
                             <h1 className="font-heading text-2xl font-semibold text-slate-100">
                                 Likar{' '}
                                 <span className="text-likar3">Krombacher</span>
@@ -52,7 +48,7 @@ export default function Header() {
                         </div>
                     </Link>
 
-                    <nav className="hidden rounded-full border-b border-likar3 bg-likar4/70 p-3 shadow-md shadow-likar3/30 lg:block">
+                    <nav className="hidden rounded-full border-b border-likar3 bg-likar4/70 p-3 shadow-md shadow-likar3/30 md:-ml-[36px] md:block xl:-ml-[17px] 2xl:-ml-[27px]">
                         <ul className="flex items-center">
                             <li
                                 className={cn(
@@ -63,7 +59,7 @@ export default function Header() {
                                 )}
                             >
                                 <Link
-                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 xl:text-lg 2xl:px-5 2xl:text-[20px]"
+                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 md:px-2.5 xl:text-lg 2xl:px-5 2xl:text-[20px]"
                                     href="/"
                                 >
                                     Naslovnica
@@ -72,111 +68,70 @@ export default function Header() {
                             <li
                                 className={cn(
                                     'relative',
-                                    path === '/o-nama'
+                                    path === '/novosti'
                                         ? 'rounded-full bg-likar1/70'
                                         : "before:absolute before:top-[calc(100%-6px)] before:right-5 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-[calc(100%-6px)] after:right-full after:left-5 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
                                 )}
                             >
                                 <Link
-                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 xl:text-lg 2xl:px-5 2xl:text-[20px]"
-                                    href="/o-nama"
+                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 md:px-2.5 xl:text-lg 2xl:px-5 2xl:text-[20px]"
+                                    href="/novosti"
                                 >
-                                    O nama
+                                    Novosti
                                 </Link>
                             </li>
 
                             <li
                                 className={cn(
                                     'relative',
-                                    path === '/arhiva'
+                                    path === '/tablica'
                                         ? 'rounded-full bg-likar1/70'
                                         : "before:absolute before:top-[calc(100%-6px)] before:right-5 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-[calc(100%-6px)] after:right-full after:left-5 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
                                 )}
                             >
                                 <Link
-                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 xl:text-lg 2xl:px-5 2xl:text-[20px]"
-                                    href="/arhiva"
+                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 md:px-2.5 xl:text-lg 2xl:px-5 2xl:text-[20px]"
+                                    href="/tablica"
                                 >
-                                    Arhiva
+                                    Tablica
                                 </Link>
                             </li>
                             <li
                                 className={cn(
                                     'relative',
-                                    path === '/galerija'
+                                    path === '/statistika'
                                         ? 'rounded-full bg-likar1/70'
                                         : "before:absolute before:top-[calc(100%-6px)] before:right-5 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-[calc(100%-6px)] after:right-full after:left-5 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
                                 )}
                             >
                                 <Link
-                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 xl:text-lg 2xl:px-5 2xl:text-[20px]"
-                                    href="/galerija"
+                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 md:px-2.5 xl:text-lg 2xl:px-5 2xl:text-[20px]"
+                                    href="/statistika"
                                 >
-                                    Galerija
+                                    Statistika
                                 </Link>
                             </li>
                             <li
                                 className={cn(
                                     'relative',
-                                    path === '/kontakt'
+                                    path === '/ekipe'
                                         ? 'rounded-full bg-likar1/70'
                                         : "before:absolute before:top-[calc(100%-6px)] before:right-5 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-[calc(100%-6px)] after:right-full after:left-5 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
                                 )}
                             >
                                 <Link
-                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 xl:text-lg 2xl:px-5 2xl:text-[20px]"
-                                    href="/kontakt"
+                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 md:px-2.5 xl:text-lg 2xl:px-5 2xl:text-[20px]"
+                                    href="/ekipe"
                                 >
-                                    Kontakt
+                                    Ekipe
                                 </Link>
                             </li>
-                            {/* <li>
-                                <div
-                                    className={cn(
-                                        'group relative flex cursor-pointer items-center gap-2 py-1.5 font-heading text-base font-semibold text-slate-100 xl:text-lg 2xl:px-5',
-                                        path.startsWith('/ekipe') &&
-                                            'rounded-full bg-likar1/70',
-                                    )}
-                                >
-                                    <span className="2xl:text-[20px]">
-                                        Ekipe
-                                    </span>
-
-                                    <ChevronDown className="text-3xl transition-all duration-300 group-hover:rotate-x-180" />
-                                    <div className="invisible absolute top-[130%] max-h-0 opacity-0 transition-all duration-300 group-hover:visible group-hover:max-h-250 group-hover:opacity-100">
-                                        <ul className="flex flex-col">
-                                            {teams.map((team) => (
-                                                <li
-                                                    key={team.id}
-                                                    className="overflow-hidden border border-b-0 border-slate-100 first:rounded-t-xl last:rounded-b-xl last:border-b"
-                                                >
-                                                    <Link
-                                                        className="block bg-likar4 px-3 py-2 text-nowrap text-slate-100 transition-all duration-300 hover:text-likar1"
-                                                        href={show(team.id)}
-                                                    >
-                                                        {team.name}
-                                                    </Link>
-                                                </li>
-                                            ))} */}
-
-                            {/* <li>
-                                            <Link
-                                                className="block rounded-b-xl border border-slate-100 bg-likar4 px-3 py-2 text-nowrap text-slate-100 transition-all duration-300 hover:text-likar1"
-                                                href="/sezona/2024-2025"
-                                                >
-                                                2024-2025
-                                                </Link>
-                                        </li> */}
-                            {/* </ul>
-                                    </div>
-                                </div>
-                            </li> */}
                         </ul>
                     </nav>
 
-                    <div className="relative flex flex-row items-center">
-                        {/* <div className="hidden max-lg:mx-12 sm:block lg:mr-10 lg:w-fit">
-                            <ul className="flex flex-row items-center p-3 max-lg:justify-around">
+                    <div className="flex flex-row items-center">
+                        <div className="absolute hidden max-xl:-top-4.5 max-xl:left-1/2 max-xl:-translate-x-1/2 max-xl:rounded-t-xl max-xl:bg-likar3/20 md:block lg:w-fit xl:relative xl:mr-2.5">
+                            <ul className="flex flex-row items-center py-1 max-lg:justify-around xl:py-1.5">
                                 <li
                                     className={cn(
                                         'relative',
@@ -186,7 +141,7 @@ export default function Header() {
                                     )}
                                 >
                                     <Link
-                                        className="inline-block cursor-pointer border-r border-r-slate-100 px-3 py-1.5 text-base font-semibold text-slate-100 xl:text-lg"
+                                        className="inline-block cursor-pointer border-r border-r-slate-100 text-sm font-semibold text-slate-100 md:px-2.5 xl:text-lg 2xl:px-3"
                                         href="/o-nama"
                                     >
                                         O nama
@@ -201,7 +156,7 @@ export default function Header() {
                                     )}
                                 >
                                     <Link
-                                        className="inline-block cursor-pointer border-r border-r-slate-100 px-3 py-1.5 text-base font-semibold text-slate-100 xl:text-lg"
+                                        className="inline-block cursor-pointer border-r border-r-slate-100 text-sm font-semibold text-slate-100 md:px-2.5 xl:text-lg 2xl:px-3"
                                         href="/arhiva"
                                     >
                                         Arhiva
@@ -217,16 +172,16 @@ export default function Header() {
                                     )}
                                 >
                                     <Link
-                                        className="inline-block cursor-pointer px-3 py-1.5 text-base font-semibold text-slate-100 xl:text-lg"
+                                        className="inline-block cursor-pointer text-sm font-semibold text-slate-100 md:px-2.5 xl:text-lg 2xl:px-3"
                                         href="/galerija"
                                     >
                                         Galerija
                                     </Link>
                                 </li>
                             </ul>
-                        </div> */}
+                        </div>
                         <button
-                            className="group mr-4 flex h-13 w-13 cursor-pointer items-center justify-center rounded-full border border-slate-100/60 bg-likar1/80 transition-all duration-300 hover:border-likar3 hover:bg-slate-100 max-lg:order-1 max-lg:ml-auto sm:mr-6"
+                            className="group flex h-13 w-13 cursor-pointer items-center justify-center rounded-full border border-b border-likar3 bg-likar4/70 shadow-md shadow-likar3/30 transition-all duration-300 hover:border-likar3 hover:bg-slate-100 max-lg:order-1 max-lg:ml-auto"
                             onClick={() => setOpenSearch((prev) => !prev)}
                         >
                             {openSearch ? (
@@ -239,7 +194,7 @@ export default function Header() {
                     </div>
 
                     {/* ------------------mobile navigation---------------------------- */}
-                    <div className="block rounded-2xl bg-likar1/60 p-2 max-lg:order-2 lg:hidden">
+                    <div className="block rounded-2xl bg-likar1/60 p-2 max-lg:order-2 md:hidden">
                         <div
                             className="relative z-50 h-[35px] w-12.5 rotate-0 cursor-pointer transition-all duration-300 ease-in-out"
                             onClick={() => setHambActive((prev) => !prev)}
@@ -272,7 +227,7 @@ export default function Header() {
                     </div>
                     <nav
                         className={cn(
-                            'fixed top-0 bottom-0 left-0 z-9999 w-[300px] border-r-2 border-likar3 bg-[url(/images/design/logo.png)] bg-contain bg-repeat shadow-[inset_-50px_0_50px_-50px_var(--likar3)] transition-all duration-300 max-[410px]:w-[260px] sm:w-[330px] lg:hidden',
+                            'fixed top-0 bottom-0 left-0 z-9999 w-[300px] border-r-2 border-likar3 bg-[url(/images/design/logo.png)] bg-contain bg-repeat shadow-[inset_-50px_0_50px_-50px_var(--likar3)] transition-all duration-300 max-[410px]:w-[260px] sm:w-[330px] md:hidden',
                             hambActive ? 'translate-x-0' : '-translate-x-full',
                         )}
                     >
@@ -326,46 +281,17 @@ export default function Header() {
                                         Statistika
                                     </Link>
                                 </li>
-                                <li>
-                                    <div>
-                                        <p
-                                            className={cn(
-                                                'text-md group relative flex w-full cursor-pointer items-center gap-2 px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
-                                                path.startsWith('/ekipe') &&
-                                                    'text-slate-900',
-                                            )}
-                                            onClick={() =>
-                                                setEkipeDropdown(
-                                                    (prev) => !prev,
-                                                )
-                                            }
-                                        >
-                                            Ekipe
-                                            <ChevronDown className="text-3xl transition-all duration-300 group-hover:rotate-x-180" />
-                                        </p>
-
-                                        <div
-                                            className={cn(
-                                                'transition-all duration-300',
-                                                ekipeDropdown
-                                                    ? 'visible max-h-250 opacity-100'
-                                                    : 'invisible max-h-0 opacity-0',
-                                            )}
-                                        >
-                                            <ul className="flex flex-col">
-                                                {teams.map((team) => (
-                                                    <li key={team.id}>
-                                                        <Link
-                                                            className="block px-3 py-2 text-slate-100"
-                                                            href={show(team.id)}
-                                                        >
-                                                            {team.name}
-                                                        </Link>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    </div>
+                                <li className="w-full">
+                                    <Link
+                                        href="/ekipe"
+                                        className={cn(
+                                            'relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                            path === '/ekipe' &&
+                                                'text-slate-900',
+                                        )}
+                                    >
+                                        Ekipe
+                                    </Link>
                                 </li>
                             </ul>
                             <div>

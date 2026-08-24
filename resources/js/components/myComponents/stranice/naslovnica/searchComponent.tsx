@@ -8,7 +8,7 @@ export default function SearchComponent({ open }: { open: boolean }) {
     return (
         <div
             className={cn(
-                'absolute top-19 right-1/2 z-1000 flex translate-x-[calc(50%-16px)] items-center justify-center rounded-b-2xl border border-t-0 border-likar3 bg-likar1 transition-all duration-300 max-[450px]:w-60! max-[360px]:w-55! max-sm:max-w-100 sm:translate-x-[calc(50%-24px)] lg:right-8 lg:translate-x-0',
+                'absolute top-19 right-1/2 z-1000 flex translate-x-[calc(50%)] items-center justify-center rounded-2xl border border-t-0 border-likar3 bg-likar1 transition-all duration-300 max-[450px]:w-60! max-[360px]:w-55! max-sm:max-w-100 md:right-0 md:translate-x-0',
                 open
                     ? 'visible max-h-100 opacity-100'
                     : 'invisible max-h-0 opacity-0',
@@ -16,7 +16,7 @@ export default function SearchComponent({ open }: { open: boolean }) {
         >
             <form
                 method="get"
-                className="flex flex-row items-center p-5 max-[450px]:max-w-full"
+                className="flex flex-row items-center p-2 max-[450px]:max-w-full"
                 action=""
             >
                 <label className="z-20 -mr-5 max-[450px]:max-w-full">
