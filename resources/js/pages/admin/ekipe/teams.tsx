@@ -20,7 +20,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Teams({ teams }: { teams: Paginated<Team> }) {
-    console.log('Teams', teams);
     return (
         <>
             <Head title="Admin panel | Ekipe" />

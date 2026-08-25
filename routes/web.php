@@ -69,7 +69,7 @@ Route::get('galerija/1', fn() => Inertia::render('gallery'))->name('gallery');
  *  admin panel pages
  */
 Route::middleware(['auth', 'verified'])->prefix('admin-panel')->group(function(): void {
-    // Route::get('/', fn() => Inertia::render('admin/dashboard'))->name('admin.panel');
+
     Route::get('/', [DashboardController::class, 'index'])->name('admin.panel');
 
     Route::resource('novosti', AdminArticleController::class)

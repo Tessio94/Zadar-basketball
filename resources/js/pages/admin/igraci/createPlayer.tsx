@@ -1,6 +1,6 @@
 import { Head, useForm } from '@inertiajs/react';
-import { ImageIcon } from 'lucide-react';
-import { useRef } from 'react';
+// import { ImageIcon } from 'lucide-react';
+// import { useRef } from 'react';
 import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
@@ -30,6 +30,9 @@ export default function CreatePlayer() {
         date_of_birth: '',
         height: '',
         position: '',
+        season_id: '',
+        team_id: '',
+        jersey_number: '',
     });
 
     // const slikaPreview: string | null = data.slika
@@ -50,147 +53,139 @@ export default function CreatePlayer() {
                     className="flex w-full flex-col flex-wrap space-y-6 xl:flex-row"
                 >
                     <div className="space-y-6 xl:w-1/2 xl:pr-5 2xl:pr-10">
-                        <div>
-                            <label
-                                htmlFor="frist_name"
-                                className="mb-1 block font-semibold"
-                            >
-                                Ime
-                            </label>
-                            <input
-                                id="first_name"
-                                name="first_name"
-                                type="text"
-                                value={data.first_name}
-                                onChange={(e) =>
-                                    setData('first_name', e.target.value)
-                                }
-                                className="w-full rounded border p-2"
-                            />
-                            {errors.first_name && (
-                                <div className="text-sm text-red-500">
-                                    {errors.first_name}
-                                </div>
-                            )}
-                        </div>
+                        <div className="space-y-6">
+                            <h3 className="text-xl font-semibold underline-offset-2">
+                                Podaci o igraču
+                            </h3>
+                            <div>
+                                <label
+                                    htmlFor="frist_name"
+                                    className="mb-1 block font-semibold"
+                                >
+                                    Ime
+                                </label>
+                                <input
+                                    id="first_name"
+                                    name="first_name"
+                                    type="text"
+                                    value={data.first_name}
+                                    onChange={(e) =>
+                                        setData('first_name', e.target.value)
+                                    }
+                                    className="w-full rounded border p-2"
+                                />
+                                {errors.first_name && (
+                                    <div className="text-sm text-red-500">
+                                        {errors.first_name}
+                                    </div>
+                                )}
+                            </div>
 
-                        <div>
-                            <label
-                                htmlFor="last_name"
-                                className="mb-1 block font-semibold"
-                            >
-                                Prezime
-                            </label>
-                            <input
-                                id="last_name"
-                                name="last_name"
-                                value={data.last_name}
-                                onChange={(e) =>
-                                    setData('last_name', e.target.value)
-                                }
-                                className="w-full rounded border p-2"
-                            />
-                            {errors.last_name && (
-                                <div className="text-sm text-red-500">
-                                    {errors.last_name}
-                                </div>
-                            )}
-                        </div>
+                            <div>
+                                <label
+                                    htmlFor="last_name"
+                                    className="mb-1 block font-semibold"
+                                >
+                                    Prezime
+                                </label>
+                                <input
+                                    id="last_name"
+                                    name="last_name"
+                                    value={data.last_name}
+                                    onChange={(e) =>
+                                        setData('last_name', e.target.value)
+                                    }
+                                    className="w-full rounded border p-2"
+                                />
+                                {errors.last_name && (
+                                    <div className="text-sm text-red-500">
+                                        {errors.last_name}
+                                    </div>
+                                )}
+                            </div>
 
-                        <div>
-                            <label
-                                htmlFor="date_of_birth"
-                                className="mb-1 block font-semibold"
-                            >
-                                Datum rođenja
-                            </label>
-                            <input
-                                type="date"
-                                id="city"
-                                name="city"
-                                value={data.date_of_birth}
-                                onChange={(e) =>
-                                    setData('date_of_birth', e.target.value)
-                                }
-                                className="w-full rounded border p-2"
-                            />
-                            {errors.date_of_birth && (
-                                <div className="text-sm text-red-500">
-                                    {errors.date_of_birth}
-                                </div>
-                            )}
+                            <div>
+                                <label
+                                    htmlFor="date_of_birth"
+                                    className="mb-1 block font-semibold"
+                                >
+                                    Datum rođenja
+                                </label>
+                                <input
+                                    type="date"
+                                    id="city"
+                                    name="city"
+                                    value={data.date_of_birth}
+                                    onChange={(e) =>
+                                        setData('date_of_birth', e.target.value)
+                                    }
+                                    className="w-full rounded border p-2"
+                                />
+                                {errors.date_of_birth && (
+                                    <div className="text-sm text-red-500">
+                                        {errors.date_of_birth}
+                                    </div>
+                                )}
+                            </div>
+                            <div>
+                                <label
+                                    htmlFor="height"
+                                    className="mb-1 block font-semibold"
+                                >
+                                    Visina
+                                </label>
+                                <input
+                                    type="number"
+                                    id="height"
+                                    name="height"
+                                    value={data.height}
+                                    onChange={(e) =>
+                                        setData('height', e.target.value)
+                                    }
+                                    className="w-full rounded border p-2"
+                                />
+                                {errors.height && (
+                                    <div className="text-sm text-red-500">
+                                        {errors.height}
+                                    </div>
+                                )}
+                            </div>
+                            <div>
+                                <label
+                                    htmlFor="position"
+                                    className="mb-1 block font-semibold"
+                                >
+                                    Pozicija
+                                </label>
+                                <select
+                                    id="position"
+                                    name="position"
+                                    value={data.position}
+                                    onChange={(e) =>
+                                        setData('position', e.target.value)
+                                    }
+                                    className="w-full rounded border p-2"
+                                >
+                                    <option value="">Odaberi poziciju</option>
+                                    <option value="pg">PG</option>
+                                    <option value="sg">SG</option>
+                                    <option value="sf">SF</option>
+                                    <option value="pf">PF</option>
+                                    <option value="c">C</option>
+                                </select>
+                                {errors.position && (
+                                    <div className="text-sm text-red-500">
+                                        {errors.position}
+                                    </div>
+                                )}
+                            </div>
                         </div>
-                        <div>
-                            <label
-                                htmlFor="height"
-                                className="mb-1 block font-semibold"
-                            >
-                                Visina
-                            </label>
-                            <input
-                                type="number"
-                                id="height"
-                                name="height"
-                                value={data.height}
-                                onChange={(e) =>
-                                    setData('height', e.target.value)
-                                }
-                                className="w-full rounded border p-2"
-                            />
-                            {errors.height && (
-                                <div className="text-sm text-red-500">
-                                    {errors.height}
-                                </div>
-                            )}
-                        </div>
-                        <div>
-                            <label
-                                htmlFor="position"
-                                className="mb-1 block font-semibold"
-                            >
-                                Pozicija
-                            </label>
-                            <input
-                                type="number"
-                                id="position"
-                                name="position"
-                                value={data.position}
-                                onChange={(e) =>
-                                    setData('position', e.target.value)
-                                }
-                                className="w-full rounded border p-2"
-                            />
-                            {errors.position && (
-                                <div className="text-sm text-red-500">
-                                    {errors.position}
-                                </div>
-                            )}
-                        </div>
-                        <div>
-                            <label
-                                htmlFor="position"
-                                className="mb-1 block font-semibold"
-                            >
-                                Pozicija
-                            </label>
-                            <input
-                                type="number"
-                                id="position"
-                                name="position"
-                                value={data.position}
-                                onChange={(e) =>
-                                    setData('position', e.target.value)
-                                }
-                                className="w-full rounded border p-2"
-                            />
-                            {errors.position && (
-                                <div className="text-sm text-red-500">
-                                    {errors.position}
-                                </div>
-                            )}
-                        </div>
+                        <div className="space-y-6">
+                            <h3 className="text-xl font-semibold underline-offset-2">
+                                Momčad
+                            </h3>
 
-                        {/* <div>
+                            {/* <div>
                             <label
                                 htmlFor="jersey_number"
                                 className="mb-1 block font-semibold"
@@ -238,7 +233,7 @@ export default function CreatePlayer() {
                             )}
                         </div> */}
 
-                        {/* <div>
+                            {/* <div>
                             <label
                                 htmlFor="slika"
                                 className="mb-1 block font-semibold"
@@ -281,7 +276,7 @@ export default function CreatePlayer() {
                                 />
                             </div>
                         )} */}
-
+                        </div>
                         <div className="flex gap-4">
                             <button
                                 type="submit"
@@ -298,6 +293,6 @@ export default function CreatePlayer() {
     );
 }
 
-CreateTeam.layout = (page: React.ReactNode) => (
+CreatePlayer.layout = (page: React.ReactNode) => (
     <AppLayout breadcrumbs={breadcrumbs} children={page} />
 );

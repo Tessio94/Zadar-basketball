@@ -234,6 +234,9 @@ export type PlayerForm = {
     date_of_birth: string;
     height: string;
     position: string;
+    season_id: string;
+    team_id: string;
+    jersey_number: string;
 };
 
 export type PlayerWithPivot = Player & {
