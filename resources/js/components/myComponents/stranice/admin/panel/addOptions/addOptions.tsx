@@ -1,4 +1,5 @@
-import { create } from '@/actions/App/Http/Controllers/Admin/ArticleController';
+import { create as createArticle } from '@/actions/App/Http/Controllers/Admin/ArticleController';
+import { create as createTeam } from '@/actions/App/Http/Controllers/Admin/TeamController';
 import DashboardButton from '../ui/dashboardButton';
 
 export default function AddOptions() {
@@ -13,14 +14,18 @@ export default function AddOptions() {
                     />
                 </div>
                 <div className="basis-full xl:basis-5/12">
-                    <DashboardButton type="add" text="Dodaj ekipe" href={''} />
+                    <DashboardButton
+                        type="add"
+                        text="Dodaj ekipe"
+                        href={createTeam().url}
+                    />
                 </div>
 
                 <div className="basis-full xl:basis-5/12">
                     <DashboardButton
                         type="add"
                         text="Dodaj novosti"
-                        href={create().url}
+                        href={createArticle().url}
                     />
                 </div>
                 <div className="basis-full xl:basis-5/12">

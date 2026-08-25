@@ -42,6 +42,14 @@ export type TeamWithPlayers = Team & {
     players: PlayerWithPivot[];
 };
 
+export type TeamForm = {
+    name: string;
+    short_name: string;
+    city: string;
+    founded_year: string;
+    logo: File | null;
+};
+
 /**
  *  Game types
  */
@@ -218,6 +226,14 @@ export type Player = {
     created_at: string;
     updated_at: string;
     position: 'PG' | 'SG' | 'SF' | 'PF' | 'C';
+};
+
+export type PlayerForm = {
+    first_name: string;
+    last_name: string;
+    date_of_birth: string;
+    height: string;
+    position: string;
 };
 
 export type PlayerWithPivot = Player & {

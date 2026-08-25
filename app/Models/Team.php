@@ -20,6 +20,10 @@ class Team extends Model
         'founded_year',
     ];
 
+    protected $casts = [
+        'founded_year' => 'integer',
+    ];
+
     public function players()
     {
         return $this->belongsToMany(Player::class)

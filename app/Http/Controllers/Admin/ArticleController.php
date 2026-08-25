@@ -65,7 +65,7 @@ class ArticleController extends Controller
         $validated['meta_title'] = $validated['title'];
         $validated['meta_description'] = Str::limit(strip_tags($validated['content']), 160);
 
-        $article = Article::create($validated);
+        Article::create($validated);
 
         return redirect()
             ->route('novosti.index')
@@ -106,7 +106,7 @@ class ArticleController extends Controller
             'content' => 'required|string',
             'status' => 'required|in:published,draft',
             'published_at' => 'nullable|date',
-            'main_image' => 'nullable|string',
+            'main_image' => 'nullable|image|mimes:jpg,jpeg,png,webp,gif|max:2048',
         ]);
 
         if ($validated['status'] === 'draft') {
@@ -114,6 +114,15 @@ class ArticleController extends Controller
         } elseif ($article->status === 'draft') {
 
             $validated['published_at'] = now();
+        }
+
+        if ($request->hasFile('main_image')) {
+            if ($article->main_image) {
+                Storage::disk('public')->delete($article->main_image);
+            }
+
+            $path = $request->file('main_image')->store('articles', 'public');
+            $validated['main_image'] = $path;
         }
 
         $article->update($validated);

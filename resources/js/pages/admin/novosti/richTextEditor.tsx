@@ -15,8 +15,8 @@ export default function RichTextEditor({
 
     return (
         <Editor
-            id="sadrzaj"
-            textareaName="sadrzaj"
+            id="content"
+            textareaName="content"
             apiKey={apikey}
             onInit={(_evt, editor) => (editorRef.current = editor)}
             value={value}

@@ -1,29 +1,29 @@
 import { Head, Link, router } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
+import Pagination from '@/components/myComponents/common/pagination/Pagination';
+import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
+import AppLayout from '@/layouts/app-layout';
+import type { BreadcrumbItem } from '@/types';
+import type { Paginated, Player } from '@/types/propTypes';
 import {
     create,
     destroy,
     edit,
     index,
-} from '@/actions/App/Http/Controllers/Admin/TeamController';
-import Pagination from '@/components/myComponents/common/pagination/Pagination';
-import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
-import AppLayout from '@/layouts/app-layout';
-import type { BreadcrumbItem } from '@/types';
-import type { Team, Paginated } from '@/types/propTypes';
+} from '@/actions/App/Http/Controllers/Admin/PlayerController';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Novosti',
+        title: 'Igrači',
         href: index().url,
     },
 ];
 
-export default function Teams({ teams }: { teams: Paginated<Team> }) {
-    console.log('Teams', teams);
+export default function Players({ players }: { players: Paginated<Player> }) {
+    console.log(players);
     return (
         <>
-            <Head title="Admin panel | Ekipe" />
+            <Head title="Admin panel | Igrači" />
             <AdminMainContent>
                 <div className="flex min-h-full flex-col justify-between">
                     <div className="mb-4 flex justify-between">
@@ -34,7 +34,7 @@ export default function Teams({ teams }: { teams: Paginated<Team> }) {
                             className="group flex flex-row items-center gap-2 rounded-lg border border-transparent bg-likar3 px-6 py-2 text-center! font-semibold text-slate-100 transition-colors duration-300 hover:border-likar3 hover:bg-likar1/40 hover:text-likar3"
                         >
                             <Plus className="transition-transform duration-300 group-hover:rotate-180" />{' '}
-                            Kreiraj Ekipu
+                            Kreiraj Igrača
                         </Link>
                     </div>
                     <div className="grow rounded-xl">
@@ -43,7 +43,10 @@ export default function Teams({ teams }: { teams: Paginated<Team> }) {
                                 <thead>
                                     <tr className="rounded-t-xl bg-linear-to-r from-likar3 via-likar1 to-likar3 text-slate-100 *:border-r *:p-5 *:text-start *:last:border-0 max-[500px]:*:p-2">
                                         <th className="text-center!">No.</th>
-                                        <th style={{ width: '70%' }}>Ekipa</th>
+                                        <th style={{ width: '35%' }}>
+                                            Prezime
+                                        </th>
+                                        <th style={{ width: '35%' }}>Ime</th>
                                         <th
                                             colSpan={2}
                                             className="text-center!"
@@ -54,20 +57,21 @@ export default function Teams({ teams }: { teams: Paginated<Team> }) {
                                 </thead>
 
                                 <tbody>
-                                    {teams.data.map((team) => (
+                                    {players.data.map((player) => (
                                         <tr
-                                            key={team.id}
+                                            key={player.id}
                                             className="*:border-r *:p-5 *:text-start *:last:border-0 even:bg-slate-200/60 max-[500px]:*:px-2 max-[500px]:*:py-3"
                                         >
                                             <td className="flex items-center justify-center">
                                                 <span className="flex h-8 w-8 items-center justify-center rounded-full">
-                                                    {team.id}
+                                                    {player.id}
                                                 </span>
                                             </td>
-                                            <td>{team.name}</td>
+                                            <td>{player.last_name}</td>
+                                            <td>{player.first_name}</td>
                                             <td className="text-center!">
                                                 <Link
-                                                    href={edit(team.id)}
+                                                    href={edit(player.id)}
                                                     className="rounded-lg bg-likar2 px-6 py-2 text-center! font-semibold transition-colors duration-300 hover:bg-likar4 hover:text-slate-100"
                                                 >
                                                     Uredi
@@ -83,8 +87,9 @@ export default function Teams({ teams }: { teams: Paginated<Team> }) {
                                                             )
                                                         ) {
                                                             router.delete(
-                                                                destroy(team.id)
-                                                                    .url,
+                                                                destroy(
+                                                                    player.id,
+                                                                ).url,
                                                             );
                                                         }
                                                     }}
@@ -100,7 +105,7 @@ export default function Teams({ teams }: { teams: Paginated<Team> }) {
                         </div>
                     </div>
                     <div className="flex flex-row justify-center">
-                        <Pagination links={teams.links} type="admin" />
+                        <Pagination links={players.links} type="admin" />
                     </div>
                 </div>
             </AdminMainContent>
@@ -108,6 +113,6 @@ export default function Teams({ teams }: { teams: Paginated<Team> }) {
     );
 }
 
-Teams.layout = (page: React.ReactNode) => (
+Players.layout = (page: React.ReactNode) => (
     <AppLayout breadcrumbs={breadcrumbs} children={page} />
 );

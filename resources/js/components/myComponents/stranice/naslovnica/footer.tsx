@@ -5,7 +5,7 @@ export default function Footer() {
                 <a href="#">
                     <img
                         src="/images/design//logo.png"
-                        className="h-30 w-30"
+                        className="h-22 w-22"
                         alt="Likar Krombacher"
                     />
                 </a>

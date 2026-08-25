@@ -51,14 +51,14 @@ export default function CreateArticle() {
                     <div className="space-y-6 xl:w-1/2 xl:pr-5 2xl:pr-10">
                         <div>
                             <label
-                                htmlFor="naslov"
+                                htmlFor="title"
                                 className="mb-1 block font-semibold"
                             >
                                 Naslov
                             </label>
                             <input
-                                id="naslov"
-                                name="naslov"
+                                id="title"
+                                name="title"
                                 type="text"
                                 value={data.title}
                                 onChange={(e) => {
@@ -77,14 +77,14 @@ export default function CreateArticle() {
 
                         <div>
                             <label
-                                htmlFor="uvod"
+                                htmlFor="excerpt"
                                 className="mb-1 block font-semibold"
                             >
                                 Uvod
                             </label>
                             <textarea
-                                id="uvod"
-                                name="uvod"
+                                id="excerpt"
+                                name="excerpt"
                                 value={data.excerpt}
                                 onChange={(e) =>
                                     setData('excerpt', e.target.value)
@@ -100,14 +100,14 @@ export default function CreateArticle() {
 
                         <div>
                             <label
-                                htmlFor="slika"
+                                htmlFor="main_image"
                                 className="mb-1 block font-semibold"
                             >
                                 Glavna slika
                             </label>
                             <input
-                                id="slika"
-                                name="slika"
+                                id="main_image"
+                                name="main_image"
                                 type="file"
                                 accept=".png,.jpg,.gif,.webp,image/jpeg,image/gif,image/webp,image/png"
                                 onChange={(e) => {
@@ -147,7 +147,7 @@ export default function CreateArticle() {
 
                     <div className="flex flex-col gap-1 max-xl:min-h-125 xl:w-1/2 xl:pl-5 2xl:pl-10">
                         <label
-                            htmlFor="sadrzaj"
+                            htmlFor="content"
                             className="block font-semibold"
                         >
                             Sadržaj

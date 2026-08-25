@@ -12,6 +12,7 @@ use App\Http\Controllers\ResultController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PlayerGameStatController;
 use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
+use App\Http\Controllers\Admin\PlayerController as AdminPlayerController;
 use App\Http\Controllers\Admin\TeamController as AdminTeamController;
 use App\Http\Controllers\Admin\DashboardController;
 
@@ -78,6 +79,9 @@ Route::middleware(['auth', 'verified'])->prefix('admin-panel')->group(function()
 
     Route::resource('ekipe', AdminTeamController::class)
         ->parameters(['ekipe' => 'team']);
+
+    Route::resource('igraci', AdminPlayerController::class)
+        ->parameters(['igraci' => 'player']);
 });
 
 require __DIR__ . '/settings.php';
