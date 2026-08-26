@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use Carbon\CarbonImmutable;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\ServiceProvider;
@@ -48,5 +49,6 @@ class AppServiceProvider extends ServiceProvider
                 ->uncompromised()
             : null
         );
+
     }
 }

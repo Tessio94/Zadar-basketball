@@ -1,43 +1,56 @@
 import { Head, useForm } from '@inertiajs/react';
-import { ImageIcon } from 'lucide-react';
-import { useRef } from 'react';
+// import { ImageIcon } from 'lucide-react';
+// import { useRef } from 'react';
 import {
     index,
     update,
-} from '@/actions/App/Http/Controllers/Admin/TeamController';
+} from '@/actions/App/Http/Controllers/Admin/PlayerController';
 import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
-import type { Team } from '@/types/propTypes';
+import type { PlayerAdmin, PlayerForm, Season, Team } from '@/types/propTypes';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Ekipe',
+        title: 'Igrači',
         href: index().url,
     },
     {
-        title: 'Uredi ekipu',
+        title: 'Uredi igrača',
         href: '',
     },
 ];
 
-const APP_URL = import.meta.env.VITE_APP_URL;
+// const APP_URL = import.meta.env.VITE_APP_URL;
 
-export default function EditArticle({ team }: { team: Team }) {
-    console.log(team);
-    const fileInputRef = useRef<HTMLInputElement | null>(null);
+export default function EditPlayer({
+    player,
+    teams,
+    seasons,
+}: {
+    player: PlayerAdmin;
+    teams: Team[];
+    seasons: Season[];
+}) {
+    // const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    const { data, setData, put, processing, errors } = useForm<Team>({
-        name: team.name || '',
-        short_name: team.short_name || '',
-        city: team.city || '',
-        founded_year: team.founded_year || '',
-        logo: team.logo || '',
+    console.log(player);
+
+    const { data, setData, put, processing, errors } = useForm<PlayerForm>({
+        first_name: player.first_name || '',
+        last_name: player.last_name || '',
+        date_of_birth: player.date_of_birth || '',
+        height: player.height?.toString() || '',
+        position: player.position || '',
+        season_id: player.team_assignments[0]?.season_id?.toString() || '',
+        team_id: player.team_assignments[0]?.team_id?.toString() || '',
+        jersey_number:
+            player.team_assignments[0]?.jersey_number?.toString() || '',
     });
 
     function submit(e: React.SubmitEvent) {
         e.preventDefault();
-        put(update(team.id).url);
+        put(update(player.id).url);
     }
 
     return (
@@ -49,124 +62,152 @@ export default function EditArticle({ team }: { team: Team }) {
                     className="flex w-full flex-col flex-wrap space-y-6 xl:flex-row"
                 >
                     <div className="space-y-6 xl:w-1/2 xl:pr-5 2xl:pr-10">
+                        <h3 className="text-xl font-semibold underline-offset-2">
+                            Podaci o igraču
+                        </h3>
                         <div>
                             <label
-                                htmlFor="name"
+                                htmlFor="frist_name"
                                 className="mb-1 block font-semibold"
                             >
-                                Ime ekipe
+                                Ime
                             </label>
                             <input
-                                id="name"
-                                name="name"
+                                id="first_name"
+                                name="first_name"
                                 type="text"
-                                value={data.name}
+                                value={data.first_name}
                                 onChange={(e) =>
-                                    setData('name', e.target.value)
+                                    setData('first_name', e.target.value)
                                 }
                                 className="w-full rounded border p-2"
                             />
-                            {errors.name && (
+                            {errors.first_name && (
                                 <div className="text-sm text-red-500">
-                                    {errors.name}
+                                    {errors.first_name}
                                 </div>
                             )}
                         </div>
 
                         <div>
                             <label
-                                htmlFor="short_name"
+                                htmlFor="last_name"
                                 className="mb-1 block font-semibold"
                             >
-                                Kratica
+                                Prezime
                             </label>
                             <input
-                                id="short_name"
-                                name="short_name"
-                                value={data.short_name}
+                                id="last_name"
+                                name="last_name"
+                                value={data.last_name}
                                 onChange={(e) =>
-                                    setData('short_name', e.target.value)
+                                    setData('last_name', e.target.value)
                                 }
                                 className="w-full rounded border p-2"
                             />
-                            {errors.short_name && (
+                            {errors.last_name && (
                                 <div className="text-sm text-red-500">
-                                    {errors.short_name}
+                                    {errors.last_name}
                                 </div>
                             )}
                         </div>
 
                         <div>
                             <label
-                                htmlFor="city"
+                                htmlFor="date_of_birth"
                                 className="mb-1 block font-semibold"
                             >
-                                Mjesto
+                                Datum rođenja
                             </label>
                             <input
+                                type="date"
                                 id="city"
                                 name="city"
-                                value={data.city}
+                                value={data.date_of_birth}
                                 onChange={(e) =>
-                                    setData('city', e.target.value)
+                                    setData('date_of_birth', e.target.value)
                                 }
                                 className="w-full rounded border p-2"
                             />
-                            {errors.city && (
+                            {errors.date_of_birth && (
                                 <div className="text-sm text-red-500">
-                                    {errors.city}
+                                    {errors.date_of_birth}
                                 </div>
                             )}
                         </div>
-
                         <div>
                             <label
-                                htmlFor="founded_year"
+                                htmlFor="height"
                                 className="mb-1 block font-semibold"
                             >
-                                Godina osnivanja
+                                Visina
                             </label>
                             <input
                                 type="number"
-                                id="founded_year"
-                                name="founded_year"
-                                value={data.founded_year}
+                                id="height"
+                                name="height"
+                                value={data.height}
                                 onChange={(e) =>
-                                    setData('founded_year', e.target.value)
+                                    setData('height', e.target.value)
                                 }
                                 className="w-full rounded border p-2"
                             />
-                            {errors.founded_year && (
+                            {errors.height && (
                                 <div className="text-sm text-red-500">
-                                    {errors.founded_year}
+                                    {errors.height}
+                                </div>
+                            )}
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="position"
+                                className="mb-1 block font-semibold"
+                            >
+                                Pozicija
+                            </label>
+                            <select
+                                id="position"
+                                name="position"
+                                value={data.position}
+                                onChange={(e) =>
+                                    setData('position', e.target.value)
+                                }
+                                className="w-full rounded border p-2"
+                            >
+                                <option value="">Odaberi poziciju</option>
+                                <option value="PG">PG</option>
+                                <option value="SG">SG</option>
+                                <option value="SF">SF</option>
+                                <option value="PF">PF</option>
+                                <option value="C">C</option>
+                            </select>
+                            {errors.position && (
+                                <div className="text-sm text-red-500">
+                                    {errors.position}
                                 </div>
                             )}
                         </div>
 
-                        <div>
+                        {/* <div>
                             <label
-                                htmlFor="logo"
+                                htmlFor="slika"
                                 className="mb-1 block font-semibold"
                             >
-                                Logo
+                                Slika
                             </label>
                             <input
-                                id="logo"
-                                name="logo"
+                                id="slika"
+                                name="slika"
                                 type="file"
                                 accept=".png,.jpg,.gif,.webp,image/jpeg,image/gif,image/webp,image/png"
                                 onChange={(e) => {
-                                    setData(
-                                        'logo',
-                                        e.target.files
-                                            ? `/images/articles/${e.target.files[0].name}`
-                                            : '',
-                                    );
+                                    if (e.target.files && e.target.files[0]) {
+                                        setData('slika', e.target.files[0]);
+                                    }
                                 }}
                                 ref={fileInputRef}
                                 className="sr-only"
                             />
-
                             <button
                                 type="button"
                                 onClick={() => fileInputRef.current?.click()}
@@ -174,31 +215,119 @@ export default function EditArticle({ team }: { team: Team }) {
                             >
                                 Odaberi sliku <ImageIcon strokeWidth="1.5" />
                             </button>
-                            {errors.logo && (
+                            {errors.slika && (
                                 <div className="text-sm text-red-500">
-                                    {errors.logo}
+                                    {errors.slika}
                                 </div>
                             )}
                         </div>
 
-                        {team.logo && (
+                        {slikaPreview && (
                             <div>
                                 <img
-                                    src={`${APP_URL}/storage/${data.logo}`}
+                                    src={slikaPreview}
+                                    alt="slika igrača"
                                     className="h-auto w-full rounded"
                                 />
                             </div>
-                        )}
+                        )} */}
+                    </div>
 
-                        <div className="flex gap-4">
-                            <button
-                                type="submit"
-                                disabled={processing}
-                                className="cursor-pointer rounded border border-transparent bg-likar3 px-6 py-2 font-semibold text-white transition-all duration-300 hover:border-likar3 hover:bg-likar1/40 hover:text-likar3"
+                    <div className="space-y-6 xl:w-1/2 xl:pl-5 2xl:pl-10">
+                        <h3 className="text-xl font-semibold underline-offset-2">
+                            Trenutna Ekipa
+                        </h3>
+                        <div>
+                            <label
+                                htmlFor="team_id"
+                                className="mb-1 block font-semibold"
                             >
-                                Spremi
-                            </button>
+                                Ekipa
+                            </label>
+                            <select
+                                id="team_id"
+                                name="team_id"
+                                value={data.team_id}
+                                onChange={(e) =>
+                                    setData('team_id', e.target.value)
+                                }
+                                className="w-full rounded border p-2"
+                            >
+                                <option value="">Odaberi ekipu</option>
+                                {teams.map((team) => (
+                                    <option key={team.id} value={team.id}>
+                                        {team.name}
+                                    </option>
+                                ))}
+                            </select>
+                            {errors.team_id && (
+                                <div className="text-sm text-red-500">
+                                    {errors.team_id}
+                                </div>
+                            )}
                         </div>
+                        <div>
+                            <label
+                                htmlFor="season_id"
+                                className="mb-1 block font-semibold"
+                            >
+                                Sezona
+                            </label>
+                            <select
+                                id="season_id"
+                                name="season_id"
+                                value={data.season_id}
+                                onChange={(e) =>
+                                    setData('season_id', e.target.value)
+                                }
+                                className="w-full rounded border p-2"
+                            >
+                                <option value="">Odaberi sezonu</option>
+                                {seasons.map((season) => (
+                                    <option key={season.id} value={season.id}>
+                                        {season.name}
+                                    </option>
+                                ))}
+                            </select>
+                            {errors.season_id && (
+                                <div className="text-sm text-red-500">
+                                    {errors.season_id}
+                                </div>
+                            )}
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="jersey_number"
+                                className="mb-1 block font-semibold"
+                            >
+                                Broj
+                            </label>
+                            <input
+                                type="number"
+                                id="jersey_number"
+                                name="jersey_number"
+                                value={data.jersey_number}
+                                onChange={(e) =>
+                                    setData('jersey_number', e.target.value)
+                                }
+                                className="w-full rounded border p-2"
+                            />
+                            {errors.jersey_number && (
+                                <div className="text-sm text-red-500">
+                                    {errors.jersey_number}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="flex gap-4 xl:w-1/2 xl:pt-6 xl:pr-5 2xl:pr-10">
+                        <button
+                            type="submit"
+                            disabled={processing}
+                            className="cursor-pointer rounded border border-transparent bg-likar3 px-6 py-2 font-semibold text-white transition-all duration-300 hover:border-likar3 hover:bg-likar1/40 hover:text-likar3"
+                        >
+                            Spremi
+                        </button>
                     </div>
                 </form>
             </AdminMainContent>
@@ -206,6 +335,6 @@ export default function EditArticle({ team }: { team: Team }) {
     );
 }
 
-EditArticle.layout = (page: React.ReactNode) => (
+EditPlayer.layout = (page: React.ReactNode) => (
     <AppLayout breadcrumbs={breadcrumbs} children={page} />
 );

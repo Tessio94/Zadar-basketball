@@ -219,13 +219,27 @@ export type GameLeaders = {
 
 export type Player = {
     id: number;
-    date_of_birth: string;
     first_name: string;
     last_name: string;
-    height: number;
+    date_of_birth: string | null;
+    height: number | null;
     created_at: string;
     updated_at: string;
-    position: 'PG' | 'SG' | 'SF' | 'PF' | 'C';
+    position: 'PG' | 'SG' | 'SF' | 'PF' | 'C' | null;
+};
+
+export type PlayerTeam = {
+    id: number;
+    player_id: number;
+    team_id: number;
+    season_id: number;
+    jersey_number: number | null;
+    team: Team;
+    season: Season;
+};
+
+export type PlayerAdmin = Player & {
+    team_assignments: PlayerTeam[];
 };
 
 export type PlayerForm = {
@@ -395,6 +409,19 @@ export type AdminArticleListItem = {
     id: number;
     title: string;
     published_at: string | null;
+};
+
+/**
+ *  Season types
+ */
+export type Season = {
+    id: number;
+    name: string;
+    start_date: string;
+    end_date: string;
+    is_active: boolean;
+    created_at: string;
+    updated_at: string;
 };
 
 /**

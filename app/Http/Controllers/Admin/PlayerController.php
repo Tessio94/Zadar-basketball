@@ -36,7 +36,7 @@ class PlayerController extends Controller
      */
     public function create()
     {
-        return Inertia::render('admin/igraci/create-player', [
+        return Inertia::render('admin/igraci/createPlayer', [
             'teams' => Team::orderBy('name')->get(),
             'seasons' => Season::orderByDesc('start_date')->get(),
         ]);
@@ -50,7 +50,7 @@ class PlayerController extends Controller
 
         $validated = $request->validate([
             'first_name' => 'required|string|max:50',
-            'last_name' => 'nullable|string|max:50',
+            'last_name' => 'required|string|max:50',
             'date_of_birth' => 'nullable|date',
             'height' => ['nullable', 'integer', 'min:100', 'max:250'],
             'position' => ['nullable', 'string', 'max:50'],
