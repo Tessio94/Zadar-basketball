@@ -424,6 +424,13 @@ export type Season = {
     updated_at: string;
 };
 
+export type SeasonForm = {
+    name: string;
+    start_date: string;
+    end_date: string;
+    is_active: boolean;
+};
+
 /**
  *  Images types
  */

@@ -28,6 +28,7 @@ import { panel } from '@/routes/admin';
 import type { NavItem } from '@/types';
 import AppLogo from './app-logo';
 import SeasonCalendar from './myComponents/ui/icons/seasonCalendar';
+import { index as adminSeasonController } from '@/actions/App/Http/Controllers/Admin/SeasonController';
 
 const mainNavItems: NavItem[] = [
     {
@@ -52,7 +53,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Sezone',
-        href: panel(),
+        href: adminSeasonController(),
         icon: SeasonCalendar,
     },
     {

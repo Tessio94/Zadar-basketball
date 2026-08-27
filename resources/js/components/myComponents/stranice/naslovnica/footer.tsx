@@ -19,7 +19,7 @@ export default function Footer() {
                 </div>
                 <div className="flex items-center gap-5 rounded-4xl bg-likar2/80 px-5 py-2">
                     <a
-                        href="https://www.instagram.com/ivan_radicev/"
+                        href="https://www.instagram.com"
                         target="_blank"
                         className="group rounded-lg text-slate-100 transition-all duration-300 hover:bg-slate-100 hover:text-pink-600"
                     >
@@ -38,7 +38,7 @@ export default function Footer() {
                         </svg>
                     </a>
                     <a
-                        href="https://web.facebook.com/RadicevIvan/?locale=hr_HR&amp;_rdc=1&amp;_rdr#"
+                        href="https://www.facebook.com/likarzadar"
                         target="_blank"
                         className="group rounded-lg text-slate-100 transition-all duration-300 hover:bg-slate-100 hover:text-blue-600"
                     >
@@ -56,7 +56,7 @@ export default function Footer() {
                         </svg>
                     </a>
                     <a
-                        href="https://www.youtube.com/@ivanradicev7934"
+                        href="https://www.youtube.com"
                         target="_blank"
                         className="group rounded-lg text-slate-100 transition-all duration-300 hover:bg-slate-100 hover:text-red-600"
                     >

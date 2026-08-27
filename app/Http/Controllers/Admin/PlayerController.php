@@ -8,6 +8,7 @@ use App\Models\Season;
 use App\Models\Team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class PlayerController extends Controller
@@ -127,8 +128,14 @@ class PlayerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Player $player)
     {
-        //
+        if ($player->logo) {
+            Storage::disk('public')->delete($player->slika);
+        }
+
+        $player->delete();
+
+        return redirect()->back();
     }
 }
