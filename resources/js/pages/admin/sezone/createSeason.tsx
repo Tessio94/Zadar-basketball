@@ -1,12 +1,12 @@
 import { Head, useForm } from '@inertiajs/react';
-import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
-import AppLayout from '@/layouts/app-layout';
-import type { BreadcrumbItem } from '@/types';
-import type { SeasonForm } from '@/types/propTypes';
 import {
     index,
     store,
 } from '@/actions/App/Http/Controllers/Admin/SeasonController';
+import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
+import AppLayout from '@/layouts/app-layout';
+import type { BreadcrumbItem } from '@/types';
+import type { SeasonForm } from '@/types/propTypes';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -124,7 +124,7 @@ export default function CreateSeason() {
                                 id="is_active"
                                 name="is_active"
                                 type="checkbox"
-                                value={data.is_active}
+                                checked={data.is_active}
                                 onChange={(e) =>
                                     setData('is_active', e.target.checked)
                                 }

@@ -41,14 +41,18 @@ export default function PlayerStats({
                             <tr className="bg-likar4">
                                 <th></th>
                                 <th colSpan={999}>
-                                    <span>Ukupno</span>
+                                    <span className="text-slate-100">
+                                        Ukupno
+                                    </span>
                                 </th>
                             </tr>
                             <PlayerTotalsRow totals={totals} />
                             <tr className="bg-likar4">
                                 <th></th>
                                 <th colSpan={999}>
-                                    <span>Prosjek</span>
+                                    <span className="text-slate-100">
+                                        Prosjek
+                                    </span>
                                 </th>
                             </tr>
                             <PlayerAveragesRow averages={averages} />

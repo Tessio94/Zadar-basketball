@@ -52,7 +52,7 @@ export default function LeadersRow({
             <td className="p-2 max-[500px]:p-1">{place}.</td>
             <td className="p-2 max-[500px]:p-1">
                 <div className="flex flex-row items-center justify-center">
-                    <User2Icon className="h-5 w-5 shrink-0 rounded-full border border-slate-100/80 bg-likar4 p-0.5 text-slate-900 max-[500px]:h-3.5 max-[500px]:w-3.5" />
+                    <User2Icon className="h-5 w-5 shrink-0 rounded-full border border-slate-100/80 bg-slate-400 p-0.5 text-slate-900 max-[500px]:h-3.5 max-[500px]:w-3.5" />
                 </div>
             </td>
 

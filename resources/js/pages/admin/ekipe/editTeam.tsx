@@ -8,7 +8,7 @@ import {
 import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
-import type { Team } from '@/types/propTypes';
+import type { Team, TeamForm } from '@/types/propTypes';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -23,11 +23,11 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const APP_URL = import.meta.env.VITE_APP_URL;
 
-export default function EditArticle({ team }: { team: Team }) {
+export default function EditTeam({ team }: { team: Team }) {
     console.log(team);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    const { data, setData, put, processing, errors } = useForm<Team>({
+    const { data, setData, put, processing, errors } = useForm<TeamForm>({
         name: team.name || '',
         short_name: team.short_name || '',
         city: team.city || '',
@@ -206,6 +206,6 @@ export default function EditArticle({ team }: { team: Team }) {
     );
 }
 
-EditArticle.layout = (page: React.ReactNode) => (
+EditTeam.layout = (page: React.ReactNode) => (
     <AppLayout breadcrumbs={breadcrumbs} children={page} />
 );

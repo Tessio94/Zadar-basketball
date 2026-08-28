@@ -52,7 +52,6 @@ const Games = ({
                 tabs={[
                     { id: 'tab1', title: 'Statistika utakmice' },
                     { id: 'tab2', title: 'Najbolji pojedinci' },
-                    { id: 'tab3', title: 'Play by Play' },
                 ]}
             />
             {active === 'tab1' && (

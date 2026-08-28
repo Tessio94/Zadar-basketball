@@ -4,7 +4,7 @@ import BasketballIcon from '../../ui/icons/basketballIcon';
 export default function Intro() {
     return (
         <>
-            <section className="my-20 w-full">
+            <section className="my-4 w-full md:my-8 2xl:my-10">
                 <div className="mx-auto grid w-full place-items-center-safe gap-10 px-[5%] py-10 perspective-distant sm:grid-cols-2 lg:grid-cols-3">
                     <div className="flex w-full flex-col items-center justify-center gap-8 rounded-4xl bg-likar2/60 px-6 py-8 shadow-2xl shadow-likar1 transition-all duration-300 transform-3d hover:-translate-y-3 hover:rotate-x-12 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.6)] sm:w-fit">
                         <img

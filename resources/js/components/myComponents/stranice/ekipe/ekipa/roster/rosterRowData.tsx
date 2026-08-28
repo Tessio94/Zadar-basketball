@@ -24,7 +24,7 @@ export default function RosterRowData({
             <td className="p-1 text-center text-nowrap">{broj}</td>
             <td className="p-1 text-center text-nowrap">
                 <div className="flex flex-row items-center justify-center">
-                    <User2Icon className="h-10 w-10 shrink-0 rounded-full border border-slate-100/80 bg-likar4 p-0.5 text-slate-900 max-[500px]:h-5 max-[500px]:w-5" />
+                    <User2Icon className="h-10 w-10 shrink-0 rounded-full border border-slate-100/80 bg-gray-400 p-0.5 text-slate-900 max-[500px]:h-5 max-[500px]:w-5" />
                 </div>
             </td>
             <td className="p-1 text-center text-nowrap">
@@ -33,7 +33,7 @@ export default function RosterRowData({
                 </Link>
             </td>
             <td className="p-1 text-center text-nowrap">
-                {date_of_birth.split('-').reverse().join('/')}
+                {date_of_birth.split('T')[0].split('-').reverse().join('/')}
             </td>
             <td className="p-1 text-center text-nowrap">{age}</td>
             <td className="p-1 text-center text-nowrap">{height}</td>

@@ -36,7 +36,7 @@ export default function PlayerHeader({
         <div className="flex flex-col gap-5 border-b border-likar1 py-5">
             <div className="border-b border-likar1 px-[5%] py-5 md:px-20">
                 <div className="flex w-full flex-col items-start gap-10 sm:flex-row sm:items-center">
-                    <User2Icon className="h-30 w-30 shrink-0 rounded-full border border-slate-100/80 bg-likar4 p-0.5 text-slate-900 max-[500px]:h-25 max-[500px]:w-25" />
+                    <User2Icon className="h-30 w-30 shrink-0 rounded-full border border-slate-100/80 bg-slate-400 p-0.5 text-slate-900 max-[500px]:h-25 max-[500px]:w-25" />
                     <div className="flex flex-col items-start gap-6">
                         <h2 className="font-heading text-4xl font-semibold text-slate-100 my-text-stroke lg:text-5xl">
                             {name}
@@ -57,7 +57,13 @@ export default function PlayerHeader({
 
                 <p className="font-heading text-2xl font-semibold text-slate-100 sm:text-3xl">
                     Datum rođenja:{' '}
-                    <span>{date_of_birth.split('-').reverse().join('/')}</span>
+                    <span>
+                        {date_of_birth
+                            .split('T')[0]
+                            .split('-')
+                            .reverse()
+                            .join('/')}
+                    </span>
                 </p>
                 <p className="font-heading text-2xl font-semibold text-slate-100 sm:text-3xl">
                     Godine: <span>{age}</span>

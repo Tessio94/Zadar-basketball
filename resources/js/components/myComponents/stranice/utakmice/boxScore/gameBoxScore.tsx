@@ -53,7 +53,9 @@ export default function GameBoxScore({
                             <tr className="bg-likar4">
                                 <th></th>
                                 <th colSpan={999}>
-                                    <span>Prva petorka</span>
+                                    <span className="text-slate-100">
+                                        Prva petorka
+                                    </span>
                                 </th>
                             </tr>
                             {players.map((player) => {
@@ -69,7 +71,9 @@ export default function GameBoxScore({
                             <tr className="bg-likar4">
                                 <th></th>
                                 <th colSpan={999}>
-                                    <span>Klupa</span>
+                                    <span className="text-slate-100">
+                                        Klupa
+                                    </span>
                                 </th>
                             </tr>
                             {players.map((player) => {
@@ -85,7 +89,9 @@ export default function GameBoxScore({
                             <tr className="bg-likar4">
                                 <th></th>
                                 <th colSpan={999}>
-                                    <span>Ukupno Ekipa</span>
+                                    <span className="text-slate-100">
+                                        Ukupno Ekipa
+                                    </span>
                                 </th>
                             </tr>
                             <tr className="bg-likar1/60 text-slate-100">

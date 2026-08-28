@@ -61,24 +61,38 @@ class SeasonController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Season $season)
     {
-        //
+        return Inertia::render('admin/sezone/editSeason', [
+            'season' => $season
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Season $season)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date',
+            'is_active' => 'required|boolean'
+        ]);
+
+        Season::update($validated);
+
+        return redirect()
+            ->route('sezone.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Season $season)
     {
-        //
+        $season->delete();
+
+        return redirect()->back();
     }
 }
