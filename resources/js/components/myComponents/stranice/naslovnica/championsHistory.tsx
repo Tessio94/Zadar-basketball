@@ -49,10 +49,10 @@ export default function ChampionHistory() {
             <div className="block overflow-hidden rounded-xl max-sm:hidden">
                 <table className="w-full">
                     <thead>
-                        <tr className="rounded-t-xl bg-linear-to-r from-likar3 via-likar1 to-likar3 text-slate-100 *:p-3 *:text-start *:last:border-0 max-[500px]:*:p-2">
-                            <th className="text-center!">Sezona</th>
+                        <tr className="rounded-t-xl bg-linear-to-r from-likar3 via-likar1 to-likar3 font-heading text-slate-100 *:p-3 *:text-start *:last:border-0 max-[500px]:*:p-2">
+                            <th className="text-center! text-xl">Sezona</th>
                             <th className="text-center!">
-                                <div className="flex items-center justify-center gap-2">
+                                <div className="flex items-center justify-center gap-2 text-xl">
                                     Prvak
                                     <GoldMedalIcon
                                         width={30}
@@ -62,7 +62,7 @@ export default function ChampionHistory() {
                                 </div>
                             </th>
                             <th className="text-center!">
-                                <div className="flex items-center justify-center gap-2">
+                                <div className="flex items-center justify-center gap-2 text-xl">
                                     Doprvak
                                     <SilverMedalIcon
                                         width={30}
@@ -72,7 +72,7 @@ export default function ChampionHistory() {
                                 </div>
                             </th>
                             <th className="text-center!">
-                                <div className="flex items-center justify-center gap-2">
+                                <div className="flex items-center justify-center gap-2 text-xl">
                                     MVP
                                     <MvpIcon
                                         width={30}
@@ -89,7 +89,7 @@ export default function ChampionHistory() {
                             <tr
                                 key={i}
                                 className={cn(
-                                    'text-slate-100 *:border-b *:p-3.5 *:text-start *:last:border-r-0 max-[500px]:*:px-2 max-[500px]:*:py-3',
+                                    'font-heading text-slate-100 *:border-b *:p-3.5 *:text-start *:last:border-r-0 max-[500px]:*:px-2 max-[500px]:*:py-3',
                                     i === seasons.length - 1 && '*:border-b-0',
                                 )}
                             >
