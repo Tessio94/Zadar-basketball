@@ -19,6 +19,9 @@ export default function AdditionalNewsCard({ article }: { article: Article }) {
                         alt=""
                         loading="lazy"
                         className="transition-transform duration-300 group-hover:scale-110"
+                        style={{
+                            viewTransitionName: `article-image-${article.id}`,
+                        }}
                     />
                 ) : (
                     <img
@@ -26,6 +29,9 @@ export default function AdditionalNewsCard({ article }: { article: Article }) {
                         alt=""
                         loading="lazy"
                         className="transition-transform duration-300 group-hover:scale-110"
+                        style={{
+                            viewTransitionName: `article-image-${article.id}`,
+                        }}
                     />
                 )}
             </div>

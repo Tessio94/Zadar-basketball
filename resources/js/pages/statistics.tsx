@@ -21,7 +21,7 @@ export default function Statistics({
                 <title>Statistika | Likar Krombacker</title>
                 <meta name="description" content="Your page description" />
             </Head>
-            <section className="my-20 px-[5%]">
+            <section className="px-[5%] py-5 sm:py-10 xl:my-20">
                 <TabComponent
                     active={active}
                     setActive={setActive}

@@ -38,6 +38,7 @@ export default function MainNewsCard({
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
+                viewTransitionName: `article-image-${article.id}`,
             }}
         >
             <div className="relative z-20 p-3">

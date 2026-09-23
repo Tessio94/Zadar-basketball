@@ -6,12 +6,12 @@ export default function Landing() {
             <img
                 src="/images/design/bg-shadow.png"
                 alt=""
-                className="absolute inset-0 z-10 min-h-[1080px] object-cover min-[1920px]:w-full"
+                className="absolute inset-0 z-10 h-full object-cover min-[1920px]:w-full xl:min-h-[1080px]"
             />
-            <div className="flex h-270 items-center justify-start">
+            <div className="flex h-screen min-h-[850px] items-center justify-start">
                 <div className="z-100 flex w-full flex-col items-start gap-6 px-10 max-[1400px]:gap-4 max-[1024px]:gap-6 max-[450px]:px-4 sm:-mt-10 sm:mb-40 sm:px-12 lg:w-auto lg:px-16 xl:px-18 2xl:px-20">
                     <div className="hero-heading">
-                        <div className="hero-eyebrow">
+                        <div className="hero-eyebrow hidden sm:block">
                             KOŠARKA. DRUŽENJE. EKIPA.
                         </div>
 

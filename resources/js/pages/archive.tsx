@@ -15,13 +15,13 @@ export default function Archive({
                 <title>Arhiva | Likar Krombacker</title>
                 <meta name="description" content="Your page description" />
             </Head>
-            <section className="my-20 px-[5%]">
+            <section className="px-[5%] py-5 sm:py-10 xl:my-20">
                 <h2 className="mb-10 font-heading text-5xl font-semibold text-slate-100">
                     Arhiva vijesti
                 </h2>
                 <ArchiveNews articles={articles} />
             </section>
-            <section className="my-20 flex flex-row justify-center px-[5%]">
+            <section className="flex flex-row justify-center px-[5%] py-5 sm:py-10 xl:my-20">
                 <Pagination links={articles.links} type="front" />
             </section>
         </>

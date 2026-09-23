@@ -23,7 +23,7 @@ export default function Header() {
         <>
             <header
                 className={cn(
-                    'z-200 bg-transparent px-10 pt-8 pb-5 max-[450px]:px-4 sm:px-12 lg:px-16 xl:px-18 xl:py-5 2xl:px-20',
+                    'z-200 bg-transparent px-10 pt-8 pb-5 max-[450px]:px-4 max-md:pt-3 max-md:pb-3 sm:px-12 lg:px-16 xl:px-18 xl:py-5 2xl:px-20',
                     path === '/' ? 'absolute right-0 left-0' : 'relative',
                 )}
             >

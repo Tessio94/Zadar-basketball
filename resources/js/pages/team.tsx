@@ -35,7 +35,7 @@ export default function Team({
                     content={`Pogledajte roster, raspored utakmica i statistiku ekipe ${name}`}
                 />
             </Head>
-            <section className="my-20 px-[5%]">
+            <section className="px-[5%] py-5 sm:py-10 xl:my-20">
                 <div className="flex flex-col items-start justify-between gap-10 xl:flex-row">
                     <div className="mx-auto w-full rounded-2xl bg-likar1/30">
                         <TeamHeading logo={logo} name={name} />

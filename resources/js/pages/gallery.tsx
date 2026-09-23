@@ -8,7 +8,7 @@ export default function Gallery() {
     </Head>;
     return (
         <>
-            <section className="my-20 px-[5%]">
+            <section className="px-[5%] py-5 sm:py-10 xl:my-20">
                 <div className="mb-10 flex flex-col items-start gap-5">
                     <h1 className="font-heading text-5xl font-semibold text-slate-100">
                         Galerija

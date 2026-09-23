@@ -4,7 +4,7 @@ import AdditionalNewsCard from './dodatneVijesti/additionalNewsCard';
 export default function AdditionalNews({ articles }: { articles: Article[] }) {
     return (
         <>
-            <section className="my-20">
+            <section className="py-5 sm:py-10 xl:my-20">
                 <div className="px-[5%]">
                     <h2 className="mb-10 font-heading text-5xl font-semibold text-slate-100">
                         Ostale vijesti

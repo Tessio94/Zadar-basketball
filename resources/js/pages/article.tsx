@@ -24,15 +24,25 @@ export default function Article({ article }: { article: Article }) {
                     }
                 />
             </Head>
-            <section className="mx-auto my-20 max-[450px]:px-4! max-2xl:px-18 max-xl:px-16 max-lg:px-12 max-sm:px-10 2xl:max-w-300">
+            <section className="mx-auto my-5 max-[450px]:px-4! max-2xl:px-18 max-xl:px-16 max-lg:px-12 max-sm:px-10 sm:my-20 2xl:max-w-300">
                 <div className="rounded-4xl border border-likar1 bg-likar2 shadow-2xl shadow-likar1">
                     {article.main_image ? (
-                        <div className="relative">
-                            <img
+                        <div className="relative h-[85vh]">
+                            <div
+                                className="h-full rounded-4xl bg-cover bg-center bg-no-repeat"
+                                style={{
+                                    backgroundImage: `url(${APP_URL}/storage/${article.main_image})`,
+                                    viewTransitionName: `article-image-${article.id}`,
+                                }}
+                            ></div>
+                            {/* <img
                                 src={`${APP_URL}/storage/${article.main_image}`}
                                 alt=""
                                 className="h-auto w-full rounded-t-4xl"
-                            />
+                                style={{
+                                    viewTransitionName: `article-image-${article.id}`,
+                                }}
+                            /> */}
                             <div className="absolute bottom-0 left-0 z-20 w-full px-5 pt-14 pb-6">
                                 <p className="z-20 font-text text-xl font-medium text-slate-100">
                                     {article.excerpt}
@@ -41,11 +51,30 @@ export default function Article({ article }: { article: Article }) {
                             </div>
                         </div>
                     ) : (
-                        <img
-                            src="/images/design/landing.jpg"
-                            alt=""
-                            className="w-full rounded-t-4xl"
-                        />
+                        <div className="relative h-[85vh]">
+                            <div
+                                className="h-full rounded-4xl bg-cover bg-center bg-no-repeat"
+                                style={{
+                                    backgroundImage:
+                                        "url('/images/design/landing.jpg')",
+                                    viewTransitionName: `article-image-${article.id}`,
+                                }}
+                            ></div>
+                            {/* <img
+                                src="/images/design/landing.jpg"
+                                alt=""
+                                className="h-auto w-full rounded-t-4xl"
+                                style={{
+                                    viewTransitionName: `article-image-${article.id}`,
+                                }}
+                            /> */}
+                            <div className="absolute bottom-0 left-0 z-20 w-full px-5 pt-14 pb-6">
+                                <p className="z-20 font-text text-xl font-medium text-slate-100">
+                                    {article.excerpt}
+                                </p>
+                                <div className="absolute inset-0 -z-10 bg-linear-to-t from-slate-900 via-slate-900/90 to-transparent" />
+                            </div>
+                        </div>
                     )}
                     <div className="p-5">
                         <div className="relative flex w-full flex-row justify-between gap-8">
