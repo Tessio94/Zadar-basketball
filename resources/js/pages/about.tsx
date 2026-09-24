@@ -8,11 +8,11 @@ export default function About() {
     return (
         <>
             <section className="px-[5%] py-5 sm:py-10 xl:my-20">
-                <div className="relative flex min-h-270 flex-row items-start overflow-hidden rounded-2xl border border-likar1 bg-[url('/images/design/hardwood.jpg')] bg-cover bg-no-repeat shadow-2xl shadow-likar1 max-2xl:bg-position-[30%] max-xl:bg-position-[50%] max-md:bg-position-[70%]">
+                <div className="relative flex h-fit flex-row items-start overflow-hidden rounded-2xl border border-likar1 bg-[url('/images/design/hardwood.jpg')] bg-cover bg-no-repeat shadow-2xl shadow-likar1 max-2xl:bg-position-[30%] max-xl:bg-position-[50%] max-md:bg-position-[70%]">
                     <div className="absolute inset-0 bg-linear-to-r from-slate-900/80 to-transparent" />
 
-                    <div className="z-0 flex h-full min-h-270 w-full flex-col justify-between gap-10 p-8 px-4 sm:p-10 lg:p-15 xl:w-2/3 xl:p-20 2xl:w-1/2">
-                        <h4 className="font-heading text-7xl font-bold text-likar3 my-text-stroke2">
+                    <div className="z-0 flex w-full flex-col justify-between gap-10 p-8 px-4 sm:p-10 lg:p-15 xl:w-2/3 xl:p-20 2xl:w-1/2">
+                        <h4 className="font-heading text-6xl font-bold text-likar3 my-text-stroke2 min-[450px]:text-7xl">
                             Likar Krombacher Zadar
                         </h4>
                         <p className="font-text text-2xl text-slate-100">

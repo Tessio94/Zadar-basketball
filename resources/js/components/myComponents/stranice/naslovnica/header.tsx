@@ -1,7 +1,6 @@
 import { Link, usePage } from '@inertiajs/react';
-import { ChevronDown, Search, SearchX } from 'lucide-react';
+import { Search, SearchX } from 'lucide-react';
 import { useEffect, useEffectEvent, useState } from 'react';
-import { show } from '@/actions/App/Http/Controllers/TeamController';
 import { cn } from '@/lib/utils';
 import SearchComponent from './searchComponent';
 
@@ -21,6 +20,12 @@ export default function Header() {
 
     return (
         <>
+            <div
+                className={cn(
+                    'fixed inset-0 z-150 bg-slate-900/60',
+                    hambActive ? 'block' : 'hidden',
+                )}
+            ></div>
             <header
                 className={cn(
                     'z-200 bg-transparent px-10 pt-8 pb-5 max-[450px]:px-4 max-md:pt-3 max-md:pb-3 sm:px-12 lg:px-16 xl:px-18 xl:py-5 2xl:px-20',
@@ -196,7 +201,7 @@ export default function Header() {
                     {/* ------------------mobile navigation---------------------------- */}
                     <div className="block rounded-2xl bg-likar1/60 p-2 max-lg:order-2 md:hidden">
                         <div
-                            className="relative z-50 h-[35px] w-12.5 rotate-0 cursor-pointer transition-all duration-300 ease-in-out"
+                            className="relative z-9999 h-[35px] w-12.5 rotate-0 cursor-pointer transition-all duration-300 ease-in-out"
                             onClick={() => setHambActive((prev) => !prev)}
                         >
                             <span
@@ -233,12 +238,12 @@ export default function Header() {
                     >
                         <div className="absolute inset-0 -z-10 bg-linear-to-r from-likar3 to-likar4/90" />
                         <div className="scrollbar-slate flex h-full max-h-screen flex-col justify-between gap-25 overflow-y-auto pt-12">
-                            <ul className="flex flex-col gap-6 text-2xl">
+                            <ul className="flex flex-col text-2xl">
                                 <li className="w-full">
                                     <Link
                                         href="/"
                                         className={cn(
-                                            'relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                            'relative block w-full cursor-pointer px-3 pb-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
                                             path === '/' && 'text-slate-900',
                                         )}
                                     >
@@ -249,7 +254,7 @@ export default function Header() {
                                     <Link
                                         href="/novosti"
                                         className={cn(
-                                            'relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                            'relative block w-full cursor-pointer border-t border-t-slate-100 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
                                             path === '/novosti' &&
                                                 'text-slate-900',
                                         )}
@@ -261,7 +266,7 @@ export default function Header() {
                                     <Link
                                         href="/tablica"
                                         className={cn(
-                                            'relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                            'relative block w-full cursor-pointer border-t border-t-slate-100 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
                                             path === '/tablica' &&
                                                 'text-slate-900',
                                         )}
@@ -273,7 +278,7 @@ export default function Header() {
                                     <Link
                                         href="/statistika"
                                         className={cn(
-                                            'relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                            'relative block w-full cursor-pointer border-t border-t-slate-100 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
                                             path === '/statistika' &&
                                                 'text-slate-900',
                                         )}
@@ -285,7 +290,7 @@ export default function Header() {
                                     <Link
                                         href="/ekipe"
                                         className={cn(
-                                            'relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                            'relative block w-full cursor-pointer border-t border-t-slate-100 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
                                             path === '/ekipe' &&
                                                 'text-slate-900',
                                         )}
@@ -295,12 +300,12 @@ export default function Header() {
                                 </li>
                             </ul>
                             <div>
-                                <ul className="flex flex-col gap-6 py-6 text-2xl">
+                                <ul className="flex flex-col pt-6 text-2xl">
                                     <li className="w-full">
                                         <Link
                                             href="/o-nama"
                                             className={cn(
-                                                'relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                                'relative block w-full cursor-pointer border-b border-b-slate-100 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
                                                 path === '/o-nama' &&
                                                     'text-slate-900',
                                             )}
@@ -312,7 +317,7 @@ export default function Header() {
                                         <Link
                                             href="/arhiva"
                                             className={cn(
-                                                'relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                                'relative block w-full cursor-pointer border-b border-b-slate-100 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
                                                 path === '/arhiva' &&
                                                     'text-slate-900',
                                             )}
@@ -324,7 +329,7 @@ export default function Header() {
                                         <Link
                                             href="/galerija"
                                             className={cn(
-                                                'relative block w-full cursor-pointer px-3 py-1 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                                'relative block w-full cursor-pointer px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
                                                 path === '/galerija' &&
                                                     'text-slate-900',
                                             )}

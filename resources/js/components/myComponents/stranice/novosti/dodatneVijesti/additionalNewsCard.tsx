@@ -13,27 +13,15 @@ export default function AdditionalNewsCard({ article }: { article: Article }) {
             className="group z-100 flex cursor-pointer flex-col overflow-hidden rounded-2xl border-2 border-likar1 shadow-lg shadow-likar1"
         >
             <div className="shrink-0 overflow-hidden">
-                {article.main_image ? (
-                    <img
-                        src={`${APP_URL}/storage/${article.main_image}`}
-                        alt=""
-                        loading="lazy"
-                        className="transition-transform duration-300 group-hover:scale-110"
-                        style={{
-                            viewTransitionName: `article-image-${article.id}`,
-                        }}
-                    />
-                ) : (
-                    <img
-                        src="/images/design/landing.jpg"
-                        alt=""
-                        loading="lazy"
-                        className="transition-transform duration-300 group-hover:scale-110"
-                        style={{
-                            viewTransitionName: `article-image-${article.id}`,
-                        }}
-                    />
-                )}
+                <div
+                    className="aspect-video w-full bg-cover bg-center bg-no-repeat transition-transform duration-300 group-hover:scale-110"
+                    style={{
+                        backgroundImage: article.main_image
+                            ? `url(${APP_URL}/storage/${article.main_image})`
+                            : 'url(images/design/landing.jpg)',
+                        viewTransitionName: `article-image-${article.id}`,
+                    }}
+                />
             </div>
             <div className="flex grow flex-col justify-between gap-6 bg-likar2 p-3">
                 <h5 className="font-heading text-lg font-semibold text-slate-100">
