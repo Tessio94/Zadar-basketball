@@ -1,3 +1,7 @@
+import { Link } from '@inertiajs/react';
+import BasketballIcon from '../../ui/icons/basketballIcon';
+import { ArrowRight } from 'lucide-react';
+
 export default function Landing() {
     return (
         <section className="relative z-100 flex aspect-video min-h-[850px] w-full items-center">
@@ -24,6 +28,29 @@ export default function Landing() {
 
                     <div className="brush-line"></div>
                 </div>
+
+                <Link
+                    href="/utakmice"
+                    className="group hero-link mt-2 hidden flex-row items-stretch overflow-hidden rounded-full border border-likar3 md:flex"
+                >
+                    <div className="z-10 flex flex-row items-center rounded-full bg-likar4">
+                        <span className="py-3 pr-1.5 pl-3">
+                            <BasketballIcon
+                                width={35}
+                                height={35}
+                                fill={'#f1f5f9'}
+                                className="rounded-full bg-likar1"
+                            />
+                        </span>
+                        <span className="py-3 pr-3 pl-1.5 font-heading text-3xl font-semibold text-slate-100">
+                            Utakmice
+                        </span>
+                    </div>
+                    <div className="relative z-0 -ml-7 hidden shrink-0 items-center justify-center overflow-hidden rounded-r-full bg-likar4 pr-3 pl-7.5 xl:flex">
+                        <div className="absolute inset-0 z-0 bg-likar3 transition-all duration-600 content-[''] group-hover:translate-x-20 after:absolute after:top-0 after:bottom-0 after:left-0 after:z-0 after:aspect-square after:-translate-x-1/2 after:rounded-full after:bg-likar4 after:content-['']"></div>
+                        <ArrowRight className="z-10 text-3xl text-slate-100 transition-all duration-300 group-hover:translate-x-1.5" />
+                    </div>
+                </Link>
             </div>
         </section>
     );

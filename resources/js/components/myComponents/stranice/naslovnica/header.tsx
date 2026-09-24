@@ -101,6 +101,7 @@ export default function Header() {
                                     Tablica
                                 </Link>
                             </li>
+
                             <li
                                 className={cn(
                                     'relative',
@@ -254,7 +255,7 @@ export default function Header() {
                                     <Link
                                         href="/novosti"
                                         className={cn(
-                                            'relative block w-full cursor-pointer border-t border-t-slate-100 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                            'relative block w-full cursor-pointer border-t border-t-slate-100/60 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
                                             path === '/novosti' &&
                                                 'text-slate-900',
                                         )}
@@ -266,7 +267,19 @@ export default function Header() {
                                     <Link
                                         href="/tablica"
                                         className={cn(
-                                            'relative block w-full cursor-pointer border-t border-t-slate-100 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                            'relative block w-full cursor-pointer border-t border-t-slate-100/60 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                            path === '/utakmice' &&
+                                                'text-slate-900',
+                                        )}
+                                    >
+                                        Utakmice
+                                    </Link>
+                                </li>
+                                <li className="w-full">
+                                    <Link
+                                        href="/tablica"
+                                        className={cn(
+                                            'relative block w-full cursor-pointer border-t border-t-slate-100/60 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
                                             path === '/tablica' &&
                                                 'text-slate-900',
                                         )}
@@ -278,7 +291,7 @@ export default function Header() {
                                     <Link
                                         href="/statistika"
                                         className={cn(
-                                            'relative block w-full cursor-pointer border-t border-t-slate-100 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                            'relative block w-full cursor-pointer border-t border-t-slate-100/60 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
                                             path === '/statistika' &&
                                                 'text-slate-900',
                                         )}
@@ -290,7 +303,7 @@ export default function Header() {
                                     <Link
                                         href="/ekipe"
                                         className={cn(
-                                            'relative block w-full cursor-pointer border-t border-t-slate-100 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                            'relative block w-full cursor-pointer border-t border-t-slate-100/60 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
                                             path === '/ekipe' &&
                                                 'text-slate-900',
                                         )}
@@ -305,7 +318,7 @@ export default function Header() {
                                         <Link
                                             href="/o-nama"
                                             className={cn(
-                                                'relative block w-full cursor-pointer border-b border-b-slate-100 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                                'relative block w-full cursor-pointer border-b border-b-slate-100/60 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
                                                 path === '/o-nama' &&
                                                     'text-slate-900',
                                             )}
@@ -317,7 +330,7 @@ export default function Header() {
                                         <Link
                                             href="/arhiva"
                                             className={cn(
-                                                'relative block w-full cursor-pointer border-b border-b-slate-100 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                                'relative block w-full cursor-pointer border-b border-b-slate-100/60 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
                                                 path === '/arhiva' &&
                                                     'text-slate-900',
                                             )}

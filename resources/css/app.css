@@ -400,6 +400,10 @@ select,
     animation: hero-item-in 700ms ease-out 650ms both;
 }
 
+.hero-link {
+    animation: hero-item-in 700ms ease-out 850ms both;
+}
+
 @keyframes hero-item-in {
     from {
         opacity: 0;
@@ -462,3 +466,4 @@ select,
     }
 
 }
+
