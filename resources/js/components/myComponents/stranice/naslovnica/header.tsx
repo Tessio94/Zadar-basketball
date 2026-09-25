@@ -60,7 +60,7 @@ export default function Header() {
                                     'relative',
                                     path === '/'
                                         ? 'rounded-full bg-likar1/70'
-                                        : "before:absolute before:top-[calc(100%-6px)] before:right-5 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-[calc(100%-6px)] after:right-full after:left-5 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
+                                        : "before:absolute before:top-[calc(100%-6px)] before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-[calc(100%-6px)] after:right-full after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 md:before:right-2.5 md:after:left-2.5 2xl:before:right-5 2xl:after:left-5",
                                 )}
                             >
                                 <Link
@@ -75,7 +75,7 @@ export default function Header() {
                                     'relative',
                                     path === '/novosti'
                                         ? 'rounded-full bg-likar1/70'
-                                        : "before:absolute before:top-[calc(100%-6px)] before:right-5 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-[calc(100%-6px)] after:right-full after:left-5 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
+                                        : "before:absolute before:top-[calc(100%-6px)] before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-[calc(100%-6px)] after:right-full after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 md:before:right-2.5 md:after:left-2.5 2xl:before:right-5 2xl:after:left-5",
                                 )}
                             >
                                 <Link
@@ -91,7 +91,7 @@ export default function Header() {
                                     'relative',
                                     path === '/tablica'
                                         ? 'rounded-full bg-likar1/70'
-                                        : "before:absolute before:top-[calc(100%-6px)] before:right-5 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-[calc(100%-6px)] after:right-full after:left-5 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
+                                        : "before:absolute before:top-[calc(100%-6px)] before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-[calc(100%-6px)] after:right-full after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 md:before:right-2.5 md:after:left-2.5 2xl:before:right-5 2xl:after:left-5",
                                 )}
                             >
                                 <Link
@@ -107,7 +107,7 @@ export default function Header() {
                                     'relative',
                                     path === '/statistika'
                                         ? 'rounded-full bg-likar1/70'
-                                        : "before:absolute before:top-[calc(100%-6px)] before:right-5 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-[calc(100%-6px)] after:right-full after:left-5 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
+                                        : "before:absolute before:top-[calc(100%-6px)] before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-[calc(100%-6px)] after:right-full after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 md:before:right-2.5 md:after:left-2.5 2xl:before:right-5 2xl:after:left-5",
                                 )}
                             >
                                 <Link
@@ -122,7 +122,7 @@ export default function Header() {
                                     'relative',
                                     path === '/ekipe'
                                         ? 'rounded-full bg-likar1/70'
-                                        : "before:absolute before:top-[calc(100%-6px)] before:right-5 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-[calc(100%-6px)] after:right-full after:left-5 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2",
+                                        : "before:absolute before:top-[calc(100%-6px)] before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-[calc(100%-6px)] after:right-full after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 md:before:right-2.5 md:after:left-2.5 2xl:before:right-5 2xl:after:left-5",
                                 )}
                             >
                                 <Link
@@ -265,7 +265,7 @@ export default function Header() {
                                 </li>
                                 <li className="w-full">
                                     <Link
-                                        href="/tablica"
+                                        href="/utakmice"
                                         className={cn(
                                             'relative block w-full cursor-pointer border-t border-t-slate-100/60 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
                                             path === '/utakmice' &&

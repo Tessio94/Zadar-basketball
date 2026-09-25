@@ -18,7 +18,7 @@ const Games = ({
     return (
         <>
             <Head>
-                <title>Tablica | Likar Krombacker</title>
+                <title>Utakmice | Likar Krombacker</title>
                 <meta name="description" content="Your page description" />
             </Head>
             <section className="flex flex-col gap-5 px-[5%] py-5 sm:py-10 xl:my-20">

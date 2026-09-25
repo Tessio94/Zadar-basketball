@@ -10,6 +10,7 @@ import {
 } from '@/components/myComponents/ui/carousel/CarouselArrows';
 import GallerySlide from './gallerySlide';
 import { GalleryThumbnails } from './galleryThumbnails';
+import useFancybox from '@/hooks/use-fancybox';
 // import { GalleryThumbnails } from './galleryThumbnails';
 
 const images = [
@@ -84,11 +85,15 @@ const GalleryCarousel = () => {
         onNextButtonClick,
     } = usePrevNextButtons(emblaMainApi);
 
+    const [fancyboxRef] = useFancybox({
+        infinite: false,
+    });
+
     return (
-        <div className="relative mx-auto w-full rounded-2xl">
+        <div className="relative mx-auto w-full rounded-2xl" ref={fancyboxRef}>
             <div className="embla gallery">
                 <div
-                    className="embla__viewport overflow-hidden rounded-2xl"
+                    className="embla__viewport max-h-[80vh] overflow-hidden rounded-2xl"
                     ref={emblaMainRef}
                 >
                     <div className="embla__container">
