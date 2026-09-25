@@ -47,19 +47,19 @@ export default function GameScore({
                         <tbody>
                             <tr>
                                 <td className="font-heading text-2xl text-slate-800"></td>
-                                <td className="font-heading text-2xl text-slate-800">
+                                <td className="font-heading text-2xl text-slate-400">
                                     1Q
                                 </td>
-                                <td className="font-heading text-2xl text-slate-800">
+                                <td className="font-heading text-2xl text-slate-400">
                                     2Q
                                 </td>
-                                <td className="font-heading text-2xl text-slate-800">
+                                <td className="font-heading text-2xl text-slate-400">
                                     3Q
                                 </td>
-                                <td className="font-heading text-2xl text-slate-800">
+                                <td className="font-heading text-2xl text-slate-400">
                                     4Q
                                 </td>
-                                <td className="font-heading text-2xl text-slate-800">
+                                <td className="font-heading text-2xl text-slate-400">
                                     TOT
                                 </td>
                             </tr>

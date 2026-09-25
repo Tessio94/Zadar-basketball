@@ -9,7 +9,7 @@ export default function TeamResults({ games }: { games: GameWithTeams[] }) {
     return (
         <div className="p-5">
             <div className="mb-20 rounded-xl border border-likar1 shadow-xl shadow-likar1">
-                <div className="rounded-t-xl bg-likar1 p-2 text-xl font-semibold text-slate-100 uppercase">
+                <div className="rounded-t-xl bg-likar1 p-2 font-heading text-xl font-semibold text-slate-100 uppercase">
                     Utakmice 2025-26
                 </div>
                 <div className="relative">

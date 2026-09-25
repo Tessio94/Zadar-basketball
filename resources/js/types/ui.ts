@@ -17,6 +17,6 @@ export type LandingLayoutProps = {
     children: ReactNode;
 };
 
-export type GamesLayoutProps = {
+export type GameLayoutProps = {
     children: ReactNode;
 };

@@ -17,11 +17,10 @@ export default function GameBoxScore({
 
     return (
         <section className="relative mx-auto mb-10 px-[5%]">
-            <ButtonScroll scrollRef={scrollRef} />
-
             <div className="relative overflow-hidden rounded-xl border border-likar3/40">
+                <ButtonScroll scrollRef={scrollRef} />
                 <div
-                    className="flex flex-row justify-between border-b border-likar3/40 bg-likar4/60"
+                    className="flex flex-row justify-between border-b border-likar3/40 bg-likar4/60 max-sm:flex-col"
                     ref={scrollRef}
                 >
                     <Link
@@ -31,13 +30,13 @@ export default function GameBoxScore({
                         <img
                             src={team.logo}
                             alt={`${team.name}`}
-                            className="pointer-events-auto aspect-square w-15 shrink-0 cursor-pointer rounded-2xl max-sm:w-5"
+                            className="pointer-events-auto aspect-square w-15 shrink-0 cursor-pointer rounded-2xl max-sm:w-8"
                         />
-                        <p className="pointer-events-auto cursor-pointer font-heading font-semibold text-slate-100 hover:underline">
+                        <p className="pointer-events-auto cursor-pointer font-heading text-xl font-semibold text-slate-100 hover:underline">
                             {team.name}
                         </p>
                     </Link>
-                    <div className="flex flex-row items-center gap-5 p-3">
+                    <div className="flex flex-row items-center gap-5 p-3 text-xl">
                         <p className="font-heading font-semibold text-slate-100">
                             Trener:
                         </p>

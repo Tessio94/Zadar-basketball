@@ -22,7 +22,7 @@ export default function TabButton({
                 type="button"
                 onClick={() => setActive('tab1')}
                 className={cn(
-                    'text-heading z-20 cursor-pointer border border-likar3 px-10 py-2 font-semibold text-slate-100 uppercase max-md:rounded-t-xl md:-mr-8.5 md:rounded-l-full',
+                    'z-20 cursor-pointer border border-likar3 px-10 py-2 font-heading font-semibold text-slate-100 uppercase max-md:rounded-t-xl md:-mr-8.5 md:rounded-l-full',
                     active === 'tab1'
                         ? 'z-50 bg-likar3 text-xl md:rounded-full lg:text-2xl'
                         : 'z-20 bg-[#a14614] text-base lg:text-xl',
@@ -40,7 +40,7 @@ export default function TabButton({
                 type="button"
                 onClick={() => setActive(tabId)}
                 className={cn(
-                    'text-heading cursor-pointer border border-likar3 px-10 py-2 font-semibold text-slate-100 uppercase max-md:rounded-b-xl md:rounded-full lg:text-2xl',
+                    'cursor-pointer border border-likar3 px-10 py-2 font-heading font-semibold text-slate-100 uppercase max-md:rounded-b-xl md:rounded-full lg:text-2xl',
                     active === tabId
                         ? 'z-50 bg-likar3 text-xl md:rounded-l-full lg:text-2xl'
                         : 'z-20 bg-[#a14614] text-base md:rounded-l-none lg:text-xl',
@@ -61,7 +61,7 @@ export default function TabButton({
                 type="button"
                 onClick={() => setActive(tabId)}
                 className={cn(
-                    'text-heading cursor-pointer border border-likar3 px-10 py-2 font-semibold text-slate-100 uppercase',
+                    'cursor-pointer border border-likar3 px-10 py-2 font-heading font-semibold text-slate-100 uppercase',
                     active === tabId
                         ? 'z-50 bg-likar3 text-xl md:rounded-full lg:text-2xl'
                         : active === 'tab1'

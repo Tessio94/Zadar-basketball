@@ -13,17 +13,23 @@ export default function ResultRow({ game }: { game: GameWithTeams }) {
         away_team_id,
         home_score,
         away_score,
+        round_number,
     } = game;
 
     const date = new Date(game_date);
-    console.log('game', game);
+
     return (
         <tr className="text-slate-100 odd:bg-likar2 even:bg-likar2/60">
             <td className="border-r border-likar4 p-2 text-center text-nowrap">
                 {formatDate(date)}
             </td>
-            <td className="border-r border-likar4 p-2 text-center text-nowrap">
+            {/* <td className="border-r border-likar4 p-2 text-center text-nowrap">
                 {formatTime(date)}
+            </td> */}
+            <td className="border-r border-likar4 p-2 text-center text-nowrap">
+                <span className="rounded-sm bg-likar1 p-0.5">
+                    R{round_number}
+                </span>
             </td>
             <td className="border-r border-likar4 p-2">
                 <Link
@@ -39,8 +45,13 @@ export default function ResultRow({ game }: { game: GameWithTeams }) {
                 </Link>
             </td>
 
-            <td className="border-r border-likar4 p-2 text-center text-nowrap">
+            {/* <td className="border-r border-likar4 p-2 text-center text-nowrap">
                 vs
+            </td> */}
+            <td className="border-r border-likar4 p-2 text-center text-nowrap">
+                <Link href={show(id)} className="hover:underline">
+                    {home_score} - {away_score}
+                </Link>
             </td>
             <td className="border-r border-likar4 p-2">
                 <Link
@@ -55,11 +66,11 @@ export default function ResultRow({ game }: { game: GameWithTeams }) {
                     {away_team.name}
                 </Link>
             </td>
-            <td className="border-r border-likar4 p-2 text-center text-nowrap">
+            {/* <td className="border-r border-likar4 p-2 text-center text-nowrap">
                 <Link href={show(id)} className="hover:underline">
                     {home_score} - {away_score}
                 </Link>
-            </td>
+            </td> */}
         </tr>
     );
 }
@@ -72,10 +83,10 @@ function formatDate(date: Date) {
     });
 }
 
-function formatTime(date: Date) {
-    return date.toLocaleTimeString('en-GB', {
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: true,
-    });
-}
+// function formatTime(date: Date) {
+//     return date.toLocaleTimeString('en-GB', {
+//         hour: 'numeric',
+//         minute: '2-digit',
+//         hour12: true,
+//     });
+// }

@@ -15,8 +15,24 @@ class GameController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(StandingsService $standingsService): void
+    public function index()
     {
+        $games = Game::with(['homeTeam', 'awayTeam'])
+            ->orderBy('game_date')
+            ->get();
+
+        $lastRound = Game::max('round_number');
+
+        $lastRoundGames = Game::with(['homeTeam', 'awayTeam'])
+            ->where('round_number', $lastRound)
+            ->orderBy('game_date')
+            ->get();
+
+        return Inertia::render('games', [
+            'games' => $games,
+            'lastRoundGames' => $lastRoundGames,
+            'lastRound' => $lastRound,
+        ]);
     }
 
     /**
@@ -98,7 +114,7 @@ class GameController extends Controller
                 ->values(),
         ];
 
-        return Inertia::render('games', [
+        return Inertia::render('game', [
             'games' => $games,
             'game' => $game,
             'leaders' => $leaders,

@@ -17,12 +17,30 @@ class ArticleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $articles = Article::latest()->paginate(10);
+        $validated = $request->validate([
+            'search' => ['nullable', 'string', 'max:100'],
+            'direction' => ['nullable', 'in:asc,desc'],
+        ]);
+
+        $search = $validated['search'] ?? null;
+        $direction = $validated['direction'] ?? 'desc';
+
+        $articles = Article::query()
+            ->when($search, function ($query, $search) {
+                $query->where('title', 'ilike', "%{$search}%");
+            })
+            ->orderBy('published_at', $direction)
+            ->paginate(10)
+            ->withQueryString();
 
         return Inertia::render('admin/novosti/news', [
             'articles' => $articles,
+            'filters' => [
+                'search' => $search,
+                'direction' => $direction,
+            ],
         ]);
     }
 

@@ -8,7 +8,7 @@ export default function GameHeaderCard({ game }: { game: GameWithTeams }) {
     return (
         <div className="embla__slide relative px-2.5 first:pl-0 last:pr-0">
             <Link href={show(game.id)}>
-                <div className="relative rounded-xl border border-likar3/40 bg-likar4/60 p-2.5 transition-colors duration-300 hover:bg-likar4/30">
+                <div className="relative rounded-xl border border-likar3/40 bg-likar4/60 p-2.5 transition-colors duration-300 hover:bg-likar3/30">
                     <div className="flex flex-row gap-5">
                         <div className="flex flex-col items-start justify-between">
                             <p className="flex flex-row flex-nowrap items-center justify-center gap-4 text-nowrap text-slate-100">

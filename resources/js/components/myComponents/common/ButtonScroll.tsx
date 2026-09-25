@@ -39,7 +39,7 @@ export default function ButtonScroll({
                             behavior: 'smooth',
                         })
                     }
-                    className="absolute top-1/2 -left-[6%] z-10 -translate-y-1/2 rounded-r-xl bg-likar3/80 p-2"
+                    className="absolute top-1/2 left-0 z-10 -translate-y-1/2 rounded-r-xl bg-likar3/80 p-2"
                 >
                     <ChevronLeft className="text-white" />
                 </button>
@@ -53,7 +53,7 @@ export default function ButtonScroll({
                             behavior: 'smooth',
                         })
                     }
-                    className="absolute top-1/2 -right-[6%] z-10 -translate-y-1/2 rounded-l-xl bg-likar3/80 p-2"
+                    className="absolute top-1/2 right-0 z-10 -translate-y-1/2 rounded-l-xl bg-likar3/80 p-2"
                 >
                     <ChevronRight className="text-white" />
                 </button>

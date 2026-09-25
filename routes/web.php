@@ -39,8 +39,11 @@ Route::get('statistika', [PlayerGameStatController::class, 'index'])->name('stat
 /**
  *  Non-menu pages
  */
-// Utakmice
-Route::get('utakmice/{game}', [GameController::class, 'show'])->name('games');
+// Utakmice listing
+Route::get('utakmice', [GameController::class, 'index'])->name('games');
+
+// Utakmice show
+Route::get('utakmice/{game}', [GameController::class, 'show'])->name('game');
 
 // Ekipe listing
 Route::get('ekipe', [TeamController::class, 'index'])->name('teams.index');

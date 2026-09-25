@@ -16,19 +16,41 @@ class PlayerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $validated = $request->validate([
+            'search' => ['nullable', 'string', 'max:100'],
+            'sort' => ['nullable', 'in:first_name,last_name'],
+            'direction' => ['nullable', 'in:asc,desc']
+        ]);
+
+        $search = $validated['search'] ?? null;
+        $sort = $validated['sort'] ?? 'last_name';
+        $direction = $validated['direction'] ?? 'asc';
+
         $players = Player::query()
             ->with([
                 'teamAssignments.team',
                 'teamAssignments.season',
             ])
-            ->orderBy('last_name', 'asc')
-            ->orderBy('first_name', 'asc')
-            ->paginate(20);
+            ->when($search, function ($query, $search) {
+                $query->where(function ($query) use ($search) {
+                    $query
+                        ->where('first_name', 'ilike', "%{$search}%")
+                        ->orWhere('last_name', 'ilike', "%{$search}%");
+                });
+            })
+            ->orderBy($sort, $direction)
+            ->paginate(20)
+            ->withQueryString();
 
-        return Inertia::render('admin/igraci/players', [
+         return Inertia::render('admin/igraci/players', [
             'players' => $players,
+            'filters' => [
+                'search' => $search,
+                'sort' => $sort,
+                'direction' => $direction,
+            ],
         ]);
     }
 

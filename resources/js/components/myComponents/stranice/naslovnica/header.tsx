@@ -47,7 +47,7 @@ export default function Header() {
                                 Likar{' '}
                                 <span className="text-likar3">Krombacher</span>
                             </h1>
-                            <p className="font-text text-xl font-normal text-slate-300">
+                            <p className="font-heading text-xl font-normal text-slate-300">
                                 Liga košarkaških amatera
                             </p>
                         </div>
@@ -147,7 +147,7 @@ export default function Header() {
                                     )}
                                 >
                                     <Link
-                                        className="relative inline-block cursor-pointer rounded-lg text-sm font-semibold before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 xl:text-lg"
+                                        className="relative inline-block cursor-pointer rounded-lg font-heading text-sm font-semibold before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 xl:text-lg"
                                         href="/o-nama"
                                     >
                                         O nama
@@ -162,7 +162,7 @@ export default function Header() {
                                     )}
                                 >
                                     <Link
-                                        className="relative inline-block cursor-pointer rounded-lg text-sm font-semibold before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 xl:text-lg"
+                                        className="relative inline-block cursor-pointer rounded-lg font-heading text-sm font-semibold before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 xl:text-lg"
                                         href="/arhiva"
                                     >
                                         Arhiva
@@ -178,7 +178,7 @@ export default function Header() {
                                     )}
                                 >
                                     <Link
-                                        className="relative inline-block cursor-pointer rounded-lg text-sm font-semibold before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 xl:text-lg"
+                                        className="relative inline-block cursor-pointer rounded-lg font-heading text-sm font-semibold before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 xl:text-lg"
                                         href="/galerija"
                                     >
                                         Galerija

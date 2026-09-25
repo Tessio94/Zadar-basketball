@@ -31,7 +31,7 @@ export default function Landing() {
 
                 <Link
                     href="/utakmice"
-                    className="group hero-link mt-2 hidden flex-row items-stretch overflow-hidden rounded-full border border-likar3 md:flex"
+                    className="group hero-link mt-2 hidden flex-row items-stretch overflow-hidden rounded-full border-b border-likar3 shadow-md shadow-likar3/30 transition-all duration-300 hover:shadow-lg md:flex"
                 >
                     <div className="z-10 flex flex-row items-center rounded-full bg-likar4">
                         <span className="py-3 pr-1.5 pl-3">
@@ -48,7 +48,7 @@ export default function Landing() {
                     </div>
                     <div className="relative z-0 -ml-7 hidden shrink-0 items-center justify-center overflow-hidden rounded-r-full bg-likar4 pr-3 pl-7.5 xl:flex">
                         <div className="absolute inset-0 z-0 bg-likar3 transition-all duration-600 content-[''] group-hover:translate-x-20 after:absolute after:top-0 after:bottom-0 after:left-0 after:z-0 after:aspect-square after:-translate-x-1/2 after:rounded-full after:bg-likar4 after:content-['']"></div>
-                        <ArrowRight className="z-10 text-3xl text-slate-100 transition-all duration-300 group-hover:translate-x-1.5" />
+                        <ArrowRight className="z-10 text-3xl text-slate-100 transition-all duration-300 group-hover:translate-x-1.5 group-hover:text-likar3" />
                     </div>
                 </Link>
             </div>

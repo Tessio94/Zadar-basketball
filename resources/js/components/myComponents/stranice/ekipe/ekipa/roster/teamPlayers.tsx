@@ -19,7 +19,7 @@ export default function TeamPlayers({
                     className="scrollbar-thumb-rounded-full scrollbar-track-rounded-full mb-10 scrollbar-thin overflow-x-auto rounded-xl border border-likar1 shadow-xl shadow-likar1 scrollbar-thumb-likar3 scrollbar-track-likar3"
                     ref={scrollRef}
                 >
-                    <table className="w-full overflow-hidden rounded-2xl">
+                    <table className="w-full overflow-hidden rounded-xl">
                         <RosterRowHeader />
                         <tbody>
                             {players.map((player) => {

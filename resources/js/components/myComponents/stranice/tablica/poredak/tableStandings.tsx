@@ -21,7 +21,7 @@ export default function TableStandings({
                 >
                     <table className="w-full overflow-hidden rounded-xl">
                         <thead>
-                            <tr className="bg-likar1 text-xl text-slate-100">
+                            <tr className="bg-likar1 font-heading text-xl text-slate-100">
                                 <th className="border-r border-likar4 p-2 uppercase">
                                     No
                                 </th>

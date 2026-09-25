@@ -1,5 +1,5 @@
 import { Head, Link, router } from '@inertiajs/react';
-import { Plus } from 'lucide-react';
+import { Plus, Search } from 'lucide-react';
 import {
     create,
     destroy,
@@ -11,7 +11,8 @@ import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminM
 import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
 import type { BreadcrumbItem } from '@/types';
-import type { Article, Paginated } from '@/types/propTypes';
+import type { Article, Paginated, ArticleFilters } from '@/types/propTypes';
+import { useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -20,23 +21,105 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function News({ articles }: { articles: Paginated<Article> }) {
+export default function News({
+    articles,
+    filters,
+}: {
+    articles: Paginated<Article>;
+    filters: ArticleFilters;
+}) {
     console.log('articles', articles);
+    const [search, setSearch] = useState(filters.search ?? '');
+
+    const submitSearch = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        router.get(
+            index().url,
+            {
+                search: search || undefined,
+                direction: filters.direction ?? 'desc',
+            },
+            {
+                preserveState: true,
+                replace: true,
+            },
+        );
+    };
+
+    const togglePublishedAtSort = () => {
+        const direction = filters.direction === 'desc' ? 'asc' : 'desc';
+
+        router.get(
+            index().url,
+            {
+                search: filters.search || undefined,
+                direction,
+            },
+            {
+                preserveState: true,
+                replace: true,
+            },
+        );
+    };
     return (
         <>
             <Head title="Admin panel | Novosti" />
             <AdminMainContent>
                 <div className="flex min-h-full flex-col justify-between">
-                    <div className="mb-4 flex justify-between">
-                        <h1 className="text-xl font-bold">Arhiva novosti</h1>
+                    <div className="mb-4 flex flex-col gap-4">
+                        <div className="mb-4 flex justify-between">
+                            <h1 className="text-xl font-bold">
+                                Arhiva novosti
+                            </h1>
 
-                        <Link
-                            href={create()}
-                            className="group flex flex-row items-center gap-2 rounded-lg border border-transparent bg-likar3 px-6 py-2 text-center! font-semibold text-slate-100 transition-colors duration-300 hover:border-likar3 hover:bg-likar1/40 hover:text-likar3"
-                        >
-                            <Plus className="transition-transform duration-300 group-hover:rotate-180" />{' '}
-                            Kreiraj članak
-                        </Link>
+                            <Link
+                                href={create()}
+                                className="group flex flex-row items-center gap-2 rounded-lg border border-transparent bg-likar3 px-6 py-2 text-center! font-semibold text-slate-100 transition-colors duration-300 hover:border-likar3 hover:bg-likar1/40 hover:text-likar3"
+                            >
+                                <Plus className="transition-transform duration-300 group-hover:rotate-180" />{' '}
+                                Kreiraj članak
+                            </Link>
+                        </div>
+                        <div className="flex flex-col gap-3 sm:flex-row">
+                            <form
+                                onSubmit={submitSearch}
+                                className="flex flex-1"
+                            >
+                                <div className="relative flex w-full">
+                                    <Search
+                                        size={20}
+                                        className="absolute top-1/2 left-3 -translate-y-1/2 text-slate-400"
+                                    />
+
+                                    <input
+                                        type="text"
+                                        value={search}
+                                        onChange={(e) =>
+                                            setSearch(e.target.value)
+                                        }
+                                        placeholder="Pretraži članke..."
+                                        className="w-full rounded-lg border py-2 pr-4 pl-10 outline-none focus:border-likar3"
+                                    />
+
+                                    <button
+                                        type="submit"
+                                        className="ml-2 rounded-lg bg-likar3 px-5 py-2 font-semibold text-slate-100 transition-colors hover:bg-likar4"
+                                    >
+                                        Traži
+                                    </button>
+                                </div>
+                            </form>
+
+                            <button
+                                type="button"
+                                onClick={togglePublishedAtSort}
+                                className="rounded-lg border px-4 py-2 transition-colors hover:bg-slate-100"
+                            >
+                                Datum objave{' '}
+                                {filters.direction === 'asc' ? '↑' : '↓'}
+                            </button>
+                        </div>
                     </div>
                     <div className="grow rounded-xl">
                         <div className="overflow-hidden rounded-xl border">

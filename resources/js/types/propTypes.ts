@@ -324,6 +324,12 @@ export type PlayerAverages = {
     efficiency: number;
 };
 
+export type PlayerFilters = {
+    search?: string;
+    sort?: 'first_name' | 'last_name';
+    direction?: 'asc' | 'desc';
+};
+
 /**
  *  Standings types
  */
@@ -409,6 +415,11 @@ export type AdminArticleListItem = {
     id: number;
     title: string;
     published_at: string | null;
+};
+
+export type ArticleFilters = {
+    search?: string;
+    direction?: 'asc' | 'desc';
 };
 
 /**
