@@ -8,9 +8,9 @@ import {
     PrevButton,
     NextButton,
 } from '@/components/myComponents/ui/carousel/CarouselArrows';
+import useFancybox from '@/hooks/use-fancybox';
 import GallerySlide from './gallerySlide';
 import { GalleryThumbnails } from './galleryThumbnails';
-import useFancybox from '@/hooks/use-fancybox';
 // import { GalleryThumbnails } from './galleryThumbnails';
 
 const images = [

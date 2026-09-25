@@ -21,7 +21,7 @@ const Games = ({
                 <title>Utakmice | Likar Krombacker</title>
                 <meta name="description" content="Your page description" />
             </Head>
-            <section className="flex flex-col gap-5 px-[5%] py-5 sm:py-10 xl:my-20">
+            <section className="flex flex-col gap-5 px-[5%] py-10 xl:my-5">
                 <div>
                     <UpcomingGames
                         games={lastRoundGames}

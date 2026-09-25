@@ -33,7 +33,7 @@ export default function player({ player, totals, averages }: PlayerProps) {
                     content={`Pogledaj statistiku za ${first_name} ${last_name} – prosjek poena, asistencija, skokova i učinak po utakmici.`}
                 />
             </Head>
-            <section className="px-[5%] py-5 sm:py-10 xl:my-20">
+            <section className="px-[5%] py-10 xl:my-5">
                 <div className="flex flex-col items-start justify-between gap-10 xl:flex-row">
                     <div className="mx-auto w-full rounded-2xl bg-likar1/30">
                         <PlayerHeader

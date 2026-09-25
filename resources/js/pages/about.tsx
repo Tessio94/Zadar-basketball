@@ -7,7 +7,7 @@ export default function About() {
     </Head>;
     return (
         <>
-            <section className="px-[5%] py-5 sm:py-10 xl:my-20">
+            <section className="px-[5%] py-10 xl:my-5">
                 <div className="relative flex h-fit flex-row items-start overflow-hidden rounded-2xl border border-likar1 bg-[url('/images/design/hardwood.jpg')] bg-cover bg-no-repeat shadow-2xl shadow-likar1 max-2xl:bg-position-[30%] max-xl:bg-position-[50%] max-md:bg-position-[70%]">
                     <div className="absolute inset-0 bg-linear-to-r from-slate-900/80 to-transparent" />
 

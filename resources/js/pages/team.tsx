@@ -35,7 +35,7 @@ export default function Team({
                     content={`Pogledajte roster, raspored utakmica i statistiku ekipe ${name}`}
                 />
             </Head>
-            <section className="px-[5%] py-5 sm:py-10 xl:my-20">
+            <section className="px-[5%] py-10 xl:my-5">
                 <div className="flex flex-col items-start justify-between gap-10 xl:flex-row">
                     <div className="mx-auto w-full rounded-2xl bg-likar1/30">
                         <TeamHeading logo={logo} name={name} />
@@ -47,6 +47,7 @@ export default function Team({
                                 { id: 'tab2', title: 'Utakmice' },
                                 { id: 'tab3', title: 'Statistika' },
                             ]}
+                            className="mt-15"
                         />
                         {active === 'tab1' && <TeamPlayers players={players} />}
                         {active === 'tab2' && <TeamResults games={games} />}

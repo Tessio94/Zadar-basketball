@@ -1,20 +1,16 @@
 import { Head } from '@inertiajs/react';
 import { Clock } from 'lucide-react';
-import { useEffect } from 'react';
 import SideArticleCard from '@/components/myComponents/stranice/novosti/clanak/sideArticleGrid';
+import useFancybox from '@/hooks/use-fancybox';
 import type { Article } from '@/types/propTypes';
+import ArticleContent from '@/components/myComponents/stranice/novosti/clanak/articleContent';
 
 const APP_URL = import.meta.env.VITE_APP_URL;
 
 export default function Article({ article }: { article: Article }) {
-    useEffect(() => {
-        requestAnimationFrame(() => {
-            window.scrollTo({
-                top: window.innerWidth > 500 ? 150 : 100,
-                behavior: 'instant',
-            });
-        });
-    }, []);
+    const [fancyboxRef] = useFancybox({
+        infinite: false,
+    });
 
     return (
         <>
@@ -34,7 +30,7 @@ export default function Article({ article }: { article: Article }) {
                     }
                 />
             </Head>
-            <section className="mx-auto my-5 max-[450px]:px-4! max-2xl:px-18 max-xl:px-16 max-lg:px-12 max-sm:px-10 sm:my-20 2xl:max-w-300">
+            <section className="mx-auto my-5 max-[450px]:px-4! max-2xl:px-18 max-xl:px-16 max-lg:px-12 max-sm:px-10 sm:my-5 2xl:max-w-300">
                 <div className="rounded-4xl border border-likar1 bg-likar2 shadow-2xl shadow-likar1">
                     <div className="relative h-[65vh] sm:h-[85vh]">
                         <div
@@ -88,12 +84,7 @@ export default function Article({ article }: { article: Article }) {
                                         </p>
                                     </div>
                                 )}
-                                <div
-                                    className="mb-15 flex flex-col justify-start gap-6 font-text text-xl text-slate-100"
-                                    dangerouslySetInnerHTML={{
-                                        __html: article.content,
-                                    }}
-                                ></div>
+                                <ArticleContent content={article.content} />
                                 <div className="mt-3 flex flex-wrap gap-2 text-slate-100">
                                     <span className="font-jet rounded-xl bg-slate-600 px-2 py-1 font-heading text-sm">
                                         2025-2026

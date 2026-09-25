@@ -19,7 +19,7 @@ export default function Table({
                 <title>Tablica | Likar Krombacker</title>
                 <meta name="description" content="Your page description" />
             </Head>
-            <section id="tablica" className="px-[5%] py-5 sm:py-10 xl:my-20">
+            <section id="tablica" className="px-[5%] py-10 xl:my-5">
                 <h1 className="mb-10 font-heading text-4xl font-semibold text-slate-100">
                     Tablica
                 </h1>

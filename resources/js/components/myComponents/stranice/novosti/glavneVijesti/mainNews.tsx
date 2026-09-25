@@ -3,7 +3,7 @@ import MainNewsCard from './mainNewsCard';
 
 export default function MainNews({ articles }: { articles: Article[] }) {
     return (
-        <section className="px-[5%] py-5 sm:py-10 xl:my-20">
+        <section className="px-[5%] py-10 xl:my-5">
             <div className="grid w-full grid-cols-1 grid-rows-5 items-stretch max-sm:gap-10 sm:aspect-square sm:grid-cols-2 sm:grid-rows-3 lg:aspect-2/1 lg:grid-cols-4 lg:grid-rows-2 xl:aspect-3/1 xl:grid-cols-5">
                 {articles.map((article, i) => (
                     <MainNewsCard
