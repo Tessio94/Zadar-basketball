@@ -10,6 +10,22 @@ export function toUrl(url: NonNullable<InertiaLinkProps['href']>): string {
     return typeof url === 'string' ? url : url.url;
 }
 
+export function formatDate(date: Date) {
+    return date.toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: '2-digit',
+    });
+}
+
+export function formatTime(date: Date) {
+    return date.toLocaleTimeString('en-GB', {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true,
+    });
+}
+
 export function formatRelativeTime(date: string | Date): string {
     const publishedAt = new Date(date);
     const now = new Date();

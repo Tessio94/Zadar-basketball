@@ -15,7 +15,9 @@ use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 use App\Http\Controllers\Admin\PlayerController as AdminPlayerController;
 use App\Http\Controllers\Admin\SeasonController as AdminSeasonController;
 use App\Http\Controllers\Admin\TeamController as AdminTeamController;
+use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\GalleryController;
 
 /**
  *  Navigation menu pages
@@ -64,10 +66,10 @@ Route::get('o-nama', fn() => Inertia::render('about'))->name('about');
 Route::get('arhiva', [ArticleController::class, 'archive'])->name('archive');
 
 // galerija listing
-Route::get('galerija', fn() => Inertia::render('galleries'))->name('galleries');
+Route::get('galerija', [GalleryController::class, 'index'])->name('galleries');
 
 // galerija show
-Route::get('galerija/1', fn() => Inertia::render('gallery'))->name('gallery');
+Route::get('galerija/{gallery:slug}', [GalleryController::class, 'show'])->name('gallery');
 
 /**
  *  admin panel pages
@@ -89,6 +91,19 @@ Route::middleware(['auth', 'verified'])->prefix('admin-panel')->group(function()
 
     Route::resource('igraci', AdminPlayerController::class)
         ->parameters(['igraci' => 'player']);
+
+    Route::resource('galerije', AdminGalleryController::class)
+            ->parameters(['galerije' => 'gallery']);
+
+    Route::delete(
+        'galerije/{gallery}/images/{image}',
+        [AdminGalleryController::class, 'destroyImage']
+    )->name('galerije.images.destroy');
+
+    Route::put(
+        'galerije/{gallery}/images/reorder',
+        [AdminGalleryController::class, 'reorderImages']
+    )->name('galerije.images.reorder');
 });
 
 require __DIR__ . '/settings.php';

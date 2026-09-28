@@ -446,17 +446,39 @@ export type SeasonForm = {
  *  Images types
  */
 
+// export type GalleryImage = {
+//     id: number;
+//     url: string;
+//     alt: string;
+// };
+
 export type GalleryImage = {
     id: number;
-    url: string;
-    alt: string;
+    gallery_id: number;
+    path: string;
+    alt: string | null;
+    caption: string | null;
+    sort_order: number;
+    created_at: string;
+    updated_at: string;
+};
+
+export type Gallery = {
+    id: number;
+    title: string;
+    slug: string;
+    date: string | null;
+    images: GalleryImage[];
+    images_count?: number;
+    created_at: string;
+    updated_at: string;
 };
 
 /**
  *  Generics
  */
 
-export interface Paginated<T> {
+export type Paginated<T> = {
     current_page: number;
     data: T[];
     first_page_url: string;
@@ -474,4 +496,4 @@ export interface Paginated<T> {
         page: number | null;
         active: boolean;
     }[];
-}
+};

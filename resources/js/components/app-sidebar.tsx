@@ -10,7 +10,9 @@ import {
     User2Icon,
 } from 'lucide-react';
 import { index as adminArticleIndex } from '@/actions/App/Http/Controllers/Admin/ArticleController';
+import { index as adminGalleryController } from '@/actions/App/Http/Controllers/Admin/GalleryController';
 import { index as adminPlayerController } from '@/actions/App/Http/Controllers/Admin/PlayerController';
+import { index as adminSeasonController } from '@/actions/App/Http/Controllers/Admin/SeasonController';
 import { index as adminTeamController } from '@/actions/App/Http/Controllers/Admin/TeamController';
 // import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
@@ -28,7 +30,6 @@ import { panel } from '@/routes/admin';
 import type { NavItem } from '@/types';
 import AppLogo from './app-logo';
 import SeasonCalendar from './myComponents/ui/icons/seasonCalendar';
-import { index as adminSeasonController } from '@/actions/App/Http/Controllers/Admin/SeasonController';
 
 const mainNavItems: NavItem[] = [
     {
@@ -63,7 +64,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Galerije',
-        href: panel(),
+        href: adminGalleryController(),
         icon: Images,
     },
 ];

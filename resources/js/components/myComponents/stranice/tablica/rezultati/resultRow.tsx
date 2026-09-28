@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react';
 import { show } from '@/actions/App/Http/Controllers/GameController';
 import { show as showTeam } from '@/actions/App/Http/Controllers/TeamController';
+import { formatDate } from '@/lib/utils';
 import type { GameWithTeams } from '@/types/propTypes';
 
 export default function ResultRow({ game }: { game: GameWithTeams }) {
@@ -74,19 +75,3 @@ export default function ResultRow({ game }: { game: GameWithTeams }) {
         </tr>
     );
 }
-
-function formatDate(date: Date) {
-    return date.toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: '2-digit',
-        year: '2-digit',
-    });
-}
-
-// function formatTime(date: Date) {
-//     return date.toLocaleTimeString('en-GB', {
-//         hour: 'numeric',
-//         minute: '2-digit',
-//         hour12: true,
-//     });
-// }

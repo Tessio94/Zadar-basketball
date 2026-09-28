@@ -24,6 +24,7 @@ function prepareArticleContent(content: string) {
 
     document.querySelectorAll('img').forEach((img) => {
         img.setAttribute('data-fancybox', 'article');
+        img.className = 'rounded-xl';
 
         const alt = img.getAttribute('alt');
 

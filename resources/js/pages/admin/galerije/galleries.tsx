@@ -1,76 +1,40 @@
 import { Head, Link, router } from '@inertiajs/react';
-import { Plus, Search } from 'lucide-react';
-import { useState } from 'react';
+import { Plus } from 'lucide-react';
+
 import {
     create,
     destroy,
     edit,
     index,
-} from '@/actions/App/Http/Controllers/Admin/ArticleController';
+} from '@/actions/App/Http/Controllers/Admin/GalleryController';
 import Pagination from '@/components/myComponents/common/pagination/Pagination';
 import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
 import AppLayout from '@/layouts/app-layout';
-import { cn } from '@/lib/utils';
+import { formatDate } from '@/lib/utils';
 import type { BreadcrumbItem } from '@/types';
-import type { Article, Paginated, ArticleFilters } from '@/types/propTypes';
+import type { Gallery, Paginated } from '@/types/propTypes';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Novosti',
+        title: 'Galerije',
         href: index().url,
     },
 ];
 
-export default function News({
-    articles,
-    filters,
+export default function Galleries({
+    galleries,
 }: {
-    articles: Paginated<Article>;
-    filters: ArticleFilters;
+    galleries: Paginated<Gallery>;
 }) {
-    console.log('articles', articles);
-    const [search, setSearch] = useState(filters.search ?? '');
-
-    const submitSearch = (e: React.FormEvent) => {
-        e.preventDefault();
-
-        router.get(
-            index().url,
-            {
-                search: search || undefined,
-                direction: filters.direction ?? 'desc',
-            },
-            {
-                preserveState: true,
-                replace: true,
-            },
-        );
-    };
-
-    const togglePublishedAtSort = () => {
-        const direction = filters.direction === 'desc' ? 'asc' : 'desc';
-
-        router.get(
-            index().url,
-            {
-                search: filters.search || undefined,
-                direction,
-            },
-            {
-                preserveState: true,
-                replace: true,
-            },
-        );
-    };
     return (
         <>
-            <Head title="Admin panel | Novosti" />
+            <Head title="Admin panel | Galerija" />
             <AdminMainContent>
                 <div className="flex min-h-full flex-col justify-between">
                     <div className="mb-4 flex flex-col gap-4">
                         <div className="mb-4 flex justify-between">
                             <h1 className="text-xl font-bold">
-                                Arhiva novosti
+                                Arhiva galerija
                             </h1>
 
                             <Link
@@ -78,47 +42,8 @@ export default function News({
                                 className="group flex flex-row items-center gap-2 rounded-lg border border-transparent bg-likar3 px-6 py-2 text-center! font-semibold text-slate-100 transition-colors duration-300 hover:border-likar3 hover:bg-likar1/40 hover:text-likar3"
                             >
                                 <Plus className="transition-transform duration-300 group-hover:rotate-180" />{' '}
-                                Kreiraj članak
+                                Kreiraj galeriju
                             </Link>
-                        </div>
-                        <div className="flex flex-col gap-3 sm:flex-row">
-                            <form
-                                onSubmit={submitSearch}
-                                className="flex flex-1"
-                            >
-                                <div className="relative flex w-full">
-                                    <Search
-                                        size={20}
-                                        className="absolute top-1/2 left-3 -translate-y-1/2 text-slate-400"
-                                    />
-
-                                    <input
-                                        type="text"
-                                        value={search}
-                                        onChange={(e) =>
-                                            setSearch(e.target.value)
-                                        }
-                                        placeholder="Pretraži članke..."
-                                        className="w-full rounded-lg border py-2 pr-4 pl-10 outline-none focus:border-likar3"
-                                    />
-
-                                    <button
-                                        type="submit"
-                                        className="ml-2 rounded-lg bg-likar3 px-5 py-2 font-semibold text-slate-100 transition-colors hover:bg-likar4"
-                                    >
-                                        Traži
-                                    </button>
-                                </div>
-                            </form>
-
-                            <button
-                                type="button"
-                                onClick={togglePublishedAtSort}
-                                className="rounded-lg border px-4 py-2 transition-colors hover:bg-slate-100"
-                            >
-                                Datum objave{' '}
-                                {filters.direction === 'asc' ? '↑' : '↓'}
-                            </button>
                         </div>
                     </div>
                     <div className="grow rounded-xl">
@@ -128,6 +53,7 @@ export default function News({
                                     <tr className="rounded-t-xl bg-linear-to-r from-likar3 via-likar1 to-likar3 text-slate-100 *:border-r *:p-5 *:text-start *:last:border-0 max-[500px]:*:p-2">
                                         <th className="text-center!">No.</th>
                                         <th style={{ width: '70%' }}>Naslov</th>
+                                        <th className="text-center!">Datum</th>
                                         <th
                                             colSpan={2}
                                             className="text-center!"
@@ -138,31 +64,29 @@ export default function News({
                                 </thead>
 
                                 <tbody>
-                                    {articles.data.map((article) => (
+                                    {galleries.data.map((gallery) => (
                                         <tr
-                                            key={article.id}
+                                            key={gallery.id}
                                             className="*:border-r *:p-5 *:text-start *:last:border-0 even:bg-slate-200/60 max-[500px]:*:px-2 max-[500px]:*:py-3"
                                         >
-                                            <td className="flex items-center justify-center">
-                                                <span
-                                                    className={cn(
-                                                        'flex h-8 w-8 items-center justify-center rounded-full',
-                                                        article.status ===
-                                                            'published' &&
-                                                            'bg-likar3 text-slate-100',
-                                                        article.status ===
-                                                            'draft' &&
-                                                            'bg-likar1/50 text-slate-600',
-                                                    )}
-                                                >
-                                                    {' '}
-                                                    {article.id}
-                                                </span>
+                                            <td>{gallery.id}</td>
+                                            <td>{gallery.title}</td>
+                                            <td>
+                                                {gallery.date
+                                                    ? formatDate(
+                                                          new Date(
+                                                              gallery.date,
+                                                          ),
+                                                      )
+                                                    : formatDate(
+                                                          new Date(
+                                                              gallery.created_at,
+                                                          ),
+                                                      )}
                                             </td>
-                                            <td>{article.title}</td>
                                             <td className="text-center!">
                                                 <Link
-                                                    href={edit(article.id)}
+                                                    href={edit(gallery.id)}
                                                     className="rounded-lg bg-likar2 px-6 py-2 text-center! font-semibold transition-colors duration-300 hover:bg-likar4 hover:text-slate-100"
                                                 >
                                                     Uredi
@@ -179,7 +103,7 @@ export default function News({
                                                         ) {
                                                             router.delete(
                                                                 destroy(
-                                                                    article.id,
+                                                                    gallery.id,
                                                                 ).url,
                                                             );
                                                         }
@@ -196,7 +120,7 @@ export default function News({
                         </div>
                     </div>
                     <div className="flex flex-row justify-center">
-                        <Pagination links={articles.links} type="admin" />
+                        <Pagination links={galleries.links} type="admin" />
                     </div>
                 </div>
             </AdminMainContent>
@@ -204,6 +128,6 @@ export default function News({
     );
 }
 
-News.layout = (page: React.ReactNode) => (
+Galleries.layout = (page: React.ReactNode) => (
     <AppLayout breadcrumbs={breadcrumbs} children={page} />
 );

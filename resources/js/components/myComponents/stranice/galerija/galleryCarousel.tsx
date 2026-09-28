@@ -9,34 +9,35 @@ import {
     NextButton,
 } from '@/components/myComponents/ui/carousel/CarouselArrows';
 import useFancybox from '@/hooks/use-fancybox';
+import type { GalleryImage } from '@/types/propTypes';
 import GallerySlide from './gallerySlide';
 import { GalleryThumbnails } from './galleryThumbnails';
 // import { GalleryThumbnails } from './galleryThumbnails';
 
-const images = [
-    {
-        id: 1,
-        url: '/images/galerija/image1.jpg',
-        alt: 'image 1 description',
-    },
-    {
-        id: 2,
-        url: '/images/galerija/image2.jpg',
-        alt: 'image 2 description',
-    },
-    {
-        id: 3,
-        url: '/images/galerija/image3.jpg',
-        alt: 'image 3 description',
-    },
-    {
-        id: 4,
-        url: '/images/galerija/image4.jpg',
-        alt: 'image 4 description',
-    },
-];
+// const images = [
+//     {
+//         id: 1,
+//         url: '/images/galerija/image1.jpg',
+//         alt: 'image 1 description',
+//     },
+//     {
+//         id: 2,
+//         url: '/images/galerija/image2.jpg',
+//         alt: 'image 2 description',
+//     },
+//     {
+//         id: 3,
+//         url: '/images/galerija/image3.jpg',
+//         alt: 'image 3 description',
+//     },
+//     {
+//         id: 4,
+//         url: '/images/galerija/image4.jpg',
+//         alt: 'image 4 description',
+//     },
+// ];
 
-const GalleryCarousel = () => {
+const GalleryCarousel = ({ images }: { images: GalleryImage[] }) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
 
     const [emblaMainRef, emblaMainApi] = useEmblaCarousel({ loop: false }, [

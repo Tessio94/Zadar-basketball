@@ -47,13 +47,13 @@ class HandleInertiaRequests extends Middleware
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];
 
-        if (! $request->is('admin-panel/*')) {
-            $shared['teams'] = fn() => cache()->remember(
-                'teams.header',
-                now()->addHours(6),
-                fn() => Team::select('id', 'name', 'logo')->get()
-            );
-        }
+        // if (! $request->is('admin-panel/*')) {
+        //     $shared['teams'] = fn() => cache()->remember(
+        //         'teams.header',
+        //         now()->addHours(6),
+        //         fn() => Team::select('id', 'name', 'logo')->get()
+        //     );
+        // }
 
         return $shared;
     }

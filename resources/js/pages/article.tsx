@@ -1,9 +1,9 @@
 import { Head } from '@inertiajs/react';
 import { Clock } from 'lucide-react';
+import ArticleContent from '@/components/myComponents/stranice/novosti/clanak/articleContent';
 import SideArticleCard from '@/components/myComponents/stranice/novosti/clanak/sideArticleGrid';
 import useFancybox from '@/hooks/use-fancybox';
 import type { Article } from '@/types/propTypes';
-import ArticleContent from '@/components/myComponents/stranice/novosti/clanak/articleContent';
 
 const APP_URL = import.meta.env.VITE_APP_URL;
 
