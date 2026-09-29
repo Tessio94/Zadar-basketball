@@ -10,6 +10,17 @@ export function toUrl(url: NonNullable<InertiaLinkProps['href']>): string {
     return typeof url === 'string' ? url : url.url;
 }
 
+export function slugify(text: string): string {
+    return text
+        .toLowerCase()
+        .trim()
+        .replace(/đ/g, 'd')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+}
+
 export function formatDate(date: Date) {
     return date.toLocaleDateString('en-GB', {
         day: '2-digit',

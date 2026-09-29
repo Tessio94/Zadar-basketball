@@ -7,6 +7,7 @@ import {
 } from '@/actions/App/Http/Controllers/Admin/ArticleController';
 import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
 import AppLayout from '@/layouts/app-layout';
+import { slugify } from '@/lib/utils';
 import type { BreadcrumbItem } from '@/types';
 import type { ArticleForm } from '@/types/propTypes';
 import RichTextEditor from './richTextEditor';
@@ -21,8 +22,6 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '',
     },
 ];
-
-// const APP_URL = import.meta.env.VITE_APP_URL;
 
 export default function CreateArticle() {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -172,22 +171,8 @@ export default function CreateArticle() {
                                 id="status"
                                 name="status"
                                 value={data.status}
-                                onChange={
-                                    (e) => setData('status', e.target.value)
-                                    // const status = e.target.value as
-                                    //     | 'published'
-                                    //     | 'draft';
-
-                                    // setData('status', status);
-
-                                    // if (status === 'published') {
-                                    //     const today = new Date()
-                                    //         .toISOString()
-                                    //         .split('T')[0];
-                                    //     setData('published_at', today);
-                                    // } else {
-                                    //     setData('published_at', '');
-                                    // }
+                                onChange={(e) =>
+                                    setData('status', e.target.value)
                                 }
                                 className="w-full rounded border p-2 *:px-2 *:py-1 [&::picker(select)]:rounded [&::picker(select)]:border-slate-300 [&::picker(select)]:bg-slate-100 [&::picker-icon]:transition-transform [&::picker-icon]:duration-300 [&:open::picker-icon]:rotate-180"
                             >
@@ -247,15 +232,3 @@ export default function CreateArticle() {
 CreateArticle.layout = (page: React.ReactNode) => (
     <AppLayout breadcrumbs={breadcrumbs} children={page} />
 );
-
-function slugify(text: string) {
-    return text
-        .toLowerCase()
-        .replace(/č/g, 'c')
-        .replace(/ć/g, 'c')
-        .replace(/ž/g, 'z')
-        .replace(/š/g, 's')
-        .replace(/đ/g, 'd')
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)/g, '');
-}

@@ -1,13 +1,11 @@
 import { Maximize2 } from 'lucide-react';
 import type { GalleryImage } from '@/types/propTypes';
 
-const APP_URL = import.meta.env.VITE_APP_URL;
-
 export default function GallerySlide({ image }: { image: GalleryImage }) {
     return (
         <div className="embla__slide gallery">
             <a
-                href={`${APP_URL}/storage/${image.path}`}
+                href={`/storage/${image.path}`}
                 data-fancybox="gallery"
                 data-caption={
                     image.caption
@@ -19,7 +17,7 @@ export default function GallerySlide({ image }: { image: GalleryImage }) {
                 className="group relative"
             >
                 <img
-                    src={`${APP_URL}/storage/${image.path}`}
+                    src={`/storage/${image.path}`}
                     alt={image.alt ? image.alt : 'Likar galerija'}
                     className="cursor-zoom-in"
                 />

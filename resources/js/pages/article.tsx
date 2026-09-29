@@ -5,8 +5,6 @@ import SideArticleCard from '@/components/myComponents/stranice/novosti/clanak/s
 import useFancybox from '@/hooks/use-fancybox';
 import type { Article } from '@/types/propTypes';
 
-const APP_URL = import.meta.env.VITE_APP_URL;
-
 export default function Article({ article }: { article: Article }) {
     const [fancyboxRef] = useFancybox({
         infinite: false,
@@ -37,7 +35,7 @@ export default function Article({ article }: { article: Article }) {
                             className="h-full rounded-t-4xl bg-cover bg-center bg-no-repeat"
                             style={{
                                 backgroundImage: article.main_image
-                                    ? `url(${APP_URL}/storage/${article.main_image})`
+                                    ? `url(/storage/${article.main_image})`
                                     : `url(/images/design/landing.jpg)`,
                                 viewTransitionName: `article-image-${article.id}`,
                             }}

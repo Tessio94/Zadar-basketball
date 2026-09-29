@@ -93,12 +93,18 @@ Route::middleware(['auth', 'verified'])->prefix('admin-panel')->group(function()
         ->parameters(['igraci' => 'player']);
 
     Route::resource('galerije', AdminGalleryController::class)
+            ->except(['show'])
             ->parameters(['galerije' => 'gallery']);
 
     Route::delete(
         'galerije/{gallery}/images/{image}',
         [AdminGalleryController::class, 'destroyImage']
     )->name('galerije.images.destroy');
+
+    Route::patch(
+        'galerije/{gallery}/images/{image}',
+        [AdminGalleryController::class, 'updateImage']
+    )->name('galerije.images.update');
 
     Route::put(
         'galerije/{gallery}/images/reorder',

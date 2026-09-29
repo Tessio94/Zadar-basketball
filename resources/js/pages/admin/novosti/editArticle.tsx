@@ -22,10 +22,6 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const APP_URL = import.meta.env.VITE_APP_URL;
-
-// console.log('APP_url', APP_URL);
-
 export default function EditArticle({ article }: { article: Article }) {
     console.log(article);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -191,7 +187,7 @@ export default function EditArticle({ article }: { article: Article }) {
                         {article.main_image && (
                             <div>
                                 <img
-                                    src={`${APP_URL}/storage/${data.main_image}`}
+                                    src={`/storage/${data.main_image}`}
                                     className="h-auto w-full rounded"
                                 />
                             </div>

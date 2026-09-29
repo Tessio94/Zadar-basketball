@@ -21,8 +21,6 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-// const APP_URL = import.meta.env.VITE_APP_URL;
-
 export default function EditPlayer({
     player,
     teams,

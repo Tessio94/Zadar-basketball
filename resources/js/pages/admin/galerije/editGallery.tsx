@@ -1,17 +1,9 @@
 import { Head } from '@inertiajs/react';
-
-import {
-    index,
-    store,
-} from '@/actions/App/Http/Controllers/Admin/GalleryController';
+import { index } from '@/actions/App/Http/Controllers/Admin/GalleryController';
 import GalleryForm from '@/components/myComponents/stranice/admin/galerije/galleryForm';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
 import type { Gallery } from '@/types/propTypes';
-
-interface Props {
-    gallery: Gallery;
-}
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -24,12 +16,11 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function EditGallery({ gallery }: Props) {
+export default function EditGallery({ gallery }: { gallery: Gallery }) {
+    console.log('gallery', gallery);
     return (
         <>
-            <Head>
-                <title>{gallery.title} | Admin</title>
-            </Head>
+            <Head title="Admin panel | Galerija" />
 
             <section className="px-[5%] py-10">
                 <h1 className="mb-8 font-heading text-4xl font-semibold">

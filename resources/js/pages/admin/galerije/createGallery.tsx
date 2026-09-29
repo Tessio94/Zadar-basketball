@@ -19,9 +19,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function CreateGallery() {
     return (
         <>
-            <Head>
-                <title>Nova galerija | Admin</title>
-            </Head>
+            <Head title="Admin panel | Galerija" />
 
             <section className="px-[5%] py-10">
                 <h1 className="mb-8 font-heading text-4xl font-semibold">

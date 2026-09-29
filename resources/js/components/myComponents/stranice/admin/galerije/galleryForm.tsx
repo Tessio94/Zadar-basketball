@@ -1,11 +1,13 @@
 import { router, useForm } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 
+import {
+    destroyImage,
+    store,
+    update,
+} from '@/actions/App/Http/Controllers/Admin/GalleryController';
+import { slugify } from '@/lib/utils';
 import type { Gallery } from '@/types/propTypes';
-
-interface Props {
-    gallery?: Gallery;
-}
 
 interface ExistingImage {
     id: number;
@@ -14,9 +16,9 @@ interface ExistingImage {
     caption: string | null;
 }
 
-export default function GalleryForm({ gallery }: Props) {
+export default function GalleryForm({ gallery }: { gallery?: Gallery }) {
     const isEditing = Boolean(gallery);
-
+    console.log('gallery', gallery);
     const [existingImages, setExistingImages] = useState<ExistingImage[]>(
         gallery?.images ?? [],
     );
@@ -58,7 +60,7 @@ export default function GalleryForm({ gallery }: Props) {
         event.preventDefault();
 
         if (isEditing) {
-            post(`/admin-panel/galerije/${gallery!.id}`, {
+            post(update(gallery!.id).url, {
                 forceFormData: true,
                 data: {
                     ...data,
@@ -69,22 +71,14 @@ export default function GalleryForm({ gallery }: Props) {
             return;
         }
 
-        post('/admin-panel/galerije', {
+        post(store().url, {
             forceFormData: true,
         });
     };
 
-    const generateSlug = () => {
-        const slug = data.title
-            .toLowerCase()
-            .trim()
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/^-+|-+$/g, '');
-
-        setData('slug', slug);
-    };
+    // const generateSlug = () => {
+    //     setData('slug', slugify(data.title));
+    // };
 
     const removeExistingImage = (id: number) => {
         if (!gallery) {
@@ -95,7 +89,8 @@ export default function GalleryForm({ gallery }: Props) {
             return;
         }
 
-        router.delete(`/admin-panel/galerije/${gallery.id}/images/${id}`);
+        // router.delete(`/admin-panel/galerije/${gallery.id}/images/${id}`);
+        router.delete(destroyImage(gallery.id, id).url);
     };
 
     return (
@@ -112,7 +107,10 @@ export default function GalleryForm({ gallery }: Props) {
                         <input
                             type="text"
                             value={data.title}
-                            onChange={(e) => setData('title', e.target.value)}
+                            onChange={(e) => {
+                                setData('title', e.target.value);
+                                setData('slug', slugify(e.target.value));
+                            }}
                             className="w-full rounded-xl border border-slate-300 px-4 py-3"
                         />
 
@@ -147,19 +145,9 @@ export default function GalleryForm({ gallery }: Props) {
                             <input
                                 type="text"
                                 value={data.slug}
-                                onChange={(e) =>
-                                    setData('slug', e.target.value)
-                                }
+                                readOnly
                                 className="flex-1 rounded-xl border border-slate-300 px-4 py-3"
                             />
-
-                            <button
-                                type="button"
-                                onClick={generateSlug}
-                                className="rounded-xl bg-slate-200 px-4 py-2"
-                            >
-                                Generiraj
-                            </button>
                         </div>
 
                         {errors.slug && (
@@ -259,24 +247,46 @@ export default function GalleryForm({ gallery }: Props) {
                     className="w-full rounded-xl border border-slate-300 p-3"
                 />
 
-                {data.images.length > 0 && (
-                    <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                        {data.images.map((file) => (
-                            <div
-                                key={`${file.name}-${file.lastModified}`}
-                                className="rounded-xl border p-3"
-                            >
-                                <p className="truncate text-sm font-medium">
-                                    {file.name}
-                                </p>
+                {data.images.map((file, index) => (
+                    <div
+                        key={`${file.name}-${file.lastModified}`}
+                        className="my-3 rounded-xl border p-3 last:mb-0"
+                    >
+                        <p className="truncate text-sm font-medium">
+                            {file.name}
+                        </p>
 
-                                <p className="text-xs text-slate-500">
-                                    {(file.size / 1024 / 1024).toFixed(2)} MB
-                                </p>
-                            </div>
-                        ))}
+                        <p className="text-xs text-slate-500">
+                            {(file.size / 1024 / 1024).toFixed(2)} MB
+                        </p>
+
+                        <input
+                            type="text"
+                            value={data.alts[index] ?? ''}
+                            onChange={(e) =>
+                                setData('alts', {
+                                    ...data.alts,
+                                    [index]: e.target.value,
+                                })
+                            }
+                            placeholder="Alt tekst"
+                            className="mt-3 w-full rounded-lg border px-3 py-2"
+                        />
+
+                        <input
+                            type="text"
+                            value={data.captions[index] ?? ''}
+                            onChange={(e) =>
+                                setData('captions', {
+                                    ...data.captions,
+                                    [index]: e.target.value,
+                                })
+                            }
+                            placeholder="Opis fotografije"
+                            className="mt-2 w-full rounded-lg border px-3 py-2"
+                        />
                     </div>
-                )}
+                ))}
 
                 {errors.images && (
                     <p className="mt-2 text-sm text-red-600">{errors.images}</p>

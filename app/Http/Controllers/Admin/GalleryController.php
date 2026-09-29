@@ -69,10 +69,6 @@ class GalleryController extends Controller
             ->with('success', 'Galerija uspješno kreirana!');
     }
 
-    public function show()
-    {
-        //
-    }
 
     public function edit(Gallery $gallery): Response
     {
@@ -137,6 +133,26 @@ class GalleryController extends Controller
         return redirect()
             ->route('galerije.index')
             ->with('success', 'Galerija uspješno obrisana!');
+    }
+
+    public function updateImage(
+        Request $request,
+        Gallery $gallery,
+        GalleryImage $image
+    ): RedirectResponse {
+        abort_unless($image->gallery_id === $gallery->id, 404);
+
+        $validated = $request->validate([
+            'alt' => ['nullable', 'string', 'max:255'],
+            'caption' => ['nullable', 'string', 'max:255'],
+        ]);
+
+        $image->update($validated);
+
+        return back()->with(
+            'success',
+            'Podaci fotografije uspješno ažurirani!'
+        );
     }
 
     public function destroyImage(

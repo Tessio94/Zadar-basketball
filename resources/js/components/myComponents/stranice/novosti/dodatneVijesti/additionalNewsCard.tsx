@@ -3,8 +3,6 @@ import { ArrowRight } from 'lucide-react';
 import { show } from '@/actions/App/Http/Controllers/ArticleController';
 import type { Article } from '@/types/propTypes';
 
-const APP_URL = import.meta.env.VITE_APP_URL;
-
 export default function AdditionalNewsCard({ article }: { article: Article }) {
     return (
         <Link
@@ -17,18 +15,18 @@ export default function AdditionalNewsCard({ article }: { article: Article }) {
                     className="aspect-video w-full bg-cover bg-center bg-no-repeat transition-transform duration-300 group-hover:scale-110"
                     style={{
                         backgroundImage: article.main_image
-                            ? `url(${APP_URL}/storage/${article.main_image})`
+                            ? `url(/storage/${article.main_image})`
                             : 'url(images/design/landing.jpg)',
                         viewTransitionName: `article-image-${article.id}`,
                     }}
                 />
             </div>
             <div className="flex grow flex-col justify-between gap-6 bg-likar2 p-3">
-                <h5 className="font-heading text-lg font-semibold text-slate-100">
+                <h5 className="line-clamp-2 font-heading text-lg font-semibold text-slate-100">
                     {article.title}
                 </h5>
                 {article.excerpt && (
-                    <p className="font-text text-sm text-slate-100">
+                    <p className="line-clamp-3 font-text text-sm text-slate-100">
                         {article.excerpt}
                     </p>
                 )}

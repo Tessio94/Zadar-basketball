@@ -8,7 +8,6 @@ export default function GalleryGrid({
 }: {
     galleries: Paginated<Gallery>;
 }) {
-    const APP_URL = import.meta.env.VITE_APP_URL;
     return (
         <div className="grid w-fit items-start gap-10 rounded-2xl sm:grid-cols-2 xl:grid-cols-4">
             {galleries.data.map((gallery: Gallery) => {
@@ -17,11 +16,11 @@ export default function GalleryGrid({
                         key={gallery.id}
                         href={`/galerija/${gallery.slug}`}
                         rel="noopener noreferrer"
-                        className="group relative z-100 flex cursor-pointer flex-col overflow-hidden rounded-2xl border-2 border-likar1 shadow-lg shadow-likar1"
+                        className="group relative z-100 flex aspect-video cursor-pointer flex-col overflow-hidden rounded-2xl border-2 border-likar1 shadow-lg shadow-likar1"
                     >
                         <div className="shrink-0 overflow-hidden">
                             <img
-                                src={`${APP_URL}/storage/${gallery.images[0].path}`}
+                                src={`/storage/${gallery.images[0].path}`}
                                 alt=""
                                 loading="lazy"
                                 className="transition-transform duration-300"

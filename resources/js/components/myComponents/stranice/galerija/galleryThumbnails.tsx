@@ -7,8 +7,6 @@ type PropType = {
     onClick: () => void;
 };
 
-const APP_URL = import.meta.env.VITE_APP_URL;
-
 export const GalleryThumbnails = (props: PropType) => {
     const { selected, onClick, image } = props;
 
@@ -22,11 +20,12 @@ export const GalleryThumbnails = (props: PropType) => {
             <button
                 onClick={onClick}
                 type="button"
-                className="embla-thumbs__slide__number overflow-hidden rounded-lg"
+                className="embla-thumbs__slide__number overflow-hidden"
             >
                 <img
-                    src={`${APP_URL}/storage/${image.path}`}
+                    src={`/storage/${image.path}`}
                     alt={image.alt ? image.alt : 'Likar galerija'}
+                    className="rounded-lg"
                 />
             </button>
         </div>

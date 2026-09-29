@@ -21,8 +21,6 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const APP_URL = import.meta.env.VITE_APP_URL;
-
 export default function EditTeam({ team }: { team: Team }) {
     console.log(team);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -184,7 +182,7 @@ export default function EditTeam({ team }: { team: Team }) {
                         {team.logo && (
                             <div>
                                 <img
-                                    src={`${APP_URL}/storage/${data.logo}`}
+                                    src={`/storage/${data.logo}`}
                                     className="h-auto w-full rounded"
                                 />
                             </div>
