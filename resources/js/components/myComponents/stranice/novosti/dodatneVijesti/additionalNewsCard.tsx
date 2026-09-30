@@ -16,7 +16,7 @@ export default function AdditionalNewsCard({ article }: { article: Article }) {
                     style={{
                         backgroundImage: article.main_image
                             ? `url(/storage/${article.main_image})`
-                            : 'url(images/design/landing.jpg)',
+                            : 'url(/images/design/landing.jpg)',
                         viewTransitionName: `article-image-${article.id}`,
                     }}
                 />

@@ -17,7 +17,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function EditGallery({ gallery }: { gallery: Gallery }) {
-    console.log('gallery', gallery);
+    // console.log('gallery', gallery);
     return (
         <>
             <Head title="Admin panel | Galerija" />

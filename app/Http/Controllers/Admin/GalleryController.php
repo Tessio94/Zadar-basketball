@@ -8,6 +8,7 @@ use App\Models\GalleryImage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -47,11 +48,11 @@ class GalleryController extends Controller
                 'max:5120',
             ],
 
-            'alts' => ['nullable', 'array'],
-            'alts.*' => ['nullable', 'string', 'max:255'],
+            'newAlts' => ['nullable', 'array'],
+            'newAlts.*' => ['nullable', 'string', 'max:255'],
 
-            'captions' => ['nullable', 'array'],
-            'captions.*' => ['nullable', 'string', 'max:255'],
+            'newCaptions' => ['nullable', 'array'],
+            'newCaptions.*' => ['nullable', 'string', 'max:255'],
         ]);
 
         DB::transaction(function () use ($request, $validated) {
@@ -100,11 +101,11 @@ class GalleryController extends Controller
                 'max:5120',
             ],
 
-            'alts' => ['nullable', 'array'],
-            'alts.*' => ['nullable', 'string', 'max:255'],
+            'newAlts' => ['nullable', 'array'],
+            'newAlts.*' => ['nullable', 'string', 'max:255'],
 
-            'captions' => ['nullable', 'array'],
-            'captions.*' => ['nullable', 'string', 'max:255'],
+            'newCaptions' => ['nullable', 'array'],
+            'newCaptions.*' => ['nullable', 'string', 'max:255'],
         ]);
 
         DB::transaction(function () use ($request, $validated, $gallery) {
@@ -118,7 +119,7 @@ class GalleryController extends Controller
         });
 
         return redirect()
-            ->route('galerije.edit', $gallery)
+            ->route('galerije.index')
             ->with('success', 'Galerija uspješno ažurirana!');
     }
 
@@ -171,14 +172,48 @@ class GalleryController extends Controller
         );
     }
 
-    public function reorderImages(Request $request, Gallery $gallery): RedirectResponse
-    {
+    // public function reorderImages(Request $request, Gallery $gallery): RedirectResponse
+    // {
+    //     $validated = $request->validate([
+    //         'images' => ['required', 'array'],
+    //         'images.*' => ['integer', 'exists:gallery_images,id'],
+    //     ]);
+
+    //     foreach ($validated['images'] as $index => $imageId) {
+    //         GalleryImage::where('id', $imageId)
+    //             ->where('gallery_id', $gallery->id)
+    //             ->update([
+    //                 'sort_order' => $index,
+    //             ]);
+    //     }
+
+    //     return back();
+    // }
+    public function reorderImages(
+        Request $request,
+        Gallery $gallery
+    ): RedirectResponse {
         $validated = $request->validate([
             'images' => ['required', 'array'],
-            'images.*' => ['integer', 'exists:gallery_images,id'],
+            'images.*' => ['integer', 'distinct'],
         ]);
 
-        foreach ($validated['images'] as $index => $imageId) {
+        $imageIds = $validated['images'];
+
+        $galleryImageIds = $gallery
+            ->images()
+            ->pluck('id')
+            ->all();
+
+        if (
+            count($imageIds) !== count($galleryImageIds) ||
+            array_diff($imageIds, $galleryImageIds) ||
+            array_diff($galleryImageIds, $imageIds)
+        ) {
+            abort(422, 'Neispravan redoslijed fotografija.');
+        }
+
+        foreach ($imageIds as $index => $imageId) {
             GalleryImage::where('id', $imageId)
                 ->where('gallery_id', $gallery->id)
                 ->update([
@@ -200,12 +235,10 @@ class GalleryController extends Controller
         $currentMaxOrder = $gallery->images()->max('sort_order') ?? -1;
 
         foreach ($request->file('images') as $index => $file) {
-            $path = $file->store('galleries', 'public');
-
             $gallery->images()->create([
-                'path' => $path,
-                'alt' => $request->input("alts.$index"),
-                'caption' => $request->input("captions.$index"),
+                'path' => $file->store('galleries', 'public'),
+                'alt' => $request->input("newAlts.$index"),
+                'caption' => $request->input("newCaptions.$index"),
                 'sort_order' => $currentMaxOrder + $index + 1,
             ]);
         }

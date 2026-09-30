@@ -102,14 +102,18 @@ Route::middleware(['auth', 'verified'])->prefix('admin-panel')->group(function()
     )->name('galerije.images.destroy');
 
     Route::patch(
-        'galerije/{gallery}/images/{image}',
-        [AdminGalleryController::class, 'updateImage']
-    )->name('galerije.images.update');
-
-    Route::put(
         'galerije/{gallery}/images/reorder',
         [AdminGalleryController::class, 'reorderImages']
     )->name('galerije.images.reorder');
+
+    Route::patch(
+        'galerije/{gallery}/images/{image}',
+        [AdminGalleryController::class, 'updateImage']
+    )
+        ->whereNumber('image')
+        ->name('galerije.images.update');
+
+
 });
 
 require __DIR__ . '/settings.php';

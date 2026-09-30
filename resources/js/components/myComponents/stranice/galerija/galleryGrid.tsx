@@ -20,7 +20,11 @@ export default function GalleryGrid({
                     >
                         <div className="shrink-0 overflow-hidden">
                             <img
-                                src={`/storage/${gallery.images[0].path}`}
+                                src={
+                                    gallery.images.length > 0
+                                        ? `/storage/${gallery.images[0].path}`
+                                        : '/images/design/landing.jpg'
+                                }
                                 alt=""
                                 loading="lazy"
                                 className="transition-transform duration-300"
