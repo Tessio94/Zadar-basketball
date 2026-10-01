@@ -49,7 +49,7 @@ export default function ChampionHistory() {
             <div className="block overflow-hidden rounded-xl max-sm:hidden">
                 <table className="w-full">
                     <thead>
-                        <tr className="rounded-t-xl bg-linear-to-r from-likar3 via-likar1 to-likar3 font-heading text-slate-100 *:p-3 *:text-start *:last:border-0 max-[500px]:*:p-2">
+                        <tr className="rounded-t-xl bg-linear-to-r from-likar3 via-likar1 to-likar3 font-heading text-slate-100 *:p-3 *:text-start *:last:border-0 max-[500px]:*:p-2 2xl:*:px-5">
                             <th className="text-center! text-xl">Sezona</th>
                             <th className="text-center!">
                                 <div className="flex items-center justify-center gap-2 text-xl">
@@ -89,7 +89,7 @@ export default function ChampionHistory() {
                             <tr
                                 key={i}
                                 className={cn(
-                                    'font-heading text-slate-100 *:border-b *:p-3.5 *:text-start *:last:border-r-0 max-[500px]:*:px-2 max-[500px]:*:py-3',
+                                    'font-heading text-slate-100 *:border-b *:p-3.5 *:text-start *:last:border-r-0 max-[500px]:*:px-2 max-[500px]:*:py-3 2xl:*:px-5',
                                     i === seasons.length - 1 && '*:border-b-0',
                                 )}
                             >

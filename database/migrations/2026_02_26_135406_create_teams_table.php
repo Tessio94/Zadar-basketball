@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('short_name')->nullable();
             $table->string('logo')->nullable();
+            $table->string('logo_color')->nullable();
             $table->string('city')->nullable();
             $table->integer('founded_year')->nullable();
             $table->timestamps();

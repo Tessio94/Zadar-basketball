@@ -10,6 +10,7 @@ import type {
     StatsLeader,
     TeamWithPlayers,
 } from '@/types/propTypes';
+import FilterSeason from '@/components/myComponents/common/filter/filterSeason';
 
 export default function Team({
     team,
@@ -29,7 +30,7 @@ export default function Team({
     return (
         <>
             <Head>
-                <title>{`${name} | Likar Krombacker`}</title>
+                <title>{`${name} | Likar Krombacher`}</title>
                 <meta
                     name="description"
                     content={`Pogledajte roster, raspored utakmica i statistiku ekipe ${name}`}
@@ -49,6 +50,7 @@ export default function Team({
                             ]}
                             className="mt-15"
                         />
+                        <FilterSeason additionalClass="mb-5 ml-5" />
                         {active === 'tab1' && <TeamPlayers players={players} />}
                         {active === 'tab2' && <TeamResults games={games} />}
                         {active === 'tab3' && (

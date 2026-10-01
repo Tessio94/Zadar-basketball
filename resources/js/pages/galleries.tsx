@@ -12,7 +12,7 @@ export default function Galleries({
     return (
         <>
             <Head>
-                <title>Galerija | Likar Krombacker</title>
+                <title>Galerija | Likar Krombacher</title>
                 <meta name="description" content="Your page description" />
             </Head>
             <section className="px-[5%] py-10 xl:my-5">

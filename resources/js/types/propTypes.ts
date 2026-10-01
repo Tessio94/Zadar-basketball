@@ -28,6 +28,7 @@ export type Team = {
     name: string;
     short_name: string;
     logo: string;
+    logo_color: string;
     city: string;
     founded_year: string | null;
     created_at: string;

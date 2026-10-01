@@ -12,7 +12,7 @@ export default function Archive({
     return (
         <>
             <Head>
-                <title>Arhiva | Likar Krombacker</title>
+                <title>Arhiva | Likar Krombacher</title>
                 <meta name="description" content="Your page description" />
             </Head>
             <section className="px-[5%] py-10 xl:my-5">

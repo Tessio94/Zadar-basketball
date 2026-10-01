@@ -6,6 +6,7 @@ import type {
     PlayerTotals,
     PlayerWithTeamAndGames,
 } from '@/types/propTypes';
+import FilterSeason from '@/components/myComponents/common/filter/filterSeason';
 
 interface PlayerProps {
     player: PlayerWithTeamAndGames;
@@ -27,7 +28,7 @@ export default function player({ player, totals, averages }: PlayerProps) {
     return (
         <>
             <Head>
-                <title>{`${first_name} ${last_name} | Likar Krombacker`}</title>
+                <title>{`${first_name} ${last_name} | Likar Krombacher`}</title>
                 <meta
                     name="description"
                     content={`Pogledaj statistiku za ${first_name} ${last_name} – prosjek poena, asistencija, skokova i učinak po utakmici.`}
@@ -44,7 +45,7 @@ export default function player({ player, totals, averages }: PlayerProps) {
                             height={height}
                             teams={teams}
                         />
-
+                        <FilterSeason additionalClass=" mx-[5%] mt-5" />
                         <PlayerStats
                             game_stats={game_stats}
                             totals={totals}

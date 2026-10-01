@@ -13,7 +13,7 @@ export default function Novosti({
     return (
         <>
             <Head>
-                <title>Novosti | Likar Krombacker</title>
+                <title>Novosti | Likar Krombacher</title>
                 <meta name="description" content="Your page description" />
             </Head>
 

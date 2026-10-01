@@ -29,14 +29,14 @@ class LeagueSeeder extends Seeder
 
             // 2 Create Teams (Your real ones)
             $teamsData = [
-                ['name' => 'KK Vodovod Ballers', 'logo' => 'vodovod.png'],
-                ['name' => 'KK Jadera', 'logo' => 'jadera.webp'],
-                ['name' => 'KK Sfinga Staffordi', 'logo' => 'sfinga.jpg'],
-                ['name' => 'KK Voštarnica', 'logo' => 'vostarnica.png'],
-                ['name' => 'KK Voštarnica Veterani', 'logo' => 'vosta.png'],
-                ['name' => 'KK Sabunjar Privlaka', 'logo' => 'sabunjar.png'],
-                ['name' => 'KK Zaglav', 'logo' => 'zaglav.png'],
-                ['name' => 'KK Brodarica', 'logo' => 'brodarica.png'],
+                ['name' => 'KK Vodovod Ballers', 'logo' => 'vodovod.png', 'logo_color' => '#2f92d0'],
+                ['name' => 'KK Jadera', 'logo' => 'jadera.webp', 'logo_color' => '#192a6d'],
+                ['name' => 'KK Sfinga Staffordi', 'logo' => 'sfinga.jpg', 'logo_color' => '#505050'],
+                ['name' => 'KK Voštarnica', 'logo' => 'vostarnica.png', 'logo_color' => '#0a682c'],
+                ['name' => 'KK Voštarnica Veterani', 'logo' => 'vosta.png', 'logo_color' => '#0a682c'],
+                ['name' => 'KK Sabunjar Privlaka', 'logo' => 'sabunjar.png', 'logo_color' => '#f2eb3d'],
+                ['name' => 'KK Zaglav', 'logo' => 'zaglav.png', 'logo_color' => '#7fcbf9'],
+                ['name' => 'KK Brodarica', 'logo' => 'brodarica.png', 'logo_color' => '#352e70'],
             ];
 
             $teams = collect();
@@ -46,6 +46,7 @@ class LeagueSeeder extends Seeder
                     'name' => $teamData['name'],
                     'short_name' => Str::upper(Str::substr($teamData['name'], 3, 3)),
                     'logo' => '/images/teams/' . $teamData['logo'],
+                    'logo_color' => $teamData['logo_color'],
                     'city' => 'Zadar',
                 ]);
 

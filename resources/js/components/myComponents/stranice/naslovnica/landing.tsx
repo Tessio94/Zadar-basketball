@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react';
-import BasketballIcon from '../../ui/icons/basketballIcon';
 import { ArrowRight } from 'lucide-react';
+import BasketballIcon from '../../ui/icons/basketballIcon';
 
 export default function Landing() {
     return (

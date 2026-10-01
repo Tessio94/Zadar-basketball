@@ -8,10 +8,10 @@ export default function Gallery({ gallery }: { gallery: Gallery }) {
     return (
         <>
             <Head>
-                <title>Galerija | Likar Krombacker</title>
+                <title>Galerija | Likar Krombacher</title>
                 <meta
                     name="description"
-                    content="Galerija fotografija Likar Krombacker"
+                    content="Galerija fotografija Likar Krombacher"
                 />
             </Head>
             <section className="px-[5%] py-10 xl:my-5">

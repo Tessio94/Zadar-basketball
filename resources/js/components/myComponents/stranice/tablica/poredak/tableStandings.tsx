@@ -70,7 +70,7 @@ export default function TableStandings({
                 <small>BOD - bodovi</small>
                 <small>ZAB - Zabijeni poeni</small>
                 <small>PRI - primljeni poeni</small>
-                <small>RAZ - razlikau poenima</small>
+                <small>RAZ - razlika u poenima</small>
                 <small>POS 5 - posljednih 5 utakmica</small>
             </div>
         </div>

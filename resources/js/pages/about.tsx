@@ -2,7 +2,7 @@ import { Head } from '@inertiajs/react';
 
 export default function About() {
     <Head>
-        <title>O nama | Likar Krombacker</title>
+        <title>O nama | Likar Krombacher</title>
         <meta name="description" content="Your page description" />
     </Head>;
     return (

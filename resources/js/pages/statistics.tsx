@@ -2,6 +2,7 @@ import { Head, useRemember } from '@inertiajs/react';
 import TabComponent from '@/components/myComponents/common/tab/tabComponent';
 import StatisticsTable from '@/components/myComponents/stranice/statistika/statisticsTable';
 import type { StatsDailyLeader, StatsLeader } from '@/types/propTypes';
+import FilterSeason from '@/components/myComponents/common/filter/filterSeason';
 
 export default function Statistics({
     leaders,
@@ -18,7 +19,7 @@ export default function Statistics({
     return (
         <>
             <Head>
-                <title>Statistika | Likar Krombacker</title>
+                <title>Statistika | Likar Krombacher</title>
                 <meta name="description" content="Your page description" />
             </Head>
             <section className="px-[5%] py-10 xl:my-5">
@@ -30,6 +31,7 @@ export default function Statistics({
                         { id: 'tab2', title: 'Posljednje kolo' },
                     ]}
                 />
+                <FilterSeason additionalClass={'mb-5'} />
                 <div className="mx-auto w-full rounded-2xl bg-likar1/30 p-2 sm:grid sm:items-stretch sm:gap-10 lg:grid-cols-2">
                     {active === 'tab1' &&
                         avgLeadersArr.map((category, i) => {

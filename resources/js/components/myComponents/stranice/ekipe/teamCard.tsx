@@ -5,14 +5,21 @@ import type { Team } from '@/types/propTypes';
 export default function TeamCard({ ekipa }: { ekipa: Team }) {
     return (
         <Link href={show(ekipa.id)}>
-            <div className="group flex flex-col items-center justify-center gap-5 rounded-2xl border border-likar1 bg-likar2/60 p-3 shadow-xl inset-shadow-[0px_0px_30px_20px] shadow-likar1 inset-shadow-transparent transition-all duration-300 hover:inset-shadow-likar1/40">
+            <div
+                style={
+                    {
+                        '--team-color': ekipa.logo_color ?? 'transparent',
+                    } as React.CSSProperties
+                }
+                className="team-card group flex flex-col items-center justify-center gap-5 rounded-2xl bg-likar2/60 p-3"
+            >
                 <h3 className="rounded-2xl bg-slate-900 px-5 py-1 text-center font-heading text-xl text-likar3">
                     {ekipa.name}
                 </h3>
                 <img
                     src={ekipa.logo}
                     alt=""
-                    className="h-37.5 w-37.5 rounded-full bg-likar1 transition-transform duration-300 group-hover:rotate-360"
+                    className="h-37.5 w-37.5 rounded-full bg-likar1 transition-transform duration-300 group-hover:scale-90 group-hover:rotate-360"
                 />
             </div>
         </Link>

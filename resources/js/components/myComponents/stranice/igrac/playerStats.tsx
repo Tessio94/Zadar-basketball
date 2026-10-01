@@ -24,7 +24,7 @@ export default function PlayerStats({
     const scrollRef = useRef<HTMLDivElement | null>(null);
 
     return (
-        <section className="relative mx-auto px-[5%] py-10">
+        <section className="relative mx-auto px-[5%] py-10 pt-5">
             <ButtonScroll scrollRef={scrollRef} />
 
             <div className="relative overflow-hidden rounded-xl border border-likar3/40">
