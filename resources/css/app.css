@@ -177,6 +177,27 @@ html {
     scroll-behavior: smooth;
 }
 
+@supports (appearance: base-select) {
+  .filter-season {
+    appearance: base-select;
+  }
+
+  .filter-season::picker(select) {
+    appearance: base-select;
+    background: var(--likar4);
+    border: none;
+    border-radius: 10px;
+  }
+
+  .filter-season option::checkmark {
+    color: green;
+    font-size: 24px;
+    font-weight: 600;
+    padding: 0 5px;
+  }
+}
+
+
 .team-card {
     box-shadow:
         0px 0px 30px 20px #ff6f005b inset,

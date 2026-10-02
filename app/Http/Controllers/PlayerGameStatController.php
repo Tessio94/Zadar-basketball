@@ -21,6 +21,7 @@ class PlayerGameStatController extends Controller
         return Inertia::render('statistics', [
             'leaders' => $stats->seasonLeaders(),
             'lastRound' => $stats->lastRoundLeaders(),
+            'bestPerformances' => $stats->seasonBestPerformances(),
         ]);
 
     }

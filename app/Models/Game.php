@@ -28,6 +28,11 @@ class Game extends Model
         return $this->belongsTo(Season::class);
     }
 
+    public function playoff()
+    {
+        return $this->belongsTo(Playoff::class);
+    }
+
     public function homeTeam()
     {
         return $this->belongsTo(Team::class, 'home_team_id');

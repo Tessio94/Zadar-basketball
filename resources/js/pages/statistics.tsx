@@ -1,20 +1,30 @@
 import { Head, useRemember } from '@inertiajs/react';
+import FilterSeason from '@/components/myComponents/common/filter/filterSeason';
 import TabComponent from '@/components/myComponents/common/tab/tabComponent';
 import StatisticsTable from '@/components/myComponents/stranice/statistika/statisticsTable';
-import type { StatsDailyLeader, StatsLeader } from '@/types/propTypes';
-import FilterSeason from '@/components/myComponents/common/filter/filterSeason';
+import type {
+    StatsDailyLeader,
+    StatsLeader,
+    StatsBestPerformance,
+} from '@/types/propTypes';
 
 export default function Statistics({
     leaders,
     lastRound,
+    bestPerformances,
 }: {
     leaders: StatsLeader[];
     lastRound: StatsDailyLeader[];
+    bestPerformances: StatsBestPerformance[];
 }) {
     const [active, setActive] = useRemember<string>('tab1');
 
     const avgLeadersArr = Object.values(leaders);
     const dailyLeadersArr = Object.values(lastRound);
+    const bestPerformancesArr = Object.values(bestPerformances);
+
+    console.log('dailyLeaders', dailyLeadersArr);
+    console.log('bestPerformance', bestPerformancesArr);
 
     return (
         <>
@@ -29,6 +39,7 @@ export default function Statistics({
                     tabs={[
                         { id: 'tab1', title: 'Sezona' },
                         { id: 'tab2', title: 'Posljednje kolo' },
+                        { id: 'tab3', title: 'Najbolje izvedbe' },
                     ]}
                 />
                 <FilterSeason additionalClass={'mb-5'} />
@@ -48,6 +59,19 @@ export default function Statistics({
                     {active === 'tab2' &&
                         dailyLeadersArr.map((category, i) => {
                             const { title, topFive } = category;
+                            return (
+                                <StatisticsTable
+                                    key={i}
+                                    title={title}
+                                    type="daily"
+                                    leaders={topFive}
+                                />
+                            );
+                        })}
+                    {active === 'tab3' &&
+                        bestPerformancesArr.map((category, i) => {
+                            const { title, topFive } = category;
+
                             return (
                                 <StatisticsTable
                                     key={i}

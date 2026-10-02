@@ -378,6 +378,11 @@ export type StatsDailyLeader = {
     topFive: TopFiveDaily[];
 };
 
+export type StatsBestPerformance = {
+    title: string;
+    topFive: TopFiveDaily[];
+};
+
 export type TopFiveDaily = {
     total: number;
     player: PlayerWithTeamPivot;
@@ -434,6 +439,12 @@ export type Season = {
     is_active: boolean;
     created_at: string;
     updated_at: string;
+};
+
+export type SeasonFilter = {
+    id: number;
+    name: string;
+    is_active: boolean;
 };
 
 export type SeasonForm = {

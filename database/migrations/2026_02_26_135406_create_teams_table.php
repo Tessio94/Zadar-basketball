@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('teams', function(Blueprint $table): void {
             $table->id();
+            $table->foreignId('season_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->string('short_name')->nullable();
             $table->string('logo')->nullable();

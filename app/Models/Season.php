@@ -24,6 +24,11 @@ class Season extends Model
         return $this->hasMany(Game::class);
     }
 
+    public function playoff()
+    {
+        return $this->hasMany(Game::class);
+    }
+
     public function teams()
     {
         return $this->belongsToMany(Team::class)

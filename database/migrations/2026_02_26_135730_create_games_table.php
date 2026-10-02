@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('games', function(Blueprint $table): void {
             $table->id();
             $table->foreignId('season_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('playoff_id')->nullable()->constrained()->nullOnDelete();
+            $table->string('playoff_round')->nullable();
             $table->foreignId('home_team_id')->constrained('teams');
             $table->foreignId('away_team_id')->constrained('teams');
             $table->dateTime('game_date');

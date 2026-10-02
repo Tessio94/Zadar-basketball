@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
+use App\Models\Season;
 use App\Models\Team;
 use Inertia\Middleware;
 use Illuminate\Http\Request;
@@ -49,6 +50,12 @@ class HandleInertiaRequests extends Middleware
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $request->session()->get('error'),
             ],
+            'seasons' => fn () => Season::orderByDesc('start_date')
+                ->get([
+                    'id',
+                    'name',
+                    'is_active',
+            ]),
         ];
 
         // if (! $request->is('admin-panel/*')) {

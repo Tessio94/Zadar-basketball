@@ -173,11 +173,11 @@ class StatisticsService
             ->each->setAppends([]);
 
         return [
-            'minutes' => $this->buildLastRoundLeaderboard('Minute po utakmici', $lastRoundLeaders, 'minutes'),
-            'points' => $this->buildLastRoundLeaderboard('Poeni po utakmici', $lastRoundLeaders, 'points'),
-            'defensive_rebounds' => $this->buildLastRoundLeaderboard('Obrambeni skokovi po utakmici', $lastRoundLeaders, 'defensive_rebounds'),
-            'offensive_rebounds' => $this->buildLastRoundLeaderboard('Napadački skokovi po utakmici', $lastRoundLeaders, 'offensive_rebounds'),
-            'rebounds_total' => $this->buildLastRoundLeaderboard('Skokovi po utakmici', $lastRoundLeaders, 'total_rebounds'),
+            'minutes' => $this->buildLastRoundLeaderboard('Minute', $lastRoundLeaders, 'minutes'),
+            'points' => $this->buildLastRoundLeaderboard('Poeni', $lastRoundLeaders, 'points'),
+            'defensive_rebounds' => $this->buildLastRoundLeaderboard('Obrambeni skokovi', $lastRoundLeaders, 'defensive_rebounds'),
+            'offensive_rebounds' => $this->buildLastRoundLeaderboard('Napadački skokovi', $lastRoundLeaders, 'offensive_rebounds'),
+            'rebounds_total' => $this->buildLastRoundLeaderboard('Skokovi', $lastRoundLeaders, 'total_rebounds'),
             'assists' => $this->buildLastRoundLeaderboard('Asistencije', $lastRoundLeaders, 'assists'),
             'blocks' => $this->buildLastRoundLeaderboard('Blokade', $lastRoundLeaders, 'blocks'),
             'steals' => $this->buildLastRoundLeaderboard('Ukradene', $lastRoundLeaders, 'steals'),
@@ -187,5 +187,64 @@ class StatisticsService
             'efficiency' => $this->buildLastRoundLeaderboard('Efikasnost', $lastRoundLeaders, 'efficiency'),
         ];
 
+    }
+
+    private function buildBestPerformanceLeaderboard(string $title, $collection, string $categoryKey
+    ) {
+        return [
+            'title' => $title,
+            'topFive' => $collection
+                ->sortByDesc(function ($performance) use ($categoryKey) {
+                    return match ($categoryKey) {
+                        'total_rebounds' =>
+                            $performance->offensive_rebounds +
+                            $performance->defensive_rebounds,
+
+                        default =>
+                            $performance->$categoryKey,
+                    };
+                })
+                ->take(5)
+                ->map(function ($performance) use ($categoryKey) {
+                    $total = match ($categoryKey) {
+                        'total_rebounds' =>
+                            $performance->offensive_rebounds +
+                            $performance->defensive_rebounds,
+
+                        default =>
+                            $performance->$categoryKey,
+                    };
+
+                    return [
+                        'player' => $performance->player,
+                        'total' => $total,
+                    ];
+                })
+                ->values(),
+        ];
+    }
+
+    public function seasonBestPerformances()
+    {
+        $performances = PlayerGameStat::query()
+            ->with([
+                'player.teams',
+            ])
+            ->get()
+            ->each->setAppends([]);
+
+        return [
+            'points' => $this->buildBestPerformanceLeaderboard('Poeni', $performances, 'points'),
+            'defensive_rebounds' => $this->buildBestPerformanceLeaderboard('Obrambeni skokovi', $performances, 'defensive_rebounds'),
+            'offensive_rebounds' => $this->buildBestPerformanceLeaderboard('Napadački skokovi', $performances, 'offensive_rebounds'),
+            'rebounds_total' => $this->buildBestPerformanceLeaderboard('Skokovi', $performances, 'total_rebounds'),
+            'assists' => $this->buildBestPerformanceLeaderboard('Asistencije', $performances, 'assists'),
+            'blocks' => $this->buildBestPerformanceLeaderboard('Blokade', $performances, 'blocks'),
+            'steals' => $this->buildBestPerformanceLeaderboard('Ukradene lopte', $performances, 'steals'),
+            'turnovers' => $this->buildBestPerformanceLeaderboard('Izgubljene lopte', $performances, 'turnovers'),
+            'three_made' => $this->buildBestPerformanceLeaderboard('Zabijene trice', $performances, 'fg3_made'),
+            'free_throw_made' => $this->buildBestPerformanceLeaderboard('Zabijena slobodna bacanja', $performances, 'ft_made'),
+            'efficiency' => $this->buildBestPerformanceLeaderboard('Efikasnost', $performances, 'efficiency'),
+        ];
     }
 }

@@ -16,6 +16,7 @@ class PlayerGameStat extends Model
         'game_id',
         'player_id',
         'team_id',
+        'is_starter',
         'minutes_played',
         'points',
         'fg2_made',
@@ -32,6 +33,7 @@ class PlayerGameStat extends Model
         'turnovers',
         'fouls',
         'efficiency',
+        'plus_minus'
     ];
 
     protected $appends = [
