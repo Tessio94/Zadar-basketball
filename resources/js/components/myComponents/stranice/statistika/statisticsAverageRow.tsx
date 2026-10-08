@@ -7,11 +7,20 @@ export default function StatisticsAverageRow({
     type,
     leader,
     index,
+    seasonId,
 }: {
     type: 'avg' | 'pcg' | 'daily';
     index: number;
     leader: TopFiveAvg | TopFivePcg | TopFiveDaily;
+    seasonId?: number;
 }) {
+    const teamSeason = leader.player.team_seasons?.find(
+        (teamSeason) => teamSeason.season_id === seasonId,
+    );
+
+    const team = teamSeason?.team;
+    console.log('seasonId', seasonId);
+    console.log('teamSeason', team);
     if (type === 'avg') {
         const { games, player, avg, total } = leader as TopFiveAvg;
 
@@ -19,10 +28,14 @@ export default function StatisticsAverageRow({
             <tr className="text-slate-100 odd:bg-likar2 even:bg-likar2/60 [&_td]:p-2 [&_td]:text-center">
                 <td>{index + 1}.</td>
                 <td>
-                    <Link href={showTeam(player.teams[0].id)}>
+                    <Link
+                        href={showTeam(team.id, {
+                            query: { season: seasonId },
+                        })}
+                    >
                         <img
-                            src={player.teams[0].logo}
-                            alt={`${player.teams[0].name} logo`}
+                            src={team.logo}
+                            alt={`${team.name} logo`}
                             height={40}
                             width={40}
                             className="inline-block rounded-full border border-slate-100/80"
@@ -47,10 +60,14 @@ export default function StatisticsAverageRow({
             <tr className="text-slate-100 odd:bg-likar2 even:bg-likar2/60 [&_td]:p-2 [&_td]:text-center">
                 <td>{index + 1}.</td>
                 <td>
-                    <Link href={showTeam(player.teams[0].id)}>
+                    <Link
+                        href={showTeam(team.id, {
+                            query: { season: seasonId },
+                        })}
+                    >
                         <img
-                            src={player.teams[0].logo}
-                            alt={`${player.teams[0].name} logo`}
+                            src={team.logo}
+                            alt={`${team.name} logo`}
                             height={40}
                             width={40}
                             className="inline-block rounded-full border border-slate-100/80"
@@ -74,10 +91,14 @@ export default function StatisticsAverageRow({
             <tr className="text-slate-100 odd:bg-likar2 even:bg-likar2/60 [&_td]:p-2 [&_td]:text-center">
                 <td>{index + 1}.</td>
                 <td>
-                    <Link href={showTeam(player.teams[0].id)}>
+                    <Link
+                        href={showTeam(team.id, {
+                            query: { season: seasonId },
+                        })}
+                    >
                         <img
-                            src={player.teams[0].logo}
-                            alt={`${player.teams[0].name} logo`}
+                            src={team.logo}
+                            alt={`${team.name} logo`}
                             height={40}
                             width={40}
                             className="inline-block rounded-full border border-slate-100/80"

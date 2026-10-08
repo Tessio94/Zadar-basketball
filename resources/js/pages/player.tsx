@@ -1,4 +1,5 @@
 import { Head } from '@inertiajs/react';
+import FilterSeason from '@/components/myComponents/common/filter/filterSeason';
 import PlayerHeader from '@/components/myComponents/stranice/igrac/playerHeader';
 import PlayerStats from '@/components/myComponents/stranice/igrac/playerStats';
 import type {
@@ -6,7 +7,6 @@ import type {
     PlayerTotals,
     PlayerWithTeamAndGames,
 } from '@/types/propTypes';
-import FilterSeason from '@/components/myComponents/common/filter/filterSeason';
 
 interface PlayerProps {
     player: PlayerWithTeamAndGames;
@@ -14,16 +14,26 @@ interface PlayerProps {
     averages: PlayerAverages;
 }
 
-export default function player({ player, totals, averages }: PlayerProps) {
+export default function player({
+    player,
+    totals,
+    averages,
+    season,
+}: PlayerProps) {
     const {
         date_of_birth,
         first_name,
         last_name,
         position,
         height,
-        teams,
         game_stats,
     } = player;
+
+    const teamSeason = player.team_seasons?.find(
+        (teamSeason) => teamSeason.season_id === season,
+    );
+
+    const team = teamSeason?.team;
 
     return (
         <>
@@ -43,7 +53,7 @@ export default function player({ player, totals, averages }: PlayerProps) {
                             last_name={last_name}
                             position={position}
                             height={height}
-                            teams={teams}
+                            team={team}
                         />
                         <FilterSeason additionalClass=" mx-[5%] mt-5" />
                         <PlayerStats

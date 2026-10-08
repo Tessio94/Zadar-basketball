@@ -8,15 +8,21 @@ use Inertia\Inertia;
 use App\Models\Player;
 use App\Http\Requests\StorePlayerRequest;
 use App\Http\Requests\UpdatePlayerRequest;
+use App\Models\Season;
+use Illuminate\Http\Request;
 
 class PlayerController extends Controller
 {
     /**
      * Display the specified resource.
      */
-    public function show(Player $player)
+    public function show(Request $request, Player $player)
     {
-        //
+
+        $season = $request->filled('season')
+                    ? Season::findOrFail($request->integer('season'))
+                    : Season::where('is_active', true)->firstOrFail();
+
         $player->load([
             'teamSeasons.team',
             'teamSeasons.season',
@@ -82,6 +88,7 @@ class PlayerController extends Controller
         ];
 
         return Inertia::render('player', [
+            'season' => $season->id,
             'player' => $player,
             'totals' => $totals,
             'averages' => $averages,

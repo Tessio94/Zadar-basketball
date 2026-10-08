@@ -9,10 +9,12 @@ export default function StatisticsTable({
     type,
     leaders,
     title,
+    seasonId,
 }: {
     type: 'avg' | 'pcg' | 'daily';
-    title: string;
     leaders: TopFiveAvg[] | TopFivePcg[] | TopFiveDaily[];
+    title: string;
+    seasonId?: number;
 }) {
     const scrollRef = useRef<HTMLDivElement | null>(null);
 
@@ -34,6 +36,7 @@ export default function StatisticsTable({
                                     key={i}
                                     type={type}
                                     leader={leader}
+                                    seasonId={seasonId}
                                     index={i}
                                 />
                             ))}

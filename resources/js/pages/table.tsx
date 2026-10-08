@@ -29,11 +29,7 @@ export default function Table({
                     </h1>
                     <FilterSeason />
                 </div>
-                <TableStandings
-                    seasonId={season.id}
-                    standings={standings}
-                    // selectedSeason={season.id}
-                />
+                <TableStandings seasonId={season.id} standings={standings} />
                 {/* <PlayoffBracket /> */}
                 <h1 className="mb-10 font-heading text-4xl font-semibold text-slate-100">
                     Raspored natjecanja

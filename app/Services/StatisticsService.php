@@ -174,7 +174,9 @@ class StatisticsService
             ->whereHas('game', function($q) use ($lastRound): void {
                 $q->where('round_number', $lastRound);
             })
-            ->with('player.teams')
+            ->with([
+                'player.teamSeasons.team',
+            ])
             ->groupBy('player_id')
             ->get()
             ->each->setAppends([]);

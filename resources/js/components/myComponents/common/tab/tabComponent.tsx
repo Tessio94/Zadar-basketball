@@ -6,7 +6,7 @@ export default function TabComponent({
     active,
     setActive,
     tabs,
-    season,
+    seasonActive,
     className,
 }: {
     active: string;
@@ -15,7 +15,7 @@ export default function TabComponent({
         id: string;
         title: string;
     }[];
-    season: number;
+    seasonActive?: boolean;
     className?: string;
 }) {
     return (
@@ -36,7 +36,7 @@ export default function TabComponent({
                             title={tab.title}
                             tabId={tab.id}
                             lastTab={tabs.length}
-                            season={season}
+                            seasonActive={seasonActive}
                         />
                     );
                 })}

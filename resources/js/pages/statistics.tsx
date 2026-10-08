@@ -6,6 +6,7 @@ import type {
     StatsDailyLeader,
     StatsLeader,
     StatsBestPerformance,
+    Season,
 } from '@/types/propTypes';
 
 export default function Statistics({
@@ -14,6 +15,7 @@ export default function Statistics({
     lastRound,
     bestPerformances,
 }: {
+    season: Season;
     leaders: StatsLeader[];
     lastRound: StatsDailyLeader[];
     bestPerformances: StatsBestPerformance[];
@@ -23,7 +25,10 @@ export default function Statistics({
     const avgLeadersArr = Object.values(leaders);
     const dailyLeadersArr = Object.values(lastRound);
     const bestPerformancesArr = Object.values(bestPerformances);
-
+    console.log('season', season);
+    console.log('leaders', leaders);
+    console.log('lastRound', lastRound);
+    console.log('bestPerformances', bestPerformances);
     return (
         <>
             <Head>
@@ -34,7 +39,7 @@ export default function Statistics({
                 <TabComponent
                     active={active}
                     setActive={setActive}
-                    season={season.is_active}
+                    seasonActive={season.is_active}
                     tabs={[
                         { id: 'tab1', title: 'Sezona' },
                         { id: 'tab2', title: 'Posljednje kolo' },
@@ -56,6 +61,7 @@ export default function Statistics({
                                     title={title}
                                     type={type}
                                     leaders={topFive}
+                                    seasonId={season.id}
                                 />
                             );
                         })}
@@ -68,6 +74,7 @@ export default function Statistics({
                                     title={title}
                                     type="daily"
                                     leaders={topFive}
+                                    seasonId={season.id}
                                 />
                             );
                         })}
@@ -81,6 +88,7 @@ export default function Statistics({
                                     title={title}
                                     type="daily"
                                     leaders={topFive}
+                                    seasonId={season.id}
                                 />
                             );
                         })}

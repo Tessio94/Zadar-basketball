@@ -30,7 +30,7 @@ export default function StandingRow({
             </td>
             <td className="border-r border-likar4 p-2">
                 <Link
-                    href={`${show(id)}?season=${seasonId}`}
+                    href={show(id, { query: { season: seasonId } })}
                     className="flex flex-row flex-nowrap items-center justify-center gap-4 text-nowrap hover:underline"
                 >
                     <img

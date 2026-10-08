@@ -7,14 +7,14 @@ export default function PlayerHeader({
     last_name,
     position,
     height,
-    teams,
+    team,
 }: {
     date_of_birth: string;
     first_name: string;
     last_name: string;
     position: 'PG' | 'SG' | 'SF' | 'PF' | 'C';
     height: number;
-    teams: TeamWithPlayer[];
+    team: TeamWithPlayer[];
 }) {
     const name = first_name + ' ' + last_name;
 
@@ -43,17 +43,15 @@ export default function PlayerHeader({
                         </h2>
                         <p className="font-heading text-3xl font-semibold text-slate-100 min-[400px]:flex min-[400px]:flex-row min-[400px]:items-center min-[400px]:gap-4 xl:gap-6 xl:text-4xl">
                             Ekipa:{' '}
-                            <span className="max-xl:text-2xl">
-                                {teams[0].name}
-                            </span>
+                            <span className="max-xl:text-2xl">{team.name}</span>
                         </p>
                     </div>
                 </div>
             </div>
             <div className="flex flex-col gap-5 px-[5%] py-5 md:px-20">
-                <p className="font-heading text-2xl font-semibold text-slate-100 sm:text-3xl">
-                    Broj: <span>{teams[0].pivot.jersey_number}</span>
-                </p>
+                {/* <p className="font-heading text-2xl font-semibold text-slate-100 sm:text-3xl">
+                    Broj: <span>{team[0].pivot.jersey_number}</span>
+                </p> */}
 
                 <p className="font-heading text-2xl font-semibold text-slate-100 sm:text-3xl">
                     Datum rođenja:{' '}

@@ -1,4 +1,5 @@
 import { Head, useRemember } from '@inertiajs/react';
+import FilterSeason from '@/components/myComponents/common/filter/filterSeason';
 import TabComponent from '@/components/myComponents/common/tab/tabComponent';
 import LastFive from '@/components/myComponents/stranice/ekipe/ekipa/lastFive/lastFive';
 import TeamPlayers from '@/components/myComponents/stranice/ekipe/ekipa/roster/teamPlayers';
@@ -7,23 +8,31 @@ import TeamResults from '@/components/myComponents/stranice/ekipe/ekipa/utakmice
 import StatisticsTable from '@/components/myComponents/stranice/statistika/statisticsTable';
 import type {
     GameWithTeams,
+    Season,
     StatsLeader,
     TeamWithPlayers,
 } from '@/types/propTypes';
-import FilterSeason from '@/components/myComponents/common/filter/filterSeason';
 
 export default function Team({
     team,
+    teamSeason,
     games,
     stats,
+    season,
 }: {
     team: TeamWithPlayers;
     games: GameWithTeams[];
     stats: StatsLeader[];
+    season: Season;
 }) {
+    console.log('team', team);
+    console.log('teamSeason', teamSeason);
+    console.log('games', games);
+    console.log('stats', stats);
     const [active, setActive] = useRemember<string>('tab1');
 
-    const { logo, name, players } = team;
+    const { logo, name } = team;
+    const { players } = teamSeason;
 
     const teamLeaders = Object.values(stats);
 
@@ -57,12 +66,15 @@ export default function Team({
                             <div className="mx-auto w-full rounded-2xl bg-likar1/30 p-2 sm:grid sm:items-stretch sm:gap-10 lg:grid-cols-2">
                                 {teamLeaders.map((category, i) => {
                                     const { type, title, topFive } = category;
+                                    console.log('topFive', topFive);
                                     return (
                                         <StatisticsTable
                                             key={i}
                                             title={title}
                                             type={type}
+                                            t
                                             leaders={topFive}
+                                            seasonId={season.id}
                                         />
                                     );
                                 })}

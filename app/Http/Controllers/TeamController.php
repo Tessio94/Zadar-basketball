@@ -37,10 +37,12 @@ class TeamController extends Controller
      */
     public function show(Request $request, Team $team, StatisticsService $stats)
     {
-        $seasonId = $request->integer('season');
+        $season = $request->filled('season')
+                ? Season::findOrFail($request->integer('season'))
+                : Season::where('is_active', true)->firstOrFail();
 
         $teamSeason = $team->teamSeasons()
-            ->where('season_id', $seasonId)
+            ->where('season_id', $season->id)
             ->with([
                 'season',
                 'players',
@@ -48,7 +50,7 @@ class TeamController extends Controller
             ->firstOrFail();
 
         $games = Game::with(['homeTeam', 'awayTeam'])
-            ->where('season_id', $seasonId)
+            ->where('season_id', $season->id)
              ->where(function ($query) use ($team) {
                 $query->where('home_team_id', $team->id)
                     ->orWhere('away_team_id', $team->id);
@@ -57,10 +59,14 @@ class TeamController extends Controller
             ->get();
 
         return Inertia::render('team', [
+            'season' => $season,
             'team' => $team,
             'teamSeason' => $teamSeason,
             'games' => $games,
-            'stats' => $stats->seasonLeaders($team->id),
+            'stats' => $stats->seasonLeaders(
+                 seasonId: $season->id,
+                 teamId: $team->id,
+            ),
         ]);
     }
 }

@@ -7,14 +7,14 @@ export default function TabButton({
     title,
     tabId,
     lastTab,
-    season,
+    seasonActive,
 }: {
     active: string;
     setActive: Dispatch<SetStateAction<string>>;
     title: string;
     tabId: string;
     lastTab: number;
-    season?: number;
+    seasonActive?: boolean;
 }) {
     if (tabId === 'tab1') {
         return (
@@ -62,7 +62,7 @@ export default function TabButton({
                 aria-selected={active === tabId}
                 aria-controls={`panel-tab${tabId}`}
                 type="button"
-                disabled={!season && title === 'Posljednje kolo'}
+                disabled={!seasonActive && title === 'Posljednje kolo'}
                 onClick={() => setActive(tabId)}
                 className={cn(
                     'cursor-pointer border border-likar3 px-10 py-2 font-heading font-semibold text-slate-100 uppercase',
@@ -71,7 +71,7 @@ export default function TabButton({
                         : active === 'tab1'
                           ? 'z-30 bg-[#a14614] text-base md:rounded-l-none md:rounded-r-full lg:text-xl'
                           : 'z-30 bg-[#a14614] text-base md:rounded-l-full lg:text-xl',
-                    !season &&
+                    !seasonActive &&
                         title === 'Posljednje kolo' &&
                         'cursor-not-allowed bg-gray-500',
                 )}

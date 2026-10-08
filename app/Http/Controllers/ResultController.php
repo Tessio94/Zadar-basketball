@@ -26,6 +26,7 @@ class ResultController extends Controller
         $standings = $standingsService->getStandings($season->id);
 
         $games = Game::with(['homeTeam', 'awayTeam'])
+            ->where('season_id', $season->id)
             ->orderBy('game_date')
             ->get();
 
