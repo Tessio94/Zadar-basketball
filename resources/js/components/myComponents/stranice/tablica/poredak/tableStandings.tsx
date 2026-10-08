@@ -5,8 +5,10 @@ import StandingRow from './standingRow';
 
 export default function TableStandings({
     standings,
+    seasonId,
 }: {
     standings: TableStandings[];
+    seasonId: number;
 }) {
     const scrollRef = useRef<HTMLDivElement | null>(null);
 
@@ -57,6 +59,7 @@ export default function TableStandings({
                                 <StandingRow
                                     standing={standing}
                                     key={standing.id}
+                                    seasonId={seasonId}
                                     index={i}
                                 />
                             ))}

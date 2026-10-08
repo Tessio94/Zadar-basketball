@@ -27,16 +27,14 @@ class Player extends Model
         ];
     }
 
-    public function teams()
+    public function teamSeasons()
     {
-        return $this->belongsToMany(Team::class)
-            ->withPivot('season_id', 'jersey_number')
+        return $this->belongsToMany(
+            TeamSeason::class,
+            'team_season_players'
+        )
+            ->withPivot('jersey_number')
             ->withTimestamps();
-    }
-
-    public function teamAssignments()
-    {
-        return $this->hasMany(PlayerTeam::class);
     }
 
     public function gameStats()

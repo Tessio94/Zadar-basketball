@@ -23,6 +23,14 @@ class Game extends Model
         'status',
     ];
 
+    public function players()
+    {
+        return $this->belongsToMany(
+            Player::class,
+            'player_game_stats'
+        );
+    }
+
     public function season()
     {
         return $this->belongsTo(Season::class);

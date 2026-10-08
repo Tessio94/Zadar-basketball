@@ -9,46 +9,39 @@ use Inertia\Inertia;
 use App\Services\StandingsService;
 use App\Http\Requests\StoreGameRequest;
 use App\Http\Requests\UpdateGameRequest;
+use App\Models\Season;
+use Illuminate\Http\Request;
 
 class GameController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $season = $request->filled('season')
+            ? Season::findOrFail($request->integer('season'))
+            : Season::where('is_active', true)->firstOrFail();
+
         $games = Game::with(['homeTeam', 'awayTeam'])
+            ->where('season_id', $season->id)
             ->orderBy('game_date')
             ->get();
 
         $lastRound = Game::max('round_number');
 
         $lastRoundGames = Game::with(['homeTeam', 'awayTeam'])
+            ->where('season_id', $season->id)
             ->where('round_number', $lastRound)
             ->orderBy('game_date')
             ->get();
 
         return Inertia::render('games', [
+            'season' => $season,
             'games' => $games,
             'lastRoundGames' => $lastRoundGames,
             'lastRound' => $lastRound,
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(): void
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreGameRequest $request): void
-    {
-        //
     }
 
     /**
@@ -119,29 +112,5 @@ class GameController extends Controller
             'game' => $game,
             'leaders' => $leaders,
         ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Game $game): void
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateGameRequest $request, Game $game): void
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Game $game): void
-    {
-        //
     }
 }

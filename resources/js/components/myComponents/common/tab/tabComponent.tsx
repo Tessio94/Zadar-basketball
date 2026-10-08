@@ -1,3 +1,4 @@
+import React, { type Dispatch, type SetStateAction } from 'react';
 import { cn } from '@/lib/utils';
 import TabButton from './tabButton';
 
@@ -5,14 +6,16 @@ export default function TabComponent({
     active,
     setActive,
     tabs,
+    season,
     className,
 }: {
     active: string;
-    setActive: React.Dispatch<React.SetStateAction<string>>;
+    setActive: Dispatch<SetStateAction<string>>;
     tabs: {
         id: string;
         title: string;
     }[];
+    season: number;
     className?: string;
 }) {
     return (
@@ -33,6 +36,7 @@ export default function TabComponent({
                             title={tab.title}
                             tabId={tab.id}
                             lastTab={tabs.length}
+                            season={season}
                         />
                     );
                 })}

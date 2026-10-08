@@ -16,6 +16,7 @@ class Team extends Model
         'name',
         'short_name',
         'logo',
+        'logo_color',
         'city',
         'founded_year',
     ];
@@ -24,11 +25,17 @@ class Team extends Model
         'founded_year' => 'integer',
     ];
 
-    public function players()
+    public function teamSeasons()
     {
-        return $this->belongsToMany(Player::class)
-            ->withPivot('season_id', 'jersey_number')
-            ->withTimestamps();
+        return $this->hasMany(TeamSeason::class);
+    }
+
+    public function seasons()
+    {
+        return $this->belongsToMany(
+            Season::class,
+            'team_seasons'
+        );
     }
 
     public function homeGames()

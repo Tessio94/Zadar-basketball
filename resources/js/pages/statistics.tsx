@@ -9,6 +9,7 @@ import type {
 } from '@/types/propTypes';
 
 export default function Statistics({
+    season,
     leaders,
     lastRound,
     bestPerformances,
@@ -23,9 +24,6 @@ export default function Statistics({
     const dailyLeadersArr = Object.values(lastRound);
     const bestPerformancesArr = Object.values(bestPerformances);
 
-    console.log('dailyLeaders', dailyLeadersArr);
-    console.log('bestPerformance', bestPerformancesArr);
-
     return (
         <>
             <Head>
@@ -36,13 +34,18 @@ export default function Statistics({
                 <TabComponent
                     active={active}
                     setActive={setActive}
+                    season={season.is_active}
                     tabs={[
                         { id: 'tab1', title: 'Sezona' },
                         { id: 'tab2', title: 'Posljednje kolo' },
                         { id: 'tab3', title: 'Najbolje izvedbe' },
                     ]}
                 />
-                <FilterSeason additionalClass={'mb-5'} />
+                <FilterSeason
+                    disable={active === 'tab2'}
+                    selectedSeason={season.id}
+                    additionalClass={'mb-5'}
+                />
                 <div className="mx-auto w-full rounded-2xl bg-likar1/30 p-2 sm:grid sm:items-stretch sm:gap-10 lg:grid-cols-2">
                     {active === 'tab1' &&
                         avgLeadersArr.map((category, i) => {

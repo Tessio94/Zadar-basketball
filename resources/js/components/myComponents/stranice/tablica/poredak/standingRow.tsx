@@ -5,9 +5,11 @@ import type { TableStandings } from '@/types/propTypes';
 export default function StandingRow({
     standing,
     index,
+    seasonId,
 }: {
     standing: TableStandings;
     index: number;
+    seasonId: number;
 }) {
     const {
         id,
@@ -28,7 +30,7 @@ export default function StandingRow({
             </td>
             <td className="border-r border-likar4 p-2">
                 <Link
-                    href={show(id)}
+                    href={`${show(id)}?season=${seasonId}`}
                     className="flex flex-row flex-nowrap items-center justify-center gap-4 text-nowrap hover:underline"
                 >
                     <img

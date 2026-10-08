@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignId('season_id')->constrained()->cascadeOnDelete();
             $table->foreignId('playoff_id')->nullable()->constrained()->nullOnDelete();
             $table->string('playoff_round')->nullable();
-            $table->foreignId('home_team_id')->constrained('teams');
-            $table->foreignId('away_team_id')->constrained('teams');
+            $table->foreignId('home_team_id')->constrained('teams')->restrictOnDelete();;
+            $table->foreignId('away_team_id')->constrained('teams')->restrictOnDelete();;
             $table->dateTime('game_date');
             $table->integer('round_number');
             $table->integer('home_score')->default(0);

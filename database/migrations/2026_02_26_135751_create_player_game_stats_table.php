@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('game_id')->constrained()->cascadeOnDelete();
             $table->foreignId('player_id')->constrained()->cascadeOnDelete();
-            $table->unique(['game_id', 'player_id']);
             $table->foreignId('team_id')->constrained()->cascadeOnDelete();
+            $table->unique(['game_id', 'player_id']);
             $table->boolean('is_starter')->default(false);
             $table->integer('minutes_played')->default(0);
             $table->integer('points')->default(0);

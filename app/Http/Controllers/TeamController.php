@@ -10,79 +10,57 @@ use Inertia\Inertia;
 use App\Services\StatisticsService;
 use App\Http\Requests\StoreTeamRequest;
 use App\Http\Requests\UpdateTeamRequest;
+use App\Models\Season;
+use Illuminate\Http\Request;
 
 class TeamController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $teams = Team::all();
+        $season = $request->filled('season')
+                ? Season::findOrFail($request->integer('season'))
+                : Season::where('is_active', true)->firstOrFail();
 
-        return Inertia::render('teams', ['teams' => $teams]);
-    }
+        $teams = $season->teams;
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(): void
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreTeamRequest $request): void
-    {
-        //
+        return Inertia::render('teams', [
+            'season' => $season,
+            'teams' => $teams
+        ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Team $team, StatisticsService $stats)
+    public function show(Request $request, Team $team, StatisticsService $stats)
     {
+        $seasonId = $request->integer('season');
 
-        $team->load([
-            'players',
-        ]);
+        $teamSeason = $team->teamSeasons()
+            ->where('season_id', $seasonId)
+            ->with([
+                'season',
+                'players',
+            ])
+            ->firstOrFail();
 
         $games = Game::with(['homeTeam', 'awayTeam'])
-            ->where('home_team_id', $team->id)
-            ->orWhere('away_team_id', $team->id)
+            ->where('season_id', $seasonId)
+             ->where(function ($query) use ($team) {
+                $query->where('home_team_id', $team->id)
+                    ->orWhere('away_team_id', $team->id);
+            })
             ->orderBy('round_number')
             ->get();
 
         return Inertia::render('team', [
             'team' => $team,
+            'teamSeason' => $teamSeason,
             'games' => $games,
             'stats' => $stats->seasonLeaders($team->id),
         ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Team $team): void
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateTeamRequest $request, Team $team): void
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Team $team): void
-    {
-        //
     }
 }

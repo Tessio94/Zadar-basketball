@@ -9,6 +9,7 @@ import type {
 } from '@/types/propTypes';
 
 export default function Table({
+    season,
     standings,
     games,
 }: {
@@ -28,7 +29,11 @@ export default function Table({
                     </h1>
                     <FilterSeason />
                 </div>
-                <TableStandings standings={standings} />
+                <TableStandings
+                    seasonId={season.id}
+                    standings={standings}
+                    // selectedSeason={season.id}
+                />
                 {/* <PlayoffBracket /> */}
                 <h1 className="mb-10 font-heading text-4xl font-semibold text-slate-100">
                     Raspored natjecanja

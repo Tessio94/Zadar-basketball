@@ -26,13 +26,19 @@ class Season extends Model
 
     public function playoff()
     {
-        return $this->hasMany(Game::class);
+        return $this->hasMany(Playoff::class);
+    }
+
+    public function teamSeasons()
+    {
+        return $this->hasMany(TeamSeason::class);
     }
 
     public function teams()
     {
-        return $this->belongsToMany(Team::class)
-            ->withPivot('jersey_number')
-            ->withTimestamps();
+        return $this->belongsToMany(
+            Team::class,
+            'team_seasons'
+        );
     }
 }

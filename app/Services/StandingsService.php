@@ -5,18 +5,24 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Models\Game;
+use App\Models\Season;
 use App\Models\Team;
 
 class StandingsService
 {
     public function getStandings($seasonId = null)
     {
-        $teams = Team::all();
+        $season = $seasonId
+            ? Season::findOrFail($seasonId)
+            : Season::where('is_active', true)->firstOrFail();
 
-        return $teams->map(function($team) use ($seasonId) {
+        $teams = $season->teams()->get();
 
-            $games = Game::where('status', 'finished')
-                ->when($seasonId, fn($q) => $q->where('season_id', $seasonId))
+        return $teams->map(function($team) use ($season) {
+
+            $games = Game::query()
+                ->where('status', 'finished')
+                ->where('season_id', $season->id)
                 ->where(function($query) use ($team): void {
                     $query->where('home_team_id', $team->id)
                         ->orWhere('away_team_id', $team->id);
@@ -48,13 +54,15 @@ class StandingsService
                 }
             }
 
-            $lastFive = $games->take(5)->map(function($game) use ($team) {
+            $lastFive = $games
+                    ->take(5)
+                    ->map(function($game) use ($team) {
 
-                $isHome = $game->home_team_id === $team->id;
-                $teamScore = $isHome ? $game->home_score : $game->away_score;
-                $oppScore = $isHome ? $game->away_score : $game->home_score;
+                    $isHome = $game->home_team_id === $team->id;
+                    $teamScore = $isHome ? $game->home_score : $game->away_score;
+                    $oppScore = $isHome ? $game->away_score : $game->home_score;
 
-                return $teamScore > $oppScore ? 'W' : 'L';
+                    return $teamScore > $oppScore ? 'W' : 'L';
             });
 
             return [

@@ -12,7 +12,7 @@ export default function AdditionalNewsCard({ article }: { article: Article }) {
         >
             <div className="shrink-0 overflow-hidden">
                 <div
-                    className="aspect-video w-full bg-cover bg-center bg-no-repeat transition-transform duration-300 group-hover:scale-110"
+                    className="aspect-video w-full rounded-t-2xl bg-cover bg-center bg-no-repeat transition-transform duration-300 group-hover:scale-110"
                     style={{
                         backgroundImage: article.main_image
                             ? `url(/storage/${article.main_image})`

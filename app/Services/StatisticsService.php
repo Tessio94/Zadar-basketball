@@ -47,7 +47,7 @@ class StatisticsService
             ];
     }
 
-    public function seasonLeaders(?int $teamId = null)
+    public function seasonLeaders(int $seasonId, ?int $teamId = null)
     {
         $averages = PlayerGameStat::select(
             'player_id',
@@ -98,10 +98,17 @@ class StatisticsService
             DB::raw('SUM(ft_attempted) as free_throw_attempted_total'),
             DB::raw('ROUND((SUM(ft_made)::decimal / NULLIF(SUM(ft_attempted),0)) * 100, 1) as ftprc')
         )
+            ->whereHas('game', function ($query) use ($seasonId): void {
+                $query->where('season_id', $seasonId);
+            })
             ->when($teamId, function($query) use ($teamId): void {
                 $query->where('team_id', $teamId);
             })
-            ->with('player.teams')
+            ->with([
+                'player.teamSeasons' => fn ($query) =>
+                    $query->where('season_id', $seasonId),
+                'player.teamSeasons.team',
+            ])
             ->groupBy('player_id')
             ->havingRaw('COUNT(*) >= 3')
             ->get()
@@ -224,11 +231,26 @@ class StatisticsService
         ];
     }
 
-    public function seasonBestPerformances()
+    public function seasonBestPerformances(int $seasonId)
     {
+        // $performances = PlayerGameStat::query()
+        //     ->with([
+        //         'player.teams',
+        //     ])
+        //     ->get()
+        //     ->each->setAppends([]);
+
         $performances = PlayerGameStat::query()
+            ->whereHas('game', function ($query) use ($seasonId): void {
+                $query
+                    ->where('season_id', $seasonId)
+                    ->whereNull('playoff_id');
+            })
             ->with([
-                'player.teams',
+                'player.teamSeasons' => function ($query) use ($seasonId): void {
+                    $query->where('season_id', $seasonId);
+                },
+                'player.teamSeasons.team',
             ])
             ->get()
             ->each->setAppends([]);

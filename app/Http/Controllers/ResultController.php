@@ -9,21 +9,28 @@ use Inertia\Inertia;
 use App\Services\StandingsService;
 use App\Http\Requests\StoreGameRequest;
 use App\Http\Requests\UpdateGameRequest;
+use App\Models\Season;
+use Illuminate\Http\Request;
 
 class ResultController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(StandingsService $standingsService)
+    public function index(Request $request, StandingsService $standingsService)
     {
-        $standings = $standingsService->getStandings();
+        $season = $request->filled('season')
+            ? Season::findOrFail($request->integer('season'))
+            : Season::where('is_active', true)->firstOrFail();
+
+        $standings = $standingsService->getStandings($season->id);
 
         $games = Game::with(['homeTeam', 'awayTeam'])
             ->orderBy('game_date')
             ->get();
 
         return Inertia::render('table', [
+            'season' => $season,
             'standings' => $standings,
             'games' => $games,
         ]);

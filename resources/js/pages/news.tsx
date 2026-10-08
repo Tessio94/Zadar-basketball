@@ -19,7 +19,9 @@ export default function Novosti({
 
             <MainNews articles={mainArticles} />
 
-            <AdditionalNews articles={additionalArticles} />
+            {additionalArticles.length > 0 && (
+                <AdditionalNews articles={additionalArticles} />
+            )}
         </>
     );
 }
