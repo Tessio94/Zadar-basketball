@@ -132,14 +132,37 @@ class PlayerController extends Controller
             COALESCE(SUM(blocks), 0) as blocks,
             COALESCE(SUM(steals), 0) as steals,
             COALESCE(SUM(turnovers), 0) as turnovers,
+            COALESCE(SUM(offensive_rebounds + defensive_rebounds), 0) as rebounds,
             COALESCE(SUM(offensive_rebounds), 0) as offensive_rebounds,
             COALESCE(SUM(defensive_rebounds), 0) as defensive_rebounds,
+            COALESCE(SUM(fg2_made + fg3_made), 0) as fg_made,
+            COALESCE(SUM(fg2_attempted + fg3_attempted), 0) as fg_attempted,
+            ROUND(
+                100.0 * SUM(fg2_made + fg3_made)
+                / NULLIF(SUM(fg2_attempted + fg3_attempted), 0),
+                1
+            ) AS fg_percentage,
             COALESCE(SUM(fg2_made), 0) as fg2_made,
             COALESCE(SUM(fg2_attempted), 0) as fg2_attempted,
+            ROUND(
+                100.0 * SUM(fg2_made)
+                / NULLIF(SUM(fg2_attempted), 0),
+                1
+            ) AS fg2_percentage,
             COALESCE(SUM(fg3_made), 0) as fg3_made,
             COALESCE(SUM(fg3_attempted), 0) as fg3_attempted,
+            ROUND(
+                100.0 * SUM(fg3_made)
+                / NULLIF(SUM(fg3_attempted), 0),
+                1
+            ) AS fg3_percentage,
             COALESCE(SUM(ft_made), 0) as ft_made,
             COALESCE(SUM(ft_attempted), 0) as ft_attempted,
+            ROUND(
+                100.0 * SUM(ft_made)
+                / NULLIF(SUM(ft_attempted), 0),
+                1
+            ) AS ft_percentage,
             COALESCE(SUM(fouls), 0) as fouls,
             COALESCE(SUM(plus_minus), 0) as plus_minus,
             COALESCE(SUM(efficiency), 0) as efficiency
@@ -159,6 +182,7 @@ class PlayerController extends Controller
         return [
             'totals' => $totals,
             'averages' => [
+                'games' => $totals->games,
                 'minutes' => $average($totals->minutes),
                 'points' => $average($totals->points),
                 'assists' => $average($totals->assists),
@@ -176,10 +200,10 @@ class PlayerController extends Controller
                     + $totals->defensive_rebounds
                 ),
                 'fg_made' => $average(
-                    $totals->fg_made
+                    $totals->fg2_made + $totals->fg3_made
                 ),
                 'fg_attempted' => $average(
-                    $totals->fg_attempted
+                    $totals->fg2_attempted + $totals->fg3_attempted
                 ),
                 'fg_percentage' => $percentage(
                     $totals->fg2_made + $totals->fg3_made,
@@ -206,10 +230,10 @@ class PlayerController extends Controller
                     $totals->fg3_attempted
                 ),
                 'ft_made' => $average(
-                    $totals->fg3_made
+                    $totals->ft_made
                 ),
                 'ft_attempted' => $average(
-                    $totals->fg3_attempted
+                    $totals->ft_attempted
                 ),
                 'ft_percentage' => $percentage(
                     $totals->ft_made,

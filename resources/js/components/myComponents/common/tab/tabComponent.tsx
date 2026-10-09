@@ -22,7 +22,7 @@ export default function TabComponent({
         <div className="px-[5%]">
             <div
                 className={cn(
-                    'mb-15 flex flex-col justify-center overflow-hidden md:flex-row',
+                    'flex flex-col justify-center overflow-hidden md:flex-row',
                     className,
                 )}
                 role="tablist"

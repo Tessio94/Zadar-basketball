@@ -71,7 +71,11 @@ export default function player({
                             jerseyNumber={jerseyNumber}
                             team={team}
                         />
-                        <PlayerCareerTotals careerStats={careerStats} />
+                        <PlayerCareerTotals
+                            careerStats={careerStats}
+                            seasonStats={seasonStats}
+                            playerTeams={player.team_seasons}
+                        />
                         {/* <FilterSeason additionalClass=" mx-[5%] mt-5" />
                         <PlayerStats
                             game_stats={game_stats}

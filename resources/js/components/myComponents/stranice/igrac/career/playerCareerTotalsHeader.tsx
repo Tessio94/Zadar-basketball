@@ -1,6 +1,6 @@
 export default function PlayerCareerTotalsHeader({ careerStats }) {
     return (
-        <div className="border-b border-likar1 px-[5%] py-5">
+        <div className="px-[5%] py-5">
             <div className="flex flex-col gap-5 py-5">
                 <div className="flex flex-row items-center justify-between gap-5">
                     <div className="relative flex grow flex-col items-start gap-4 rounded-xl border border-likar3/40 bg-likar4/60 p-2.5 transition-colors duration-300 hover:bg-likar4/30">
