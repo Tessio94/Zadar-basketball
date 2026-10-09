@@ -7,34 +7,42 @@ export default function PlayerHeader({
     last_name,
     position,
     height,
+    jerseyNumber,
     team,
 }: {
-    date_of_birth: string;
+    date_of_birth: string | null;
     first_name: string;
     last_name: string;
-    position: 'PG' | 'SG' | 'SF' | 'PF' | 'C';
-    height: number;
+    position: 'PG' | 'SG' | 'SF' | 'PF' | 'C' | null;
+    height: number | null;
+    jerseyNumber: number;
     team: TeamWithPlayer[];
 }) {
     const name = first_name + ' ' + last_name;
 
-    const datumRodenja = new Date(date_of_birth);
-    const today = new Date();
+    let datumRodenja;
+    let age;
 
-    let age = today.getFullYear() - datumRodenja.getFullYear();
+    if (date_of_birth) {
+        datumRodenja = new Date(date_of_birth);
 
-    const monthDiff = today.getMonth() - datumRodenja.getMonth();
+        const today = new Date();
 
-    if (
-        monthDiff < 0 ||
-        (monthDiff === 0 && today.getDate() < datumRodenja.getDate())
-    ) {
-        age--;
+        age = today.getFullYear() - datumRodenja.getFullYear();
+
+        const monthDiff = today.getMonth() - datumRodenja.getMonth();
+
+        if (
+            monthDiff < 0 ||
+            (monthDiff === 0 && today.getDate() < datumRodenja.getDate())
+        ) {
+            age--;
+        }
     }
 
     return (
         <div className="flex flex-col gap-5 border-b border-likar1 py-5">
-            <div className="border-b border-likar1 px-[5%] py-5 md:px-20">
+            <div className="border-b border-likar1 px-[5%] py-5">
                 <div className="flex w-full flex-col items-start gap-10 sm:flex-row sm:items-center">
                     <User2Icon className="h-30 w-30 shrink-0 rounded-full border border-slate-100/80 bg-slate-400 p-0.5 text-slate-900 max-[500px]:h-25 max-[500px]:w-25" />
                     <div className="flex flex-col items-start gap-6">
@@ -48,16 +56,16 @@ export default function PlayerHeader({
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col gap-5 px-[5%] py-5 md:px-20">
-                {/* <p className="font-heading text-2xl font-semibold text-slate-100 sm:text-3xl">
-                    Broj: <span>{team[0].pivot.jersey_number}</span>
-                </p> */}
+            <div className="flex flex-col gap-5 px-[5%] py-5">
+                <p className="font-heading text-2xl font-semibold text-slate-100 sm:text-3xl">
+                    Broj: <span>{jerseyNumber}</span>
+                </p>
 
                 <p className="font-heading text-2xl font-semibold text-slate-100 sm:text-3xl">
                     Datum rođenja:{' '}
                     <span>
                         {date_of_birth
-                            .split('T')[0]
+                            ?.split('T')[0]
                             .split('-')
                             .reverse()
                             .join('/')}

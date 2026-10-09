@@ -1,5 +1,6 @@
 import { Head } from '@inertiajs/react';
 import FilterSeason from '@/components/myComponents/common/filter/filterSeason';
+import PlayerCareerTotals from '@/components/myComponents/stranice/igrac/career/playerCareerTotals';
 import PlayerHeader from '@/components/myComponents/stranice/igrac/playerHeader';
 import PlayerStats from '@/components/myComponents/stranice/igrac/playerStats';
 import type {
@@ -8,17 +9,23 @@ import type {
     PlayerWithTeamAndGames,
 } from '@/types/propTypes';
 
-interface PlayerProps {
+type PlayerProps = {
     player: PlayerWithTeamAndGames;
     totals: PlayerTotals;
     averages: PlayerAverages;
-}
+    season: number;
+};
 
 export default function player({
     player,
-    totals,
-    averages,
-    season,
+    careerStats,
+    seasonStats,
+    seasons,
+    games,
+    selectedSeason,
+    // totals,
+    // averages,
+    // season,
 }: PlayerProps) {
     const {
         date_of_birth,
@@ -29,11 +36,19 @@ export default function player({
         game_stats,
     } = player;
 
+    console.log('player', player);
+    console.log('careerStats', careerStats);
+    console.log('seasonStats', seasonStats);
+    console.log('seasons', seasons);
+    console.log('games', games);
+    console.log('selectedSeason', selectedSeason);
+
     const teamSeason = player.team_seasons?.find(
-        (teamSeason) => teamSeason.season_id === season,
+        (teamSeason) => teamSeason.season_id === selectedSeason,
     );
 
     const team = teamSeason?.team;
+    const jerseyNumber = teamSeason?.pivot.jersey_number;
 
     return (
         <>
@@ -53,14 +68,16 @@ export default function player({
                             last_name={last_name}
                             position={position}
                             height={height}
+                            jerseyNumber={jerseyNumber}
                             team={team}
                         />
-                        <FilterSeason additionalClass=" mx-[5%] mt-5" />
+                        <PlayerCareerTotals careerStats={careerStats} />
+                        {/* <FilterSeason additionalClass=" mx-[5%] mt-5" />
                         <PlayerStats
                             game_stats={game_stats}
                             totals={totals}
                             averages={averages}
-                        />
+                        /> */}
                     </div>
                 </div>
             </section>

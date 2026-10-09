@@ -1,5 +1,6 @@
 import { Head } from '@inertiajs/react';
 import Pagination from '@/components/myComponents/common/pagination/Pagination';
+import EmptyGallery from '@/components/myComponents/stranice/galerija/emptyGallery';
 import GalleryGrid from '@/components/myComponents/stranice/galerija/galleryGrid';
 import type { Gallery, Paginated } from '@/types/propTypes';
 
@@ -19,11 +20,17 @@ export default function Galleries({
                 <h1 className="mb-10 font-heading text-5xl font-semibold text-slate-100">
                     Galerija
                 </h1>
-                <GalleryGrid galleries={galleries} />
+                {galleries.data.length > 0 ? (
+                    <GalleryGrid galleries={galleries} />
+                ) : (
+                    <EmptyGallery />
+                )}
             </section>
-            <section className="flex flex-row justify-center px-[5%] py-10 xl:my-5">
-                <Pagination links={galleries.links} type="front" />
-            </section>
+            {galleries.data.length > 0 && (
+                <section className="flex flex-row justify-center px-[5%] py-10 xl:my-5">
+                    <Pagination links={galleries.links} type="front" />
+                </section>
+            )}
         </>
     );
 }

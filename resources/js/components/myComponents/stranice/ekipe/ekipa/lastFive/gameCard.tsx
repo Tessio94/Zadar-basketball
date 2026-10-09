@@ -9,8 +9,8 @@ export default function GameCard({ game }: { game: GameWithTeams }) {
             <Link href={show(id)}>
                 <div className="relative rounded-xl border border-likar3/40 bg-likar4/60 p-2.5 transition-colors duration-300 hover:bg-likar4/30">
                     <div className="flex flex-row justify-between gap-5">
-                        <div className="flex flex-col items-start justify-between">
-                            <p className="flex flex-row flex-nowrap items-center justify-center gap-4 text-nowrap text-slate-100">
+                        <div className="flex w-full flex-col items-start justify-between">
+                            <p className="flex flex-row flex-nowrap items-center justify-between gap-4 text-nowrap text-slate-100">
                                 <img
                                     src={home_team.logo}
                                     alt={`${home_team.name} logo`}
@@ -19,7 +19,7 @@ export default function GameCard({ game }: { game: GameWithTeams }) {
                                 <span>{home_team.name}</span>
                             </p>
                             <hr className="w-full border border-likar1" />
-                            <p className="flex flex-row flex-nowrap items-center justify-between justify-center gap-4 text-nowrap text-slate-100">
+                            <p className="flex flex-row flex-nowrap items-center justify-between gap-4 text-nowrap text-slate-100">
                                 <img
                                     src={away_team.logo}
                                     alt={`${away_team.name} logo`}
