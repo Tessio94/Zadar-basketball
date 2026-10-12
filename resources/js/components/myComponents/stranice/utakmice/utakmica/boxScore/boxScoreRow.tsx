@@ -32,9 +32,9 @@ export default function BoxScoreRow({
     const fgTotalAttempted = fg2_attempted + fg3_attempted;
 
     return (
-        <tr className="text-slate-100 odd:bg-likar2 even:bg-likar2/60">
+        <tr className="text-slate-100 odd:[&>td]:bg-likar2odd even:[&>td]:bg-likar2even">
             <td className="p-1 text-center text-nowrap">4</td>
-            <td className="p-1 text-center text-nowrap">
+            <td className="sticky left-0 z-100 p-1 text-center text-nowrap">
                 <Link
                     href={show(id)}
                     className="hover:underline"

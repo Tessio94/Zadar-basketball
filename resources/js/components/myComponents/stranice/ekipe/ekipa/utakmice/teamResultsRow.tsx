@@ -56,7 +56,7 @@ export default function TeamResultsRow({ game }: { game: GameWithTeams }) {
                     {away_team.name}
                 </Link>
             </td>
-            <td className="border-r border-likar4 p-2 text-center text-nowrap">
+            <td className="p-2 text-center text-nowrap">
                 <Link href={show(id)} className="hover:underline">
                     {home_score} - {away_score}
                 </Link>

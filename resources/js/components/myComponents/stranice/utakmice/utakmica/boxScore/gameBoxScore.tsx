@@ -1,7 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { useRef } from 'react';
 import { show } from '@/actions/App/Http/Controllers/TeamController';
-import ButtonScroll from '@/components/myComponents/common/ButtonScroll';
 import type { GameStatsWithPlayerAndTeam, Team } from '@/types/propTypes';
 import BoxScoreHeader from './boxScoreHeader';
 import BoxScoreRow from './boxScoreRow';
@@ -13,16 +11,10 @@ export default function GameBoxScore({
     team: Team;
     players: GameStatsWithPlayerAndTeam[];
 }) {
-    const scrollRef = useRef<HTMLDivElement | null>(null);
-
     return (
         <section className="relative mx-auto mb-10 px-[5%]">
             <div className="relative overflow-hidden rounded-xl border border-likar3/40">
-                <ButtonScroll scrollRef={scrollRef} />
-                <div
-                    className="flex flex-row justify-between border-b border-likar3/40 bg-likar4/60 max-sm:flex-col"
-                    ref={scrollRef}
-                >
+                <div className="flex flex-row justify-between border-b border-likar3/40 bg-likar4/60 max-sm:flex-col">
                     <Link
                         href={show(team.id)}
                         className="pointer-events-none flex w-fit flex-row items-center gap-5 p-3"
@@ -45,7 +37,7 @@ export default function GameBoxScore({
                         </p>
                     </div>
                 </div>
-                <div ref={scrollRef} className="overflow-x-auto">
+                <div className="scrollbar overflow-x-auto scrollbar-thumb-likar3 scrollbar-track-slate-900">
                     <table className="w-full bg-likar2">
                         <BoxScoreHeader />
                         <tbody>

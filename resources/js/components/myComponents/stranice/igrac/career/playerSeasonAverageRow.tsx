@@ -1,7 +1,10 @@
+import { cn, formatSeason } from '@/lib/utils';
+
 export default function PlayerSeasonAverageRow({
     stats,
     carrer,
     seasonName = '',
+    team,
 }) {
     const {
         games,
@@ -26,7 +29,7 @@ export default function PlayerSeasonAverageRow({
         blocks,
     } = stats;
     return (
-        <tbody>
+        <>
             {carrer && (
                 <tr className="bg-likar4">
                     <th></th>
@@ -35,11 +38,18 @@ export default function PlayerSeasonAverageRow({
                     </th>
                 </tr>
             )}
-            <tr className="text-slate-100 odd:bg-likar1 even:bg-likar3/60">
+            <tr
+                className={cn(
+                    'text-slate-100',
+                    carrer
+                        ? 'bg-likar1 font-bold'
+                        : 'odd:bg-likar1 even:bg-likar3/30',
+                )}
+            >
                 <th className="p-1 text-center text-nowrap">
-                    {seasonName ?? ''}
+                    {formatSeason(seasonName) ?? ''}
                 </th>
-                <th className="p-1 text-center text-nowrap">{'Vošta'}</th>
+                <th className="p-1 text-center text-nowrap">{team ?? ''}</th>
                 <td className="p-1 text-center text-nowrap">{games}</td>
                 <td className="p-1 text-center text-nowrap">{minutes}</td>
                 <td className="p-1 text-center text-nowrap">{points}</td>
@@ -49,22 +59,18 @@ export default function PlayerSeasonAverageRow({
                 <td className="p-1 text-center text-nowrap">{blocks}</td>
                 <td className="p-1 text-center text-nowrap">{fg_made}</td>
                 <td className="p-1 text-center text-nowrap">{fg_attempted}</td>
+                <td className="p-1 text-center text-nowrap">{fg_percentage}</td>
                 <td className="p-1 text-center text-nowrap">
-                    {fg_percentage}%
-                </td>
-                <td className="p-1 text-center text-nowrap">
-                    {fg2_percentage}%
+                    {fg2_percentage}
                 </td>
                 <td className="p-1 text-center text-nowrap">{fg3_made}</td>
                 <td className="p-1 text-center text-nowrap">{fg3_attempted}</td>
                 <td className="p-1 text-center text-nowrap">
-                    {fg3_percentage}%
+                    {fg3_percentage}
                 </td>
                 <td className="p-1 text-center text-nowrap">{ft_made}</td>
                 <td className="p-1 text-center text-nowrap">{ft_attempted}</td>
-                <td className="p-1 text-center text-nowrap">
-                    {ft_percentage}%
-                </td>
+                <td className="p-1 text-center text-nowrap">{ft_percentage}</td>
                 <td className="p-1 text-center text-nowrap">
                     {offensive_rebounds}
                 </td>
@@ -73,6 +79,6 @@ export default function PlayerSeasonAverageRow({
                 </td>
                 <td className="p-1 text-center text-nowrap">{turnovers}</td>
             </tr>
-        </tbody>
+        </>
     );
 }

@@ -1,10 +1,8 @@
-import { useRef } from 'react';
 import type {
     GameStatsWithOpponent,
     PlayerAverages,
     PlayerTotals,
 } from '@/types/propTypes';
-import ButtonScroll from '../../common/ButtonScroll';
 import PlayerAveragesRow from './playerAveragesRow';
 import PlayerBoxScoreHeader from './playerBoxScoreHeader';
 import PlayerBoxScoreRow from './playerBoxScoreRow';
@@ -21,14 +19,10 @@ export default function PlayerStats({
     averages,
     totals,
 }: PlayerStatsProps) {
-    const scrollRef = useRef<HTMLDivElement | null>(null);
-
     return (
         <section className="relative mx-auto px-[5%] py-10 pt-5">
-            <ButtonScroll scrollRef={scrollRef} />
-
-            <div className="relative overflow-hidden rounded-xl border border-likar3/40">
-                <div ref={scrollRef} className="overflow-x-auto">
+            <div className="relative overflow-hidden rounded-xl border border-likar3/40 shadow-lg shadow-likar1">
+                <div className="scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar overflow-x-auto scrollbar-thumb-likar3 scrollbar-track-slate-900">
                     <table className="w-full bg-likar2">
                         <PlayerBoxScoreHeader />
                         <tbody>

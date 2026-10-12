@@ -65,3 +65,11 @@ export function formatRelativeTime(date: string | Date): string {
 
     return formatter.format(0, 'second');
 }
+
+export function formatSeason(season: string) {
+    const seasonArr: string = season
+        .split('-')
+        .map((s) => s.slice(2))
+        .join('/');
+    return seasonArr;
+}

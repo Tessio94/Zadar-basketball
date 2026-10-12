@@ -1,7 +1,8 @@
 import { useRemember } from '@inertiajs/react';
 import TabComponent from '@/components/myComponents/common/tab/tabComponent';
+import PlayerSeasonAverageBody from './playerSeasonAverageBody';
 import PlayerSeasonAverageRow from './playerSeasonAverageRow';
-import PlayerSeasonAveragesHeader from './playerSeasonAveragesHeader';
+import PlayerSeasonAveragesHead from './playerSeasonAveragesHead';
 
 export default function PlayerCareerTable({
     careerStats,
@@ -20,35 +21,48 @@ export default function PlayerCareerTable({
                         { id: 'tab1', title: 'Ukupno' },
                         { id: 'tab2', title: 'Prosjek' },
                     ]}
-                    className="mb-3"
+                    className="mb-6"
                 />
                 <div className="pb-5">
                     <h4 className="pb-3 font-heading text-3xl font-semibold text-slate-100">
                         Ukupno
                     </h4>
                     <div className="relative overflow-hidden rounded-xl border border-likar3/40">
-                        <div className="overflow-x-auto">
+                        <div className="scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar overflow-x-auto scrollbar-thumb-likar3 scrollbar-track-slate-900">
                             <table className="w-full bg-likar2">
-                                <PlayerSeasonAveragesHeader />
-                                {seasonStats.map((season) => (
+                                <PlayerSeasonAveragesHead />
+                                <PlayerSeasonAverageBody>
+                                    {seasonStats.map((season, i) => {
+                                        const team = playerTeams.filter(
+                                            (pt) =>
+                                                pt.season_id ===
+                                                season.season.id,
+                                        )[0].team.short_name;
+
+                                        return (
+                                            <PlayerSeasonAverageRow
+                                                key={i}
+                                                stats={
+                                                    active === 'tab1'
+                                                        ? season.total.totals
+                                                        : season.total.averages
+                                                }
+                                                team={team}
+                                                carrer={false}
+                                                seasonName={season.season.name}
+                                            />
+                                        );
+                                    })}
                                     <PlayerSeasonAverageRow
                                         stats={
                                             active === 'tab1'
-                                                ? season.total.totals
-                                                : season.total.averages
+                                                ? careerStats.total.totals
+                                                : careerStats.total.averages
                                         }
-                                        carrer={false}
-                                        seasonName={season.season.name}
+                                        team={''}
+                                        carrer={true}
                                     />
-                                ))}
-                                <PlayerSeasonAverageRow
-                                    stats={
-                                        active === 'tab1'
-                                            ? careerStats.total.totals
-                                            : careerStats.total.averages
-                                    }
-                                    carrer={true}
-                                />
+                                </PlayerSeasonAverageBody>
                             </table>
                         </div>
                     </div>
@@ -58,28 +72,42 @@ export default function PlayerCareerTable({
                         Regularna sezona
                     </h4>
                     <div className="relative overflow-hidden rounded-xl border border-likar3/40">
-                        <div className="overflow-x-auto">
+                        <div className="scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar overflow-x-auto scrollbar-thumb-likar3 scrollbar-track-slate-900">
                             <table className="w-full bg-likar2">
-                                <PlayerSeasonAveragesHeader />
-                                {seasonStats.map((season) => (
+                                <PlayerSeasonAveragesHead />
+                                <PlayerSeasonAverageBody>
+                                    {seasonStats.map((season, i) => {
+                                        const team = playerTeams.filter(
+                                            (pt) =>
+                                                pt.season_id ===
+                                                season.season.id,
+                                        )[0].team.short_name;
+
+                                        return (
+                                            <PlayerSeasonAverageRow
+                                                key={i}
+                                                stats={
+                                                    active === 'tab1'
+                                                        ? season.regular.totals
+                                                        : season.regular
+                                                              .averages
+                                                }
+                                                team={team}
+                                                carrer={false}
+                                                seasonName={season.season.name}
+                                            />
+                                        );
+                                    })}
                                     <PlayerSeasonAverageRow
                                         stats={
                                             active === 'tab1'
-                                                ? season.regular.totals
-                                                : season.regular.averages
+                                                ? careerStats.regular.totals
+                                                : careerStats.regular.averages
                                         }
-                                        carrer={false}
-                                        seasonName={season.season.name}
+                                        team={''}
+                                        carrer={true}
                                     />
-                                ))}
-                                <PlayerSeasonAverageRow
-                                    stats={
-                                        active === 'tab1'
-                                            ? careerStats.regular.totals
-                                            : careerStats.regular.averages
-                                    }
-                                    carrer={true}
-                                />
+                                </PlayerSeasonAverageBody>
                             </table>
                         </div>
                     </div>
@@ -89,28 +117,42 @@ export default function PlayerCareerTable({
                         Playoffs
                     </h4>
                     <div className="relative overflow-hidden rounded-xl border border-likar3/40">
-                        <div className="overflow-x-auto">
+                        <div className="scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar overflow-x-auto scrollbar-thumb-likar3 scrollbar-track-slate-900">
                             <table className="w-full bg-likar2">
-                                <PlayerSeasonAveragesHeader />
-                                {seasonStats.map((season) => (
+                                <PlayerSeasonAveragesHead />
+                                <PlayerSeasonAverageBody>
+                                    {seasonStats.map((season, i) => {
+                                        const team = playerTeams.filter(
+                                            (pt) =>
+                                                pt.season_id ===
+                                                season.season.id,
+                                        )[0].team.short_name;
+
+                                        return (
+                                            <PlayerSeasonAverageRow
+                                                key={i}
+                                                stats={
+                                                    active === 'tab1'
+                                                        ? season.playoffs.totals
+                                                        : season.playoffs
+                                                              .averages
+                                                }
+                                                carrer={false}
+                                                team={team}
+                                                seasonName={season.season.name}
+                                            />
+                                        );
+                                    })}
                                     <PlayerSeasonAverageRow
                                         stats={
                                             active === 'tab1'
-                                                ? season.playoffs.totals
-                                                : season.playoffs.averages
+                                                ? careerStats.playoffs.totals
+                                                : careerStats.playoffs.averages
                                         }
-                                        carrer={false}
-                                        seasonName={season.season.name}
+                                        team={''}
+                                        carrer={true}
                                     />
-                                ))}
-                                <PlayerSeasonAverageRow
-                                    stats={
-                                        active === 'tab1'
-                                            ? careerStats.playoffs.totals
-                                            : careerStats.playoffs.averages
-                                    }
-                                    carrer={true}
-                                />
+                                </PlayerSeasonAverageBody>
                             </table>
                         </div>
                     </div>

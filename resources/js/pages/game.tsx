@@ -53,7 +53,7 @@ const Game = ({
                     { id: 'tab1', title: 'Statistika utakmice' },
                     { id: 'tab2', title: 'Najbolji pojedinci' },
                 ]}
-                className="mt-15"
+                className="mt-15 mb-10"
             />
             {active === 'tab1' && (
                 <>

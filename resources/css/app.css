@@ -64,6 +64,8 @@
     --color-likar2: var(--likar2);
     --color-likar3: var(--likar3);
     --color-likar4: var(--likar4);
+    --color-likar2odd: var(--likar2odd);
+    --color-likar2even: var(--likar2even);
 }
 
 :root {
@@ -102,6 +104,8 @@
     --sidebar-ring: oklch(0.87 0 0);
     --likar1: #ff6f0086;
     --likar2: #7c7d7e59;
+    --likar2odd: #56483f;
+    --likar2even: #5c524b;
     --likar3: #ff6e00;
     --likar4: #3f3633;
     --slide-size: 20%;
@@ -184,7 +188,7 @@ html {
 
   .filter-season::picker(select) {
     appearance: base-select;
-    background: var(--likar4);
+    background: #0f172b;
     border: none;
     border-radius: 10px;
   }
@@ -220,6 +224,17 @@ html {
 .team-card:hover.team-card h3,
 .team-card:hover.team-card img {
     border: 2px solid var(--team-color);
+}
+
+.team-header-card {
+    box-shadow:
+        0px 0px 30px 1px var(--team-color) inset,
+        0px 00px 30px 1px var(--team-color);
+    border: 2px solid var(--team-color);
+}
+
+.team-player-icon {
+    fill: var(--team-color);
 }
 
 .embla {

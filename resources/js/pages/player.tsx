@@ -23,18 +23,8 @@ export default function player({
     seasons,
     games,
     selectedSeason,
-    // totals,
-    // averages,
-    // season,
 }: PlayerProps) {
-    const {
-        date_of_birth,
-        first_name,
-        last_name,
-        position,
-        height,
-        game_stats,
-    } = player;
+    const { date_of_birth, first_name, last_name, position, height } = player;
 
     console.log('player', player);
     console.log('careerStats', careerStats);
@@ -50,6 +40,11 @@ export default function player({
     const team = teamSeason?.team;
     const jerseyNumber = teamSeason?.pivot.jersey_number;
 
+    const selectedStats = seasonStats.filter(
+        (season) => season.season.id === selectedSeason,
+    )[0];
+    const { averages, totals } = selectedStats.total;
+
     return (
         <>
             <Head>
@@ -61,7 +56,7 @@ export default function player({
             </Head>
             <section className="px-[5%] py-10 xl:my-5">
                 <div className="flex flex-col items-start justify-between gap-10 xl:flex-row">
-                    <div className="mx-auto w-full rounded-2xl bg-likar1/30">
+                    <div className="mx-auto w-full overflow-hidden rounded-2xl bg-likar1/30">
                         <PlayerHeader
                             date_of_birth={date_of_birth}
                             first_name={first_name}
@@ -76,12 +71,12 @@ export default function player({
                             seasonStats={seasonStats}
                             playerTeams={player.team_seasons}
                         />
-                        {/* <FilterSeason additionalClass=" mx-[5%] mt-5" />
+                        <FilterSeason additionalClass=" mx-[5%] mt-5" />
                         <PlayerStats
-                            game_stats={game_stats}
+                            game_stats={games}
                             totals={totals}
                             averages={averages}
-                        /> */}
+                        />
                     </div>
                 </div>
             </section>

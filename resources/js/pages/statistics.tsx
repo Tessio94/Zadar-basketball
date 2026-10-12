@@ -45,6 +45,7 @@ export default function Statistics({
                         { id: 'tab2', title: 'Posljednje kolo' },
                         { id: 'tab3', title: 'Najbolje izvedbe' },
                     ]}
+                    className="mb-8"
                 />
                 <FilterSeason
                     disable={active === 'tab2'}

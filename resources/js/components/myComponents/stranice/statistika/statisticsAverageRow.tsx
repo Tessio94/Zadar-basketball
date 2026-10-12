@@ -43,7 +43,10 @@ export default function StatisticsAverageRow({
                     </Link>
                 </td>
                 <td>
-                    <Link href={show(player.id)} className="hover:underline">
+                    <Link
+                        href={show(player.id)}
+                        className="text-nowrap hover:underline"
+                    >
                         {`${player.first_name} ${player.last_name}`}
                     </Link>
                 </td>

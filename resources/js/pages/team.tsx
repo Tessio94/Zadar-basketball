@@ -57,7 +57,7 @@ export default function Team({
                                 { id: 'tab2', title: 'Utakmice' },
                                 { id: 'tab3', title: 'Statistika' },
                             ]}
-                            className="mt-15"
+                            className="mt-15 mb-8"
                         />
                         <FilterSeason additionalClass="mb-5 ml-5" />
                         {active === 'tab1' && <TeamPlayers players={players} />}
@@ -72,7 +72,6 @@ export default function Team({
                                             key={i}
                                             title={title}
                                             type={type}
-                                            t
                                             leaders={topFive}
                                             seasonId={season.id}
                                         />

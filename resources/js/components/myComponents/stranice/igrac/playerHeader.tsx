@@ -1,5 +1,5 @@
-import { User2Icon } from 'lucide-react';
 import type { TeamWithPlayer } from '@/types/propTypes';
+import BasketballPlayerIcon from '../../ui/icons/basketballPlayer';
 
 export default function PlayerHeader({
     date_of_birth,
@@ -41,45 +41,70 @@ export default function PlayerHeader({
     }
 
     return (
-        <div className="flex flex-col gap-5 border-b border-likar1 py-5">
-            <div className="border-b border-likar1 px-[5%] py-5">
-                <div className="flex w-full flex-col items-start gap-10 sm:flex-row sm:items-center">
-                    <User2Icon className="h-30 w-30 shrink-0 rounded-full border border-slate-100/80 bg-slate-400 p-0.5 text-slate-900 max-[500px]:h-25 max-[500px]:w-25" />
-                    <div className="flex flex-col items-start gap-6">
-                        <h2 className="font-heading text-4xl font-semibold text-slate-100 my-text-stroke lg:text-5xl">
-                            {name}
-                        </h2>
-                        <p className="font-heading text-3xl font-semibold text-slate-100 min-[400px]:flex min-[400px]:flex-row min-[400px]:items-center min-[400px]:gap-4 xl:gap-6 xl:text-4xl">
-                            Ekipa:{' '}
-                            <span className="max-xl:text-2xl">{team.name}</span>
+        <div
+            className="flex flex-col justify-between gap-8 border-b border-likar1 bg-[url('/images/design/snow4.jpg')] bg-cover bg-position-[100%_100%] bg-no-repeat px-[5%] py-10 shadow-xl shadow-likar4 md:flex-row md:justify-center lg:gap-15 xl:items-stretch 2xl:gap-20"
+            style={
+                {
+                    '--team-color': team.logo_color ?? 'transparent',
+                } as React.CSSProperties
+            }
+        >
+            <div className="w-2/3 shrink-0 max-[450px]:w-full max-lg:mx-auto sm:w-1/2 md:w-[25%] xl:w-[20%]">
+                <BasketballPlayerIcon className="team-player-icon h-full w-full rounded-2xl border border-likar3/40 bg-likar4/70 fill-likar4 stroke-likar1 stroke-6 p-0.5 text-slate-900" />
+            </div>
+
+            <div className="flex flex-col gap-5 max-md:items-center">
+                <div className="team-header-card flex w-fit flex-row items-center justify-start gap-4 rounded-full border p-2.5">
+                    <img
+                        src={team.logo}
+                        alt={`${team.name} logo`}
+                        className="h-8 w-8 rounded-full sm:h-10 sm:w-10"
+                    />
+                    <span className="font-heading text-xl font-semibold text-slate-100 sm:text-2xl">
+                        {team.name}
+                    </span>
+                </div>
+                <h2 className="font-heading text-4xl font-semibold text-slate-100 my-text-stroke max-md:text-center lg:text-5xl">
+                    {name}
+                </h2>
+                <div className="flex flex-col overflow-hidden rounded-2xl border border-likar1 max-sm:w-2/3 sm:flex-row">
+                    <div>
+                        <p className="border-r border-b border-likar3/40 bg-slate-900 px-5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 xl:text-3xl">
+                            Broj
+                        </p>
+                        <p className="border-r border-r-likar3/40 bg-likar4/60 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 xl:px-5 xl:text-3xl">
+                            {jerseyNumber}
+                        </p>
+                    </div>
+                    <div>
+                        <p className="border-r border-b border-likar3/40 bg-slate-900 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 xl:px-5 xl:text-3xl">
+                            Datum rođenja
+                        </p>
+                        <p className="border-r border-r-likar3/40 bg-likar4/60 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 xl:px-5 xl:text-3xl">
+                            {date_of_birth
+                                ?.split('T')[0]
+                                .split('-')
+                                .reverse()
+                                .join('/')}
+                        </p>
+                    </div>
+                    <div>
+                        <p className="border-r border-b border-likar3/40 bg-slate-900 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 xl:px-5 xl:text-3xl">
+                            Visina
+                        </p>
+                        <p className="border-r border-r-likar3/40 bg-likar4/60 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 xl:px-5 xl:text-3xl">
+                            {height}
+                        </p>
+                    </div>
+                    <div>
+                        <p className="border-b border-b-likar3/40 bg-slate-900 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 xl:px-5 xl:text-3xl">
+                            Pozicija
+                        </p>
+                        <p className="bg-likar4/60 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 xl:px-5 xl:text-3xl">
+                            {position}
                         </p>
                     </div>
                 </div>
-            </div>
-            <div className="flex flex-col gap-5 px-[5%] py-5">
-                <p className="font-heading text-2xl font-semibold text-slate-100 sm:text-3xl">
-                    Broj: <span>{jerseyNumber}</span>
-                </p>
-
-                <p className="font-heading text-2xl font-semibold text-slate-100 sm:text-3xl">
-                    Datum rođenja:{' '}
-                    <span>
-                        {date_of_birth
-                            ?.split('T')[0]
-                            .split('-')
-                            .reverse()
-                            .join('/')}
-                    </span>
-                </p>
-                <p className="font-heading text-2xl font-semibold text-slate-100 sm:text-3xl">
-                    Godine: <span>{age}</span>
-                </p>
-                <p className="font-heading text-2xl font-semibold text-slate-100 sm:text-3xl">
-                    Visina: <span>{height}</span>
-                </p>
-                <p className="font-heading text-2xl font-semibold text-slate-100 sm:text-3xl">
-                    Pozicija: <span>{position}</span>
-                </p>
             </div>
         </div>
     );
