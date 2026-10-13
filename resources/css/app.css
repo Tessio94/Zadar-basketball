@@ -233,8 +233,9 @@ html {
     border: 2px solid var(--team-color);
 }
 
-.team-player-icon {
-    fill: var(--team-color);
+
+.team-background-color {
+    background-color: var(--team-color);
 }
 
 .embla {

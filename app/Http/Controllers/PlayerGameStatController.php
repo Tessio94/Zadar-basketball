@@ -9,6 +9,7 @@ use App\Models\PlayerGameStat;
 use App\Services\StatisticsService;
 use App\Http\Requests\StorePlayerGameStatRequest;
 use App\Http\Requests\UpdatePlayerGameStatRequest;
+use App\Models\Game;
 use App\Models\Season;
 use Illuminate\Http\Request;
 
@@ -23,10 +24,13 @@ class PlayerGameStatController extends Controller
             ? Season::findOrFail($request->integer('season'))
             : Season::where('is_active', true)->firstOrFail();
 
+        $lastRound = Game::max('round_number');
+
         return Inertia::render('statistics', [
             'season' => $season,
             'leaders' => $stats->seasonLeaders($season->id),
-            'lastRound' => $stats->lastRoundLeaders(),
+            'lastRoundStats' => $stats->lastRoundLeaders(),
+            'lastRound' => $lastRound,
             'bestPerformances' => $stats->seasonBestPerformances($season->id),
         ]);
 

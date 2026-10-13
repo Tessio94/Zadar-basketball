@@ -42,7 +42,7 @@ export default function PlayerHeader({
 
     return (
         <div
-            className="flex flex-col justify-between gap-8 border-b border-likar1 bg-[url('/images/design/snow4.jpg')] bg-cover bg-position-[100%_100%] bg-no-repeat px-[5%] py-10 shadow-xl shadow-likar4 md:flex-row md:justify-center lg:gap-15 xl:items-stretch 2xl:gap-20"
+            className="flex flex-col justify-between gap-5 border-b border-likar1 bg-[url('/images/design/snow4.jpg')] bg-cover bg-position-[100%_100%] bg-no-repeat px-[5%] py-10 shadow-xl shadow-likar4 md:flex-row md:justify-center lg:gap-15 xl:items-stretch 2xl:gap-20"
             style={
                 {
                     '--team-color': team.logo_color ?? 'transparent',
@@ -50,17 +50,20 @@ export default function PlayerHeader({
             }
         >
             <div className="w-2/3 shrink-0 max-[450px]:w-full max-lg:mx-auto sm:w-1/2 md:w-[25%] xl:w-[20%]">
-                <BasketballPlayerIcon className="team-player-icon h-full w-full rounded-2xl border border-likar3/40 bg-likar4/70 fill-likar4 stroke-likar1 stroke-6 p-0.5 text-slate-900" />
+                <BasketballPlayerIcon
+                    className="team-player-icon h-full w-full rounded-2xl border border-likar3/40 bg-likar4/70 fill-likar4 stroke-likar1 stroke-6 p-0.5 text-slate-900"
+                    jerseyColor={team.logo_color}
+                />
             </div>
 
-            <div className="flex flex-col gap-5 max-md:items-center">
-                <div className="team-header-card flex w-fit flex-row items-center justify-start gap-4 rounded-full border p-2.5">
+            <div className="flex flex-col justify-between gap-5 max-md:items-center">
+                <div className="team-header-card relative flex w-fit flex-row items-center justify-start gap-4 overflow-hidden rounded-full border p-2.5">
                     <img
                         src={team.logo}
                         alt={`${team.name} logo`}
-                        className="h-8 w-8 rounded-full sm:h-10 sm:w-10"
+                        className="z-10 h-8 w-8 rounded-full sm:h-10 sm:w-10"
                     />
-                    <span className="font-heading text-xl font-semibold text-slate-100 sm:text-2xl">
+                    <span className="z-10 font-heading text-xl font-semibold text-slate-100 sm:text-2xl">
                         {team.name}
                     </span>
                 </div>

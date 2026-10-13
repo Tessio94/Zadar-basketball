@@ -12,22 +12,24 @@ import type {
 export default function Statistics({
     season,
     leaders,
+    lastRoundStats,
     lastRound,
     bestPerformances,
 }: {
     season: Season;
     leaders: StatsLeader[];
-    lastRound: StatsDailyLeader[];
+    lastRoundStats: StatsDailyLeader[];
+    lastRound: number;
     bestPerformances: StatsBestPerformance[];
 }) {
     const [active, setActive] = useRemember<string>('tab1');
-
+    console.log('before', lastRoundStats);
     const avgLeadersArr = Object.values(leaders);
-    const dailyLeadersArr = Object.values(lastRound);
+    const dailyLeadersArr = Object.values(lastRoundStats);
     const bestPerformancesArr = Object.values(bestPerformances);
     console.log('season', season);
     console.log('leaders', leaders);
-    console.log('lastRound', lastRound);
+    console.log('lastRound', lastRoundStats);
     console.log('bestPerformances', bestPerformances);
     return (
         <>
@@ -52,7 +54,12 @@ export default function Statistics({
                     selectedSeason={season.id}
                     additionalClass={'mb-5'}
                 />
-                <div className="mx-auto w-full rounded-2xl bg-likar1/30 p-2 sm:grid sm:items-stretch sm:gap-10 lg:grid-cols-2">
+                <div className="relative mx-auto w-full rounded-2xl bg-likar1/30 p-2 sm:grid sm:items-stretch sm:gap-10 lg:grid-cols-2">
+                    {active === 'tab2' && (
+                        <div className="absolute top-0 left-1/2 flex h-13 w-13 -translate-1/2 flex-row items-center justify-center rounded-xl bg-likar1 font-heading text-3xl font-black text-slate-100">
+                            R{lastRound}
+                        </div>
+                    )}
                     {active === 'tab1' &&
                         avgLeadersArr.map((category, i) => {
                             const { type, title, topFive } = category;
