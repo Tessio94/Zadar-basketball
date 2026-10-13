@@ -1,10 +1,10 @@
 import { Link } from '@inertiajs/react';
-import { ChevronRight, Clock1, MapPinCheckInside } from 'lucide-react';
+import { ChevronRight, Clock1, Mail, MapPinCheckInside } from 'lucide-react';
 
 export default function Footer() {
     return (
         <footer className="relative z-10 overflow-hidden border-t-2 border-likar1 bg-[url(/images/design/snow4.jpg)] bg-cover bg-no-repeat">
-            <div className="grid gap-12 px-10 py-10 max-[450px]:px-4 sm:px-12 md:grid-cols-2 lg:grid-cols-12 lg:px-16 xl:px-18 2xl:px-20">
+            <div className="grid gap-8 px-10 py-10 max-[450px]:px-4 sm:px-12 md:grid-cols-2 md:gap-12 lg:grid-cols-12 lg:px-16 xl:px-18 2xl:px-20">
                 <div className="flex w-full flex-col items-start justify-center gap-5 rounded-4xl lg:col-span-5">
                     <a
                         href="#"
@@ -123,7 +123,7 @@ export default function Footer() {
                         </li>
                     </ul>
                 </div>
-                <div className="flex flex-col items-stretch gap-5 lg:col-span-2">
+                <div className="flex flex-col items-stretch gap-8 md:gap-5 lg:col-span-2">
                     <div className="flex flex-col items-stretch gap-5 rounded-2xl bg-likar4/60 p-5">
                         <h5 className="font-heading text-2xl tracking-widest text-slate-100">
                             Vijesti
@@ -184,9 +184,18 @@ export default function Footer() {
                             <MapPinCheckInside className="rounded-full bg-likar4/60 p-1 text-likar3" />
                             <p>Višnjik, Dvorana 3</p>
                         </li>
-                        <li className="flex flex-row items-center gap-2 pt-1.5">
+                        <li className="flex flex-row items-center gap-2 border-b border-likar3/50 py-1.5">
                             <Clock1 className="rounded-full bg-likar4/60 p-1 text-likar3" />
                             <p>Nedjelja, jutarnji termini</p>
+                        </li>
+                        <li className="flex flex-row items-center gap-2 pt-1.5">
+                            <Mail className="rounded-full bg-likar4/60 p-1 text-likar3" />
+                            <a
+                                href="mailto:likarzadar@gmail.com"
+                                className="hover:underline"
+                            >
+                                likarzadar@gmail.com
+                            </a>
                         </li>
                     </ul>
                 </div>

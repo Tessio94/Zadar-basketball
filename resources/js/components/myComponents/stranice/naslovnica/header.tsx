@@ -135,7 +135,7 @@ export default function Header() {
                         </ul>
                     </nav>
 
-                    <div className="flex flex-row items-center">
+                    <div className="flex flex-row items-center max-md:mr-8 max-md:ml-auto">
                         <div className="absolute hidden max-xl:-top-4.5 max-xl:left-1/2 max-xl:-translate-x-1/2 max-xl:rounded-t-xl max-xl:bg-likar3/20 md:block lg:w-fit xl:relative xl:mr-2.5">
                             <ul className="flex flex-row items-center py-1 max-lg:justify-around xl:py-1.5">
                                 <li
