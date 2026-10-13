@@ -6,7 +6,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Player;
 use App\Models\Season;
-use App\Models\PlayerGameStat;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Inertia\Inertia;
@@ -244,5 +243,35 @@ class PlayerController extends Controller
                 'efficiency' => $average($totals->efficiency),
             ],
         ];
+    }
+
+    public function search(Request $request)
+    {
+        $validated = $request->validate([
+            'q' => ['required', 'string', 'min:3', 'max:100'],
+        ]);
+
+        $query = trim($validated['q']);
+
+        // Validate again after trimming whitespace.
+        if (mb_strlen($query) < 3) {
+            return response()->json(['players' => []]);
+        }
+
+        $players = Player::query()
+            ->select(['id', 'first_name', 'last_name'])
+            ->where(function (Builder $builder) use ($query) {
+                $builder
+                    ->where('first_name', 'ILIKE', "%{$query}%")
+                    ->orWhere('last_name', 'ILIKE', "%{$query}%");
+            })
+            ->orderBy('first_name')
+            ->orderBy('last_name')
+            ->limit(10)
+            ->get();
+
+        return response()->json([
+            'players' => $players,
+        ]);
     }
 }

@@ -196,7 +196,10 @@ export default function Header() {
                                 <Search className="h-7 w-7 text-slate-100 transition-colors duration-300 group-hover:text-likar3" />
                             )}
                         </button>
-                        <SearchComponent open={openSearch} />
+                        <SearchComponent
+                            open={openSearch}
+                            setOpen={setOpenSearch}
+                        />
                     </div>
 
                     {/* ------------------mobile navigation---------------------------- */}

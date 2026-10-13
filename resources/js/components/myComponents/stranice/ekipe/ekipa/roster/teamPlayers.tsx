@@ -4,8 +4,10 @@ import RosterRowHeader from './rosterRowHeader';
 
 export default function TeamPlayers({
     players,
+    jerseyColor,
 }: {
     players: PlayerWithPivot[];
+    jerseyColor: string;
 }) {
     return (
         <div className="p-5">
@@ -27,7 +29,9 @@ export default function TeamPlayers({
 
                                 const name = `${first_name} ${last_name}`;
 
-                                const datumRodenja = new Date(date_of_birth);
+                                const datumRodenja = new Date(
+                                    date_of_birth ?? '',
+                                );
                                 const today = new Date();
 
                                 let age =
@@ -51,11 +55,12 @@ export default function TeamPlayers({
                                         key={id}
                                         id={id}
                                         name={name}
-                                        date_of_birth={date_of_birth}
+                                        dateOfBirth={date_of_birth}
                                         age={age}
                                         height={height}
                                         position={position}
                                         broj={jersey_number}
+                                        jerseyColor={jerseyColor}
                                     />
                                 );
                             })}

@@ -60,7 +60,12 @@ export default function Team({
                             className="mt-15 mb-8"
                         />
                         <FilterSeason additionalClass="mb-5 ml-5" />
-                        {active === 'tab1' && <TeamPlayers players={players} />}
+                        {active === 'tab1' && (
+                            <TeamPlayers
+                                players={players}
+                                jerseyColor={team.logo_color}
+                            />
+                        )}
                         {active === 'tab2' && <TeamResults games={games} />}
                         {active === 'tab3' && (
                             <div className="mx-auto w-full rounded-2xl bg-likar1/30 p-2 sm:grid sm:items-stretch sm:gap-10 lg:grid-cols-2">

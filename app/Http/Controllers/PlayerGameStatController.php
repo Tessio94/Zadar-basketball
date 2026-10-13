@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
-use App\Models\PlayerGameStat;
 use App\Services\StatisticsService;
-use App\Http\Requests\StorePlayerGameStatRequest;
-use App\Http\Requests\UpdatePlayerGameStatRequest;
 use App\Models\Game;
 use App\Models\Season;
 use Illuminate\Http\Request;

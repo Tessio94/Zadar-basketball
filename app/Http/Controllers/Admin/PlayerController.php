@@ -104,14 +104,6 @@ class PlayerController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Player $player)
@@ -137,14 +129,6 @@ class PlayerController extends Controller
             'teams' => Team::orderBy('name')->get(),
             'seasons' => Season::orderByDesc('start_date')->get(),
         ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
     }
 
     /**

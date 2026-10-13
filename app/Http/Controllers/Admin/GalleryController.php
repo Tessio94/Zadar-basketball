@@ -172,23 +172,6 @@ class GalleryController extends Controller
         );
     }
 
-    // public function reorderImages(Request $request, Gallery $gallery): RedirectResponse
-    // {
-    //     $validated = $request->validate([
-    //         'images' => ['required', 'array'],
-    //         'images.*' => ['integer', 'exists:gallery_images,id'],
-    //     ]);
-
-    //     foreach ($validated['images'] as $index => $imageId) {
-    //         GalleryImage::where('id', $imageId)
-    //             ->where('gallery_id', $gallery->id)
-    //             ->update([
-    //                 'sort_order' => $index,
-    //             ]);
-    //     }
-
-    //     return back();
-    // }
     public function reorderImages(
         Request $request,
         Gallery $gallery

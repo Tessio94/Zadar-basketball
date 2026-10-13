@@ -8,8 +8,6 @@ use App\Models\Game;
 use App\Models\Team;
 use Inertia\Inertia;
 use App\Services\StatisticsService;
-use App\Http\Requests\StoreTeamRequest;
-use App\Http\Requests\UpdateTeamRequest;
 use App\Models\Season;
 use Illuminate\Http\Request;
 

@@ -53,6 +53,9 @@ Route::get('ekipe', [TeamController::class, 'index'])->name('teams.index');
 // Ekipe show
 Route::get('ekipe/{team}', [TeamController::class, 'show'])->name('teams.show');
 
+// igrač search
+Route::get('igrac/search', [PlayerController::class, 'search'])->name('player.search');
+
 // igrač show
 Route::get('igrac/{player}', [PlayerController::class, 'show'])->name('player.show');
 

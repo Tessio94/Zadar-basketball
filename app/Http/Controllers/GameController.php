@@ -6,9 +6,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Game;
 use Inertia\Inertia;
-use App\Services\StandingsService;
-use App\Http\Requests\StoreGameRequest;
-use App\Http\Requests\UpdateGameRequest;
 use App\Models\Season;
 use Illuminate\Http\Request;
 

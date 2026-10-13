@@ -1,30 +1,35 @@
 import { Link } from '@inertiajs/react';
-import { User2Icon } from 'lucide-react';
 import { show } from '@/actions/App/Http/Controllers/PlayerController';
+import BasketballPlayerIcon from '@/components/myComponents/ui/icons/basketballPlayer';
 
 export default function RosterRowData({
     id,
     name,
-    date_of_birth,
+    dateOfBirth,
     age,
     height,
     position,
     broj,
+    jerseyColor,
 }: {
     id: number;
     name: string;
-    date_of_birth: string;
+    dateOfBirth: string | null;
     age: number;
-    height: number;
-    position: 'PG' | 'SG' | 'SF' | 'PF' | 'C';
+    height: number | null;
+    position: 'PG' | 'SG' | 'SF' | 'PF' | 'C' | null;
     broj: number;
+    jerseyColor: string;
 }) {
     return (
         <tr className="text-lg text-slate-100 odd:bg-likar2 even:bg-likar2/60">
             <td className="p-1 text-center text-nowrap">{broj}</td>
             <td className="p-1 text-center text-nowrap">
                 <div className="flex flex-row items-center justify-center">
-                    <User2Icon className="h-10 w-10 shrink-0 rounded-full border border-slate-100/80 bg-gray-400 p-0.5 text-slate-900 max-[500px]:h-5 max-[500px]:w-5" />
+                    <BasketballPlayerIcon
+                        className="h-10 w-10 shrink-0 rounded-full border border-slate-100/80 bg-gray-400 p-0.5 text-slate-900 max-[500px]:h-5 max-[500px]:w-5"
+                        jerseyColor={jerseyColor}
+                    />
                 </div>
             </td>
             <td className="p-1 text-center text-nowrap">
@@ -33,7 +38,7 @@ export default function RosterRowData({
                 </Link>
             </td>
             <td className="p-1 text-center text-nowrap">
-                {date_of_birth.split('T')[0].split('-').reverse().join('/')}
+                {dateOfBirth?.split('T')[0].split('-').reverse().join('/')}
             </td>
             <td className="p-1 text-center text-nowrap">{age}</td>
             <td className="p-1 text-center text-nowrap">{height}</td>
