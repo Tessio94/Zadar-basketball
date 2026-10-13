@@ -26,6 +26,8 @@ export default function FilterSeason({
         );
     }
 
+    console.log(selectedSeason);
+
     return (
         <div>
             <select

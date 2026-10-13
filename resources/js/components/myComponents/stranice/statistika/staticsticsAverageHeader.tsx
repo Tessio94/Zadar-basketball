@@ -5,7 +5,7 @@ export default function StatisticsAverageHeader({
 }) {
     const headers =
         type === 'avg'
-            ? ['', 'Tim', 'Igrač', 'Utakmice', 'Ukupno', 'Prosjek']
+            ? ['', '', 'Igrač', 'Utakmice', 'Ukupno', 'Prosjek']
             : type === 'pcg'
               ? ['', 'Tim', 'Igrač', 'Pokušaji', 'Ubačaji', 'Prosjek']
               : ['', 'Tim', 'Igrač', 'Ukupno'];

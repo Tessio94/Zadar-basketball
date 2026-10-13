@@ -1,4 +1,9 @@
-export default function BasketballPlayerIcon({ ...props }) {
+export default function BasketballPlayerIcon({
+    jerseyColor,
+    ...props
+}: {
+    jerseyColor: string;
+}) {
     return (
         <svg
             {...props}
@@ -43,7 +48,7 @@ export default function BasketballPlayerIcon({ ...props }) {
                 />
                 <path
                     d="M197 222C187 227 171 234 153 240C143 243 136 245 135 252L132 321C131 341 125 357 127 374L131 410C132 437 128 466 126 490L124 510H386L384 490C382 466 378 437 379 410L383 374C385 357 379 341 378 321L375 252C374 245 367 243 357 240C339 234 323 227 313 222C305 239 286 270 255 303C224 270 205 239 197 222Z"
-                    fill={props.jerseyColor}
+                    fill={jerseyColor}
                     stroke="black"
                     strokeWidth="3"
                     strokeLinecap="round"

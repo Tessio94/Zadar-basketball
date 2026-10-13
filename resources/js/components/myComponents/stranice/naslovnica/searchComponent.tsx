@@ -21,7 +21,10 @@ type SearchComponentProps = {
     setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-export default function SearchComponent({ open }: SearchComponentProps) {
+export default function SearchComponent({
+    open,
+    setOpen,
+}: SearchComponentProps) {
     const [searchValue, setSearchValue] = useState('');
     const [players, setPlayers] = useState<PlayerResult[]>([]);
     const [loading, setLoading] = useState(false);
@@ -107,12 +110,18 @@ export default function SearchComponent({ open }: SearchComponentProps) {
                 !containerRef.current.contains(event.target as Node)
             ) {
                 setShowResults(false);
+                setSearchValue('');
+                setPlayers([]);
+                setOpen(false);
             }
         }
 
         function handleKeyDown(event: KeyboardEvent) {
             if (event.key === 'Escape') {
                 setShowResults(false);
+                setSearchValue('');
+                setPlayers([]);
+                setOpen(false);
             }
         }
 

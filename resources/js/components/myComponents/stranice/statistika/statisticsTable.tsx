@@ -8,11 +8,13 @@ export default function StatisticsTable({
     leaders,
     title,
     seasonId,
+    jerseyColor,
 }: {
     type: 'avg' | 'pcg' | 'daily';
     leaders: TopFiveAvg[] | TopFivePcg[] | TopFiveDaily[];
     title: string;
     seasonId?: number;
+    jerseyColor: string;
 }) {
     return (
         <div className="flex flex-col p-3">
@@ -30,6 +32,7 @@ export default function StatisticsTable({
                                     leader={leader}
                                     seasonId={seasonId}
                                     index={i}
+                                    jerseyColor={jerseyColor}
                                 />
                             ))}
                         </tbody>

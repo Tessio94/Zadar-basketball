@@ -43,6 +43,16 @@ export type TeamWithPlayers = Team & {
     players: PlayerWithPivot[];
 };
 
+export type TeamSeason = {
+    id: number;
+    players: PlayerWithPivot[];
+    season: Season;
+    seasonID: number;
+    team_id: number;
+    created_at: string;
+    updated_at: string;
+};
+
 export type TeamForm = {
     name: string;
     short_name: string;
@@ -66,6 +76,8 @@ export type Game = {
     round_number: number;
     season_id: number;
     status: string;
+    playoff_id: number;
+    playoff_round: number;
     updated_at: string;
 };
 
@@ -231,12 +243,13 @@ export type Player = {
 
 export type PlayerTeam = {
     id: number;
-    player_id: number;
-    team_id: number;
-    season_id: number;
-    jersey_number: number | null;
-    team: Team;
-    season: Season;
+    first_name: string;
+    last_name: string;
+    date_of_birth: string | null;
+    height: number | null;
+    position: 'PG' | 'SG' | 'SF' | 'PF' | 'C' | null;
+    created_at: string;
+    updated_at: string;
 };
 
 export type PlayerAdmin = Player & {
@@ -266,12 +279,15 @@ export type PlayerWithTeamPivot = Player & {
     teams: TeamWithPlayer[];
 };
 
+export type PlayerWithTeamSeasons = Player & {
+    team_seasons: TeamSeason[];
+};
+
 export type PlayerTeamPivot = {
-    player_id: number;
-    season_id: number;
-    team_id: number;
+    player_id: 1;
+    team_season_id: 1;
+    jersey_number: 9;
     created_at: string;
-    jersey_number: number;
     updated_at: string;
 };
 
@@ -362,7 +378,7 @@ export type TopFiveAvg = {
     avg: string;
     games: number;
     total: number;
-    player: PlayerWithTeamPivot;
+    player: PlayerWithTeamSeasons;
 };
 
 export type TopFivePcg = {
@@ -370,7 +386,7 @@ export type TopFivePcg = {
     games: number;
     total_attempted: number;
     total_made: number;
-    player: PlayerWithTeamPivot;
+    player: PlayerWithTeamSeasons;
 };
 
 export type StatsDailyLeader = {
@@ -386,6 +402,7 @@ export type StatsBestPerformance = {
 export type TopFiveDaily = {
     total: number;
     player: PlayerWithTeamPivot;
+    team_seasons: PlayerWithTeamSeasons;
 };
 
 /**

@@ -2,23 +2,27 @@ import { Link } from '@inertiajs/react';
 import { show } from '@/actions/App/Http/Controllers/PlayerController';
 import { show as showTeam } from '@/actions/App/Http/Controllers/TeamController';
 import type { TopFiveAvg, TopFiveDaily, TopFivePcg } from '@/types/propTypes';
+import BasketballPlayerIcon from '../../ui/icons/basketballPlayer';
 
 export default function StatisticsAverageRow({
     type,
     leader,
     index,
     seasonId,
+    jerseyColor,
 }: {
     type: 'avg' | 'pcg' | 'daily';
     index: number;
     leader: TopFiveAvg | TopFivePcg | TopFiveDaily;
     seasonId?: number;
+    jerseyColor: string;
 }) {
     const teamSeason = leader.player.team_seasons?.find(
         (teamSeason) => teamSeason.season_id === seasonId,
     );
 
     const team = teamSeason?.team;
+    console.log('leader', leader);
     console.log('seasonId', seasonId);
     console.log('teamSeason', team);
     if (type === 'avg') {
@@ -28,19 +32,12 @@ export default function StatisticsAverageRow({
             <tr className="text-slate-100 odd:bg-likar2 even:bg-likar2/60 [&_td]:p-2 [&_td]:text-center">
                 <td>{index + 1}.</td>
                 <td>
-                    <Link
-                        href={showTeam(team.id, {
-                            query: { season: seasonId },
-                        })}
-                    >
-                        <img
-                            src={team.logo}
-                            alt={`${team.name} logo`}
-                            height={40}
-                            width={40}
-                            className="inline-block rounded-full border border-slate-100/80"
+                    <div className="flex flex-row items-center justify-center">
+                        <BasketballPlayerIcon
+                            className="h-10 w-10 shrink-0 rounded-full border border-slate-100/80 bg-gray-400 p-0.5 text-slate-900 max-[500px]:h-6 max-[500px]:w-6"
+                            jerseyColor={jerseyColor}
                         />
-                    </Link>
+                    </div>
                 </td>
                 <td>
                     <Link

@@ -27,7 +27,7 @@ export default function RosterRowData({
             <td className="p-1 text-center text-nowrap">
                 <div className="flex flex-row items-center justify-center">
                     <BasketballPlayerIcon
-                        className="h-10 w-10 shrink-0 rounded-full border border-slate-100/80 bg-gray-400 p-0.5 text-slate-900 max-[500px]:h-5 max-[500px]:w-5"
+                        className="h-10 w-10 shrink-0 rounded-full border border-slate-100/80 bg-gray-400 p-0.5 text-slate-900 max-[500px]:h-6 max-[500px]:w-6"
                         jerseyColor={jerseyColor}
                     />
                 </div>

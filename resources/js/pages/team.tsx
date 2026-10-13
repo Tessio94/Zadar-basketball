@@ -10,7 +10,8 @@ import type {
     GameWithTeams,
     Season,
     StatsLeader,
-    TeamWithPlayers,
+    Team,
+    TeamSeason,
 } from '@/types/propTypes';
 
 export default function Team({
@@ -20,7 +21,8 @@ export default function Team({
     stats,
     season,
 }: {
-    team: TeamWithPlayers;
+    team: Team;
+    teamSeason: TeamSeason;
     games: GameWithTeams[];
     stats: StatsLeader[];
     season: Season;
@@ -59,7 +61,10 @@ export default function Team({
                             ]}
                             className="mt-15 mb-8"
                         />
-                        <FilterSeason additionalClass="mb-5 ml-5" />
+                        <FilterSeason
+                            additionalClass="mb-5 ml-5"
+                            selectedSeason={season.id}
+                        />
                         {active === 'tab1' && (
                             <TeamPlayers
                                 players={players}
@@ -79,6 +84,7 @@ export default function Team({
                                             type={type}
                                             leaders={topFive}
                                             seasonId={season.id}
+                                            jerseyColor={team.logo_color}
                                         />
                                     );
                                 })}
