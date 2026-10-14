@@ -1,14 +1,18 @@
 export default function StatisticsAverageHeader({
     type,
+    jerseyColor,
 }: {
     type: 'avg' | 'pcg' | 'daily';
+    jerseyColor: string | undefined;
 }) {
     const headers =
-        type === 'avg'
-            ? ['', '', 'Igrač', 'Utakmice', 'Ukupno', 'Prosjek']
-            : type === 'pcg'
-              ? ['', 'Tim', 'Igrač', 'Pokušaji', 'Ubačaji', 'Prosjek']
-              : ['', 'Tim', 'Igrač', 'Ukupno'];
+        type === 'avg' && !jerseyColor
+            ? ['', 'Tim', 'Igrač', 'Utakmice', 'Ukupno', 'Prosjek']
+            : type === 'avg' && jerseyColor
+              ? ['', '', 'Igrač', 'Utakmice', 'Ukupno', 'Prosjek']
+              : type === 'pcg'
+                ? ['', 'Tim', 'Igrač', 'Pokušaji', 'Ubačaji', 'Prosjek']
+                : ['', 'Tim', 'Igrač', 'Ukupno'];
 
     return (
         <thead>

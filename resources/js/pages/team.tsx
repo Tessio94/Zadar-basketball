@@ -27,10 +27,6 @@ export default function Team({
     stats: StatsLeader[];
     season: Season;
 }) {
-    console.log('team', team);
-    console.log('teamSeason', teamSeason);
-    console.log('games', games);
-    console.log('stats', stats);
     const [active, setActive] = useRemember<string>('tab1');
 
     const { logo, name } = team;
@@ -76,7 +72,7 @@ export default function Team({
                             <div className="mx-auto w-full rounded-2xl bg-likar1/30 p-2 sm:grid sm:items-stretch sm:gap-10 lg:grid-cols-2">
                                 {teamLeaders.map((category, i) => {
                                     const { type, title, topFive } = category;
-                                    console.log('topFive', topFive);
+
                                     return (
                                         <StatisticsTable
                                             key={i}

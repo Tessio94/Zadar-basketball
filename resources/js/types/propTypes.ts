@@ -47,7 +47,17 @@ export type TeamSeason = {
     id: number;
     players: PlayerWithPivot[];
     season: Season;
-    seasonID: number;
+    season_id: number;
+    team_id: number;
+    created_at: string;
+    updated_at: string;
+};
+
+export type TeamDetailSeason = {
+    id: number;
+    pivot: PlayerTeamPivot;
+    team: Team;
+    season_id: number;
     team_id: number;
     created_at: string;
     updated_at: string;
@@ -283,10 +293,14 @@ export type PlayerWithTeamSeasons = Player & {
     team_seasons: TeamSeason[];
 };
 
+export type PlayerWithTeamDetailSeasons = Player & {
+    team_seasons: TeamDetailSeason[];
+};
+
 export type PlayerTeamPivot = {
-    player_id: 1;
-    team_season_id: 1;
-    jersey_number: 9;
+    player_id: number;
+    team_season_id: number;
+    jersey_number: number;
     created_at: string;
     updated_at: string;
 };
@@ -378,7 +392,7 @@ export type TopFiveAvg = {
     avg: string;
     games: number;
     total: number;
-    player: PlayerWithTeamSeasons;
+    player: PlayerWithTeamDetailSeasons;
 };
 
 export type TopFivePcg = {
@@ -386,7 +400,7 @@ export type TopFivePcg = {
     games: number;
     total_attempted: number;
     total_made: number;
-    player: PlayerWithTeamSeasons;
+    player: PlayerWithTeamDetailSeasons;
 };
 
 export type StatsDailyLeader = {
@@ -401,7 +415,7 @@ export type StatsBestPerformance = {
 
 export type TopFiveDaily = {
     total: number;
-    player: PlayerWithTeamPivot;
+    player: PlayerWithTeamDetailSeasons;
     team_seasons: PlayerWithTeamSeasons;
 };
 

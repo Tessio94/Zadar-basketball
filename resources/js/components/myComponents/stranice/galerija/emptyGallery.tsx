@@ -3,7 +3,7 @@ import { Image } from 'lucide-react';
 export default function EmptyGallery() {
     return (
         <section className="px-[5%] py-10 xl:my-5">
-            <div className="flex min-h-[400px] w-full flex-col items-center justify-center rounded-2xl border-2 border-likar3 bg-likar2 p-10 text-center shadow-lg shadow-likar1">
+            <div className="flex min-h-[600px] w-full flex-col items-center justify-center rounded-2xl border-2 border-likar3 bg-likar2 p-10 text-center shadow-lg shadow-likar1">
                 <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-slate-600">
                     <Image className="h-10 w-10 text-slate-100" />
                 </div>

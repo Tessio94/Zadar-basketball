@@ -114,7 +114,7 @@ export default function PlayerCareerTable({
                 </div>
                 <div className="pb-5">
                     <h4 className="pb-3 font-heading text-3xl font-semibold text-slate-100">
-                        Playoffs
+                        Doigravanje
                     </h4>
                     <div className="relative overflow-hidden rounded-xl border border-likar3/40">
                         <div className="scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar overflow-x-auto scrollbar-thumb-likar3 scrollbar-track-slate-900">

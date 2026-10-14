@@ -1,7 +1,7 @@
 export default function BasketballPlayerIcon({
     jerseyColor,
     ...props
-}: {
+}: React.SVGProps<SVGSVGElement> & {
     jerseyColor: string;
 }) {
     return (

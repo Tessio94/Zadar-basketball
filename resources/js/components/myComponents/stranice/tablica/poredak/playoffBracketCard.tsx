@@ -1,3 +1,5 @@
+import { ShieldHalf } from 'lucide-react';
+
 export default function PlayoffBracketCard() {
     return (
         <div className="flex flex-col rounded-2xl p-2.5 odd:pb-1.25 even:pt-1.25">
@@ -5,16 +7,17 @@ export default function PlayoffBracketCard() {
                 <div className="group relative border-b border-likar3 bg-likar2 px-5 py-5 text-base font-semibold text-slate-100 first:rounded-t-xl first:border-t last:rounded-b-xl lg:border-likar1 lg:py-1.5">
                     <div className="flex w-full flex-row items-center justify-between gap-2">
                         <div className="flex flex-row items-center gap-2 max-sm:gap-1.5">
-                            <img
+                            {/* <img
                                 src={'images/teams/sfinga.jpg'}
                                 alt=""
                                 className="h-10 w-10 rounded-full max-sm:h-9 max-sm:w-9"
                             />
-                            <span className="hidden text-start font-heading text-xl 2xl:inline">
+                            <span className="inline text-start font-heading text-xl">
                                 KK Sfinga Staffordi
-                            </span>
-                            <span className="inline text-start font-heading 2xl:hidden">
-                                KK SFI
+                            </span> */}
+                            <ShieldHalf className="h-10 w-10 rounded-full border border-slate-100 bg-slate-200/20 p-1 max-sm:h-9 max-sm:w-9" />
+                            <span className="inline text-start font-heading text-xl">
+                                TBD
                             </span>
                         </div>
                         <div className="font-heading text-2xl text-slate-100">

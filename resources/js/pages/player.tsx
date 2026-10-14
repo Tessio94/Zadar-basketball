@@ -4,6 +4,7 @@ import PlayerCareerTotals from '@/components/myComponents/stranice/igrac/career/
 import PlayerHeader from '@/components/myComponents/stranice/igrac/playerHeader';
 import PlayerStats from '@/components/myComponents/stranice/igrac/playerStats';
 import type {
+    Game,
     PlayerAverages,
     PlayerTotals,
     PlayerWithTeamAndGames,
@@ -14,6 +15,7 @@ type PlayerProps = {
     totals: PlayerTotals;
     averages: PlayerAverages;
     season: number;
+    games: Game;
 };
 
 export default function player({

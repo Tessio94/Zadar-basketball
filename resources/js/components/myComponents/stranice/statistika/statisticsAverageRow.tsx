@@ -17,14 +17,12 @@ export default function StatisticsAverageRow({
     seasonId?: number;
     jerseyColor?: string;
 }) {
-    const teamSeason = leader.player.team_seasons?.find(
+    const teamSeason = leader.player.team_seasons.find(
         (teamSeason) => teamSeason.season_id === seasonId,
-    );
+    )!;
 
-    const team = teamSeason?.team;
-    console.log('leader', leader);
-    console.log('seasonId', seasonId);
-    console.log('teamSeason', team);
+    const team = teamSeason.team;
+
     if (type === 'avg') {
         const { games, player, avg, total } = leader as TopFiveAvg;
 

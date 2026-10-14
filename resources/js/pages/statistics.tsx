@@ -23,14 +23,11 @@ export default function Statistics({
     bestPerformances: StatsBestPerformance[];
 }) {
     const [active, setActive] = useRemember<string>('tab1');
-    console.log('before', lastRoundStats);
+
     const avgLeadersArr = Object.values(leaders);
     const dailyLeadersArr = Object.values(lastRoundStats);
     const bestPerformancesArr = Object.values(bestPerformances);
-    console.log('season', season);
-    console.log('leaders', leaders);
-    console.log('lastRound', lastRoundStats);
-    console.log('bestPerformances', bestPerformances);
+
     return (
         <>
             <Head>

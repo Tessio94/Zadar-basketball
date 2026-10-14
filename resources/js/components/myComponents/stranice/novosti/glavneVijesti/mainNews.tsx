@@ -1,5 +1,5 @@
 import type { Article } from '@/types/propTypes';
-import EmptyNews from './EmptyNews';
+import EmptyNews from './emptyNews';
 import MainNewsGrid from './MainNewsGrid';
 import SimpleNewsGrid from './SimpleNewsGrid';
 

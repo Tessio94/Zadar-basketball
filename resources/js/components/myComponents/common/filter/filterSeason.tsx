@@ -1,5 +1,6 @@
 import { usePage, router } from '@inertiajs/react';
 import { cn } from '@/lib/utils';
+import { type Season } from '@/types/propTypes';
 
 export default function FilterSeason({
     selectedSeason,
@@ -10,11 +11,10 @@ export default function FilterSeason({
     additionalClass?: string;
     disable?: boolean;
 }) {
-    const { seasons } = usePage().props;
+    const { seasons } = usePage<{ seasons: Season[] }>().props;
 
     const seasonLength = seasons.length;
 
-    // console.log('seasong', seasons);
     function handleSeasonChange(e: React.ChangeEvent<HTMLSelectElement>) {
         router.get(
             window.location.pathname,
@@ -25,8 +25,6 @@ export default function FilterSeason({
             },
         );
     }
-
-    console.log(selectedSeason);
 
     return (
         <div>

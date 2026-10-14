@@ -23,7 +23,10 @@ export default function StatisticsTable({
             <div className="relative grow overflow-hidden rounded-xl border border-likar1 shadow-xl shadow-likar1">
                 <div className="scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar h-full overflow-x-auto scrollbar-thumb-likar3 scrollbar-track-slate-900">
                     <table className="h-full w-full overflow-hidden rounded-xl">
-                        <StaticsticsAverageHeader type={type} />
+                        <StaticsticsAverageHeader
+                            type={type}
+                            jerseyColor={jerseyColor}
+                        />
                         <tbody>
                             {leaders.map((leader, i) => (
                                 <StatisticsAverageRow
