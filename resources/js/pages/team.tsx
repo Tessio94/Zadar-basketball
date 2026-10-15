@@ -29,7 +29,7 @@ export default function Team({
 }) {
     const [active, setActive] = useRemember<string>('tab1');
 
-    const { logo, name } = team;
+    const { logo, name, logo_color } = team;
     const { players } = teamSeason;
 
     const teamLeaders = Object.values(stats);
@@ -64,7 +64,7 @@ export default function Team({
                         {active === 'tab1' && (
                             <TeamPlayers
                                 players={players}
-                                jerseyColor={team.logo_color}
+                                jerseyColor={logo_color}
                             />
                         )}
                         {active === 'tab2' && <TeamResults games={games} />}
@@ -80,7 +80,7 @@ export default function Team({
                                             type={type}
                                             leaders={topFive}
                                             seasonId={season.id}
-                                            jerseyColor={team.logo_color}
+                                            jerseyColor={logo_color}
                                         />
                                     );
                                 })}
