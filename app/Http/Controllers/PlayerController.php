@@ -15,15 +15,35 @@ class PlayerController extends Controller
 {
     public function show(Request $request, Player $player)
     {
-        $selectedSeason = $request->filled('season')
-            ? Season::findOrFail($request->integer('season'))
-            : Season::where('is_active', true)->firstOrFail();
+
 
         $player->load([
             'teamSeasons.team',
             'teamSeasons.season',
         ]);
 
+        $playerSeasonIds = $player->teamSeasons
+        ->pluck('season_id')
+        ->unique()
+        ->values();
+
+        $playerSeasons = Season::query()
+            ->whereIn('id', $playerSeasonIds)
+            ->orderByDesc('start_date')
+            ->get(['id', 'name', 'is_active', 'start_date']);
+
+        $selectedSeason = $request->filled('season')
+            ? Season::query()
+                ->whereIn('id', $playerSeasonIds)
+                ->findOrFail($request->integer('season'))
+            : Season::query()
+                ->whereIn('id', $playerSeasonIds)
+                ->orderByDesc('start_date')
+                ->first();
+
+        if (! $selectedSeason) {
+            abort(404, 'Igrač nema dodijeljenu sezonu.');
+        }
         // Base query: all games played by this player.
         $baseStats = $player->gameStats();
 
@@ -45,36 +65,30 @@ class PlayerController extends Controller
         ];
 
         // Statistics grouped by season.
-        $seasonStats = Season::query()
-            ->orderByDesc('start_date')
-            ->get()
-            ->map(function (Season $season) use ($baseStats) {
-                $seasonQuery = fn () => (clone $baseStats)
-                    ->whereHas(
-                        'game',
-                        fn (Builder $q) => $q->where(
-                            'season_id',
-                            $season->id
-                        )
-                    );
+        $seasonStats = $playerSeasons->map(function (Season $season) use ($baseStats) {
+            $seasonQuery = fn () => (clone $baseStats)
+                ->whereHas('game', fn (Builder $q) =>
+                    $q->where('season_id', $season->id)
+                );
 
-                return [
-                    'season' => $season,
-                    'regular' => $this->summarize(
-                        $seasonQuery()->whereHas(
-                            'game',
-                            fn (Builder $q) => $q->whereNull('playoff_id')
-                        )
-                    ),
-                    'playoffs' => $this->summarize(
-                        $seasonQuery()->whereHas(
-                            'game',
-                            fn (Builder $q) => $q->whereNotNull('playoff_id')
-                        )
-                    ),
-                    'total' => $this->summarize($seasonQuery()),
-                ];
-            });
+            return [
+                'season' => $season,
+
+                'regular' => $this->summarize(
+                    $seasonQuery()->whereHas('game', fn (Builder $q) =>
+                        $q->whereNull('playoff_id')
+                    )
+                ),
+
+                'playoffs' => $this->summarize(
+                    $seasonQuery()->whereHas('game', fn (Builder $q) =>
+                        $q->whereNotNull('playoff_id')
+                    )
+                ),
+
+                'total' => $this->summarize($seasonQuery()),
+            ];
+        });
 
         // Game history: optionally filter by season.
         $gamesQuery = $player->gameStats()
@@ -116,7 +130,7 @@ class PlayerController extends Controller
             'careerStats' => $careerStats,
             'seasonStats' => $seasonStats,
             'games' => $games,
-            'seasons' => Season::orderByDesc('start_date')->get(),
+            'seasons' => $playerSeasons,
             'selectedSeason' => $selectedSeason->id,
         ]);
     }

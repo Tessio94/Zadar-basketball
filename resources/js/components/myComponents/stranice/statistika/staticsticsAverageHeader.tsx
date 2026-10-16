@@ -8,7 +8,7 @@ export default function StatisticsAverageHeader({
     const headers =
         type === 'avg' && !jerseyColor
             ? ['', 'Tim', 'Igrač', 'Utakmice', 'Ukupno', 'Prosjek']
-            : type === 'avg' && jerseyColor
+            : (type === 'avg' && jerseyColor) || (type === 'pcg' && jerseyColor)
               ? ['', '', 'Igrač', 'Utakmice', 'Ukupno', 'Prosjek']
               : type === 'pcg'
                 ? ['', 'Tim', 'Igrač', 'Pokušaji', 'Ubačaji', 'Prosjek']

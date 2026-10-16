@@ -45,13 +45,13 @@ export default function FilterSeason({
                         key={season.id}
                         value={season.id}
                         className={cn(
-                            'border border-slate-100 transition-colors duration-300 hover:bg-likar2',
+                            'flex flex-row items-center gap-0 border border-slate-100 py-1.5 transition-colors duration-300 hover:bg-likar2',
                             seasonLength > 1
                                 ? 'first:rounded-t-xl first:border-b-0 last:rounded-b-xl last:border-t-0'
                                 : 'rounded-xl',
                         )}
                     >
-                        <span className="px-1.25 text-slate-100">
+                        <span className="px-1.25 text-xl text-slate-100">
                             {season.name}
                         </span>
                     </option>

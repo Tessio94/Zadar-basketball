@@ -18,7 +18,8 @@ const Game = ({
     leaders: GameLeadersType;
 }) => {
     const [active, setActive] = useRemember<string>('tab1');
-
+    console.log('game', game);
+    console.log('leaders', leaders);
     const {
         home_team,
         home_team_id,

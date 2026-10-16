@@ -31,7 +31,6 @@ export default function player({
     console.log('player', player);
     console.log('careerStats', careerStats);
     console.log('seasonStats', seasonStats);
-    console.log('seasons', seasons);
     console.log('games', games);
     console.log('selectedSeason', selectedSeason);
 
@@ -73,7 +72,10 @@ export default function player({
                             seasonStats={seasonStats}
                             playerTeams={player.team_seasons}
                         />
-                        <FilterSeason additionalClass=" mx-[5%] mt-5" />
+                        <FilterSeason
+                            selectedSeason={selectedSeason}
+                            additionalClass=" mx-[5%] mt-5"
+                        />
                         <PlayerStats
                             game_stats={games}
                             totals={totals}

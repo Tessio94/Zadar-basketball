@@ -72,18 +72,18 @@ export default function PlayerHeader({
                 </h2>
                 <div className="flex flex-col overflow-hidden rounded-2xl border border-likar1 max-sm:w-2/3 sm:flex-row">
                     <div>
-                        <p className="border-r border-b border-likar3/40 bg-slate-900 px-5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 xl:text-3xl">
+                        <p className="border-likar3/40 bg-slate-900 px-5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 sm:border-r sm:border-b xl:text-3xl">
                             Broj
                         </p>
-                        <p className="border-r border-r-likar3/40 bg-likar4/60 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 xl:px-5 xl:text-3xl">
+                        <p className="border-likar3/40 bg-likar4/60 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 max-sm:border-b sm:border-r xl:px-5 xl:text-3xl">
                             {jerseyNumber}
                         </p>
                     </div>
                     <div>
-                        <p className="border-r border-b border-likar3/40 bg-slate-900 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 xl:px-5 xl:text-3xl">
+                        <p className="border-likar3/40 bg-slate-900 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 sm:border-r sm:border-b xl:px-5 xl:text-3xl">
                             Datum rođenja
                         </p>
-                        <p className="border-r border-r-likar3/40 bg-likar4/60 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 xl:px-5 xl:text-3xl">
+                        <p className="border-likar3/40 bg-likar4/60 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 max-sm:border-b sm:border-r xl:px-5 xl:text-3xl">
                             {date_of_birth
                                 ?.split('T')[0]
                                 .split('-')
@@ -92,15 +92,15 @@ export default function PlayerHeader({
                         </p>
                     </div>
                     <div>
-                        <p className="border-r border-b border-likar3/40 bg-slate-900 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 xl:px-5 xl:text-3xl">
+                        <p className="border-likar3/40 bg-slate-900 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 sm:border-r sm:border-b xl:px-5 xl:text-3xl">
                             Visina
                         </p>
-                        <p className="border-r border-r-likar3/40 bg-likar4/60 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 xl:px-5 xl:text-3xl">
+                        <p className="border-likar3/40 bg-likar4/60 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 max-sm:border-b sm:border-r xl:px-5 xl:text-3xl">
                             {height}
                         </p>
                     </div>
                     <div>
-                        <p className="border-b border-b-likar3/40 bg-slate-900 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 xl:px-5 xl:text-3xl">
+                        <p className="bg-slate-900 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 sm:border-b sm:border-b-likar3/40 xl:px-5 xl:text-3xl">
                             Pozicija
                         </p>
                         <p className="bg-likar4/60 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 xl:px-5 xl:text-3xl">

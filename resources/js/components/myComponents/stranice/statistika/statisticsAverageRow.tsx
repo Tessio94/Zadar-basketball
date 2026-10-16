@@ -70,19 +70,24 @@ export default function StatisticsAverageRow({
             <tr className="text-slate-100 odd:bg-likar2 even:bg-likar2/60 [&_td]:p-2 [&_td]:text-center">
                 <td>{index + 1}.</td>
                 <td>
-                    <Link
-                        href={showTeam(team.id, {
-                            query: { season: seasonId },
-                        })}
-                    >
-                        <img
-                            src={team.logo}
-                            alt={`${team.name} logo`}
-                            height={40}
-                            width={40}
-                            className="inline-block rounded-full border border-slate-100/80"
-                        />
-                    </Link>
+                    {jerseyColor ? (
+                        <div className="flex flex-row items-center justify-center">
+                            <BasketballPlayerIcon
+                                className="h-10 w-10 shrink-0 rounded-full border border-slate-100/80 bg-gray-400 p-0.5 text-slate-900 max-[500px]:h-6 max-[500px]:w-6"
+                                jerseyColor={jerseyColor}
+                            />
+                        </div>
+                    ) : (
+                        <Link href={showTeam(team.id)}>
+                            <img
+                                src={team.logo}
+                                alt={`${team.name} logo`}
+                                height={40}
+                                width={40}
+                                className="inline-block rounded-full border border-slate-100/80"
+                            />
+                        </Link>
+                    )}
                 </td>
                 <td>
                     <Link href={show(player.id)} className="hover:underline">

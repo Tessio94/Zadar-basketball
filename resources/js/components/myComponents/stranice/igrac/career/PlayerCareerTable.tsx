@@ -33,12 +33,14 @@ export default function PlayerCareerTable({
                                 <PlayerSeasonAveragesHead />
                                 <PlayerSeasonAverageBody>
                                     {seasonStats.map((season, i) => {
-                                        const team = playerTeams.filter(
+                                        const teamSeason = playerTeams.find(
                                             (pt) =>
                                                 pt.season_id ===
                                                 season.season.id,
-                                        )[0].team.short_name;
+                                        );
 
+                                        const team =
+                                            teamSeason?.team?.short_name ?? '—';
                                         return (
                                             <PlayerSeasonAverageRow
                                                 key={i}
@@ -77,11 +79,14 @@ export default function PlayerCareerTable({
                                 <PlayerSeasonAveragesHead />
                                 <PlayerSeasonAverageBody>
                                     {seasonStats.map((season, i) => {
-                                        const team = playerTeams.filter(
+                                        const teamSeason = playerTeams.find(
                                             (pt) =>
                                                 pt.season_id ===
                                                 season.season.id,
-                                        )[0].team.short_name;
+                                        );
+
+                                        const team =
+                                            teamSeason?.team?.short_name ?? '—';
 
                                         return (
                                             <PlayerSeasonAverageRow
@@ -122,11 +127,14 @@ export default function PlayerCareerTable({
                                 <PlayerSeasonAveragesHead />
                                 <PlayerSeasonAverageBody>
                                     {seasonStats.map((season, i) => {
-                                        const team = playerTeams.filter(
+                                        const teamSeason = playerTeams.find(
                                             (pt) =>
                                                 pt.season_id ===
                                                 season.season.id,
-                                        )[0].team.short_name;
+                                        );
+
+                                        const team =
+                                            teamSeason?.team?.short_name ?? '—';
 
                                         return (
                                             <PlayerSeasonAverageRow

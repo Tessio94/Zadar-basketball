@@ -23,33 +23,75 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function EditPlayer({
     player,
-    teams,
-    seasons,
+    teamSeasons,
 }: {
     player: PlayerAdmin;
-    teams: Team[];
-    seasons: Season[];
+    teamSeasons;
 }) {
     // const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    console.log(player);
+    console.log('player', player);
 
+    // const { data, setData, put, processing, errors } = useForm<PlayerForm>({
+    //     first_name: player.first_name || '',
+    //     last_name: player.last_name || '',
+    //     date_of_birth: player.date_of_birth || '',
+    //     height: player.height?.toString() || '',
+    //     position: player.position || '',
+    //     season_id: player.team_seasons[0]?.season_id?.toString() || '',
+    //     team_id: player.team_seasons[0]?.team_id?.toString() || '',
+    //     jersey_number:
+    //         player.team_seasons[0].pivot?.jersey_number?.toString() || '',
+    // });
     const { data, setData, put, processing, errors } = useForm<PlayerForm>({
-        first_name: player.first_name || '',
-        last_name: player.last_name || '',
-        date_of_birth: player.date_of_birth || '',
-        height: player.height?.toString() || '',
-        position: player.position || '',
-        season_id: player.team_assignments[0]?.season_id?.toString() || '',
-        team_id: player.team_assignments[0]?.team_id?.toString() || '',
-        jersey_number:
-            player.team_assignments[0]?.jersey_number?.toString() || '',
+        first_name: player.first_name ?? '',
+        last_name: player.last_name ?? '',
+        date_of_birth: player.date_of_birth ?? '',
+        height: player.height?.toString() ?? '',
+        position: player.position ?? '',
+        team_seasons: player.team_seasons.map((teamSeason) => ({
+            team_season_id: teamSeason.id.toString(),
+            jersey_number: teamSeason.pivot?.jersey_number?.toString() ?? '',
+        })),
     });
 
-    function submit(e: React.SubmitEvent) {
+    function updateAssignment(
+        index: number,
+        field: 'team_season_id' | 'jersey_number',
+        value: string,
+    ) {
+        setData(
+            'team_seasons',
+            data.team_seasons.map((assignment, i) =>
+                i === index ? { ...assignment, [field]: value } : assignment,
+            ),
+        );
+    }
+
+    function addAssignment() {
+        setData('team_seasons', [
+            ...data.team_seasons,
+            { team_season_id: '', jersey_number: '' },
+        ]);
+    }
+
+    function removeAssignment(index: number) {
+        setData(
+            'team_seasons',
+            data.team_seasons.filter((_, i) => i !== index),
+        );
+    }
+
+    function submit(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault();
+        // put(`/admin/players/${player.id}`);
         put(update(player.id).url);
     }
+
+    // function submit(e: React.SubmitEvent) {
+    //     e.preventDefault();
+    //     put(update(player.id).url);
+    // }
 
     return (
         <>
@@ -231,7 +273,7 @@ export default function EditPlayer({
                         )} */}
                     </div>
 
-                    <div className="space-y-6 xl:w-1/2 xl:pl-5 2xl:pl-10">
+                    {/* <div className="space-y-6 xl:w-1/2 xl:pl-5 2xl:pl-10">
                         <h3 className="text-xl font-semibold underline-offset-2">
                             Trenutna Ekipa
                         </h3>
@@ -316,6 +358,111 @@ export default function EditPlayer({
                                 </div>
                             )}
                         </div>
+                    </div> */}
+                    <div className="space-y-6 xl:w-1/2 xl:pl-5 2xl:pl-10">
+                        <h3 className="text-xl font-semibold">
+                            Ekipe i sezone
+                        </h3>
+
+                        {data.team_seasons.map((assignment, index) => (
+                            <div
+                                key={index}
+                                className="grid gap-3 rounded-lg border p-4 md:grid-cols-[1fr_120px_auto]"
+                            >
+                                <div>
+                                    <label className="mb-1 block font-semibold">
+                                        Ekipa i sezona
+                                    </label>
+
+                                    <select
+                                        value={assignment.team_season_id}
+                                        onChange={(e) =>
+                                            updateAssignment(
+                                                index,
+                                                'team_season_id',
+                                                e.target.value,
+                                            )
+                                        }
+                                        className="w-full rounded border p-2"
+                                    >
+                                        <option value="">
+                                            Odaberi ekipu i sezonu
+                                        </option>
+
+                                        {teamSeasons.map((option) => {
+                                            const alreadySelected =
+                                                data.team_seasons.some(
+                                                    (item, i) =>
+                                                        i !== index &&
+                                                        item.team_season_id ===
+                                                            option.id.toString(),
+                                                );
+
+                                            return (
+                                                <option
+                                                    key={option.id}
+                                                    value={option.id}
+                                                    disabled={alreadySelected}
+                                                >
+                                                    {option.team.name} —{' '}
+                                                    {option.season.name}
+                                                </option>
+                                            );
+                                        })}
+                                    </select>
+
+                                    {errors[
+                                        `team_seasons.${index}.team_season_id` as keyof typeof errors
+                                    ] && (
+                                        <p className="text-sm text-red-500">
+                                            {
+                                                errors[
+                                                    `team_seasons.${index}.team_season_id` as keyof typeof errors
+                                                ]
+                                            }
+                                        </p>
+                                    )}
+                                </div>
+
+                                <div>
+                                    <label className="mb-1 block font-semibold">
+                                        Broj dresa
+                                    </label>
+
+                                    <input
+                                        type="number"
+                                        min="0"
+                                        value={assignment.jersey_number}
+                                        onChange={(e) =>
+                                            updateAssignment(
+                                                index,
+                                                'jersey_number',
+                                                e.target.value,
+                                            )
+                                        }
+                                        className="w-full rounded border p-2"
+                                    />
+                                </div>
+
+                                <div className="flex items-end">
+                                    <button
+                                        type="button"
+                                        onClick={() => removeAssignment(index)}
+                                        className="rounded border px-3 py-2"
+                                    >
+                                        Ukloni
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+
+                        <button
+                            type="button"
+                            onClick={addAssignment}
+                            className="rounded border px-4 py-2"
+                        >
+                            + Dodaj ekipu/sezonu
+                        </button>
                     </div>
 
                     <div className="flex gap-4 xl:w-1/2 xl:pt-6 xl:pr-5 2xl:pr-10">
