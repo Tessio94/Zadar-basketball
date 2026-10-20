@@ -111,7 +111,7 @@ class ArticleController extends Controller
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:articles,  slug,' . $article->id,
+            'slug' => 'required|string|max:255|unique:articles,slug,' . $article->id,
             'excerpt' => 'nullable|string',
             'content' => 'required|string',
             'status' => 'required|in:published,draft',
@@ -122,7 +122,6 @@ class ArticleController extends Controller
         if ($validated['status'] === 'draft') {
             $validated['published_at'] = null;
         } elseif ($article->status === 'draft') {
-
             $validated['published_at'] = now();
         }
 

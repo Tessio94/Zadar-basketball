@@ -9,7 +9,7 @@ export default function AdditionalNews({ articles }: { articles: Article[] }) {
                     <h2 className="mb-10 font-heading text-5xl font-semibold text-slate-100">
                         Ostale vijesti
                     </h2>
-                    <div className="grid w-fit items-start gap-10 rounded-2xl sm:grid-cols-2 xl:grid-cols-4">
+                    <div className="grid w-fit items-stretch gap-10 rounded-2xl sm:grid-cols-2 xl:grid-cols-4">
                         {articles.map((article) => (
                             <AdditionalNewsCard
                                 key={article.id}

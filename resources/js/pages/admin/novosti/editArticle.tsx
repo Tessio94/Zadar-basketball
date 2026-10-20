@@ -1,6 +1,6 @@
-import { Head, useForm } from '@inertiajs/react';
+import { Head, router, useForm } from '@inertiajs/react';
 import { ImageIcon } from 'lucide-react';
-import { useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import {
     index,
     update,
@@ -23,23 +23,46 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function EditArticle({ article }: { article: Article }) {
-    console.log(article);
+    console.log('article', article);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    const { data, setData, put, processing, errors } = useForm<Article>({
-        title: article.title || '',
-        published_at: article?.published_at?.substring(0, 10) || '',
-        excerpt: article.excerpt || '',
-        content: article.content || '',
-        status: article.status || '',
-        slug: article.slug || '',
-        main_image: article.main_image || '',
-    });
+    const { data, setData, post, transform, processing, errors } =
+        useForm<Article>({
+            title: article.title ?? '',
+            published_at: article?.published_at?.substring(0, 10) ?? '',
+            excerpt: article.excerpt ?? '',
+            content: article.content ?? '',
+            status: article.status ?? '',
+            slug: article.slug ?? '',
+            // main_image: article.main_image ?? '',
+            main_image: null,
+        });
 
-    // console.log('data', data);
-    function submit(e: React.SubmitEvent) {
+    console.log('data', data);
+
+    const mainImagePreview = useMemo(() => {
+        return data.main_image ? URL.createObjectURL(data.main_image) : null;
+    }, [data.main_image]);
+
+    useEffect(() => {
+        return () => {
+            if (mainImagePreview) {
+                URL.revokeObjectURL(mainImagePreview);
+            }
+        };
+    }, [mainImagePreview]);
+
+    function submit(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault();
-        put(update(article.id).url);
+
+        transform((formData) => ({
+            ...formData,
+            _method: 'put',
+        }));
+
+        post(update(article.id).url, {
+            forceFormData: true,
+        });
     }
 
     return (
@@ -76,25 +99,6 @@ export default function EditArticle({ article }: { article: Article }) {
                                 </div>
                             )}
                         </div>
-
-                        {/* <div>
-                            <label
-                                htmlFor="datum"
-                                className="mb-1 block font-semibold"
-                            >
-                                Datum objave
-                            </label>
-                            <input
-                                id="datum"
-                                name="datum"
-                                type="date"
-                                value={data.published_at}
-                                onChange={(e) =>
-                                    setData('published_at', e.target.value)
-                                }
-                                className="w-full rounded border p-2"
-                            />
-                        </div> */}
                         {data.status === 'published' && (
                             <div>
                                 <label
@@ -122,7 +126,6 @@ export default function EditArticle({ article }: { article: Article }) {
                                 )}
                             </div>
                         )}
-
                         <div>
                             <label
                                 htmlFor="uvod"
@@ -145,7 +148,6 @@ export default function EditArticle({ article }: { article: Article }) {
                                 </div>
                             )}
                         </div>
-
                         <div>
                             <label
                                 htmlFor="slika"
@@ -161,9 +163,7 @@ export default function EditArticle({ article }: { article: Article }) {
                                 onChange={(e) => {
                                     setData(
                                         'main_image',
-                                        e.target.files
-                                            ? `/images/articles/${e.target.files[0].name}`
-                                            : '',
+                                        e.target.files?.[0] ?? null,
                                     );
                                 }}
                                 ref={fileInputRef}
@@ -184,10 +184,14 @@ export default function EditArticle({ article }: { article: Article }) {
                             )}
                         </div>
 
-                        {article.main_image && (
+                        {(mainImagePreview || article.main_image) && (
                             <div>
                                 <img
-                                    src={`/storage/${data.main_image}`}
+                                    src={
+                                        mainImagePreview ??
+                                        `/storage/${article.main_image}`
+                                    }
+                                    alt={`${article.main_image} logo`}
                                     className="h-auto w-full rounded"
                                 />
                             </div>

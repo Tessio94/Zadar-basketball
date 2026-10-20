@@ -35,7 +35,7 @@ class Team extends Model
         return $this->belongsToMany(
             Season::class,
             'team_seasons'
-        );
+        )->withTimestamps();
     }
 
     public function homeGames()

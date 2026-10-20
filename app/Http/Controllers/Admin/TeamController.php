@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Season;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -40,6 +42,7 @@ class TeamController extends Controller
             'short_name' => 'nullable|string|max:10',
             'city' => 'nullable|string|max:50',
             'founded_year' => 'nullable|integer|min:1900|max:' . now()->year,
+            'logo_color' => 'nullable|string|max:50',
             'logo' => 'nullable|image|mimes:jpg,jpeg,png,webp,gif|max:2048',
         ]);
 
@@ -60,8 +63,15 @@ class TeamController extends Controller
      */
     public function edit(Team $team)
     {
+        $team->load('seasons:id,name');
+
+        $seasons =  Season::query()
+            ->orderByDesc('start_date')
+            ->get(['id', 'name']);
+
         return Inertia::render('admin/ekipe/editTeam', [
-            'team' => $team
+            'team' => $team,
+            'seasons' => $seasons
         ]);
     }
 
@@ -70,27 +80,92 @@ class TeamController extends Controller
      */
     public function update(Request $request, Team $team)
     {
+        // dd($request);
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'short_name' => 'nullable|string|max:50',
             'city' => 'nullable|string|max:100',
             'founded_year' => 'nullable|integer|min:1900|max:' . now()->year,
+            'logo_color' => 'nullable|string|max:50',
             'logo' => 'nullable|image|mimes:jpg,jpeg,png,webp,gif|max:2048',
+            'season_ids' => ['present', 'array'],
+            'season_ids.*' => ['integer','distinct','exists:seasons,id',],
         ]);
 
-        if ($request->hasFile('logo')) {
-            if ($team->logo) {
-                Storage::disk('public')->delete($team->logo);
-            }
+        $oldLogo = $team->logo;
+        $newLogo = null;
 
-            $validated['logo'] = $request->file('logo')
-                ->store('teams', 'public');
+        if ($request->hasFile('logo')) {
+            $newLogo = $request->file('logo')->store('teams', 'public');
         }
 
+        try {
+            DB::transaction(function () use ($team, $validated, $newLogo) {
+                $teamData = collect($validated)
+                    ->except(['season_ids', 'logo'])
+                    ->all();
 
-        $team->update($validated);
+                if ($newLogo !== null) {
+                    $teamData['logo'] = $newLogo;
+                }
 
-        return redirect()->route('ekipe.index');
+                $team->update($teamData);
+
+                $team->seasons()->sync($validated['season_ids']);
+            });
+        } catch (\Throwable $e) {
+            if ($newLogo !== null) {
+                Storage::disk('public')->delete($newLogo);
+            }
+
+            throw $e;
+        }
+
+        if ($newLogo !== null && $oldLogo) {
+            Storage::disk('public')->delete($oldLogo);
+        }
+
+        return redirect()
+            ->route('ekipe.index')
+            ->with('success', 'Ekipa uspješno ažurirana!');
+
+        // DB::transaction(function () use ($request, $team, &$validated) {
+        //     if ($request->hasFile('logo')) {
+        //         $newLogo = $request->file('logo')->store('teams', 'public');
+
+        //         if ($team->logo) {
+        //             Storage::disk('public')->delete($team->logo);
+        //         }
+
+        //         $validated['logo'] = $newLogo;
+        //     }
+
+        //     $team->update(collect($validated)
+        //         ->except(['season_ids', 'logo'])
+        //         ->all() + (
+        //             isset($validated['logo'])
+        //                 ? ['logo' => $validated['logo']]
+        //                 : []
+        //         ));
+
+        //     $team->seasons()->sync($validated['season_ids']);
+        // });
+
+        // if ($request->hasFile('logo')) {
+        //     if ($team->logo) {
+        //         Storage::disk('public')->delete($team->logo);
+        //     }
+
+        //     $validated['logo'] = $request->file('logo')
+        //         ->store('teams', 'public');
+        // }
+
+
+        // $team->update($validated);
+
+        // return redirect()
+        //     ->route('ekipe.index')
+        //     ->with('success', 'Ekipa uspješno ažurirana!');
     }
 
     /**

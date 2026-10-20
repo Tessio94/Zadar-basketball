@@ -21,7 +21,34 @@ export default function StatisticsAverageRow({
         (teamSeason) => teamSeason.season_id === seasonId,
     )!;
 
-    const team = teamSeason.team;
+    const team = teamSeason?.team;
+
+    // if (!team && type === 'avg') {
+    //     console.log('leader', leader);
+    //     return (
+    //         <tr className="text-slate-100 odd:bg-likar2 even:bg-likar2/60 [&_td]:p-2 [&_td]:text-center">
+    //             {Array.from({ length: 6 }, (_, i) => i + 1).map((e: number) => {
+    //                 if (e === 1) {
+    //                     return <td>{index + 1}.</td>;
+    //                 } else if (e === 2) {
+    //                     return (
+    //                         <td>
+    //                             {' '}
+    //                             <div className="flex flex-row items-center justify-center">
+    //                                 <BasketballPlayerIcon
+    //                                     className="h-10 w-10 shrink-0 rounded-full border border-slate-100/80 bg-gray-400 p-0.5 text-slate-900 max-[500px]:h-6 max-[500px]:w-6"
+    //                                     jerseyColor={'#000000'}
+    //                                 />
+    //                             </div>
+    //                         </td>
+    //                     );
+    //                 } else {
+    //                     return <td>--/--</td>;
+    //                 }
+    //             })}
+    //         </tr>
+    //     );
+    // }
 
     if (type === 'avg') {
         const { games, player, avg, total } = leader as TopFiveAvg;

@@ -1,6 +1,6 @@
 import { Head, useForm } from '@inertiajs/react';
 import { ImageIcon } from 'lucide-react';
-import { useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import {
     index,
     update,
@@ -8,7 +8,7 @@ import {
 import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
-import type { Team, TeamForm } from '@/types/propTypes';
+import type { Season, Team, TeamForm } from '@/types/propTypes';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -21,21 +21,51 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function EditTeam({ team }: { team: Team }) {
+export default function EditTeam({
+    team,
+    seasons,
+}: {
+    team: Team;
+    seasons: Season[];
+}) {
     console.log(team);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    const { data, setData, put, processing, errors } = useForm<TeamForm>({
-        name: team.name || '',
-        short_name: team.short_name || '',
-        city: team.city || '',
-        founded_year: team.founded_year || '',
-        logo: team.logo || '',
-    });
+    const { data, setData, put, post, transform, processing, errors } =
+        useForm<TeamForm>({
+            name: team.name ?? '',
+            short_name: team.short_name ?? '',
+            city: team.city ?? '',
+            founded_year: team.founded_year?.toString() ?? '',
+            logo_color: team.logo_color ?? '',
+            logo: null,
+            season_ids:
+                team.seasons?.map((season) => season.id.toString()) ?? [],
+        });
 
-    function submit(e: React.SubmitEvent) {
+    const logoPreview = useMemo(() => {
+        return data.logo ? URL.createObjectURL(data.logo) : null;
+    }, [data.logo]);
+
+    useEffect(() => {
+        return () => {
+            if (logoPreview) {
+                URL.revokeObjectURL(logoPreview);
+            }
+        };
+    }, [logoPreview]);
+
+    function submit(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault();
-        put(update(team.id).url);
+
+        transform((formData) => ({
+            ...formData,
+            _method: 'put',
+        }));
+
+        post(update(team.id).url, {
+            forceFormData: true,
+        });
     }
 
     return (
@@ -140,6 +170,29 @@ export default function EditTeam({ team }: { team: Team }) {
                                 </div>
                             )}
                         </div>
+                        <div>
+                            <label
+                                htmlFor="logo_color"
+                                className="mb-1 block font-semibold"
+                            >
+                                Boja ekipe
+                            </label>
+                            <input
+                                type="text"
+                                id="logo_color"
+                                name="logo_color"
+                                value={data.logo_color}
+                                onChange={(e) =>
+                                    setData('logo_color', e.target.value)
+                                }
+                                className="w-full rounded border p-2"
+                            />
+                            {errors.logo_color && (
+                                <div className="text-sm text-red-500">
+                                    {errors.logo_color}
+                                </div>
+                            )}
+                        </div>
 
                         <div>
                             <label
@@ -154,11 +207,15 @@ export default function EditTeam({ team }: { team: Team }) {
                                 type="file"
                                 accept=".png,.jpg,.gif,.webp,image/jpeg,image/gif,image/webp,image/png"
                                 onChange={(e) => {
+                                    // setData(
+                                    //     'logo',
+                                    //     e.target.files
+                                    //         ? `/images/articles/${e.target.files[0].name}`
+                                    //         : '',
+                                    // );
                                     setData(
                                         'logo',
-                                        e.target.files
-                                            ? `/images/articles/${e.target.files[0].name}`
-                                            : '',
+                                        e.target.files?.[0] ?? null,
                                     );
                                 }}
                                 ref={fileInputRef}
@@ -179,14 +236,78 @@ export default function EditTeam({ team }: { team: Team }) {
                             )}
                         </div>
 
-                        {team.logo && (
+                        {/* {team.logo && !data.logo && (
                             <div>
                                 <img
-                                    src={`/storage/${data.logo}`}
+                                    src={`/storage/${team.logo}`}
+                                    alt={`${team.name} logo`}
                                     className="h-auto w-full rounded"
                                 />
                             </div>
                         )}
+                        {data.logo && (
+                            <div>
+                                <img
+                                    src={`/storage/${data.logo}`}
+                                    alt={`${team.name} logo`}
+                                    className="h-auto w-full rounded"
+                                />
+                            </div>
+                        )} */}
+                        {(logoPreview || team.logo) && (
+                            <div>
+                                <img
+                                    src={logoPreview ?? `/storage/${team.logo}`}
+                                    alt={`${team.name} logo`}
+                                    className="h-auto w-full rounded"
+                                />
+                            </div>
+                        )}
+
+                        <div className="space-y-3">
+                            <h3 className="text-xl font-semibold">
+                                Sezone u kojima je ekipa sudjelovala
+                            </h3>
+
+                            {seasons.map((season) => (
+                                <label
+                                    key={season.id}
+                                    className="flex items-center gap-3"
+                                >
+                                    <input
+                                        type="checkbox"
+                                        checked={data.season_ids.includes(
+                                            season.id.toString(),
+                                        )}
+                                        onChange={(e) => {
+                                            const seasonId =
+                                                season.id.toString();
+
+                                            setData(
+                                                'season_ids',
+                                                e.target.checked
+                                                    ? [
+                                                          ...data.season_ids,
+                                                          seasonId,
+                                                      ]
+                                                    : data.season_ids.filter(
+                                                          (id) =>
+                                                              id !== seasonId,
+                                                      ),
+                                            );
+                                        }}
+                                    />
+
+                                    <span>{season.name}</span>
+                                </label>
+                            ))}
+
+                            {errors.season_ids && (
+                                <p className="text-sm text-red-500">
+                                    {errors.season_ids}
+                                </p>
+                            )}
+                        </div>
 
                         <div className="flex gap-4">
                             <button

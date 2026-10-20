@@ -4,8 +4,8 @@ import { ChevronRight, Clock1, Mail, MapPinCheckInside } from 'lucide-react';
 export default function Footer() {
     return (
         <footer className="relative z-10 overflow-hidden border-t-2 border-likar1 bg-[url(/images/design/snow4.jpg)] bg-cover bg-no-repeat">
-            <div className="grid gap-8 px-10 py-10 max-[450px]:px-4 sm:px-12 md:grid-cols-2 md:gap-12 lg:grid-cols-12 lg:px-16 xl:px-18 2xl:px-20">
-                <div className="flex w-full flex-col items-start justify-center gap-5 rounded-4xl lg:col-span-5">
+            <div className="grid gap-8 px-10 py-10 max-[450px]:px-4 sm:px-12 md:grid-cols-2 md:gap-12 lg:px-16 xl:grid-cols-12 xl:px-18 2xl:px-20">
+                <div className="flex w-full flex-col items-start justify-center gap-5 rounded-4xl xl:col-span-4 2xl:col-span-5">
                     <a
                         href="#"
                         className="flex flex-row items-stretch xl:gap-2.5 2xl:gap-5"
@@ -89,13 +89,13 @@ export default function Footer() {
                         </a>
                     </div>
                 </div>
-                <div className="flex flex-col items-stretch gap-5 rounded-2xl bg-likar4/60 p-5 lg:col-span-2">
+                <div className="flex flex-col items-stretch gap-5 rounded-2xl bg-likar4/60 p-5 xl:col-span-3 2xl:col-span-2">
                     <h5 className="font-heading text-2xl tracking-widest text-slate-100">
                         Natjecanje
                     </h5>
                     <ul className="flex flex-col items-stretch text-lg text-slate-100/80">
                         <li className="flex flex-row items-center gap-2 border-b border-likar3/50 pb-1.5">
-                            <ChevronRight />
+                            <ChevronRight className="shrink-0" />
                             <Link
                                 className="hover:underline"
                                 href="/statistika"
@@ -104,33 +104,33 @@ export default function Footer() {
                             </Link>
                         </li>
                         <li className="flex flex-row items-center gap-2 border-b border-likar3/50 py-1.5">
-                            <ChevronRight />
+                            <ChevronRight className="shrink-0" />
                             <Link className="hover:underline" href="/tablica">
                                 Tablica
                             </Link>
                         </li>
                         <li className="flex flex-row items-center gap-2 border-b border-likar3/50 py-1.5">
-                            <ChevronRight />
+                            <ChevronRight className="shrink-0" />
                             <Link className="hover:underline" href="/ekipe">
                                 Ekipe
                             </Link>
                         </li>
                         <li className="flex flex-row items-center gap-2 pt-1.5">
-                            <ChevronRight />
+                            <ChevronRight className="shrink-0" />
                             <Link className="hover:underline" href="/utakmice">
                                 Utakmice
                             </Link>
                         </li>
                     </ul>
                 </div>
-                <div className="flex flex-col items-stretch gap-8 md:gap-5 lg:col-span-2">
+                <div className="flex flex-col items-stretch gap-8 md:gap-5 xl:col-span-2">
                     <div className="flex flex-col items-stretch gap-5 rounded-2xl bg-likar4/60 p-5">
                         <h5 className="font-heading text-2xl tracking-widest text-slate-100">
                             Vijesti
                         </h5>
                         <ul className="flex flex-col items-stretch text-lg text-slate-100/80">
                             <li className="flex flex-row items-center gap-2 border-b border-likar3/50 pb-1.5">
-                                <ChevronRight />
+                                <ChevronRight className="shrink-0" />
                                 <Link
                                     className="hover:underline"
                                     href="/novosti"
@@ -139,7 +139,7 @@ export default function Footer() {
                                 </Link>
                             </li>
                             <li className="flex flex-row items-center gap-2 pt-1.5">
-                                <ChevronRight />
+                                <ChevronRight className="shrink-0" />
                                 <Link
                                     className="hover:underline"
                                     href="/arhiva"
@@ -155,7 +155,7 @@ export default function Footer() {
                         </h5>
                         <ul className="flex flex-col items-stretch text-lg text-slate-100/80">
                             <li className="flex flex-row items-center gap-2 border-b border-likar3/50 pb-1.5">
-                                <ChevronRight />
+                                <ChevronRight className="shrink-0" />
                                 <Link
                                     className="hover:underline"
                                     href="/o-nama"
@@ -164,7 +164,7 @@ export default function Footer() {
                                 </Link>
                             </li>
                             <li className="flex flex-row items-center gap-2 pt-1.5">
-                                <ChevronRight />
+                                <ChevronRight className="shrink-0" />
                                 <Link
                                     className="hover:underline"
                                     href="/galerija"
@@ -175,21 +175,21 @@ export default function Footer() {
                         </ul>
                     </div>
                 </div>
-                <div className="flex flex-col items-stretch gap-5 rounded-2xl bg-likar4/60 p-5 lg:col-span-3">
+                <div className="flex flex-col items-stretch gap-5 rounded-2xl bg-likar4/60 p-5 xl:col-span-3">
                     <h5 className="font-heading text-2xl tracking-widest text-slate-100">
                         Pratite nas
                     </h5>
                     <ul className="flex flex-col items-stretch text-lg text-slate-100/80">
                         <li className="flex flex-row items-center gap-2 border-b border-likar3/50 pb-1.5">
-                            <MapPinCheckInside className="rounded-full bg-likar4/60 p-1 text-likar3" />
+                            <MapPinCheckInside className="shrink-0 rounded-full bg-likar4/60 p-1 text-likar3" />
                             <p>Višnjik, Dvorana 3</p>
                         </li>
                         <li className="flex flex-row items-center gap-2 border-b border-likar3/50 py-1.5">
-                            <Clock1 className="rounded-full bg-likar4/60 p-1 text-likar3" />
+                            <Clock1 className="shrink-0 rounded-full bg-likar4/60 p-1 text-likar3" />
                             <p>Nedjelja, jutarnji termini</p>
                         </li>
                         <li className="flex flex-row items-center gap-2 pt-1.5">
-                            <Mail className="rounded-full bg-likar4/60 p-1 text-likar3" />
+                            <Mail className="shrink-0 rounded-full bg-likar4/60 p-1 text-likar3" />
                             <a
                                 href="mailto:likarzadar@gmail.com"
                                 className="hover:underline"

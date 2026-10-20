@@ -59,7 +59,8 @@ export default function PlayerHeader({
             <div className="flex flex-col justify-between gap-5 max-md:items-center">
                 <div className="team-header-card relative flex w-fit flex-row items-center justify-start gap-4 overflow-hidden rounded-full border p-2.5">
                     <img
-                        src={team.logo}
+                        src={`/storage/${team.logo}`}
+                        // src={team.logo}
                         alt={`${team.name} logo`}
                         className="z-10 h-8 w-8 rounded-full sm:h-10 sm:w-10"
                     />

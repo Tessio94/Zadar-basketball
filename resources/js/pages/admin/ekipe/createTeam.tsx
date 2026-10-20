@@ -27,6 +27,7 @@ export default function CreateTeam() {
     const { data, setData, post, processing, errors } = useForm<TeamForm>({
         name: '',
         short_name: '',
+        logo_color: '',
         logo: null,
         city: '',
         founded_year: '',
@@ -139,6 +140,30 @@ export default function CreateTeam() {
                             {errors.founded_year && (
                                 <div className="text-sm text-red-500">
                                     {errors.founded_year}
+                                </div>
+                            )}
+                        </div>
+
+                        <div>
+                            <label
+                                htmlFor="logo_color"
+                                className="mb-1 block font-semibold"
+                            >
+                                Boja ekipe
+                            </label>
+                            <input
+                                type="number"
+                                id="logo_color"
+                                name="logo_color"
+                                value={data.logo_color}
+                                onChange={(e) =>
+                                    setData('logo_color', e.target.value)
+                                }
+                                className="w-full rounded border p-2"
+                            />
+                            {errors.logo_color && (
+                                <div className="text-sm text-red-500">
+                                    {errors.logo_color}
                                 </div>
                             )}
                         </div>

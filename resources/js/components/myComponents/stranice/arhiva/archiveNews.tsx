@@ -7,7 +7,7 @@ export default function ArchiveNews({
     articles: Paginated<Article>;
 }) {
     return (
-        <div className="grid w-fit items-start gap-10 rounded-2xl sm:grid-cols-2 xl:grid-cols-4">
+        <div className="grid w-fit items-stretch gap-10 rounded-2xl sm:grid-cols-2 xl:grid-cols-4">
             {articles.data.map((article) => (
                 <AdditionalNewsCard key={article.id} article={article} />
             ))}

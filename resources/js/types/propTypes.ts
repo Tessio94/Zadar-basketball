@@ -68,7 +68,9 @@ export type TeamForm = {
     short_name: string;
     city: string;
     founded_year: string;
+    logo_color: string;
     logo: File | null;
+    season_ids: string[];
 };
 
 /**
