@@ -52,7 +52,13 @@ class ArticleController extends Controller
         //
         abort_if($article->published_at === null, 404);
 
+        $lastArticles = Article::whereNotNull('published_at')
+            ->orderBy('published_at', 'desc')
+            ->limit(5)
+            ->get();
+
         return Inertia::render('article', [
+            'lastArticles' => $lastArticles,
             'article' => $article
         ]);
     }

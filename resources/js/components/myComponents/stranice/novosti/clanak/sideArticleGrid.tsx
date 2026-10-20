@@ -1,9 +1,8 @@
+import { formatDateToString } from '@/lib/utils';
+import type { Article } from '@/types/propTypes';
 import ArticleCard from './articleCard';
 
-export default function SideArticleCard() {
-    const length = 5;
-    const value = 0;
-
+export default function SideArticleCard({ articles }: { articles: Article[] }) {
     return (
         <aside className="sticky top-20 shrink-0 self-start bg-likar2 max-md:w-full 2xl:basis-[30%]">
             <div className="border-y-2 border-likar1">
@@ -14,11 +13,17 @@ export default function SideArticleCard() {
                         </h3>
                     </div>
                     <div className="flex w-full flex-row py-3 max-md:flex-wrap max-md:justify-between md:flex-col">
-                        {Array.from({ length }, () => value).map(
-                            (_, i: number) => (
-                                <ArticleCard key={i} />
-                            ),
-                        )}
+                        {articles.map((article) => (
+                            <ArticleCard
+                                title={article.title}
+                                imageUrl={article.main_image}
+                                date={formatDateToString(
+                                    new Date(article.published_at),
+                                )}
+                                id={article.id}
+                                key={article.id}
+                            />
+                        ))}
                     </div>
                 </div>
             </div>

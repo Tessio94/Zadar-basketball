@@ -29,12 +29,24 @@ export function formatDate(date: Date) {
     });
 }
 
+export function formatDateToString(date: Date) {
+    return date.toLocaleDateString('hr', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric',
+    });
+}
+
 export function formatTime(date: Date) {
     return date.toLocaleTimeString('en-GB', {
         hour: 'numeric',
         minute: '2-digit',
         hour12: true,
     });
+}
+
+export function formatDateToYear(date: string): number {
+    return Number(new Date(date).toISOString().split('-')[0]);
 }
 
 export function formatRelativeTime(date: string | Date): string {
