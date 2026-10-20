@@ -4,10 +4,10 @@ import LastGamesCard from './lastGamesCard';
 
 export default function UpcomingGames({
     games,
-    lastRound,
+    roundNumber,
 }: {
     games: GameWithTeams[];
-    lastRound: number;
+    roundNumber: number;
 }) {
     return (
         <div className="relative z-10 h-full overflow-hidden rounded-xl border border-sidebar-border/70 bg-[url('/images/design/snow4.jpg')] bg-cover dark:border-sidebar-border">
@@ -18,7 +18,7 @@ export default function UpcomingGames({
                         Nadolazeće kolo
                     </p>
                     <p className="font-heading text-xl font-black text-slate-300 underline">
-                        <span>Runda {lastRound}</span>
+                        <span>Runda {roundNumber}</span>
                     </p>
                 </div>
             </div>

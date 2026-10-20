@@ -24,9 +24,6 @@ export default function ResultRow({ game }: { game: GameWithTeams }) {
             <td className="border-r border-likar4 p-2 text-center text-nowrap">
                 {formatDate(date)}
             </td>
-            {/* <td className="border-r border-likar4 p-2 text-center text-nowrap">
-                {formatTime(date)}
-            </td> */}
             <td className="border-r border-likar4 p-2 text-center text-nowrap">
                 <span className="rounded-sm bg-likar1 p-0.5">
                     R{round_number}
@@ -46,13 +43,19 @@ export default function ResultRow({ game }: { game: GameWithTeams }) {
                 </Link>
             </td>
 
-            {/* <td className="border-r border-likar4 p-2 text-center text-nowrap">
-                vs
-            </td> */}
             <td className="border-r border-likar4 p-2 text-center text-nowrap">
-                <Link href={show(id)} className="hover:underline">
-                    {home_score} - {away_score}
-                </Link>
+                {game.status === 'finished' ? (
+                    <Link
+                        href={show(id)}
+                        className="font-semibold hover:underline"
+                    >
+                        {home_score} - {away_score}
+                    </Link>
+                ) : (
+                    <span className="inline-flex min-w-12 items-center justify-center rounded-md border border-orange-400/20 bg-orange-400/10 px-3 py-1 text-xs font-bold tracking-widest text-orange-400">
+                        VS
+                    </span>
+                )}
             </td>
             <td className="border-r border-likar4 p-2">
                 <Link
@@ -67,11 +70,6 @@ export default function ResultRow({ game }: { game: GameWithTeams }) {
                     {away_team.name}
                 </Link>
             </td>
-            {/* <td className="border-r border-likar4 p-2 text-center text-nowrap">
-                <Link href={show(id)} className="hover:underline">
-                    {home_score} - {away_score}
-                </Link>
-            </td> */}
         </tr>
     );
 }

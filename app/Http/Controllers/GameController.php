@@ -20,24 +20,46 @@ class GameController extends Controller
             ? Season::findOrFail($request->integer('season'))
             : Season::where('is_active', true)->firstOrFail();
 
-        $games = Game::with(['homeTeam', 'awayTeam'])
-            ->where('season_id', $season->id)
+        $games = $season->games()
+            ->whereIn('status', ['finished', 'scheduled'])
+            ->with(['homeTeam', 'awayTeam'])
             ->orderBy('game_date')
+            ->orderBy('id')
             ->get();
 
-        $lastRound = Game::max('round_number');
+        $finishedGames = $games->where('status', 'finished');
 
-        $lastRoundGames = Game::with(['homeTeam', 'awayTeam'])
-            ->where('season_id', $season->id)
+        $lastRound = $finishedGames->max('round_number');
+
+        $lastRoundGames = $finishedGames
             ->where('round_number', $lastRound)
+            ->values();
+
+        $upcomingQuery = $season->games()->upcoming();
+
+        $nextGame = (clone $upcomingQuery)
             ->orderBy('game_date')
-            ->get();
+            ->orderBy('id')
+            ->first();
+
+        $upcomingRound = $nextGame?->round_number;
+
+        $upcomingGames = $upcomingRound === null
+            ? collect()
+            : (clone $upcomingQuery)
+                ->where('round_number', $upcomingRound)
+                ->with(['homeTeam', 'awayTeam'])
+                ->orderBy('game_date')
+                ->orderBy('id')
+                ->get();
 
         return Inertia::render('games', [
             'season' => $season,
             'games' => $games,
             'lastRoundGames' => $lastRoundGames,
             'lastRound' => $lastRound,
+            'upcomingGames' => $upcomingGames,
+            'upcomingRound' => $upcomingRound,
         ]);
     }
 

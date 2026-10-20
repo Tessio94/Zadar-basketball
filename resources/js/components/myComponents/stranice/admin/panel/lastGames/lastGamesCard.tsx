@@ -1,8 +1,13 @@
-import type { Game } from '@/types/propTypes';
+import { Link } from '@inertiajs/react';
+import { show } from '@/actions/App/Http/Controllers/GameController';
+import type { GameWithTeams } from '@/types/propTypes';
 
-export default function LastGamesCard({ game }: { game: Game }) {
+export default function LastGamesCard({ game }: { game: GameWithTeams }) {
     return (
-        <div className="group relative border-b border-likar3 bg-likar2 px-5 py-5 text-base font-semibold text-slate-100 transition-colors duration-300 first:rounded-t-xl first:border-t last:rounded-b-xl hover:bg-likar2/40 lg:border-likar1 lg:py-1.5">
+        <Link
+            href={show(game.id)}
+            className="group relative block border-b border-likar3 bg-likar2 px-5 py-5 text-base font-semibold text-slate-100 transition-colors duration-300 first:rounded-t-xl first:border-t last:rounded-b-xl hover:bg-likar2/40 lg:border-likar1 lg:py-1.5"
+        >
             <span className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 rounded-sm bg-likar1 p-0.5 text-sm font-normal text-slate-200">
                 R{game.round_number}
             </span>
@@ -43,6 +48,6 @@ export default function LastGamesCard({ game }: { game: Game }) {
                     </div>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 }

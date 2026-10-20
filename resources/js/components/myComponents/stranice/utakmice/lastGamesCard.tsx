@@ -1,10 +1,10 @@
-import type { Game } from '@/types/propTypes';
+import type { GameWithTeams } from '@/types/propTypes';
 
-export default function LastGamesCard({ game }: { game: Game }) {
+export default function LastGamesCard({ game }: { game: GameWithTeams }) {
     return (
         <div className="group relative border-b border-likar3 bg-likar2 px-5 py-5 text-base font-semibold text-slate-100 transition-colors duration-300 first:rounded-t-xl first:border-t last:rounded-b-xl hover:bg-likar2/40 lg:border-likar1 lg:py-1.5">
             <span className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 rounded-sm bg-likar1 p-0.5 text-sm font-normal text-slate-200">
-                R{game.round_number + 1}
+                R{game.round_number}
             </span>
             <div className="max-lg:flex max-lg:flex-row max-lg:items-center max-lg:justify-center">
                 <div className="flex w-full flex-row items-center justify-between gap-2">
@@ -20,11 +20,15 @@ export default function LastGamesCard({ game }: { game: Game }) {
                         <span className="inline text-start sm:hidden">
                             {game.home_team.short_name}
                         </span>
+                        <time
+                            dateTime={game.game_date}
+                            className="mt-2 block text-center text-sm font-normal text-slate-300"
+                        >
+                            {game.game_date}
+                        </time>
                     </div>
                     <div className="max-lg:place-self-center">
-                        <span>{game.home_score}</span>
-                        <span>:</span>
-                        <span>{game.away_score}</span>
+                        <span>VS</span>
                     </div>
                     <div className="flex w-[40%] flex-row justify-end">
                         <div className="flex flex-row items-center gap-2 max-sm:gap-1.5">
@@ -34,6 +38,12 @@ export default function LastGamesCard({ game }: { game: Game }) {
                             <span className="inline text-end sm:hidden">
                                 {game.away_team.short_name}
                             </span>
+                            <time
+                                dateTime={game.game_date}
+                                className="mt-2 block text-center text-sm font-normal text-slate-300"
+                            >
+                                {game.game_date}
+                            </time>
                             <img
                                 src={game.away_team.logo}
                                 alt=""

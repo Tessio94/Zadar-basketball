@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -54,5 +55,17 @@ class Game extends Model
     public function playerStats()
     {
         return $this->hasMany(PlayerGameStat::class);
+    }
+
+    public function scopeUpcoming(Builder $query): void
+    {
+        $query
+            ->where('status', 'scheduled')
+            ->where('game_date', '>=', now());
+    }
+
+    public function scopeFinished(Builder $query): void
+    {
+        $query->where('status', 'finished');
     }
 }

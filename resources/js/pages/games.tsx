@@ -1,18 +1,27 @@
 import { Head } from '@inertiajs/react';
 import TableResults from '@/components/myComponents/stranice/tablica/rezultati/tableResults';
+import GamesEmptyState from '@/components/myComponents/stranice/utakmice/gamesEmptyState';
 import LastGames from '@/components/myComponents/stranice/utakmice/lastGames';
 import UpcomingGames from '@/components/myComponents/stranice/utakmice/upcomingGames';
-import type { GameWithTeams } from '@/types/propTypes';
+import type { GameWithTeams, Season } from '@/types/propTypes';
+
+type GamesProps = {
+    season: Season;
+    games: GameWithTeams[];
+    lastRoundGames: GameWithTeams[];
+    lastRound: number | null;
+    upcomingGames: GameWithTeams[];
+    upcomingRound: number | null;
+};
 
 const Games = ({
+    season,
     games,
     lastRoundGames,
     lastRound,
-}: {
-    games: GameWithTeams[];
-    lastRoundGames: GameWithTeams[];
-    lastRound: number;
-}) => {
+    upcomingGames,
+    upcomingRound,
+}: GamesProps) => {
     console.log(games);
 
     return (
@@ -22,18 +31,24 @@ const Games = ({
                 <meta name="description" content="Your page description" />
             </Head>
             <section className="flex flex-col gap-5 px-[5%] py-10 xl:my-5">
-                <div>
+                {upcomingRound !== null && upcomingGames.length > 0 ? (
                     <UpcomingGames
-                        games={lastRoundGames}
-                        lastRound={lastRound + 1}
+                        games={upcomingGames}
+                        roundNumber={upcomingRound}
                     />
-                </div>
-                <div>
+                ) : (
+                    <GamesEmptyState variant="upcoming" />
+                )}
+
+                {lastRound !== null && lastRoundGames.length > 0 ? (
                     <LastGames games={lastRoundGames} lastRound={lastRound} />
-                </div>
-                <div>
-                    <TableResults games={games} />
-                </div>
+                ) : (
+                    <GamesEmptyState variant="results" />
+                )}
+
+                {games.length > 0 && (
+                    <TableResults games={games} seasonName={season.name} />
+                )}
             </section>
         </>
     );
