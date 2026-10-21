@@ -60,7 +60,7 @@ export default function LeadersRow({
             <td className="p-2 max-[500px]:p-1">
                 <div className="flex flex-row items-center justify-center">
                     <BasketballPlayerIcon
-                        className="team-player-icon h-5 w-5 shrink-0 rounded-full border border-likar3/40 bg-likar4/70 max-[500px]:h-3.5 max-[500px]:w-3.5"
+                        className="team-player-icon h-6 w-6 shrink-0 rounded-full border border-likar3/40 bg-likar4/70 max-[500px]:h-3.5 max-[500px]:w-3.5"
                         jerseyColor={player.team.logo_color}
                     />
                 </div>
@@ -70,15 +70,15 @@ export default function LeadersRow({
                 <div className="flex flex-row items-center justify-center">
                     <Link href={showTeam(player.team.id)}>
                         <img
-                            src={player.team.logo}
-                            alt=""
-                            className="h-5 w-5 shrink-0 rounded-full border border-slate-100/80 max-[500px]:h-3.5 max-[500px]:w-3.5"
+                            src={`/storage/${player.team.logo}`}
+                            alt={`${player.team.name} logo`}
+                            className="h-6 w-6 shrink-0 rounded-full border border-slate-100/80 max-[500px]:h-3.5 max-[500px]:w-3.5"
                         />
                     </Link>
                 </div>
             </td>
             <td className="p-2 max-[500px]:p-1">
-                <Link href={show(player.id)} className="hover:underline">
+                <Link href={show(player.player_id)} className="hover:underline">
                     {`${player.player.first_name} ${player.player.last_name}`}
                 </Link>
             </td>

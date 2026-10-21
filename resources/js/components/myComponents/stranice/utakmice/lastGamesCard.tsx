@@ -1,3 +1,6 @@
+import { Link } from '@inertiajs/react';
+import { show } from '@/actions/App/Http/Controllers/GameController';
+import { formatDate, formatTime } from '@/lib/utils';
 import type { GameWithTeams } from '@/types/propTypes';
 
 export default function LastGamesCard({ game }: { game: GameWithTeams }) {
@@ -10,8 +13,8 @@ export default function LastGamesCard({ game }: { game: GameWithTeams }) {
                 <div className="flex w-full flex-row items-center justify-between gap-2">
                     <div className="flex w-[40%] flex-row items-center gap-2 max-sm:gap-1.5">
                         <img
-                            src={game.home_team.logo}
-                            alt=""
+                            src={`/storage/${game.home_team.logo}`}
+                            alt={`${game.home_team.name} name`}
                             className="h-10 w-10 rounded-full max-sm:h-9 max-sm:w-9"
                         />
                         <span className="hidden text-start sm:inline">
@@ -20,15 +23,30 @@ export default function LastGamesCard({ game }: { game: GameWithTeams }) {
                         <span className="inline text-start sm:hidden">
                             {game.home_team.short_name}
                         </span>
-                        <time
-                            dateTime={game.game_date}
-                            className="mt-2 block text-center text-sm font-normal text-slate-300"
-                        >
-                            {game.game_date}
-                        </time>
                     </div>
                     <div className="max-lg:place-self-center">
-                        <span>VS</span>
+                        <span>
+                            {game.status === 'finished' ? (
+                                <Link
+                                    href={show(game.id)}
+                                    className="font-semibold hover:underline"
+                                >
+                                    {game.home_score} - {game.away_score}
+                                </Link>
+                            ) : (
+                                <time
+                                    dateTime={game.game_date}
+                                    className="mt-2 flex flex-row flex-wrap items-center justify-center gap-2 text-center text-sm font-normal text-slate-300 xl:gap-4 xl:text-base"
+                                >
+                                    <span>
+                                        {formatDate(new Date(game.game_date))}
+                                    </span>
+                                    <span>
+                                        {formatTime(new Date(game.game_date))}
+                                    </span>
+                                </time>
+                            )}
+                        </span>
                     </div>
                     <div className="flex w-[40%] flex-row justify-end">
                         <div className="flex flex-row items-center gap-2 max-sm:gap-1.5">
@@ -38,15 +56,10 @@ export default function LastGamesCard({ game }: { game: GameWithTeams }) {
                             <span className="inline text-end sm:hidden">
                                 {game.away_team.short_name}
                             </span>
-                            <time
-                                dateTime={game.game_date}
-                                className="mt-2 block text-center text-sm font-normal text-slate-300"
-                            >
-                                {game.game_date}
-                            </time>
+
                             <img
-                                src={game.away_team.logo}
-                                alt=""
+                                src={`/storage/${game.away_team.logo}`}
+                                alt={`${game.away_team.name} name`}
                                 className="h-10 w-10 rounded-full max-sm:h-9 max-sm:w-9"
                             />
                         </div>

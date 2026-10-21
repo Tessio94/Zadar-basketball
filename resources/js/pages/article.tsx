@@ -35,7 +35,7 @@ export default function Article({
                     }
                 />
             </Head>
-            <section className="mx-auto my-5 max-[450px]:px-4! max-2xl:px-18 max-xl:px-16 max-lg:px-12 max-sm:px-10 sm:my-5 2xl:max-w-300">
+            <section className="mx-auto my-5 max-[450px]:px-4! max-2xl:px-18 max-xl:px-16 max-lg:px-12 max-sm:px-10 sm:my-5 sm:mb-10 2xl:max-w-300">
                 <div className="rounded-4xl border border-likar1 bg-likar2 shadow-2xl shadow-likar1">
                     <div className="relative h-[65vh] sm:h-[85vh]">
                         <div

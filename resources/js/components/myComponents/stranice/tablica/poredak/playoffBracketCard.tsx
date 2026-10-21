@@ -1,31 +1,77 @@
-import { ShieldHalf } from 'lucide-react';
+import { ShieldHalf, Trophy } from 'lucide-react';
+import { useState } from 'react';
+import type { PlayoffSeriesTeam } from '@/types/playoffs';
 
-export default function PlayoffBracketCard() {
+type PlayoffBracketCardProps = PlayoffSeriesTeam & {
+    winner?: boolean;
+    eliminated?: boolean;
+};
+
+function logoUrl(logo: string | null) {
+    if (!logo) return null;
+    if (/^(https?:\/\/|\/)/i.test(logo)) return logo;
+    return `/storage/${logo.split('/').map(encodeURIComponent).join('/')}`;
+}
+
+export default function PlayoffBracketCard({
+    team,
+    wins,
+    placeholder,
+    winner = false,
+    eliminated = false,
+}: PlayoffBracketCardProps) {
+    const [failedLogo, setFailedLogo] = useState(false);
+    const logo = logoUrl(team?.logo ?? null);
+
     return (
-        <div className="flex flex-col rounded-2xl p-2.5 odd:pb-1.25 even:pt-1.25">
-            <div className="rounded-t-xl rounded-b-xl bg-linear-to-r from-likar2 to-likar1">
-                <div className="group relative border-b border-likar3 bg-likar2 px-5 py-5 text-base font-semibold text-slate-100 first:rounded-t-xl first:border-t last:rounded-b-xl lg:border-likar1 lg:py-1.5">
-                    <div className="flex w-full flex-row items-center justify-between gap-2">
-                        <div className="flex flex-row items-center gap-2 max-sm:gap-1.5">
-                            {/* <img
-                                src={'images/teams/sfinga.jpg'}
-                                alt=""
-                                className="h-10 w-10 rounded-full max-sm:h-9 max-sm:w-9"
-                            />
-                            <span className="inline text-start font-heading text-xl">
-                                KK Sfinga Staffordi
-                            </span> */}
-                            <ShieldHalf className="h-10 w-10 rounded-full border border-slate-100 bg-slate-200/20 p-1 max-sm:h-9 max-sm:w-9" />
-                            <span className="inline text-start font-heading text-xl">
-                                TBD
-                            </span>
-                        </div>
-                        <div className="font-heading text-2xl text-slate-100">
-                            1
-                        </div>
-                    </div>
-                </div>
+        <div
+            className={`relative flex items-center justify-between gap-3 px-3 py-3 text-slate-100 ${winner ? 'bg-likar3/15' : ''} ${eliminated ? 'opacity-50' : ''}`}
+        >
+            <div className="flex min-w-0 items-center gap-2.5">
+                <span className="w-4 shrink-0 text-center text-xs text-slate-400">
+                    {team?.seed ?? '—'}
+                </span>
+                {logo && !failedLogo ? (
+                    <img
+                        src={logo}
+                        alt=""
+                        loading="lazy"
+                        onError={() => setFailedLogo(true)}
+                        className="size-9 shrink-0 rounded-full bg-white/10 object-contain"
+                    />
+                ) : (
+                    <ShieldHalf
+                        aria-hidden="true"
+                        className="size-9 shrink-0 rounded-full border border-slate-100/30 bg-slate-200/10 p-1"
+                    />
+                )}
+                <span className="min-w-0 text-left">
+                    <span
+                        className={`block truncate font-heading text-base ${winner ? 'text-likar3' : ''}`}
+                        title={team?.name ?? placeholder}
+                    >
+                        {team?.name ?? 'TBD'}
+                    </span>
+                    {!team && placeholder !== 'TBD' && (
+                        <span className="block text-[10px] text-slate-400">
+                            {placeholder}
+                        </span>
+                    )}
+                </span>
             </div>
+            <span className="flex shrink-0 items-center gap-2">
+                {winner && (
+                    <Trophy
+                        aria-label="Pobjednik serije"
+                        className="size-3.5 text-likar3"
+                    />
+                )}
+                <span
+                    className={`font-heading text-2xl tabular-nums ${winner ? 'text-likar3' : ''}`}
+                >
+                    {wins ?? '—'}
+                </span>
+            </span>
         </div>
     );
 }

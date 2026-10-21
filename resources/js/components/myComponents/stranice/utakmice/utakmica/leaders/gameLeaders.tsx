@@ -1,7 +1,12 @@
-import type { GameLeaders } from '@/types/propTypes';
+import type { GameBoxscoreLeaders } from '@/types/game-boxscore';
+// import type { GameLeaders } from '@/types/propTypes';
 import LeadersRow from './leadersRow';
 
-export default function GameLeaders({ leaders }: { leaders: GameLeaders }) {
+export default function GameLeaders({
+    leaders,
+}: {
+    leaders: GameBoxscoreLeaders;
+}) {
     const {
         points,
         assists,

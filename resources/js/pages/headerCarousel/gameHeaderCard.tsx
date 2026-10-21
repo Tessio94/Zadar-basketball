@@ -13,7 +13,7 @@ export default function GameHeaderCard({ game }: { game: GameWithTeams }) {
                         <div className="flex flex-col items-start justify-between">
                             <p className="flex flex-row flex-nowrap items-center justify-center gap-4 text-nowrap text-slate-100">
                                 <img
-                                    src={home_team.logo}
+                                    src={`/storage/${home_team.logo}`}
                                     alt={`${home_team.name} logo`}
                                     className="h-6 w-6 rounded-full bg-white"
                                 />
@@ -22,7 +22,7 @@ export default function GameHeaderCard({ game }: { game: GameWithTeams }) {
                             <hr className="w-full border border-likar1" />
                             <p className="flex flex-row flex-nowrap items-center justify-between justify-center gap-4 text-nowrap text-slate-100">
                                 <img
-                                    src={away_team.logo}
+                                    src={`/storage/${away_team.logo}`}
                                     alt={`${away_team.name} logo`}
                                     className="h-6 w-6 rounded-full bg-white"
                                 />

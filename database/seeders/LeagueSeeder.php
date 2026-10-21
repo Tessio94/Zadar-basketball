@@ -7,77 +7,100 @@ namespace Database\Seeders;
 use App\Models\Game;
 use App\Models\Player;
 use App\Models\PlayerGameStat;
+use App\Models\Playoff;
 use App\Models\Season;
 use App\Models\Team;
 use App\Models\TeamSeason;
+use App\Services\StandingsService;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Carbon\CarbonInterface;
+use RuntimeException;
+use Throwable;
 
 class LeagueSeeder extends Seeder
 {
+    private const ACTIVE_FINISHED_ROUNDS = 4;
+
+    /** @var list<string> */
+    private array $createdLogoPaths = [];
+
     public function run(): void
     {
-        DB::transaction(function (): void {
+        $this->createdLogoPaths = [];
 
-            /*
-             * ---------------------------------------------------------
-             * 1. Create real-world teams ONCE
-             * ---------------------------------------------------------
-             */
+        try {
+            DB::transaction(function (): void {
 
-            $teams = $this->createTeams();
+                /*
+                 * ---------------------------------------------------------
+                 * 1. Create real-world teams ONCE
+                 * ---------------------------------------------------------
+                 */
 
-            /*
-             * ---------------------------------------------------------
-             * 2. Create real-world players ONCE
-             *
-             * Players are not tied to a season here.
-             * The same Player record can therefore appear in multiple
-             * seasons through team_season_players.
-             * ---------------------------------------------------------
-             */
+                $teams = $this->createTeams();
 
-            $playersByTeam = $this->createPlayers($teams);
+                /*
+                 * ---------------------------------------------------------
+                 * 2. Create real-world players ONCE
+                 *
+                 * Players are not tied to a season here.
+                 * The same Player record can therefore appear in multiple
+                 * seasons through team_season_players.
+                 * ---------------------------------------------------------
+                 */
 
-            /*
-             * ---------------------------------------------------------
-             * 3. Create seasons
-             * ---------------------------------------------------------
-             */
+                $playersByTeam = $this->createPlayers($teams);
 
-            $seasonsData = [
-                [
-                    'name' => '2025-2026',
-                    'start_date' => now()->subYear(),
-                    'end_date' => now()->subYear()->addMonths(8),
-                    'is_active' => true,
-                ],
-                [
-                    'name' => '2024-2025',
-                    'start_date' => now()->subYears(2),
-                    'end_date' => now()->subYears(2)->addMonths(8),
-                    'is_active' => false,
-                ],
-                [
-                    'name' => '2023-2024',
-                    'start_date' => now()->subYears(3),
-                    'end_date' => now()->subYears(3)->addMonths(8),
-                    'is_active' => false,
-                ],
-            ];
+                /*
+                 * ---------------------------------------------------------
+                 * 3. Create seasons
+                 * ---------------------------------------------------------
+                 */
 
-            foreach ($seasonsData as $seasonData) {
-                $season = Season::create($seasonData);
+                $seasonsData = [
+                    [
+                        'name' => '2025-2026',
+                        'start_date' => now()->startOfDay()->subDays(28),
+                        'end_date' => now()->startOfDay()->addMonths(4),
+                        'is_active' => true,
+                    ],
+                    [
+                        'name' => '2024-2025',
+                        'start_date' => now()->subYears(2),
+                        'end_date' => now()->subYears(2)->addMonths(8),
+                        'is_active' => false,
+                    ],
+                    [
+                        'name' => '2023-2024',
+                        'start_date' => now()->subYears(3),
+                        'end_date' => now()->subYears(3)->addMonths(8),
+                        'is_active' => false,
+                    ],
+                ];
 
-                $this->seedSeason(
-                    season: $season,
-                    teams: $teams,
-                    playersByTeam: $playersByTeam,
-                );
+                foreach ($seasonsData as $seasonData) {
+                    $season = Season::create($seasonData);
+
+                    $this->seedSeason(
+                        season: $season,
+                        teams: $teams,
+                        playersByTeam: $playersByTeam,
+                    );
+                }
+            });
+        } catch (Throwable $exception) {
+            // Database rollback does not remove filesystem writes.
+            if ($this->createdLogoPaths !== []) {
+                Storage::disk('public')->delete($this->createdLogoPaths);
             }
-        });
+            throw $exception;
+        }
     }
 
     /*
@@ -140,7 +163,7 @@ class LeagueSeeder extends Seeder
                 'short_name' => Str::upper(
                     Str::substr($teamData['name'], 3, 3)
                 ),
-                'logo' => '/images/teams/' . $teamData['logo'],
+                'logo' => $this->storeTeamLogo($teamData['logo']),
                 'logo_color' => $teamData['logo_color'],
                 'city' => 'Zadar',
             ]);
@@ -259,73 +282,224 @@ class LeagueSeeder extends Seeder
          * ---------------------------------------------------------
          */
 
+        $this->seedRegularGames($season, $teams, $teamSeasons, $matchups);
+
+        // Only the two historical seasons get completed playoff brackets.
+        if (! $season->is_active) {
+            $this->seedPlayoffs($season, $teams, $teamSeasons);
+        }
+    }
+
+    private function seedRegularGames(
+        Season $season,
+        Collection $teams,
+        Collection $teamSeasons,
+        Collection $matchups,
+    ): void {
+        $gamesPerRound = intdiv($teams->count(), 2);
+        $finishedGameCount = min(
+            self::ACTIVE_FINISHED_ROUNDS * $gamesPerRound,
+            $matchups->count(),
+        );
+        $today = now()->startOfDay();
+
         foreach ($matchups->values() as $index => $match) {
-            $homeTeam = $match['home'];
-            $awayTeam = $match['away'];
+            $roundNumber = intdiv($index, $gamesPerRound) + 1;
+            $upcoming = $season->is_active && $index >= $finishedGameCount;
 
-            $homeTeamSeason = $teamSeasons->get($homeTeam->id);
-            $awayTeamSeason = $teamSeasons->get($awayTeam->id);
+            if ($upcoming) {
+                $date = $today->copy()
+                    ->addDays($index - $finishedGameCount + 1)
+                    ->setTime(20, 0);
 
-            $game = Game::create([
-                'season_id' => $season->id,
-                'home_team_id' => $homeTeam->id,
-                'away_team_id' => $awayTeam->id,
-                'game_date' => $season->start_date->copy()->addDays($index + 1),
-                'round_number' => (int) ceil(($index + 1) / 4),
-                'status' => 'finished',
-            ]);
+                Game::create([
+                    'season_id' => $season->id,
+                    'home_team_id' => $match['home']->id,
+                    'away_team_id' => $match['away']->id,
+                    'game_date' => $date,
+                    'round_number' => $roundNumber,
+                    'status' => 'scheduled',
+                    'home_score' => 0,
+                    'away_score' => 0,
+                ]);
 
-            /*
-             * Generate player stats from the roster belonging to
-             * this particular TeamSeason.
-             */
+                // No result or player statistics before the fixture is played.
+                continue;
+            }
 
-            $this->generateBoxscore(
-                game: $game,
-                teamSeason: $homeTeamSeason,
-            );
+            $date = $season->is_active
+                ? $today->copy()->subDays($finishedGameCount - $index)->setTime(20, 0)
+                : Carbon::parse($season->start_date)->addDays($index + 1)->setTime(20, 0);
 
-            $this->generateBoxscore(
-                game: $game,
-                teamSeason: $awayTeamSeason,
-            );
-
-            /*
-             * -----------------------------------------------------
-             * Calculate final score from player statistics.
-             * -----------------------------------------------------
-             */
-
-            $homePoints = PlayerGameStat::query()
-                ->where('game_id', $game->id)
-                ->where('team_id', $homeTeam->id)
-                ->sum('points');
-
-            $awayPoints = PlayerGameStat::query()
-                ->where('game_id', $game->id)
-                ->where('team_id', $awayTeam->id)
-                ->sum('points');
-
-            $game->update([
-                'home_score' => $homePoints,
-                'away_score' => $awayPoints,
-            ]);
-
-            /*
-             * -----------------------------------------------------
-             * Generate plus/minus.
-             * -----------------------------------------------------
-             */
-
-            $margin = $homePoints - $awayPoints;
-
-            $this->assignPlusMinus(
-                game: $game,
-                home: $homeTeam,
-                away: $awayTeam,
-                margin: $margin,
+            $this->createFinishedGame(
+                season: $season,
+                home: $match['home'],
+                away: $match['away'],
+                teamSeasons: $teamSeasons,
+                date: $date,
+                roundNumber: $roundNumber,
             );
         }
+    }
+
+    private function storeTeamLogo(string $filename): string
+    {
+        $source = public_path('images/teams/' . $filename);
+        if (! is_file($source)) {
+            throw new RuntimeException("Missing seed logo: {$source}");
+        }
+
+        // Same public disk, directory and generated filenames as TeamController.
+        $path = Storage::disk('public')->putFile('teams', new File($source));
+        if ($path === false) {
+            throw new RuntimeException("Could not store seed logo: {$filename}");
+        }
+        $this->createdLogoPaths[] = $path;
+
+        return $path;
+    }
+
+    private function createFinishedGame(
+        Season $season,
+        Team $home,
+        Team $away,
+        Collection $teamSeasons,
+        CarbonInterface $date,
+        int $roundNumber,
+        ?Playoff $playoff = null,
+        ?string $playoffRound = null,
+    ): Game {
+        $game = new Game([
+            'season_id' => $season->id,
+            'home_team_id' => $home->id,
+            'away_team_id' => $away->id,
+            'game_date' => $date,
+            'round_number' => $roundNumber,
+            'status' => 'finished',
+        ]);
+
+        // Explicit assignment works with your current Game::$fillable.
+        $game->playoff_id = $playoff?->id;
+        $game->playoff_round = $playoffRound;
+        $game->save();
+
+        $this->generateBoxscore($game, $teamSeasons->get($home->id));
+        $this->generateBoxscore($game, $teamSeasons->get($away->id));
+
+        $homePoints = (int) $game->playerStats()->where('team_id', $home->id)->sum('points');
+        $awayPoints = (int) $game->playerStats()->where('team_id', $away->id)->sum('points');
+
+        // A finished basketball game must have a winner. Add one made free
+        // throw to a player's line, keeping the box score and total consistent.
+        if ($homePoints === $awayPoints) {
+            $winnerId = rand(0, 1) === 0 ? $home->id : $away->id;
+            $stat = $game->playerStats()->where('team_id', $winnerId)->firstOrFail();
+            $stat->update([
+                'ft_attempted' => $stat->ft_attempted + 1,
+                'ft_made' => $stat->ft_made + 1,
+                'points' => $stat->points + 1,
+                'efficiency' => $stat->efficiency + 1,
+            ]);
+            if ($winnerId === $home->id) {
+                $homePoints++;
+            } else {
+                $awayPoints++;
+            }
+        }
+
+        $game->update(['home_score' => $homePoints, 'away_score' => $awayPoints]);
+        $this->assignPlusMinus($game, $home, $away, $homePoints - $awayPoints);
+
+        return $game;
+    }
+
+    private function seedPlayoffs(
+        Season $season,
+        Collection $teams,
+        Collection $teamSeasons,
+    ): void {
+        // StandingsService excludes playoff games and uses wins, difference,
+        // then team ID as a deterministic fallback for a complete tie.
+        $standings = app(StandingsService::class)->getStandings($season->id)->take(8);
+        if ($standings->count() !== 8) {
+            throw new RuntimeException('The playoff bracket requires eight teams.');
+        }
+        $teamsById = $teams->keyBy('id');
+        $seededTeams = $standings->map(fn (array $row): Team => $teamsById->get($row['id']))->values();
+        $seeds = $seededTeams->mapWithKeys(fn (Team $team, int $index): array => [$team->id => $index + 1]);
+
+        $regularGames = $season->games()->whereNull('playoff_id');
+        $lastRegularDate = Carbon::parse((clone $regularGames)->max('game_date'));
+        $lastRegularRound = (int) (clone $regularGames)->max('round_number');
+        $quarterfinalStart = $lastRegularDate->copy()->addDays(7);
+
+        $playoff = Playoff::create([
+            'season_id' => $season->id,
+            'name' => 'Doigravanje ' . $season->name,
+        ]);
+
+        // Quarterfinals: 1-8, 2-7, 3-6, 4-5.
+        $quarterfinalWinners = collect();
+        foreach ([[0, 7], [1, 6], [2, 5], [3, 4]] as [$higher, $lower]) {
+            $quarterfinalWinners->push($this->playSeries(
+                $season, $playoff, $seededTeams[$higher], $seededTeams[$lower],
+                $teamSeasons, $seeds, 'quarterfinal', $lastRegularRound + 1,
+                $quarterfinalStart,
+            ));
+        }
+
+        // Fixed bracket: winner(1-8) v winner(4-5), winner(2-7) v winner(3-6).
+        $semifinalStart = $quarterfinalStart->copy()->addDays(10);
+        $finalists = collect();
+        foreach ([[0, 3], [1, 2]] as [$first, $second]) {
+            $finalists->push($this->playSeries(
+                $season, $playoff, $quarterfinalWinners[$first], $quarterfinalWinners[$second],
+                $teamSeasons, $seeds, 'semifinal', $lastRegularRound + 2,
+                $semifinalStart,
+            ));
+        }
+
+        $this->playSeries(
+            $season, $playoff, $finalists[0], $finalists[1],
+            $teamSeasons, $seeds, 'final', $lastRegularRound + 3,
+            $semifinalStart->copy()->addDays(10),
+        );
+    }
+
+    private function playSeries(
+        Season $season,
+        Playoff $playoff,
+        Team $first,
+        Team $second,
+        Collection $teamSeasons,
+        Collection $seeds,
+        string $round,
+        int $roundNumber,
+        CarbonInterface $startDate,
+    ): Team {
+        // Higher regular-season seed hosts games one and three (H-A-H).
+        [$higher, $lower] = $seeds[$first->id] < $seeds[$second->id]
+            ? [$first, $second]
+            : [$second, $first];
+        $wins = [$higher->id => 0, $lower->id => 0];
+
+        for ($gameNumber = 1; $gameNumber <= 3; $gameNumber++) {
+            $home = $gameNumber === 2 ? $lower : $higher;
+            $away = $gameNumber === 2 ? $higher : $lower;
+            $game = $this->createFinishedGame(
+                $season, $home, $away, $teamSeasons,
+                $startDate->copy()->addDays(($gameNumber - 1) * 3),
+                $roundNumber, $playoff, $round,
+            );
+            $winner = $game->home_score > $game->away_score ? $home : $away;
+            $wins[$winner->id]++;
+
+            if ($wins[$winner->id] === 2) {
+                return $winner;
+            }
+        }
+
+        throw new RuntimeException('A best-of-three series must have a winner.');
     }
 
     /*

@@ -13,7 +13,7 @@ export default function Teams({ teams }: { teams: Team[] }) {
             <section className="px-[5%] py-10 xl:my-5">
                 <div className="mb-10 flex flex-row items-center justify-between">
                     <h1 className="font-heading text-4xl font-semibold text-slate-100">
-                        Tablica
+                        Ekipe
                     </h1>
                     <FilterSeason />
                 </div>

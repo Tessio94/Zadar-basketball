@@ -15,8 +15,8 @@ export default function LastGamesCard({ game }: { game: GameWithTeams }) {
                 <div className="flex w-full flex-row items-center justify-between gap-2">
                     <div className="flex w-[40%] flex-row items-center gap-2 max-sm:gap-1.5">
                         <img
-                            src={game.home_team.logo}
-                            alt=""
+                            src={`/storage/${game.home_team.logo}`}
+                            alt={`${game.home_team.name} name`}
                             className="h-10 w-10 rounded-full max-sm:h-9 max-sm:w-9"
                         />
                         <span className="hidden text-start sm:inline">
@@ -40,8 +40,8 @@ export default function LastGamesCard({ game }: { game: GameWithTeams }) {
                                 {game.away_team.short_name}
                             </span>
                             <img
-                                src={game.away_team.logo}
-                                alt=""
+                                src={`/storage/${game.away_team.logo}`}
+                                alt={`${game.away_team.name} name`}
                                 className="h-10 w-10 rounded-full max-sm:h-9 max-sm:w-9"
                             />
                         </div>

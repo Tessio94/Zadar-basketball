@@ -67,7 +67,7 @@ export default function StatisticsAverageRow({
                     ) : (
                         <Link href={showTeam(team.id)}>
                             <img
-                                src={team.logo}
+                                src={`/storage/${team.logo}`}
                                 alt={`${team.name} logo`}
                                 height={40}
                                 width={40}
@@ -107,7 +107,7 @@ export default function StatisticsAverageRow({
                     ) : (
                         <Link href={showTeam(team.id)}>
                             <img
-                                src={team.logo}
+                                src={`/storage/${team.logo}`}
                                 alt={`${team.name} logo`}
                                 height={40}
                                 width={40}
@@ -139,7 +139,7 @@ export default function StatisticsAverageRow({
                         })}
                     >
                         <img
-                            src={team.logo}
+                            src={`/storage/${team.logo}`}
                             alt={`${team.name} logo`}
                             height={40}
                             width={40}

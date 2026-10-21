@@ -1,16 +1,25 @@
 import { Link } from '@inertiajs/react';
 import { show } from '@/actions/App/Http/Controllers/TeamController';
-import type { GameStatsWithPlayerAndTeam, Team } from '@/types/propTypes';
+import type {
+    GameBoxscorePlayerStat,
+    GameTeamTotal,
+} from '@/types/game-boxscore';
+import type { Team } from '@/types/propTypes';
 import BoxScoreHeader from './boxScoreHeader';
 import BoxScoreRow from './boxScoreRow';
+import BoxScoreTotalsRow from './boxScoreTotalsRow';
 
 export default function GameBoxScore({
     team,
     players,
+    totals,
 }: {
     team: Team;
-    players: GameStatsWithPlayerAndTeam[];
+    players: GameBoxscorePlayerStat[];
+    totals: GameTeamTotal;
 }) {
+    console.log('team', team);
+    console.log('players', players);
     return (
         <section className="relative mx-auto mb-10 px-[5%]">
             <div className="relative overflow-hidden rounded-xl border border-likar3/40">
@@ -20,8 +29,8 @@ export default function GameBoxScore({
                         className="pointer-events-none flex w-fit flex-row items-center gap-5 p-3"
                     >
                         <img
-                            src={team.logo}
-                            alt={`${team.name}`}
+                            src={`/storage/${team.logo}`}
+                            alt={`${team.name} logo`}
                             className="pointer-events-auto aspect-square w-15 shrink-0 cursor-pointer rounded-2xl max-sm:w-8"
                         />
                         <p className="pointer-events-auto cursor-pointer font-heading text-xl font-semibold text-slate-100 hover:underline">
@@ -85,70 +94,7 @@ export default function GameBoxScore({
                                     </span>
                                 </th>
                             </tr>
-                            <tr className="bg-likar1/60 text-slate-100">
-                                <td
-                                    className="p-1 text-center font-semibold text-nowrap"
-                                    colSpan={4}
-                                ></td>
-
-                                <td className="p-1 text-center font-semibold text-nowrap">
-                                    16
-                                </td>
-                                <td className="p-1 text-center font-semibold text-nowrap">
-                                    7-15
-                                </td>
-                                <td className="p-1 text-center font-semibold text-nowrap">
-                                    46
-                                </td>
-                                <td className="p-1 text-center font-semibold text-nowrap">
-                                    7-11
-                                </td>
-                                <td className="p-1 text-center font-semibold text-nowrap">
-                                    63
-                                </td>
-                                <td className="p-1 text-center font-semibold text-nowrap">
-                                    0-4
-                                </td>
-                                <td className="p-1 text-center font-semibold text-nowrap">
-                                    0
-                                </td>
-                                <td className="p-1 text-center font-semibold text-nowrap">
-                                    2-2
-                                </td>
-                                <td className="p-1 text-center font-semibold text-nowrap">
-                                    100
-                                </td>
-                                <td className="p-1 text-center font-semibold text-nowrap">
-                                    1
-                                </td>
-                                <td className="p-1 text-center font-semibold text-nowrap">
-                                    4
-                                </td>
-                                <td className="p-1 text-center font-semibold text-nowrap">
-                                    5
-                                </td>
-                                <td className="p-1 text-center font-semibold text-nowrap">
-                                    8
-                                </td>
-                                <td className="p-1 text-center font-semibold text-nowrap">
-                                    2
-                                </td>
-                                <td className="p-1 text-center font-semibold text-nowrap">
-                                    0
-                                </td>
-                                <td className="p-1 text-center font-semibold text-nowrap">
-                                    0
-                                </td>
-                                <td className="p-1 text-center font-semibold text-nowrap">
-                                    6
-                                </td>
-                                <td className="p-1 text-center font-semibold text-nowrap">
-                                    2
-                                </td>
-                                <td className="p-1 text-center font-semibold text-nowrap">
-                                    19
-                                </td>
-                            </tr>
+                            <BoxScoreTotalsRow totals={totals} />
                         </tbody>
                     </table>
                 </div>

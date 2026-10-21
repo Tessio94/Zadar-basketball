@@ -34,7 +34,7 @@ export default function StandingRow({
                     className="flex flex-row flex-nowrap items-center justify-center gap-4 text-nowrap hover:underline"
                 >
                     <img
-                        src={logo}
+                        src={`/storage/${logo}`}
                         alt={`${name} logo`}
                         className="h-6 w-6 shrink-0 rounded-full bg-white"
                     />
@@ -54,7 +54,7 @@ export default function StandingRow({
             <td className="border-r border-likar4 p-2 text-center">
                 {difference}
             </td>
-            <td className="flex flex-row items-center justify-center gap-0.5 p-2 text-center">
+            <td className="flex flex-row items-center justify-end gap-0.5 p-2 text-center md:justify-center">
                 {form.map((game, i) => {
                     return game === 'W' ? (
                         <span

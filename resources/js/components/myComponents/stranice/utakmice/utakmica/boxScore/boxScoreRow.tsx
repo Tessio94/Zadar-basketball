@@ -1,11 +1,12 @@
 import { Link } from '@inertiajs/react';
 import { show } from '@/actions/App/Http/Controllers/PlayerController';
-import type { GameStatsWithPlayerAndTeam } from '@/types/propTypes';
+// import type { GameStatsWithPlayerAndTeam } from '@/types/propTypes';
+import type { GameBoxscorePlayerStat } from '@/types/game-boxscore';
 
 export default function BoxScoreRow({
     player,
 }: {
-    player: GameStatsWithPlayerAndTeam;
+    player: GameBoxscorePlayerStat;
 }) {
     const {
         player: { id, first_name, last_name, position },
@@ -33,7 +34,9 @@ export default function BoxScoreRow({
 
     return (
         <tr className="text-slate-100 odd:[&>td]:bg-likar2odd even:[&>td]:bg-likar2even">
-            <td className="p-1 text-center text-nowrap">4</td>
+            <td className="p-1 text-center text-nowrap">
+                {player.jersey_number ?? '—'}
+            </td>
             <td className="sticky left-0 z-100 p-1 text-center text-nowrap">
                 <Link
                     href={show(id)}

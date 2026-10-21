@@ -67,7 +67,12 @@ export default function Team({
                                 jerseyColor={logo_color}
                             />
                         )}
-                        {active === 'tab2' && <TeamResults games={games} />}
+                        {active === 'tab2' && (
+                            <TeamResults
+                                seasonName={season.name}
+                                games={games}
+                            />
+                        )}
                         {active === 'tab3' && (
                             <div className="mx-auto w-full rounded-2xl bg-likar1/30 p-2 sm:grid sm:items-stretch sm:gap-10 lg:grid-cols-2">
                                 {teamLeaders.map((category, i) => {

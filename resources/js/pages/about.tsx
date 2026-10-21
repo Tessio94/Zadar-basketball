@@ -1,426 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
-
-const styles = `
-.about-likar {
-    --orange:#ff6e00;
-    color:#f5f3ed;
-    padding:40px 5% 64px;
-    font-family:var(--font-text,sans-serif);
-}
-.about-likar *,.about-likar *::before,.about-likar *::after {
-    box-sizing:border-box;
-}
-.about-likar h1,.about-likar h2,.about-likar p {
-    margin:0;
-}
-.about-likar a {
-    text-decoration:none;
-}
-.about-likar a:focus-visible {
-    outline:3px solid #ffad70;
-    outline-offset:6px;
-}
-.about-shell {
-    max-width:1440px;
-    margin:auto;
-    overflow:hidden;
-    border:1px solid #ffffff16;
-    border-radius:24px;
-    background:#101317;
-}
-.about-hero {
-    position:relative;
-    isolation:isolate;
-    overflow:hidden;
-}
-.about-hero::before {
-    content:'';
-    position:absolute;
-    inset:0;
-    z-index:-2;
-    background:linear-gradient(90deg,#101317f5 0%,#101317de 50%,#1013178a 100%),url('/images/design/hardwood.jpg') center/cover;
-}
-.about-hero::after {
-    content:'';
-    position:absolute;
-    inset:0;
-    z-index:-1;
-    background:radial-gradient(ellipse at 83% 40%,#ff6e0029,transparent 52%);
-}
-.about-topline {
-    display:flex;
-    justify-content:space-between;
-    gap:16px;
-    padding:24px 5%;
-    border-bottom:1px solid #ffffff14;
-    font-size:10px;
-    font-weight:700;
-    letter-spacing:.2em;
-    text-transform:uppercase;
-    color:#b9bcc2;
-}
-.about-topline span:first-child {
-    color:var(--orange);
-}
-.about-hero-grid {
-    display:grid;
-    grid-template-columns:1.12fr 1fr;
-    align-items:center;
-    padding:72px 5% 76px;
-}
-.about-intro {
-    position:relative;
-    z-index:2;
-}
-.about-kicker {
-    display:flex;
-    align-items:center;
-    gap:12px;
-    font-size:11px;
-    font-weight:700;
-    line-height:1.6;
-    letter-spacing:.18em;
-    text-transform:uppercase;
-    color:var(--orange);
-}
-.about-kicker::before {
-    content:'';
-    flex-shrink:0;
-    width:28px;
-    height:2px;
-    background:currentColor;
-}
-.about-likar h1 {
-    margin:24px 0 26px;
-    font-family:var(--font-heading,sans-serif);
-    font-size:clamp(48px,5.7vw,88px);
-    font-weight:700;
-    line-height:1.04;
-    letter-spacing:-.025em;
-    text-transform:uppercase;
-}
-.about-likar h1 span {
-    display:block;
-    color:var(--orange);
-}
-.about-lead {
-    max-width:440px;
-    font-size:16px;
-    line-height:1.85;
-    color:#c4c6ca;
-}
-.about-actions {
-    display:flex;
-    flex-wrap:wrap;
-    align-items:center;
-    gap:24px;
-    margin-top:32px;
-}
-.about-button {
-    display:inline-flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:28px;
-    min-height:48px;
-    padding:13px 20px;
-    border:1px solid var(--orange);
-    border-radius:5px;
-    background:var(--orange);
-    color:#15120f;
-    font-size:13px;
-    font-weight:800;
-    transition:background .2s,border-color .2s;
-}
-.about-button:hover {
-    background:#ff913d;
-    border-color:#ff913d;
-}
-.about-text-link {
-    display:inline-flex;
-    align-items:center;
-    gap:12px;
-    padding:12px 0;
-    color:#f5f3ed;
-    font-size:13px;
-    font-weight:600;
-}
-.about-text-link:hover {
-    color:var(--orange);
-}
-.about-art {
-    position:relative;
-    align-self:stretch;
-    display:flex;
-    align-items:flex-end;
-    justify-content:center;
-    min-height:450px;
-}
-.about-court {
-    position:absolute;
-    top:5%;
-    right:-12%;
-    width:110%;
-    aspect-ratio:1;
-    border:1px solid #ff6e003d;
-    border-radius:50%;
-}
-.about-court::before {
-    content:'';
-    position:absolute;
-    inset:18%;
-    border:1px solid #ff6e004a;
-    border-radius:50%;
-}
-.about-court::after {
-    content:'';
-    position:absolute;
-    top:50%;
-    left:-15%;
-    width:130%;
-    height:1px;
-    background:#ff6e003d;
-    transform:rotate(-25deg);
-}
-.about-players {
-    position:relative;
-    z-index:1;
-    display:block;
-    width:100%;
-    max-width:480px;
-    height:auto;
-    filter:drop-shadow(0 25px 30px #0008);
-}
-.about-location {
-    position:absolute;
-    bottom:-25px;
-    right:0;
-    z-index:2;
-    border-left:2px solid var(--orange);
-    padding:8px 14px;
-    background:#101317d9;
-}
-.about-location strong {
-    display:block;
-    font-family:var(--font-heading,sans-serif);
-    font-size:22px;
-    text-transform:uppercase;
-}
-.about-location span {
-    display:block;
-    margin-top:4px;
-    font-size:10px;
-    color:#afb4bd;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-}
-.about-facts {
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    border-top:1px solid #ffffff16;
-    border-bottom:1px solid #ffffff16;
-    background:#ffffff03;
-}
-.about-fact {
-    display:flex;
-    align-items:center;
-    gap:18px;
-    padding:30px max(20px,3vw);
-}
-.about-fact+.about-fact {
-    border-left:1px solid #ffffff16;
-}
-.about-fact strong {
-    flex-shrink:0;
-    font-family:var(--font-heading,sans-serif);
-    font-size:48px;
-    font-weight:600;
-    line-height:1;
-    color:var(--orange);
-}
-.about-fact span {
-    max-width:160px;
-    font-size:12px;
-    line-height:1.7;
-    color:#b9bcc2;
-}
-.about-story {
-    display:grid;
-    grid-template-columns:.9fr 1.1fr;
-    gap:60px;
-    padding:76px 5%;
-}
-.about-likar h2 {
-    margin-top:20px;
-    font-family:var(--font-heading,sans-serif);
-    font-size:clamp(32px,3.4vw,48px);
-    font-weight:600;
-    line-height:1.16;
-    text-transform:uppercase;
-}
-.about-likar h2 em {
-    font-style:normal;
-    color:var(--orange);
-}
-.about-story-copy p {
-    font-size:15px;
-    line-height:1.95;
-    color:#b9bcc2;
-}
-.about-story-copy p+p {
-    margin-top:20px;
-}
-.about-story-copy strong {
-    color:#f5f3ed;
-    font-weight:600;
-}
-.about-motto {
-    display:flex;
-    align-items:flex-start;
-    gap:18px;
-    margin-top:28px;
-    padding-top:22px;
-    border-top:1px solid #ffffff14;
-}
-.about-motto>span {
-    font-family:Georgia,serif;
-    font-size:58px;
-    line-height:1;
-    color:var(--orange);
-}
-.about-motto p {
-    font-family:var(--font-heading,sans-serif);
-    font-size:22px;
-    line-height:1.4;
-    color:#f5f3ed;
-}
-.about-bottom {
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:32px;
-    margin:0 5% 5%;
-    padding:34px 36px;
-    border:1px solid #ff6e0038;
-    border-radius:12px;
-    background:linear-gradient(110deg,#ff6e001c,#ff6e0004);
-}
-.about-bottom h2 {
-    margin:0;
-    font-size:clamp(26px,3vw,36px);
-}
-.about-bottom p {
-    margin-top:10px;
-    max-width:600px;
-    font-size:14px;
-    line-height:1.8;
-    color:#b9bcc2;
-}
-.about-bottom .about-button {
-    flex-shrink:0;
-}
-@media(max-width:1023px) {
-    .about-hero-grid {
-        grid-template-columns:1.1fr .9fr;
-        padding-top:50px;
-        padding-bottom:60px;
-    }
-    .about-art {
-        min-height:350px;
-    }
-    .about-fact {
-        gap:12px;
-        padding:24px 20px;
-    }
-    .about-fact strong {
-        font-size:38px;
-    }
-    .about-story {
-        gap:36px;
-        padding-top:56px;
-        padding-bottom:56px;
-    }
-}
-@media(max-width:767px) {
-    .about-likar {
-        padding-top:24px;
-        padding-bottom:40px;
-    }
-    .about-shell {
-        border-radius:16px;
-    }
-    .about-topline {
-        padding:20px 6%;
-        font-size:9px;
-        letter-spacing:.12em;
-    }
-    .about-topline span:last-child {
-        display:none;
-    }
-    .about-hero-grid {
-        grid-template-columns:1fr;
-        padding:38px 6% 48px;
-        gap:28px;
-    }
-    .about-likar h1 {
-        font-size:clamp(44px,10vw,72px);
-    }
-    .about-lead {
-        font-size:15px;
-    }
-    .about-art {
-        min-height:0;
-        width:100%;
-        max-width:390px;
-        justify-self:center;
-    }
-    .about-players {
-        width:85%;
-    }
-    .about-court {
-        width:90%;
-        right:0;
-    }
-    .about-location {
-        right:0;
-        bottom:-20px;
-    }
-    .about-facts {
-        grid-template-columns:1fr;
-    }
-    .about-fact {
-        padding:20px 6%;
-        gap:22px;
-    }
-    .about-fact+.about-fact {
-        border-left:0;
-        border-top:1px solid #ffffff12;
-    }
-    .about-fact strong {
-        min-width:52px;
-    }
-    .about-fact span {
-        max-width:none;
-        font-size:13px;
-    }
-    .about-story {
-        grid-template-columns:1fr;
-        padding:44px 6%;
-        gap:28px;
-    }
-    .about-bottom {
-        flex-direction:column;
-        align-items:flex-start;
-        margin:0 6% 6%;
-        padding:26px 22px;
-        gap:22px;
-    }
-}
-@media(prefers-reduced-motion:reduce) {
-    .about-likar a {
-        transition:none;
-    }
-}
-`;
+import { Clock1, Mail, MapPinCheckInside } from 'lucide-react';
 
 export default function About() {
     return (
@@ -432,93 +11,94 @@ export default function About() {
                     content="Upoznaj LIKAR Krombacher Zadar — ligu košarkaških amatera i rekreativaca. Od prvih utakmica u Jazinama do susreta na Višnjiku."
                 />
             </Head>
-
-            <style>{styles}</style>
-
-            <div className="about-likar">
-                <div className="about-shell">
+            <div className="px-[5%] pt-10 pb-16 font-text text-slate-100 **:box-border max-md:pt-6 max-md:pb-10 motion-reduce:[&_a]:transition-none [&_a:focus-visible]:outline-[3px] [&_a:focus-visible]:outline-offset-[6px] [&_a:focus-visible]:outline-likar3 [&_a:focus-visible]:outline-solid">
+                <div className="mx-auto overflow-hidden rounded-3xl border border-likar1 bg-likar4/60 shadow-xl shadow-likar3/60 max-md:rounded-2xl">
                     <section
-                        className="about-hero"
+                        className="relative isolate overflow-hidden before:absolute before:inset-0 before:-z-2 before:bg-[linear-gradient(90deg,#3f3633_0%,#3f363399_50%,#3f363333_100%),url('/images/design/hardwood.jpg')] before:bg-cover before:bg-center before:content-['']"
                         aria-labelledby="about-title"
                     >
-                        <div className="about-topline">
+                        <div className="flex justify-between gap-4 border-b border-likar2 px-[5%] py-6 text-[10px] font-bold tracking-[0.2em] text-slate-200/70 uppercase max-md:px-[6%] max-md:py-5 max-md:text-[9px] max-md:tracking-[0.12em] md:bg-[linear-gradient(90deg,transparent_0%,transparent_60%,#3f3633_100%)] [&>span:first-child]:text-likar3 max-md:[&>span:last-child]:hidden">
                             <span>LIKAR Krombacher Zadar</span>
                             <span>Liga košarkaških amatera i rekreativaca</span>
                         </div>
 
-                        <div className="about-hero-grid">
-                            <div className="about-intro">
-                                <p className="about-kicker">
-                                    Naš grad. Naša igra.
-                                </p>
-                                <h1 id="about-title">
-                                    Košarka nas
-                                    <span>okuplja.</span>
+                        <div className="grid grid-cols-[1.12fr_1fr] items-center px-[5%] pt-18 pb-19 max-lg:grid-cols-[1.1fr_0.9fr] max-lg:pt-12.5 max-lg:pb-15 max-md:grid-cols-1 max-md:gap-7 max-md:px-[6%] max-md:pt-9.5 max-md:pb-12">
+                            <div className="relative z-2">
+                                <h1
+                                    id="about-title"
+                                    className="mt-6 mb-6.5 font-heading text-[clamp(32px,3.4vw,48px)] leading-[1.04] font-bold tracking-[-0.025em] uppercase [&>span]:block [&>span]:text-likar3"
+                                >
+                                    Od entuzijazma do
+                                    <span>gradkse lige.</span>
                                 </h1>
-                                <p className="about-lead">
+                                <p className="m-0 max-w-110 text-base leading-[1.85] font-normal text-[#c4c6ca] max-md:text-[15px]">
                                     Od prvih utakmica u Jazinama do susreta na
                                     Višnjiku. LIKAR je mjesto za zadarske
                                     amatere, rekreativce i sve koji žive za igru
                                     pod obručima.
                                 </p>
-                                <div className="about-actions">
+                                <div className="mt-8 flex flex-wrap items-center gap-6">
                                     <Link
                                         href="/utakmice"
-                                        className="about-button"
+                                        className="rounded-full border border-likar3 bg-likar3 px-4 py-2.5 font-heading text-lg font-semibold text-slate-100 transition-[background,border-color] duration-300 ease-[ease] hover:bg-likar1"
                                     >
                                         Prati utakmice
-                                        <span aria-hidden="true">↗</span>
                                     </Link>
                                     <Link
-                                        href="/ekipe"
-                                        className="about-text-link"
+                                        href="/novosti"
+                                        className="inline-flex items-center gap-3 rounded-full border border-likar2 px-4 py-2.5 font-heading text-lg font-semibold text-slate-100 transition-all duration-300 ease-[ease] hover:border-likar1 hover:bg-likar2"
                                     >
-                                        Upoznaj ekipe
-                                        <span aria-hidden="true">→</span>
+                                        Novosti
                                     </Link>
                                 </div>
                             </div>
                         </div>
                     </section>
-
                     <section
-                        className="about-facts"
+                        className="grid grid-cols-3 border-y border-likar2 bg-slate-900 max-md:grid-cols-1"
                         aria-label="Naša priča u brojkama"
                     >
-                        <div className="about-fact">
+                        <div className="flex items-center gap-4.5 px-[max(20px,3vw)] py-7.5 max-lg:gap-3 max-lg:px-5 max-lg:py-6 max-md:gap-5.5 max-md:px-[6%] max-md:py-5 [&+div]:border-l [&+div]:border-likar2 max-md:[&+div]:border-t max-md:[&+div]:border-l-0 max-md:[&+div]:border-t-likar2 [&>span]:max-w-40 [&>span]:text-xs [&>span]:leading-[1.7] [&>span]:text-slate-200/80 max-md:[&>span]:max-w-none max-md:[&>span]:text-[13px] [&>strong]:shrink-0 [&>strong]:font-heading [&>strong]:text-5xl [&>strong]:leading-none [&>strong]:font-semibold [&>strong]:text-likar3 max-lg:[&>strong]:text-[38px] max-md:[&>strong]:min-w-13">
                             <strong>09</strong>
                             <span>momčadi s kojima je započela naša priča</span>
                         </div>
-                        <div className="about-fact">
+                        <div className="flex items-center gap-4.5 px-[max(20px,3vw)] py-7.5 max-lg:gap-3 max-lg:px-5 max-lg:py-6 max-md:gap-5.5 max-md:px-[6%] max-md:py-5 [&+div]:border-l [&+div]:border-likar2 max-md:[&+div]:border-t max-md:[&+div]:border-l-0 max-md:[&+div]:border-t-likar2 [&>span]:max-w-40 [&>span]:text-xs [&>span]:leading-[1.7] [&>span]:text-slate-200/80 max-md:[&>span]:max-w-none max-md:[&>span]:text-[13px] [&>strong]:shrink-0 [&>strong]:font-heading [&>strong]:text-5xl [&>strong]:leading-none [&>strong]:font-semibold [&>strong]:text-likar3 max-lg:[&>strong]:text-[38px] max-md:[&>strong]:min-w-13">
                             <strong>06</strong>
                             <span>sezona koje su oblikovale ligu</span>
                         </div>
-                        <div className="about-fact">
+                        <div className="flex items-center gap-4.5 px-[max(20px,3vw)] py-7.5 max-lg:gap-3 max-lg:px-5 max-lg:py-6 max-md:gap-5.5 max-md:px-[6%] max-md:py-5 [&+div]:border-l [&+div]:border-likar2 max-md:[&+div]:border-t max-md:[&+div]:border-l-0 max-md:[&+div]:border-t-likar2 [&>span]:max-w-40 [&>span]:text-xs [&>span]:leading-[1.7] [&>span]:text-slate-200/80 max-md:[&>span]:max-w-none max-md:[&>span]:text-[13px] [&>strong]:shrink-0 [&>strong]:font-heading [&>strong]:text-5xl [&>strong]:leading-none [&>strong]:font-semibold [&>strong]:text-likar3 max-lg:[&>strong]:text-[38px] max-md:[&>strong]:min-w-13">
                             <strong>01</strong>
                             <span>zajednička strast — košarka</span>
                         </div>
                     </section>
 
                     <section
-                        className="about-story"
+                        className="grid grid-cols-[0.9fr_1.1fr] gap-15 px-[5%] py-19 max-lg:gap-9 max-lg:py-14 max-md:grid-cols-1 max-md:gap-7 max-md:px-[6%] max-md:py-11"
                         aria-labelledby="about-story-title"
                     >
                         <div>
-                            <p className="about-kicker">Naša priča</p>
-                            <h2 id="about-story-title">
-                                Od entuzijazma
-                                <br />
-                                do <em>gradske lige.</em>
-                            </h2>
-                            <div className="about-motto">
-                                <span aria-hidden="true">“</span>
-                                <p>
-                                    Igra je razlog zbog kojeg se vraćamo na
-                                    teren.
-                                </p>
-                            </div>
+                            <p className="m-0 flex items-center gap-3 text-[11px] leading-[1.6] font-bold tracking-[0.18em] text-likar3 uppercase before:h-0.5 before:w-7 before:shrink-0 before:bg-current before:content-['']">
+                                Info
+                            </p>
+                            <p className="mt-5 flex flex-row items-center gap-8 font-heading text-[clamp(24px,2.8vw,30px)] leading-[1.16] font-semibold uppercase [&>em]:text-likar3 [&>em]:not-italic">
+                                <MapPinCheckInside className="h-8 w-8 shrink-0 rounded-full bg-likar4/60 p-1 text-likar3" />
+                                Višnjik, Dvorana 3
+                            </p>
+                            <p className="mt-5 flex flex-row items-center gap-8 font-heading text-[clamp(24px,2.8vw,30px)] leading-[1.16] font-semibold uppercase [&>em]:text-likar3 [&>em]:not-italic">
+                                <Clock1 className="h-8 w-8 shrink-0 rounded-full bg-likar4/60 p-1 text-likar3" />
+                                Nedjelja, jutarnji termini
+                            </p>
+                            <a
+                                href="mailto:likarzadar@gmail.com"
+                                className="group mt-5 flex flex-row items-center gap-8 font-heading text-[clamp(24px,2.8vw,30px)] leading-[1.16] font-semibold uppercase [&>em]:text-likar3 [&>em]:not-italic"
+                            >
+                                <Mail className="h-8 w-8 shrink-0 rounded-full bg-likar4/60 p-1 text-likar3" />
+                                <span className="group-hover:underline">
+                                    likarzadar@gmail.com
+                                </span>
+                            </a>
                         </div>
-                        <div className="about-story-copy">
+                        <div className="[&_strong]:font-semibold [&_strong]:text-slate-100 [&>p]:m-0 [&>p]:text-base [&>p]:leading-[1.95] [&>p]:text-slate-200/80 [&>p+p]:mt-5">
                             <p>
                                 Pokrenuta entuzijazmom zaljubljenika u košarku,
                                 <strong>
@@ -548,22 +128,26 @@ export default function About() {
                     </section>
 
                     <section
-                        className="about-bottom"
+                        className="mx-[5%] mb-[5%] flex items-center justify-between gap-8 rounded-xl border border-likar1 bg-[url(/images/design/snow.png)] px-9 py-8.5 max-md:mx-[6%] max-md:mb-[6%] max-md:flex-col max-md:items-start max-md:gap-5.5 max-md:px-5.5 max-md:py-6.5 [&_p]:mt-2.5 [&_p]:max-w-150 [&_p]:text-sm [&_p]:leading-[1.8] [&_p]:text-slate-200/80 [&>a]:shrink-0"
                         aria-labelledby="about-join-title"
                     >
                         <div>
-                            <h2 id="about-join-title">
+                            <h2
+                                id="about-join-title"
+                                className="m-0 font-heading text-[clamp(26px,3vw,36px)] leading-[1.16] font-semibold uppercase"
+                            >
                                 Tvoja ekipa. Tvoja liga.
                             </h2>
                             <p>
-                                Voliš košarku i organizirano natjecanje? Upoznaj
-                                LIKAR, prati momčadi i budi dio zadarske
+                                Upoznaj LIKAR, prati momčadi i budi dio zadarske
                                 košarkaške priče.
                             </p>
                         </div>
-                        <Link href="/ekipe" className="about-button">
+                        <Link
+                            href="/ekipe"
+                            className="rounded-full border border-likar3 bg-likar3 px-4 py-2.5 text-lg font-semibold text-slate-100 transition-[background] duration-300 ease-[ease] hover:bg-likar1"
+                        >
                             Istraži ekipe
-                            <span aria-hidden="true">↗</span>
                         </Link>
                     </section>
                 </div>

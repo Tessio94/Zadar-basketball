@@ -35,7 +35,7 @@ export default function ResultRow({ game }: { game: GameWithTeams }) {
                     className="flex flex-row flex-nowrap items-center justify-center gap-4 text-nowrap hover:underline"
                 >
                     <img
-                        src={home_team.logo}
+                        src={`/storage/${home_team.logo}`}
                         alt={`${home_team.name} logo`}
                         className="h-6 w-6 shrink-0 rounded-full bg-white"
                     />
@@ -63,7 +63,7 @@ export default function ResultRow({ game }: { game: GameWithTeams }) {
                     className="flex flex-row flex-nowrap items-center justify-center gap-4 text-nowrap hover:underline"
                 >
                     <img
-                        src={away_team.logo}
+                        src={`/storage/${away_team.logo}`}
                         alt={`${away_team.name} logo`}
                         className="h-6 w-6 shrink-0 rounded-full bg-white"
                     />

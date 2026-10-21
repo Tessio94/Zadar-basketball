@@ -21,8 +21,8 @@ export default function GameScore({
                     className="pointer-events-none flex w-1/2 flex-row items-center justify-between gap-5 border-r border-slate-100 px-3 max-xl:order-1 max-xl:border-b max-xl:border-b-slate-100 max-xl:py-3 max-xl:pt-3 max-sm:flex-col max-sm:justify-start xl:w-1/3"
                 >
                     <img
-                        src={homeTeam.logo}
-                        alt=""
+                        src={`/storage/${homeTeam.logo}`}
+                        alt={`${homeTeam.name} logo`}
                         className="pointer-events-auto aspect-square cursor-pointer rounded-2xl max-lg:w-30 max-sm:w-25"
                     />
                     <p className="pointer-events-auto mx-auto cursor-pointer font-heading text-2xl font-semibold text-slate-100 hover:underline">
@@ -115,8 +115,8 @@ export default function GameScore({
                         {awayTeam.name}
                     </p>
                     <img
-                        src={awayTeam.logo}
-                        alt=""
+                        src={`/storage/${awayTeam.logo}`}
+                        alt={`${awayTeam.name} logo`}
                         className="pointer-events-auto aspect-square cursor-pointer rounded-2xl max-lg:w-30 max-sm:w-25"
                     />
                 </Link>

@@ -22,6 +22,7 @@ class StandingsService
 
             $games = Game::query()
                 ->where('status', 'finished')
+                ->whereNull('playoff_id')
                 ->where('season_id', $season->id)
                 ->where(function($query) use ($team): void {
                     $query->where('home_team_id', $team->id)
@@ -81,6 +82,7 @@ class StandingsService
             ->sortBy([
                 ['wins', 'desc'],
                 ['difference', 'desc'],
+                ['id', 'asc'],
             ])
             ->values();
     }

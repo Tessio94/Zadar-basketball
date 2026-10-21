@@ -1,5 +1,5 @@
-import LastGamesCard from '@/components/myComponents/stranice/admin/panel/lastGames/lastGamesCard';
 import type { GameWithTeams } from '@/types/propTypes';
+import LastGamesCard from './lastGamesCard';
 
 export default function LastGames({
     games,

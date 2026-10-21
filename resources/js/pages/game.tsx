@@ -5,18 +5,13 @@ import GameScore from '@/components/myComponents/stranice/utakmice/utakmica/head
 import GameTitle from '@/components/myComponents/stranice/utakmice/utakmica/headerSection/gameTitle';
 import GameLeaders from '@/components/myComponents/stranice/utakmice/utakmica/leaders/gameLeaders';
 import GameLayout from '@/layouts/game/game-layout';
-import type {
-    GameBoxscore,
-    GameLeaders as GameLeadersType,
-} from '@/types/propTypes';
+// import type {
+//     GameBoxscore,
+//     GameLeaders as GameLeadersType,
+// } from '@/types/propTypes';
+import type { GameDetailsProps } from '@/types/game-boxscore';
 
-const Game = ({
-    game,
-    leaders,
-}: {
-    game: GameBoxscore;
-    leaders: GameLeadersType;
-}) => {
+const Game = ({ game, leaders, teamTotals }: GameDetailsProps) => {
     const [active, setActive] = useRemember<string>('tab1');
     console.log('game', game);
     console.log('leaders', leaders);
@@ -58,8 +53,16 @@ const Game = ({
             />
             {active === 'tab1' && (
                 <>
-                    <GameBoxScore team={home_team} players={homePlayers} />
-                    <GameBoxScore team={away_team} players={awayPlayers} />
+                    <GameBoxScore
+                        team={home_team}
+                        players={homePlayers}
+                        totals={teamTotals.home}
+                    />
+                    <GameBoxScore
+                        team={away_team}
+                        players={awayPlayers}
+                        totals={teamTotals.away}
+                    />
                 </>
             )}
             {active === 'tab2' && <GameLeaders leaders={leaders} />}

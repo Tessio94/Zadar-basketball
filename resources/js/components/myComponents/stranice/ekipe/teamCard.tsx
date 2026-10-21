@@ -17,9 +17,8 @@ export default function TeamCard({ ekipa }: { ekipa: Team }) {
                     {ekipa.name}
                 </h3>
                 <img
-                    // src={`storage/${ekipa.logo}`}
-                    src={ekipa.logo}
-                    alt=""
+                    src={`storage/${ekipa.logo}`}
+                    alt={`${ekipa.name} logo`}
                     className="h-37.5 w-37.5 rounded-full bg-likar1 transition-transform duration-300 group-hover:scale-90 group-hover:rotate-360"
                 />
             </div>
