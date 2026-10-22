@@ -19,11 +19,13 @@ type PlayerResult = {
 type SearchComponentProps = {
     open: boolean;
     setOpen: Dispatch<SetStateAction<boolean>>;
+    searchButtonRef: React.RefObject<HTMLButtonElement | null>;
 };
 
 export default function SearchComponent({
     open,
     setOpen,
+    searchButtonRef,
 }: SearchComponentProps) {
     const [searchValue, setSearchValue] = useState('');
     const [players, setPlayers] = useState<PlayerResult[]>([]);
@@ -105,15 +107,19 @@ export default function SearchComponent({
         if (!open) return;
 
         function handlePointerDown(event: PointerEvent) {
+            const target = event.target as Node;
+
             if (
-                containerRef.current &&
-                !containerRef.current.contains(event.target as Node)
+                containerRef.current?.contains(target) ||
+                searchButtonRef.current?.contains(target)
             ) {
-                setShowResults(false);
-                setSearchValue('');
-                setPlayers([]);
-                setOpen(false);
+                return;
             }
+
+            setShowResults(false);
+            setSearchValue('');
+            setPlayers([]);
+            setOpen(false);
         }
 
         function handleKeyDown(event: KeyboardEvent) {

@@ -11,13 +11,15 @@ import {
     Trophy,
     Users,
 } from 'lucide-react';
-import { useEffect, useEffectEvent, useState } from 'react';
+import { useEffect, useEffectEvent, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 import SearchComponent from './searchComponent';
 
 export default function Header() {
     const [hambActive, setHambActive] = useState<boolean>(false);
     const [openSearch, setOpenSearch] = useState<boolean>(false);
+
+    const searchButtonRef = useRef<HTMLButtonElement>(null);
 
     const { url: path } = usePage();
 
@@ -198,6 +200,7 @@ export default function Header() {
                             </ul>
                         </div>
                         <button
+                            ref={searchButtonRef}
                             className="group flex h-13 w-13 cursor-pointer items-center justify-center rounded-full border border-b border-likar3 bg-likar4/70 shadow-md shadow-likar3/30 transition-all duration-300 hover:border-likar3 hover:bg-slate-100 max-lg:order-1 max-lg:ml-auto"
                             onClick={() => setOpenSearch((prev) => !prev)}
                         >
@@ -210,6 +213,7 @@ export default function Header() {
                         <SearchComponent
                             open={openSearch}
                             setOpen={setOpenSearch}
+                            searchButtonRef={searchButtonRef}
                         />
                     </div>
 
