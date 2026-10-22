@@ -49,7 +49,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Utakmice',
-        href: panel(),
+        href: '/admin-panel/utakmice',
         icon: Dribbble,
     },
     {

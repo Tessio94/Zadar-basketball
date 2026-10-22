@@ -10,7 +10,7 @@ export default function AddOptions() {
                     <DashboardButton
                         type="add"
                         text="Dodaj utakmice"
-                        href={''}
+                        href="/admin-panel/utakmice/create"
                     />
                 </div>
                 <div className="basis-full xl:basis-5/12">

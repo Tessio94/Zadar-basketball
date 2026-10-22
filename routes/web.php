@@ -12,10 +12,11 @@ use App\Http\Controllers\ResultController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PlayerGameStatController;
 use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
+use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
+use App\Http\Controllers\Admin\GameController as AdminGameController;
 use App\Http\Controllers\Admin\PlayerController as AdminPlayerController;
 use App\Http\Controllers\Admin\SeasonController as AdminSeasonController;
 use App\Http\Controllers\Admin\TeamController as AdminTeamController;
-use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\GalleryController;
 
@@ -80,6 +81,15 @@ Route::get('galerija/{gallery:slug}', [GalleryController::class, 'show'])->name(
 Route::middleware(['auth', 'verified'])->prefix('admin-panel')->group(function(): void {
 
     Route::get('/', [DashboardController::class, 'index'])->name('admin.panel');
+
+     Route::get('utakmice/{game}/boxscore', [AdminGameController::class, 'boxscore'])->name('admin.games.boxscore');
+
+    Route::put('utakmice/{game}/boxscore', [AdminGameController::class, 'saveBoxscore'])->name('admin.games.boxscore.save');
+
+    Route::delete('utakmice/{game}/boxscore/draft', [AdminGameController::class, 'discardDraft'])->name('admin.games.draft.destroy');
+
+    Route::resource('utakmice', AdminGameController::class)
+        ->except(['show'])->parameters(['utakmice' => 'game'])->names('admin.games');
 
     Route::resource('novosti', AdminArticleController::class)
         ->parameters(['novosti' => 'article']);
