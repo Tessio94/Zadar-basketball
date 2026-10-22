@@ -162,7 +162,7 @@ export default function PlayoffBracket({
                     >
                         <div className="grid min-w-[960px] grid-cols-3 bg-[url('/images/design/snow4.jpg')] bg-cover bg-no-repeat">
                             <div className="border-r border-likar4 bg-slate-900/40">
-                                <h2 className="bg-slate-900 py-3 text-center font-heading text-xl text-slate-100 uppercase">
+                                <h2 className="bg-slate-900 py-2 text-center font-heading text-xl text-slate-100 uppercase">
                                     Četvrtfinale
                                 </h2>
                                 <div className="grid h-[720px] grid-rows-8 py-4">
@@ -172,7 +172,7 @@ export default function PlayoffBracket({
                                 </div>
                             </div>
                             <div className="border-r border-likar4 bg-slate-900/40">
-                                <h2 className="bg-slate-900 py-3 text-center font-heading text-xl text-slate-100 uppercase">
+                                <h2 className="bg-slate-900 py-2 text-center font-heading text-xl text-slate-100 uppercase">
                                     Polufinale
                                 </h2>
                                 <div className="grid h-[720px] grid-rows-8 py-4">
@@ -187,7 +187,7 @@ export default function PlayoffBracket({
                                 </div>
                             </div>
                             <div className="bg-slate-900/40">
-                                <h2 className="bg-slate-900 py-3 text-center font-heading text-xl text-slate-100 uppercase">
+                                <h2 className="bg-slate-900 py-2 text-center font-heading text-xl text-slate-100 uppercase">
                                     Finale
                                 </h2>
                                 <div className="grid h-[720px] grid-rows-8 py-4">

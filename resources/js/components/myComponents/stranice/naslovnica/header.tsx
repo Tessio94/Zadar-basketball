@@ -278,7 +278,7 @@ export default function Header() {
                                         <Link
                                             href="/"
                                             className={cn(
-                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-3 text-2xl text-slate-100',
+                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-3 text-2xl text-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-likar4 motion-reduce:transition-none',
                                                 path === '/' &&
                                                     'bg-[url(/images/design/snow.png)] text-likar3 [&_svg]:text-likar3 [&>div]:border-likar3',
                                             )}
@@ -302,7 +302,7 @@ export default function Header() {
                                         <Link
                                             href="/novosti"
                                             className={cn(
-                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-3 text-2xl text-slate-100',
+                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-3 text-2xl text-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-likar4 motion-reduce:transition-none',
                                                 path === '/novosti' &&
                                                     'bg-[url(/images/design/snow.png)] text-likar3 [&_svg]:text-likar3 [&>div]:border-likar3',
                                             )}
@@ -325,7 +325,7 @@ export default function Header() {
                                         <Link
                                             href="/utakmice"
                                             className={cn(
-                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-3 text-2xl text-slate-100',
+                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-3 text-2xl text-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-likar4 motion-reduce:transition-none',
                                                 path === '/utakmice' &&
                                                     'bg-[url(/images/design/snow.png)] text-likar3 [&_svg]:text-likar3 [&>div]:border-likar3',
                                             )}
@@ -349,7 +349,7 @@ export default function Header() {
                                         <Link
                                             href="/tablica"
                                             className={cn(
-                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-3 text-2xl text-slate-100',
+                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-3 text-2xl text-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-likar4 motion-reduce:transition-none',
                                                 path === '/tablica' &&
                                                     'bg-[url(/images/design/snow.png)] text-likar3 [&_svg]:text-likar3 [&>div]:border-likar3',
                                             )}
@@ -372,7 +372,7 @@ export default function Header() {
                                         <Link
                                             href="/ekipe"
                                             className={cn(
-                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-3 text-2xl text-slate-100',
+                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-3 text-2xl text-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-likar4 motion-reduce:transition-none',
                                                 path === '/ekipe' &&
                                                     'bg-[url(/images/design/snow.png)] text-likar3 [&_svg]:text-likar3 [&>div]:border-likar3',
                                             )}
@@ -399,7 +399,7 @@ export default function Header() {
                                         <Link
                                             href="/o-nama"
                                             className={cn(
-                                                'relative cursor-pointer text-slate-100',
+                                                'relative cursor-pointer rounded-2xl text-slate-100',
                                                 path === '/o-nama' &&
                                                     'text-likar3 [&>div]:border-likar3 [&>div]:bg-[url(/images/design/snow.png)]',
                                             )}
@@ -418,7 +418,7 @@ export default function Header() {
                                         <Link
                                             href="/arhiva"
                                             className={cn(
-                                                'relative cursor-pointer text-slate-100',
+                                                'relative cursor-pointer rounded-2xl text-slate-100',
                                                 path === '/arhiva' &&
                                                     'text-likar3 [&>div]:border-likar3 [&>div]:bg-[url(/images/design/snow.png)]',
                                             )}
@@ -437,7 +437,7 @@ export default function Header() {
                                         <Link
                                             href="/galerija"
                                             className={cn(
-                                                'relative cursor-pointer text-slate-100',
+                                                'relative cursor-pointer rounded-2xl text-slate-100',
                                                 path === '/galerija' &&
                                                     'text-likar3 [&>div]:border-likar3 [&>div]:bg-[url(/images/design/snow.png)]',
                                             )}
