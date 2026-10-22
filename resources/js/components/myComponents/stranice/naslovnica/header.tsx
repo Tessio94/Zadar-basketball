@@ -1,5 +1,16 @@
 import { Link, usePage } from '@inertiajs/react';
-import { Search, SearchX } from 'lucide-react';
+import {
+    ArchiveIcon,
+    CalendarDays,
+    ChevronRight,
+    HomeIcon,
+    Images,
+    NewspaperIcon,
+    Search,
+    SearchX,
+    Trophy,
+    Users,
+} from 'lucide-react';
 import { useEffect, useEffectEvent, useState } from 'react';
 import { cn } from '@/lib/utils';
 import SearchComponent from './searchComponent';
@@ -236,130 +247,218 @@ export default function Header() {
                     </div>
                     <nav
                         className={cn(
-                            'fixed top-0 bottom-0 left-0 z-9999 w-[300px] border-r-2 border-likar3 bg-[url(/images/design/logo.png)] bg-contain bg-repeat shadow-[inset_-50px_0_50px_-50px_var(--likar3)] transition-all duration-300 max-[410px]:w-[260px] sm:w-[330px] md:hidden',
+                            'fixed top-0 bottom-0 left-0 z-9999 w-[300px] border-r-2 border-likar3 bg-[url(/images/design/logo.png)] bg-repeat shadow-[inset_-50px_0_50px_-50px_var(--likar3)] transition-all duration-300 max-[410px]:w-[290px] sm:w-[330px] md:hidden',
                             hambActive ? 'translate-x-0' : '-translate-x-full',
                         )}
                     >
                         <div className="absolute inset-0 -z-10 bg-linear-to-r from-likar3 to-likar4/90" />
-                        <div className="scrollbar-slate flex h-full max-h-screen flex-col justify-between gap-25 overflow-y-auto pt-12">
-                            <ul className="flex flex-col text-2xl">
-                                <li className="w-full">
-                                    <Link
-                                        href="/"
-                                        className={cn(
-                                            'relative block w-full cursor-pointer px-3 pb-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
-                                            path === '/' && 'text-slate-900',
-                                        )}
-                                    >
-                                        Naslovnica
-                                    </Link>
-                                </li>
-                                <li className="w-full">
-                                    <Link
-                                        href="/novosti"
-                                        className={cn(
-                                            'relative block w-full cursor-pointer border-t border-t-slate-100/60 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
-                                            path === '/novosti' &&
-                                                'text-slate-900',
-                                        )}
-                                    >
-                                        Novosti
-                                    </Link>
-                                </li>
-                                <li className="w-full">
-                                    <Link
-                                        href="/utakmice"
-                                        className={cn(
-                                            'relative block w-full cursor-pointer border-t border-t-slate-100/60 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
-                                            path === '/utakmice' &&
-                                                'text-slate-900',
-                                        )}
-                                    >
-                                        Utakmice
-                                    </Link>
-                                </li>
-                                <li className="w-full">
-                                    <Link
-                                        href="/tablica"
-                                        className={cn(
-                                            'relative block w-full cursor-pointer border-t border-t-slate-100/60 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
-                                            path === '/tablica' &&
-                                                'text-slate-900',
-                                        )}
-                                    >
-                                        Tablica
-                                    </Link>
-                                </li>
-                                <li className="w-full">
-                                    <Link
-                                        href="/statistika"
-                                        className={cn(
-                                            'relative block w-full cursor-pointer border-t border-t-slate-100/60 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
-                                            path === '/statistika' &&
-                                                'text-slate-900',
-                                        )}
-                                    >
-                                        Statistika
-                                    </Link>
-                                </li>
-                                <li className="w-full">
-                                    <Link
-                                        href="/ekipe"
-                                        className={cn(
-                                            'relative block w-full cursor-pointer border-t border-t-slate-100/60 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
-                                            path === '/ekipe' &&
-                                                'text-slate-900',
-                                        )}
-                                    >
-                                        Ekipe
-                                    </Link>
-                                </li>
-                            </ul>
+                        <div className="scrollbar-slate flex h-full max-h-screen flex-col justify-between overflow-y-auto px-3 pt-2">
                             <div>
-                                <ul className="flex flex-col pt-6 text-2xl">
+                                <div className="flex flex-row items-center gap-1.5 border-b border-slate-100/80 pb-3">
+                                    <img
+                                        src="/images/design/logo.png"
+                                        alt=""
+                                        className="h-18 w-18"
+                                    />
+                                    <div className="flex-col items-start justify-center gap-1 xl:flex">
+                                        <h1 className="font-heading text-xl font-semibold text-slate-100">
+                                            Likar{' '}
+                                            <span className="text-likar3">
+                                                Krombacher
+                                            </span>
+                                        </h1>
+                                        <p className="font-heading text-sm font-normal text-slate-300">
+                                            Liga košarkaških amatera
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <ul className="flex flex-col border-b border-b-slate-100/80 py-3 text-2xl">
+                                    <li className="w-full">
+                                        <Link
+                                            href="/"
+                                            className={cn(
+                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-3 text-2xl text-slate-100',
+                                                path === '/' &&
+                                                    'bg-[url(/images/design/snow.png)] text-likar3 [&_svg]:text-likar3 [&>div]:border-likar3',
+                                            )}
+                                        >
+                                            <div className="flex flex-row items-center gap-2">
+                                                <HomeIcon className="h-11 w-11 shrink-0 rounded-lg bg-likar2 p-2 text-slate-200/80" />
+                                                <div>
+                                                    <p className="font-heading tracking-wide capitalize">
+                                                        Naslovnica
+                                                    </p>
+                                                    <p className="text-[11px] text-slate-200/80">
+                                                        Sve iz lige na jednom
+                                                        mjestu
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <ChevronRight className="text-slate-100" />
+                                        </Link>
+                                    </li>
+                                    <li className="w-full">
+                                        <Link
+                                            href="/novosti"
+                                            className={cn(
+                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-3 text-2xl text-slate-100',
+                                                path === '/novosti' &&
+                                                    'bg-[url(/images/design/snow.png)] text-likar3 [&_svg]:text-likar3 [&>div]:border-likar3',
+                                            )}
+                                        >
+                                            <div className="flex flex-row items-center gap-2">
+                                                <NewspaperIcon className="h-11 w-11 shrink-0 rounded-lg bg-likar2 p-2 text-slate-200/80" />
+                                                <div>
+                                                    <p className="font-heading tracking-wide capitalize">
+                                                        Novosti
+                                                    </p>
+                                                    <p className="text-[11px] text-slate-200/80">
+                                                        Pratite priče s terena
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <ChevronRight className="text-slate-100" />
+                                        </Link>
+                                    </li>
+                                    <li className="w-full">
+                                        <Link
+                                            href="/utakmice"
+                                            className={cn(
+                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-3 text-2xl text-slate-100',
+                                                path === '/utakmice' &&
+                                                    'bg-[url(/images/design/snow.png)] text-likar3 [&_svg]:text-likar3 [&>div]:border-likar3',
+                                            )}
+                                        >
+                                            <div className="flex flex-row items-center gap-2">
+                                                <CalendarDays className="h-11 w-11 shrink-0 rounded-lg bg-likar2 p-2 text-slate-200/80" />
+                                                <div>
+                                                    <p className="font-heading tracking-wide capitalize">
+                                                        Utakmice
+                                                    </p>
+                                                    <p className="text-[11px] text-slate-200/80">
+                                                        Raspored i posljednji
+                                                        rezultati
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <ChevronRight className="text-slate-100" />
+                                        </Link>
+                                    </li>
+                                    <li className="w-full">
+                                        <Link
+                                            href="/tablica"
+                                            className={cn(
+                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-3 text-2xl text-slate-100',
+                                                path === '/tablica' &&
+                                                    'bg-[url(/images/design/snow.png)] text-likar3 [&_svg]:text-likar3 [&>div]:border-likar3',
+                                            )}
+                                        >
+                                            <div className="flex flex-row items-center gap-2">
+                                                <Trophy className="h-11 w-11 shrink-0 rounded-lg bg-likar2 p-2 text-slate-200/80" />
+                                                <div>
+                                                    <p className="font-heading tracking-wide capitalize">
+                                                        Tablica
+                                                    </p>
+                                                    <p className="text-[11px] text-slate-200/80">
+                                                        Sezona i doigravanje
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <ChevronRight className="text-slate-100" />
+                                        </Link>
+                                    </li>
+                                    <li className="w-full">
+                                        <Link
+                                            href="/ekipe"
+                                            className={cn(
+                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-3 text-2xl text-slate-100',
+                                                path === '/ekipe' &&
+                                                    'bg-[url(/images/design/snow.png)] text-likar3 [&_svg]:text-likar3 [&>div]:border-likar3',
+                                            )}
+                                        >
+                                            <div className="flex flex-row items-center gap-2">
+                                                <Users className="h-11 w-11 shrink-0 rounded-lg bg-likar2 p-2 text-slate-200/80" />
+                                                <div>
+                                                    <p className="font-heading tracking-wide capitalize">
+                                                        Ekipe
+                                                    </p>
+                                                    <p className="text-[11px] text-slate-200/80">
+                                                        Upoznaj momčadi lige
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <ChevronRight className="text-slate-100" />
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul className="flex flex-row gap-2.5 border-b border-b-slate-100/80 py-3 text-2xl">
                                     <li className="w-full">
                                         <Link
                                             href="/o-nama"
                                             className={cn(
-                                                'relative block w-full cursor-pointer border-b border-b-slate-100/60 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                                'relative cursor-pointer text-slate-100',
                                                 path === '/o-nama' &&
-                                                    'text-slate-900',
+                                                    'text-likar3 [&>div]:border-likar3 [&>div]:bg-[url(/images/design/snow.png)]',
                                             )}
                                         >
-                                            O nama
+                                            <div className="flex flex-col items-center gap-1 rounded-2xl border border-slate-100/80 px-2.5 py-1.5">
+                                                <Users className="h-6 w-6 shrink-0 text-slate-200/80" />
+                                                <div>
+                                                    <p className="font-heading text-base tracking-normal">
+                                                        O nama
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </Link>
                                     </li>
                                     <li className="w-full">
                                         <Link
                                             href="/arhiva"
                                             className={cn(
-                                                'relative block w-full cursor-pointer border-b border-b-slate-100/60 px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                                'relative cursor-pointer text-slate-100',
                                                 path === '/arhiva' &&
-                                                    'text-slate-900',
+                                                    'text-likar3 [&>div]:border-likar3 [&>div]:bg-[url(/images/design/snow.png)]',
                                             )}
                                         >
-                                            Arhiva
+                                            <div className="flex flex-col items-center gap-1 rounded-2xl border border-slate-100/80 px-2.5 py-1.5">
+                                                <ArchiveIcon className="h-6 w-6 shrink-0 text-slate-200/80" />
+                                                <div>
+                                                    <p className="font-heading text-base tracking-normal">
+                                                        Arhiva
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </Link>
                                     </li>
                                     <li className="w-full">
                                         <Link
                                             href="/galerija"
                                             className={cn(
-                                                'relative block w-full cursor-pointer px-3 py-3 font-heading text-2xl font-bold tracking-widest text-slate-100 capitalize',
+                                                'relative cursor-pointer text-slate-100',
                                                 path === '/galerija' &&
-                                                    'text-slate-900',
+                                                    'text-likar3 [&>div]:border-likar3 [&>div]:bg-[url(/images/design/snow.png)]',
                                             )}
                                         >
-                                            Galerija
+                                            <div className="flex flex-col items-center gap-1 rounded-2xl border border-slate-100/80 px-2.5 py-1.5">
+                                                <Images className="h-6 w-6 shrink-0 text-slate-200/80" />
+                                                <div>
+                                                    <p className="font-heading text-base tracking-normal">
+                                                        Galerija
+                                                    </p>
+                                                </div>
+                                            </div>
                                         </Link>
                                     </li>
                                 </ul>
 
-                                <div className="to-likar4-40 flex items-center gap-5 bg-linear-to-bl from-likar4/80 px-5 py-2">
+                                <div className="flex items-center justify-center gap-5 px-5 py-3">
                                     <a
                                         href="https://www.instagram.com/"
                                         target="_blank"
-                                        className="group text-pink-600"
+                                        className="group rounded-2xl border border-slate-100/80 bg-slate-100/70 text-pink-600"
                                     >
                                         <svg
                                             stroke="currentColor"
@@ -378,7 +477,7 @@ export default function Header() {
                                     <a
                                         href="https://web.facebook.com/"
                                         target="_blank"
-                                        className="group text-blue-600"
+                                        className="group rounded-2xl border border-slate-100/80 bg-slate-100/70 text-blue-600"
                                     >
                                         <svg
                                             stroke="currentColor"
@@ -396,7 +495,7 @@ export default function Header() {
                                     <a
                                         href="https://www.youtube.com/"
                                         target="_blank"
-                                        className="group text-red-600"
+                                        className="group rounded-2xl border border-slate-100/80 bg-slate-100/70 text-red-600"
                                     >
                                         <svg
                                             stroke="currentColor"
