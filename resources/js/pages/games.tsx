@@ -3,7 +3,8 @@ import TableResults from '@/components/myComponents/stranice/tablica/rezultati/t
 import GamesEmptyState from '@/components/myComponents/stranice/utakmice/gamesEmptyState';
 import LastGames from '@/components/myComponents/stranice/utakmice/lastGames';
 import UpcomingGames from '@/components/myComponents/stranice/utakmice/upcomingGames';
-import type { GameWithTeams, Season } from '@/types/propTypes';
+import type { GameWithTeams } from '@/types/games';
+import type { Season } from '@/types/seasons';
 
 type GamesProps = {
     season: Season;
@@ -22,8 +23,6 @@ const Games = ({
     upcomingGames,
     upcomingRound,
 }: GamesProps) => {
-    console.log(games);
-
     return (
         <>
             <Head>

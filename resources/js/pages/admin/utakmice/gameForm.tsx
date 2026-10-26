@@ -7,9 +7,9 @@ import {
     base,
     buttonClass,
     inputClass,
-    type GameData,
-    type SeasonOption,
 } from '@/components/myComponents/stranice/admin/utakmice/types';
+import type { GameData, SeasonOption } from '@/types/admin-games';
+import type { GameScheduleForm } from '@/types/admin-games';
 
 type Props = {
     game: GameData | null;
@@ -36,7 +36,7 @@ function ScheduleEditor({
     playoffs,
     timezone,
 }: Props) {
-    const form = useForm({
+    const form = useForm<GameScheduleForm>({
         season_id: String(
             game?.season_id ??
                 seasons.find((s) => s.is_active)?.id ??

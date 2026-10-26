@@ -10,7 +10,7 @@ export default function ArticleCard({
 }: {
     title: string;
     date: string;
-    imageUrl: string;
+    imageUrl: string | null;
     id: number;
 }) {
     return (

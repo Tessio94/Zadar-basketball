@@ -2,7 +2,7 @@ import {
     create,
     index,
 } from '@/actions/App/Http/Controllers/Admin/ArticleController';
-import type { AdminArticleListItem } from '@/types/propTypes';
+import type { AdminArticleListItem } from '@/types/articles';
 import LastNewsCard from '../lastNews/lastNewsCard';
 import DashboardButton from '../ui/dashboardButton';
 
@@ -11,8 +11,6 @@ export default function LastNews({
 }: {
     articles: AdminArticleListItem[];
 }) {
-    const articlesExist = articles.length;
-
     return (
         <div className="relative z-10 h-full overflow-hidden rounded-xl border border-sidebar-border/70 bg-[url('/images/design/snow4.jpg')] bg-cover dark:border-sidebar-border">
             <h3 className="p-5 text-lg font-semibold text-slate-100">

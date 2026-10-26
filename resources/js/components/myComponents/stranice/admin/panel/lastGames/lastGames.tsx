@@ -1,9 +1,8 @@
-import type { Game } from '@/types/propTypes';
-import DashboardButton from '../ui/dashboardButton';
+import DashboardButton from '@/components/myComponents/stranice/admin/panel/ui/dashboardButton';
+import type { GameWithTeams } from '@/types/games';
 import LastGamesCard from './lastGamesCard';
 
-export default function LastGames({ games }: { games: Game[] }) {
-    console.log(games);
+export default function LastGames({ games }: { games: GameWithTeams[] }) {
     return (
         <div className="relative z-10 h-fit h-full overflow-hidden rounded-xl border border-sidebar-border/70 bg-[url('/images/design/snow4.jpg')] bg-cover dark:border-sidebar-border">
             <h3 className="p-5 text-lg font-semibold text-slate-100">

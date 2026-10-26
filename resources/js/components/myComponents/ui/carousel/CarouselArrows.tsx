@@ -2,7 +2,7 @@
 
 import type { EmblaCarouselType } from 'embla-carousel';
 import type { ComponentPropsWithRef } from 'react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useSyncExternalStore } from 'react';
 import { cn } from '@/lib/utils';
 
 type UsePrevNextButtonsType = {
@@ -15,34 +15,39 @@ type UsePrevNextButtonsType = {
 export const usePrevNextButtons = (
     emblaApi: EmblaCarouselType | undefined,
 ): UsePrevNextButtonsType => {
-    const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
-    const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
+    const subscribe = useCallback(
+        (notify: () => void) => {
+            if (!emblaApi) return () => {};
+
+            emblaApi.on('select', notify).on('reInit', notify);
+
+            return () => {
+                emblaApi.off('select', notify).off('reInit', notify);
+            };
+        },
+        [emblaApi],
+    );
+
+    const getSnapshot = useCallback(
+        () =>
+            (emblaApi?.canScrollPrev() ? 1 : 0) |
+            (emblaApi?.canScrollNext() ? 2 : 0),
+        [emblaApi],
+    );
+
+    const available = useSyncExternalStore(subscribe, getSnapshot, () => 0);
 
     const onPrevButtonClick = useCallback(() => {
-        if (!emblaApi) return;
-        emblaApi.scrollPrev();
+        emblaApi?.scrollPrev();
     }, [emblaApi]);
 
     const onNextButtonClick = useCallback(() => {
-        if (!emblaApi) return;
-        emblaApi.scrollNext();
+        emblaApi?.scrollNext();
     }, [emblaApi]);
 
-    const onSelect = useCallback((emblaApi: EmblaCarouselType) => {
-        setPrevBtnDisabled(!emblaApi.canScrollPrev());
-        setNextBtnDisabled(!emblaApi.canScrollNext());
-    }, []);
-
-    useEffect(() => {
-        if (!emblaApi) return;
-
-        onSelect(emblaApi);
-        emblaApi.on('reInit', onSelect).on('select', onSelect);
-    }, [emblaApi, onSelect]);
-
     return {
-        prevBtnDisabled,
-        nextBtnDisabled,
+        prevBtnDisabled: (available & 1) === 0,
+        nextBtnDisabled: (available & 2) === 0,
         onPrevButtonClick,
         onNextButtonClick,
     };

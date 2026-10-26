@@ -21,12 +21,21 @@ class PlayerGameStatController extends Controller
             ? Season::findOrFail($request->integer('season'))
             : Season::where('is_active', true)->firstOrFail();
 
-        $lastRound = Game::max('round_number');
+        $lastRound = Game::query()
+        ->where('season_id', $season->id)
+        ->where('status', 'finished')
+        // ->whereNull('playoff_id')
+        ->max('round_number');
+
+        $lastRound = $lastRound === null ? null : (int) $lastRound;
 
         return Inertia::render('statistics', [
             'season' => $season,
             'leaders' => $stats->seasonLeaders($season->id),
-            'lastRoundStats' => $stats->lastRoundLeaders(),
+            'lastRoundStats' => $stats->lastRoundLeaders(
+                $season->id,
+                $lastRound
+            ),
             'lastRound' => $lastRound,
             'bestPerformances' => $stats->seasonBestPerformances($season->id),
         ]);

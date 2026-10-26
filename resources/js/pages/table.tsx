@@ -4,12 +4,10 @@ import TabComponent from '@/components/myComponents/common/tab/tabComponent';
 import PlayoffBracket from '@/components/myComponents/stranice/tablica/poredak/playoffBracket';
 import TableStandings from '@/components/myComponents/stranice/tablica/poredak/tableStandings';
 import TableResults from '@/components/myComponents/stranice/tablica/rezultati/tableResults';
+import type { GameWithTeams } from '@/types/games';
 import type { PlayoffBracketData } from '@/types/playoffs';
-import type {
-    GameWithTeams,
-    Season,
-    TableStandings as TableStandingsType,
-} from '@/types/propTypes';
+import type { Season } from '@/types/seasons';
+import type { TableStandings as TableStandingsType } from '@/types/statistics';
 
 export default function Table({
     season,

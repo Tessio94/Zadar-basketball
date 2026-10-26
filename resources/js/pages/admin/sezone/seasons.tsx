@@ -1,16 +1,17 @@
 import { Head, Link, router } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
-import Pagination from '@/components/myComponents/common/pagination/Pagination';
-import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
-import AppLayout from '@/layouts/app-layout';
-import type { BreadcrumbItem } from '@/types';
-import type { Paginated, Season } from '@/types/propTypes';
 import {
     create,
     destroy,
     edit,
     index,
 } from '@/actions/App/Http/Controllers/Admin/SeasonController';
+import Pagination from '@/components/myComponents/common/pagination/Pagination';
+import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
+import AppLayout from '@/layouts/app-layout';
+import type { BreadcrumbItem } from '@/types';
+import type { Paginated } from '@/types/pagination';
+import type { Season } from '@/types/seasons';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

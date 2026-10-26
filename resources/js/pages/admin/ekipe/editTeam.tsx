@@ -8,7 +8,8 @@ import {
 import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
-import type { Season, Team, TeamForm } from '@/types/propTypes';
+import type { Season } from '@/types/seasons';
+import type { TeamWithSeasons, TeamEditForm } from '@/types/teams';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -25,14 +26,14 @@ export default function EditTeam({
     team,
     seasons,
 }: {
-    team: Team;
+    team: TeamWithSeasons;
     seasons: Season[];
 }) {
     console.log(team);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    const { data, setData, put, post, transform, processing, errors } =
-        useForm<TeamForm>({
+    const { data, setData, post, transform, processing, errors } =
+        useForm<TeamEditForm>({
             name: team.name ?? '',
             short_name: team.short_name ?? '',
             city: team.city ?? '',
@@ -207,12 +208,6 @@ export default function EditTeam({
                                 type="file"
                                 accept=".png,.jpg,.gif,.webp,image/jpeg,image/gif,image/webp,image/png"
                                 onChange={(e) => {
-                                    // setData(
-                                    //     'logo',
-                                    //     e.target.files
-                                    //         ? `/images/articles/${e.target.files[0].name}`
-                                    //         : '',
-                                    // );
                                     setData(
                                         'logo',
                                         e.target.files?.[0] ?? null,
@@ -236,24 +231,6 @@ export default function EditTeam({
                             )}
                         </div>
 
-                        {/* {team.logo && !data.logo && (
-                            <div>
-                                <img
-                                    src={`/storage/${team.logo}`}
-                                    alt={`${team.name} logo`}
-                                    className="h-auto w-full rounded"
-                                />
-                            </div>
-                        )}
-                        {data.logo && (
-                            <div>
-                                <img
-                                    src={`/storage/${data.logo}`}
-                                    alt={`${team.name} logo`}
-                                    className="h-auto w-full rounded"
-                                />
-                            </div>
-                        )} */}
                         {(logoPreview || team.logo) && (
                             <div>
                                 <img

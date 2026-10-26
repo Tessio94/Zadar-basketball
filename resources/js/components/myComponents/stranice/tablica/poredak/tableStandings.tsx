@@ -1,4 +1,4 @@
-import type { TableStandings } from '@/types/propTypes';
+import type { TableStandings } from '@/types/statistics';
 import StandingRow from './standingRow';
 
 export default function TableStandings({

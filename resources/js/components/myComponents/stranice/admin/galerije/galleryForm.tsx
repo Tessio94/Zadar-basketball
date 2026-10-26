@@ -13,7 +13,7 @@ import {
     reorderImages,
 } from '@/actions/App/Http/Controllers/Admin/GalleryController';
 import { slugify } from '@/lib/utils';
-import type { Gallery } from '@/types/propTypes';
+import type { Gallery } from '@/types/galleries';
 import { SortableImageCard } from './sortableImageCard';
 
 type ExistingImage = {
@@ -25,7 +25,7 @@ type ExistingImage = {
 
 export default function GalleryForm({ gallery }: { gallery?: Gallery }) {
     const isEditing = Boolean(gallery);
-    console.log('gallery', gallery);
+
     const [existingImages, setExistingImages] = useState<ExistingImage[]>(
         gallery?.images ?? [],
     );

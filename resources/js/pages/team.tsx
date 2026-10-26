@@ -6,13 +6,10 @@ import TeamPlayers from '@/components/myComponents/stranice/ekipe/ekipa/roster/t
 import TeamHeading from '@/components/myComponents/stranice/ekipe/ekipa/teamHeading';
 import TeamResults from '@/components/myComponents/stranice/ekipe/ekipa/utakmice/teamResults';
 import StatisticsTable from '@/components/myComponents/stranice/statistika/statisticsTable';
-import type {
-    GameWithTeams,
-    Season,
-    StatsLeader,
-    Team,
-    TeamSeason,
-} from '@/types/propTypes';
+import type { GameWithTeams } from '@/types/games';
+import type { Season } from '@/types/seasons';
+import type { StatsLeader } from '@/types/statistics';
+import type { Team, TeamSeason } from '@/types/teams';
 
 export default function Team({
     team,
@@ -24,7 +21,7 @@ export default function Team({
     team: Team;
     teamSeason: TeamSeason;
     games: GameWithTeams[];
-    stats: StatsLeader[];
+    stats: Record<string, StatsLeader>;
     season: Season;
 }) {
     const [active, setActive] = useRemember<string>('tab1');
@@ -64,7 +61,7 @@ export default function Team({
                         {active === 'tab1' && (
                             <TeamPlayers
                                 players={players}
-                                jerseyColor={logo_color}
+                                jerseyColor={logo_color ?? '#3f3633'}
                             />
                         )}
                         {active === 'tab2' && (
@@ -76,16 +73,14 @@ export default function Team({
                         {active === 'tab3' && (
                             <div className="mx-auto w-full rounded-2xl bg-likar1/30 p-2 sm:grid sm:items-stretch sm:gap-10 lg:grid-cols-2">
                                 {teamLeaders.map((category, i) => {
-                                    const { type, title, topFive } = category;
-
                                     return (
                                         <StatisticsTable
                                             key={i}
-                                            title={title}
-                                            type={type}
-                                            leaders={topFive}
+                                            category={category}
                                             seasonId={season.id}
-                                            jerseyColor={logo_color}
+                                            jerseyColor={
+                                                logo_color ?? '#3f3633'
+                                            }
                                         />
                                     );
                                 })}

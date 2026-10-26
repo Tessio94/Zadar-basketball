@@ -1,4 +1,4 @@
-import type { PlayerTotals } from '@/types/propTypes';
+import type { PlayerTotals } from '@/types/players';
 
 export default function PlayerTotalsRow({ totals }: { totals: PlayerTotals }) {
     const {
@@ -22,8 +22,8 @@ export default function PlayerTotalsRow({ totals }: { totals: PlayerTotals }) {
         efficiency,
     } = totals;
 
-    const fgTotalMade = fg2_made + fg3_made;
-    const fgTotalAttempted = fg2_attempted + fg3_attempted;
+    const fgTotalMade = Number(fg2_made) + Number(fg3_made);
+    const fgTotalAttempted = Number(fg2_attempted) + Number(fg3_attempted);
 
     return (
         <tr className="bg-likar1/20 font-semibold text-slate-100">
@@ -31,7 +31,7 @@ export default function PlayerTotalsRow({ totals }: { totals: PlayerTotals }) {
             <td className="p-1 text-center text-nowrap">{minutes}</td>
             <td className="p-1 text-center text-nowrap">{points}</td>
             <td className="p-1 text-center text-nowrap">
-                {offensive_rebounds + defensive_rebounds}
+                {Number(offensive_rebounds) + Number(defensive_rebounds)}
             </td>
             <td className="p-1 text-center text-nowrap">{assists}</td>
             <td className="p-1 text-center text-nowrap">{steals}</td>
@@ -44,22 +44,30 @@ export default function PlayerTotalsRow({ totals }: { totals: PlayerTotals }) {
                     : 0}
             </td>
             <td className="p-1 text-center text-nowrap">
-                {fg2_attempted > 0
-                    ? ((fg2_made / fg2_attempted) * 100).toFixed(0)
+                {Number(fg2_attempted) > 0
+                    ? (
+                          (Number(fg2_made) / Number(fg2_attempted)) *
+                          100
+                      ).toFixed(0)
                     : 0}
             </td>
             <td className="p-1 text-center text-nowrap">{fg3_made}</td>
             <td className="p-1 text-center text-nowrap">{fg3_attempted}</td>
             <td className="p-1 text-center text-nowrap">
-                {fg3_attempted > 0
-                    ? ((fg3_made / fg3_attempted) * 100).toFixed(0)
+                {Number(fg3_attempted) > 0
+                    ? (
+                          (Number(fg3_made) / Number(fg3_attempted)) *
+                          100
+                      ).toFixed(0)
                     : 0}
             </td>
             <td className="p-1 text-center text-nowrap">{ft_made}</td>
             <td className="p-1 text-center text-nowrap">{ft_attempted}</td>
             <td className="p-1 text-center text-nowrap">
-                {ft_attempted > 0
-                    ? ((ft_made / ft_attempted) * 100).toFixed(0)
+                {Number(ft_attempted) > 0
+                    ? ((Number(ft_made) / Number(ft_attempted)) * 100).toFixed(
+                          0,
+                      )
                     : 0}
             </td>
             <td className="p-1 text-center text-nowrap">

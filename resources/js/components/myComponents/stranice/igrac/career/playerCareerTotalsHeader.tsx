@@ -1,4 +1,10 @@
-export default function PlayerCareerTotalsHeader({ careerStats }) {
+import type { PlayerCareerStats } from '@/types/players';
+
+export default function PlayerCareerTotalsHeader({
+    careerStats,
+}: {
+    careerStats: PlayerCareerStats;
+}) {
     return (
         <div className="px-[5%] py-5">
             <div className="flex flex-col gap-5 py-5">

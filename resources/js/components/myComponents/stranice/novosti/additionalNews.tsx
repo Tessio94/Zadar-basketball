@@ -1,4 +1,4 @@
-import type { Article } from '@/types/propTypes';
+import type { Article } from '@/types/articles';
 import AdditionalNewsCard from './dodatneVijesti/additionalNewsCard';
 
 export default function AdditionalNews({ articles }: { articles: Article[] }) {

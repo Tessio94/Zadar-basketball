@@ -1,7 +1,7 @@
 import { Head } from '@inertiajs/react';
 import GalleryCarousel from '@/components/myComponents/stranice/galerija/galleryCarousel';
 import { formatDate } from '@/lib/utils';
-import type { Gallery } from '@/types/propTypes';
+import type { Gallery } from '@/types/galleries';
 
 export default function Gallery({ gallery }: { gallery: Gallery }) {
     const date = gallery.date || gallery.created_at;

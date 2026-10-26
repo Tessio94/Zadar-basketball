@@ -1,6 +1,6 @@
 import AdditionalNewsCard from '@/components/myComponents/stranice/novosti/dodatneVijesti/additionalNewsCard';
 import { cn } from '@/lib/utils';
-import type { Article } from '@/types/propTypes';
+import type { Article } from '@/types/articles';
 
 export default function SimpleNewsGrid({ articles }: { articles: Article[] }) {
     return (

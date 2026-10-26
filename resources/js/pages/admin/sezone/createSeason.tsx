@@ -6,7 +6,7 @@ import {
 import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
-import type { SeasonForm } from '@/types/propTypes';
+import type { SeasonForm } from '@/types/seasons';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

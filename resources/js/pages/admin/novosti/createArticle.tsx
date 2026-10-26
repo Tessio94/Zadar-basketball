@@ -9,7 +9,7 @@ import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminM
 import AppLayout from '@/layouts/app-layout';
 import { slugify } from '@/lib/utils';
 import type { BreadcrumbItem } from '@/types';
-import type { ArticleForm } from '@/types/propTypes';
+import type { ArticleForm } from '@/types/articles';
 import RichTextEditor from './richTextEditor';
 
 const breadcrumbs: BreadcrumbItem[] = [

@@ -1,4 +1,4 @@
-import type { GalleryImage } from '@/types/propTypes';
+import type { GalleryImage } from '@/types/galleries';
 
 // Optional server-generated derivatives. Existing records remain compatible.
 export type GalleryDisplayImage = GalleryImage & {
@@ -16,7 +16,9 @@ export function galleryImageSources(image: GalleryDisplayImage) {
     return {
         original,
         preview: image.preview_path ? storageUrl(image.preview_path) : original,
-        thumbnail: image.thumbnail_path ? storageUrl(image.thumbnail_path) : original,
+        thumbnail: image.thumbnail_path
+            ? storageUrl(image.thumbnail_path)
+            : original,
     };
 }
 
@@ -24,7 +26,11 @@ export function galleryImageSources(image: GalleryDisplayImage) {
 export function escapeCaption(value: string) {
     return value.replace(/[&<>"']/g, (character) => {
         const entities: Record<string, string> = {
-            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
         };
         return entities[character];
     });

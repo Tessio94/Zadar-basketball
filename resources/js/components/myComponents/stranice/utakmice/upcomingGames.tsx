@@ -1,5 +1,5 @@
 import BasketballIcon from '@/components/myComponents/ui/icons/basketballIcon';
-import type { GameWithTeams } from '@/types/propTypes';
+import type { GameWithTeams } from '@/types/games';
 import LastGamesCard from './lastGamesCard';
 
 export default function UpcomingGames({

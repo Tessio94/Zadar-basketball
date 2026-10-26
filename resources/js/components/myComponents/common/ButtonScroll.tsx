@@ -27,7 +27,7 @@ export default function ButtonScroll({
             el.removeEventListener('scroll', checkScroll);
             window.removeEventListener('resize', checkScroll);
         };
-    }, []);
+    }, [scrollRef]);
 
     return (
         <>

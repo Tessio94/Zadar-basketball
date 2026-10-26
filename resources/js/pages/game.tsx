@@ -5,16 +5,11 @@ import GameScore from '@/components/myComponents/stranice/utakmice/utakmica/head
 import GameTitle from '@/components/myComponents/stranice/utakmice/utakmica/headerSection/gameTitle';
 import GameLeaders from '@/components/myComponents/stranice/utakmice/utakmica/leaders/gameLeaders';
 import GameLayout from '@/layouts/game/game-layout';
-// import type {
-//     GameBoxscore,
-//     GameLeaders as GameLeadersType,
-// } from '@/types/propTypes';
 import type { GameDetailsProps } from '@/types/game-boxscore';
 
 const Game = ({ game, leaders, teamTotals }: GameDetailsProps) => {
     const [active, setActive] = useRemember<string>('tab1');
-    console.log('game', game);
-    console.log('leaders', leaders);
+
     const {
         home_team,
         home_team_id,

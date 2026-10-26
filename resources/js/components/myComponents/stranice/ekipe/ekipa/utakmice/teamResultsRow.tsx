@@ -2,7 +2,7 @@ import { Link } from '@inertiajs/react';
 import { show } from '@/actions/App/Http/Controllers/GameController';
 import { show as showTeam } from '@/actions/App/Http/Controllers/TeamController';
 import { formatDate, formatTime } from '@/lib/utils';
-import type { GameWithTeams } from '@/types/propTypes';
+import type { GameWithTeams } from '@/types/games';
 
 export default function TeamResultsRow({ game }: { game: GameWithTeams }) {
     const {

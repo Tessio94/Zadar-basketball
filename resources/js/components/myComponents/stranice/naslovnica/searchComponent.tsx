@@ -138,7 +138,7 @@ export default function SearchComponent({
             document.removeEventListener('pointerdown', handlePointerDown);
             document.removeEventListener('keydown', handleKeyDown);
         };
-    }, [open]);
+    }, [open, searchButtonRef, setOpen]);
 
     return (
         <div

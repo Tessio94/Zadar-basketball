@@ -1,7 +1,7 @@
 import { Link } from '@inertiajs/react';
 import { ArrowRight } from 'lucide-react';
 import { show } from '@/actions/App/Http/Controllers/ArticleController';
-import type { Article } from '@/types/propTypes';
+import type { Article } from '@/types/archive';
 
 export default function AdditionalNewsCard({ article }: { article: Article }) {
     return (

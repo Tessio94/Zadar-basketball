@@ -1,4 +1,4 @@
-import type { PlayerWithPivot } from '@/types/propTypes';
+import type { PlayerWithPivot } from '@/types/players';
 import RosterRowData from './rosterRowData';
 import RosterRowHeader from './rosterRowHeader';
 

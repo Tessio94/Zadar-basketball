@@ -11,7 +11,7 @@ export default function StatisticsAverageHeader({
             : (type === 'avg' && jerseyColor) || (type === 'pcg' && jerseyColor)
               ? ['', '', 'Igrač', 'Utakmice', 'Ukupno', 'Prosjek']
               : type === 'pcg'
-                ? ['', 'Tim', 'Igrač', 'Pokušaji', 'Ubačaji', 'Prosjek']
+                ? ['', 'Tim', 'Igrač', 'Ubačaji', 'Pokušaji', 'Prosjek']
                 : ['', 'Tim', 'Igrač', 'Ukupno'];
 
     return (

@@ -1,4 +1,4 @@
-import type { GameWithTeams } from '@/types/propTypes';
+import type { GameWithTeams } from '@/types/games';
 import ResultRow from './resultRow';
 
 export default function TableResults({

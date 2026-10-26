@@ -27,6 +27,7 @@ export default function UpcomingGames() {
                 </div>
                 <div>
                     <DashboardButton
+                        href="/utakmice"
                         type="link"
                         text={'Pregledaj sve utakmice'}
                     />

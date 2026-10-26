@@ -1,10 +1,16 @@
 import { cn, formatSeason } from '@/lib/utils';
+import type { PlayerTotals, PlayerAverages } from '@/types/players';
 
 export default function PlayerSeasonAverageRow({
     stats,
     carrer,
     seasonName = '',
     team,
+}: {
+    stats: PlayerTotals | PlayerAverages;
+    carrer: boolean;
+    seasonName?: string;
+    team?: string;
 }) {
     const {
         games,

@@ -1,6 +1,6 @@
 import { usePage, router } from '@inertiajs/react';
 import { cn } from '@/lib/utils';
-import { type Season } from '@/types/propTypes';
+import type { Season } from '@/types/seasons';
 
 export default function FilterSeason({
     selectedSeason,

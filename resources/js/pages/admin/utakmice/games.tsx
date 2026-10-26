@@ -9,13 +9,12 @@ import {
     base,
     buttonClass,
     inputClass,
-    type GameData,
-    type SeasonOption,
 } from '@/components/myComponents/stranice/admin/utakmice/types';
+import type { NamedGameData, SeasonOption } from '@/types/admin-games';
 
 type Props = {
     games: {
-        data: (GameData & { has_draft: boolean })[];
+        data: (NamedGameData & { has_draft: boolean })[];
         current_page: number;
         last_page: number;
         prev_page_url: string | null;

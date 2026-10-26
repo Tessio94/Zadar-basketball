@@ -1,5 +1,5 @@
 import { formatDateToString } from '@/lib/utils';
-import type { Article } from '@/types/propTypes';
+import type { Article } from '@/types/articles';
 import ArticleCard from './articleCard';
 
 export default function SideArticleCard({ articles }: { articles: Article[] }) {
@@ -18,7 +18,10 @@ export default function SideArticleCard({ articles }: { articles: Article[] }) {
                                 title={article.title}
                                 imageUrl={article.main_image}
                                 date={formatDateToString(
-                                    new Date(article.published_at),
+                                    new Date(
+                                        article.published_at ??
+                                            article.created_at,
+                                    ),
                                 )}
                                 id={article.id}
                                 key={article.id}

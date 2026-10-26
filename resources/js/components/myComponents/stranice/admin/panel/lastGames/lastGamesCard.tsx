@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react';
 import { show } from '@/actions/App/Http/Controllers/GameController';
-import type { GameWithTeams } from '@/types/propTypes';
+import type { GameWithTeams } from '@/types/games';
 
 export default function LastGamesCard({ game }: { game: GameWithTeams }) {
     return (

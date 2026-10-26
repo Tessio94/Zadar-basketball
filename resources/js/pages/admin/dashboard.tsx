@@ -9,10 +9,11 @@ import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminM
 import AppLayout from '@/layouts/app-layout';
 import { panel } from '@/routes/admin';
 import type { BreadcrumbItem } from '@/types';
-import type { AdminArticleListItem, Game } from '@/types/propTypes';
+import type { AdminArticleListItem } from '@/types/articles';
+import type { GameWithTeams } from '@/types/games';
 
 interface DashboardProps {
-    lastGames: Game[];
+    lastGames: GameWithTeams[];
     lastNews: AdminArticleListItem[];
 }
 

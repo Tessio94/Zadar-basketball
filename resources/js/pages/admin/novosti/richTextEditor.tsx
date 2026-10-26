@@ -2,6 +2,11 @@ import { Editor } from '@tinymce/tinymce-react';
 import axios from 'axios';
 import { useRef } from 'react';
 
+type UploadBlobInfo = {
+    blob: () => Blob;
+    filename: () => string;
+};
+
 export default function RichTextEditor({
     value,
     onChange,
@@ -55,23 +60,23 @@ export default function RichTextEditor({
                 content_style:
                     'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
                 image_caption: true,
-                image_list: [
-                    {
-                        title: 'Luka Bolić',
-                        value: '/images/articles/article1.jpg',
-                    },
-                    {
-                        title: 'Dinko Kamber',
-                        value: '/images/articles/article2.jpg',
-                    },
-                ],
+                // image_list: [
+                //     {
+                //         title: 'Luka Bolić',
+                //         value: '/images/articles/article1.jpg',
+                //     },
+                //     {
+                //         title: 'Dinko Kamber',
+                //         value: '/images/articles/article2.jpg',
+                //     },
+                // ],
                 image_uploadtab: true,
                 // images_upload_base_path: '/admin/novosti/upload-image',
                 // images_upload_url: '/admin-panel/novosti/upload-image',
                 automatic_uploads: true,
                 file_picker_types: 'image',
                 // images_upload_credentials: true,
-                images_upload_handler: (blobInfo) => {
+                images_upload_handler: (blobInfo: UploadBlobInfo) => {
                     return new Promise((resolve, reject) => {
                         const formData = new FormData();
                         formData.append(

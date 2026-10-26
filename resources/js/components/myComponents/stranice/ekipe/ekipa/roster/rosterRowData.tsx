@@ -17,13 +17,13 @@ export default function RosterRowData({
     dateOfBirth: string | null;
     age: number;
     height: number | null;
-    position: 'PG' | 'SG' | 'SF' | 'PF' | 'C' | null;
-    broj: number;
+    position: string | null;
+    broj: number | null;
     jerseyColor: string;
 }) {
     return (
         <tr className="text-lg text-slate-100 odd:bg-likar2 even:bg-likar2/60">
-            <td className="p-1 text-center text-nowrap">{broj}</td>
+            <td className="p-1 text-center text-nowrap">{broj ?? '—'}</td>
             <td className="p-1 text-center text-nowrap">
                 <div className="flex flex-row items-center justify-center">
                     <BasketballPlayerIcon

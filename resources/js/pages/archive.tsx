@@ -2,7 +2,8 @@ import { Head } from '@inertiajs/react';
 import Pagination from '@/components/myComponents/common/pagination/Pagination';
 import ArchiveNews from '@/components/myComponents/stranice/arhiva/archiveNews';
 import EmptyNews from '@/components/myComponents/stranice/novosti/glavneVijesti/emptyNews';
-import type { Article, Paginated } from '@/types/propTypes';
+import type { Article } from '@/types/archive';
+import type { Paginated } from '@/types/pagination';
 
 export default function Archive({
     articles,

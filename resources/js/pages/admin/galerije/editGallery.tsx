@@ -3,7 +3,7 @@ import { index } from '@/actions/App/Http/Controllers/Admin/GalleryController';
 import GalleryForm from '@/components/myComponents/stranice/admin/galerije/galleryForm';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
-import type { Gallery } from '@/types/propTypes';
+import type { Gallery } from '@/types/galleries';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -17,7 +17,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function EditGallery({ gallery }: { gallery: Gallery }) {
-    // console.log('gallery', gallery);
     return (
         <>
             <Head title="Admin panel | Galerija" />

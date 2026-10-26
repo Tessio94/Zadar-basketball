@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react';
 import { show } from '@/actions/App/Http/Controllers/TeamController';
-import type { Team } from '@/types/propTypes';
+import type { Team } from '@/types/teams';
 
 export default function GameScore({
     homeTeam,

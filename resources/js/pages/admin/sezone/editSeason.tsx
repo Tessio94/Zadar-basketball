@@ -6,7 +6,7 @@ import {
 import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
-import type { Season, SeasonForm } from '@/types/propTypes';
+import type { Season, SeasonForm } from '@/types/seasons';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -26,7 +26,7 @@ export default function EditSeason({ season }: { season: Season }) {
         end_date: season.end_date || '',
         is_active: season.is_active || false,
     });
-    console.log(season);
+
     function submit(e: React.SubmitEvent) {
         e.preventDefault();
         put(update(season.id).url);

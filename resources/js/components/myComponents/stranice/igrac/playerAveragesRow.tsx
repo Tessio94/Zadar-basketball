@@ -1,4 +1,4 @@
-import type { PlayerAverages } from '@/types/propTypes';
+import type { PlayerAverages } from '@/types/players';
 
 export default function PlayerAveragesRow({
     averages,
@@ -30,7 +30,7 @@ export default function PlayerAveragesRow({
         plus_minus,
         efficiency,
     } = averages;
-    console.log(averages);
+
     return (
         <tr className="bg-likar1/60 font-semibold text-slate-100">
             <td className="p-1 text-center text-nowrap">{games}</td>

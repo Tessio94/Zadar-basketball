@@ -1,15 +1,15 @@
 import { Head } from '@inertiajs/react';
 import Pagination from '@/components/myComponents/common/pagination/Pagination';
 import EmptyGallery from '@/components/myComponents/stranice/galerija/emptyGallery';
-import type { Gallery, Paginated } from '@/types/propTypes';
 import GalleryGrid from '@/components/myComponents/stranice/galerija/galleryGrid';
+import type { Gallery } from '@/types/galleries';
+import type { Paginated } from '@/types/pagination';
 
 export default function Galleries({
     galleries,
 }: {
     galleries: Paginated<Gallery>;
 }) {
-    console.log(galleries);
     return (
         <>
             <Head>

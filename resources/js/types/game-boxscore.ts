@@ -2,7 +2,7 @@ import type {
     GameBoxscore,
     GameLeaders,
     GameStatsWithPlayerAndTeam,
-} from './propTypes';
+} from './games';
 
 export type GameBoxscorePlayerStat = GameStatsWithPlayerAndTeam & {
     jersey_number: number | null;

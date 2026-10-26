@@ -2,9 +2,8 @@ import { Head } from '@inertiajs/react';
 import { Clock } from 'lucide-react';
 import ArticleContent from '@/components/myComponents/stranice/novosti/clanak/articleContent';
 import SideArticleCard from '@/components/myComponents/stranice/novosti/clanak/sideArticleGrid';
-import useFancybox from '@/hooks/use-fancybox';
 import { formatDateToString, formatDateToYear } from '@/lib/utils';
-import type { Article } from '@/types/propTypes';
+import type { Article } from '@/types/articles';
 
 export default function Article({
     article,
@@ -13,10 +12,6 @@ export default function Article({
     article: Article;
     lastArticles: Article[];
 }) {
-    const [fancyboxRef] = useFancybox({
-        infinite: false,
-    });
-
     return (
         <>
             <Head>
@@ -51,7 +46,7 @@ export default function Article({
                         <div className="article-hero-content absolute bottom-0 left-0 z-20 w-full px-5 pt-14 pb-6">
                             <div className="z-20 flex flex-col gap-4">
                                 <span className="font-jet w-fit rounded-xl bg-slate-600 px-2 py-1 font-heading text-sm text-slate-100 transition-colors duration-300 group-hover:bg-likar1">
-                                    {`${formatDateToYear(article.published_at) - 1} - ${formatDateToYear(article.published_at)}`}
+                                    {`${formatDateToYear(article.published_at ?? article.created_at) - 1} - ${formatDateToYear(article.published_at ?? article.created_at)}`}
                                 </span>
                                 <p className="font-text text-sm text-slate-100">
                                     {article.title}
@@ -59,7 +54,10 @@ export default function Article({
                                 <time className="flex flex-row items-center gap-3 text-sm text-slate-100">
                                     <Clock className="h-4 w-4" />{' '}
                                     {formatDateToString(
-                                        new Date(article.published_at),
+                                        new Date(
+                                            article.published_at ??
+                                                article.created_at,
+                                        ),
                                     )}
                                 </time>
                             </div>

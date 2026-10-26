@@ -1,4 +1,4 @@
-import { Head, router, useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import { ImageIcon } from 'lucide-react';
 import { useEffect, useMemo, useRef } from 'react';
 import {
@@ -8,7 +8,7 @@ import {
 import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
-import type { Article } from '@/types/propTypes';
+import type { Article, ArticleEditForm } from '@/types/articles';
 import RichTextEditor from './richTextEditor';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -23,22 +23,18 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function EditArticle({ article }: { article: Article }) {
-    console.log('article', article);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const { data, setData, post, transform, processing, errors } =
-        useForm<Article>({
+        useForm<ArticleEditForm>({
             title: article.title ?? '',
             published_at: article?.published_at?.substring(0, 10) ?? '',
             excerpt: article.excerpt ?? '',
             content: article.content ?? '',
             status: article.status ?? '',
             slug: article.slug ?? '',
-            // main_image: article.main_image ?? '',
             main_image: null,
         });
-
-    console.log('data', data);
 
     const mainImagePreview = useMemo(() => {
         return data.main_image ? URL.createObjectURL(data.main_image) : null;

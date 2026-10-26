@@ -2,7 +2,7 @@ import useFancybox from '@/hooks/use-fancybox';
 
 export default function ArticleContent({ content }: { content: string }) {
     const [fancyboxRef] = useFancybox({
-        infinite: false,
+        Carousel: { infinite: false },
     });
 
     const html = prepareArticleContent(content);

@@ -1,7 +1,7 @@
 import { Head } from '@inertiajs/react';
 import AdditionalNews from '@/components/myComponents/stranice/novosti/additionalNews';
 import MainNews from '@/components/myComponents/stranice/novosti/glavneVijesti/mainNews';
-import type { Article } from '@/types/propTypes';
+import type { Article } from '@/types/articles';
 
 export default function Novosti({
     mainArticles,

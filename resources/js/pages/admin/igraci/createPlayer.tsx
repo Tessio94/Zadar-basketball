@@ -1,6 +1,4 @@
 import { Head, useForm } from '@inertiajs/react';
-// import { ImageIcon } from 'lucide-react';
-// import { useRef } from 'react';
 import {
     index,
     store,
@@ -8,7 +6,9 @@ import {
 import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
-import type { PlayerForm, Team, Season } from '@/types/propTypes';
+import type { PlayerCreateForm } from '@/types/players';
+import type { Season } from '@/types/seasons';
+import type { Team } from '@/types/teams';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -28,22 +28,17 @@ export default function CreatePlayer({
     teams: Team[];
     seasons: Season[];
 }) {
-    // const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-    const { data, setData, post, processing, errors } = useForm<PlayerForm>({
-        first_name: '',
-        last_name: '',
-        date_of_birth: '',
-        height: '',
-        position: '',
-        season_id: '',
-        team_id: '',
-        jersey_number: '',
-    });
-
-    // const slikaPreview: string | null = data.slika
-    //     ? URL.createObjectURL(data.slika)
-    //     : null;
+    const { data, setData, post, processing, errors } =
+        useForm<PlayerCreateForm>({
+            first_name: '',
+            last_name: '',
+            date_of_birth: '',
+            height: '',
+            position: '',
+            season_id: '',
+            team_id: '',
+            jersey_number: '',
+        });
 
     function submit(e: React.SubmitEvent) {
         e.preventDefault();
@@ -184,50 +179,6 @@ export default function CreatePlayer({
                                 </div>
                             )}
                         </div>
-
-                        {/* <div>
-                            <label
-                                htmlFor="slika"
-                                className="mb-1 block font-semibold"
-                            >
-                                Slika
-                            </label>
-                            <input
-                                id="slika"
-                                name="slika"
-                                type="file"
-                                accept=".png,.jpg,.gif,.webp,image/jpeg,image/gif,image/webp,image/png"
-                                onChange={(e) => {
-                                    if (e.target.files && e.target.files[0]) {
-                                        setData('slika', e.target.files[0]);
-                                    }
-                                }}
-                                ref={fileInputRef}
-                                className="sr-only"
-                            />
-                            <button
-                                type="button"
-                                onClick={() => fileInputRef.current?.click()}
-                                className="flex w-fit cursor-pointer flex-row items-center gap-2 rounded bg-black px-4 py-2 text-white transition-colors duration-300 hover:bg-likar4"
-                            >
-                                Odaberi sliku <ImageIcon strokeWidth="1.5" />
-                            </button>
-                            {errors.slika && (
-                                <div className="text-sm text-red-500">
-                                    {errors.slika}
-                                </div>
-                            )}
-                        </div>
-
-                        {slikaPreview && (
-                            <div>
-                                <img
-                                    src={slikaPreview}
-                                    alt="slika igrača"
-                                    className="h-auto w-full rounded"
-                                />
-                            </div>
-                        )} */}
                     </div>
 
                     <div className="space-y-6 xl:w-1/2 xl:pl-5 2xl:pl-10">

@@ -4,7 +4,7 @@ import type {
     GameBoxscorePlayerStat,
     GameTeamTotal,
 } from '@/types/game-boxscore';
-import type { Team } from '@/types/propTypes';
+import type { Team } from '@/types/teams';
 import BoxScoreHeader from './boxScoreHeader';
 import BoxScoreRow from './boxScoreRow';
 import BoxScoreTotalsRow from './boxScoreTotalsRow';
@@ -18,8 +18,6 @@ export default function GameBoxScore({
     players: GameBoxscorePlayerStat[];
     totals: GameTeamTotal;
 }) {
-    console.log('team', team);
-    console.log('players', players);
     return (
         <section className="relative mx-auto mb-10 px-[5%]">
             <div className="relative overflow-hidden rounded-xl border border-likar3/40">

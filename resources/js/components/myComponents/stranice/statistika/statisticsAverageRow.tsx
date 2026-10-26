@@ -1,138 +1,33 @@
 import { Link } from '@inertiajs/react';
 import { show } from '@/actions/App/Http/Controllers/PlayerController';
 import { show as showTeam } from '@/actions/App/Http/Controllers/TeamController';
-import type { TopFiveAvg, TopFiveDaily, TopFivePcg } from '@/types/propTypes';
-import BasketballPlayerIcon from '../../ui/icons/basketballPlayer';
+import BasketballPlayerIcon from '@/components/myComponents/ui/icons/basketballPlayer';
+import type { TopFiveAvg, TopFiveDaily, TopFivePcg } from '@/types/statistics';
 
-export default function StatisticsAverageRow({
-    type,
-    leader,
-    index,
-    seasonId,
-    jerseyColor,
-}: {
-    type: 'avg' | 'pcg' | 'daily';
+type StatisticsAverageRowProps = {
     index: number;
-    leader: TopFiveAvg | TopFivePcg | TopFiveDaily;
     seasonId?: number;
     jerseyColor?: string;
-}) {
-    const teamSeason = leader.player.team_seasons.find(
-        (teamSeason) => teamSeason.season_id === seasonId,
-    )!;
+} & (
+    | { type: 'avg'; leader: TopFiveAvg }
+    | { type: 'pcg'; leader: TopFivePcg }
+    | { type: 'daily'; leader: TopFiveDaily }
+);
 
-    const team = teamSeason?.team;
+export default function StatisticsAverageRow(props: StatisticsAverageRowProps) {
+    const { index, seasonId, jerseyColor } = props;
+    const { player } = props.leader;
 
-    // if (!team && type === 'avg') {
-    //     console.log('leader', leader);
-    //     return (
-    //         <tr className="text-slate-100 odd:bg-likar2 even:bg-likar2/60 [&_td]:p-2 [&_td]:text-center">
-    //             {Array.from({ length: 6 }, (_, i) => i + 1).map((e: number) => {
-    //                 if (e === 1) {
-    //                     return <td>{index + 1}.</td>;
-    //                 } else if (e === 2) {
-    //                     return (
-    //                         <td>
-    //                             {' '}
-    //                             <div className="flex flex-row items-center justify-center">
-    //                                 <BasketballPlayerIcon
-    //                                     className="h-10 w-10 shrink-0 rounded-full border border-slate-100/80 bg-gray-400 p-0.5 text-slate-900 max-[500px]:h-6 max-[500px]:w-6"
-    //                                     jerseyColor={'#000000'}
-    //                                 />
-    //                             </div>
-    //                         </td>
-    //                     );
-    //                 } else {
-    //                     return <td>--/--</td>;
-    //                 }
-    //             })}
-    //         </tr>
-    //     );
-    // }
+    const team = player.team_seasons.find(
+        (entry) => entry.season_id === seasonId,
+    )?.team;
 
-    if (type === 'avg') {
-        const { games, player, avg, total } = leader as TopFiveAvg;
+    return (
+        <tr className="text-slate-100 odd:bg-likar2 even:bg-likar2/60 [&_td]:p-2 [&_td]:text-center">
+            <td>{index + 1}.</td>
 
-        return (
-            <tr className="text-slate-100 odd:bg-likar2 even:bg-likar2/60 [&_td]:p-2 [&_td]:text-center">
-                <td>{index + 1}.</td>
-                <td>
-                    {jerseyColor ? (
-                        <div className="flex flex-row items-center justify-center">
-                            <BasketballPlayerIcon
-                                className="h-10 w-10 shrink-0 rounded-full border border-slate-100/80 bg-gray-400 p-0.5 text-slate-900 max-[500px]:h-6 max-[500px]:w-6"
-                                jerseyColor={jerseyColor}
-                            />
-                        </div>
-                    ) : (
-                        <Link href={showTeam(team.id)}>
-                            <img
-                                src={`/storage/${team.logo}`}
-                                alt={`${team.name} logo`}
-                                height={40}
-                                width={40}
-                                className="inline-block rounded-full border border-slate-100/80"
-                            />
-                        </Link>
-                    )}
-                </td>
-                <td>
-                    <Link
-                        href={show(player.id)}
-                        className="text-nowrap hover:underline"
-                    >
-                        {`${player.first_name} ${player.last_name}`}
-                    </Link>
-                </td>
-                <td>{games}</td>
-                <td>{total}</td>
-                <td>{avg}</td>
-            </tr>
-        );
-    } else if (type === 'pcg') {
-        const { player, pcg, total_made, total_attempted } =
-            leader as TopFivePcg;
-
-        return (
-            <tr className="text-slate-100 odd:bg-likar2 even:bg-likar2/60 [&_td]:p-2 [&_td]:text-center">
-                <td>{index + 1}.</td>
-                <td>
-                    {jerseyColor ? (
-                        <div className="flex flex-row items-center justify-center">
-                            <BasketballPlayerIcon
-                                className="h-10 w-10 shrink-0 rounded-full border border-slate-100/80 bg-gray-400 p-0.5 text-slate-900 max-[500px]:h-6 max-[500px]:w-6"
-                                jerseyColor={jerseyColor}
-                            />
-                        </div>
-                    ) : (
-                        <Link href={showTeam(team.id)}>
-                            <img
-                                src={`/storage/${team.logo}`}
-                                alt={`${team.name} logo`}
-                                height={40}
-                                width={40}
-                                className="inline-block rounded-full border border-slate-100/80"
-                            />
-                        </Link>
-                    )}
-                </td>
-                <td>
-                    <Link href={show(player.id)} className="hover:underline">
-                        {`${player.first_name} ${player.last_name}`}
-                    </Link>
-                </td>
-                <td>{total_attempted}</td>
-                <td>{total_made}</td>
-                <td>{pcg}%</td>
-            </tr>
-        );
-    } else if (type === 'daily') {
-        const { player, total } = leader as TopFiveAvg;
-
-        return (
-            <tr className="text-slate-100 odd:bg-likar2 even:bg-likar2/60 [&_td]:p-2 [&_td]:text-center">
-                <td>{index + 1}.</td>
-                <td>
+            <td>
+                {!jerseyColor && team && team.logo ? (
                     <Link
                         href={showTeam(team.id, {
                             query: { season: seasonId },
@@ -146,14 +41,48 @@ export default function StatisticsAverageRow({
                             className="inline-block rounded-full border border-slate-100/80"
                         />
                     </Link>
-                </td>
-                <td>
-                    <Link href={show(player.id)} className="hover:underline">
-                        {`${player.first_name} ${player.last_name}`}
-                    </Link>
-                </td>
-                <td>{total}</td>
-            </tr>
-        );
-    }
+                ) : (
+                    <div className="flex items-center justify-center">
+                        <BasketballPlayerIcon
+                            className="h-10 w-10 shrink-0 rounded-full border border-slate-100/80 bg-gray-400 p-0.5 text-slate-900 max-[500px]:h-6 max-[500px]:w-6"
+                            jerseyColor={
+                                jerseyColor ?? team?.logo_color ?? '#3f3633'
+                            }
+                        />
+                    </div>
+                )}
+            </td>
+
+            <td>
+                <Link
+                    href={show(player.id)}
+                    className="text-nowrap hover:underline"
+                >
+                    {`${player.first_name} ${player.last_name}`}
+                </Link>
+            </td>
+
+            {props.type === 'avg' && (
+                <>
+                    <td>{props.leader.games}</td>
+                    <td>{props.leader.total}</td>
+                    <td>{props.leader.avg}</td>
+                </>
+            )}
+
+            {props.type === 'pcg' && (
+                <>
+                    <td>{props.leader.total_made}</td>
+                    <td>{props.leader.total_attempted}</td>
+                    <td>
+                        {props.leader.pcg == null
+                            ? '—'
+                            : `${props.leader.pcg}%`}
+                    </td>
+                </>
+            )}
+
+            {props.type === 'daily' && <td>{props.leader.total}</td>}
+        </tr>
+    );
 }

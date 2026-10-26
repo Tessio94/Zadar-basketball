@@ -1,4 +1,4 @@
-import type { Article } from '@/types/propTypes';
+import type { Article } from '@/types/articles';
 import MainNewsCard from './mainNewsCard';
 
 export default function MainNewsGrid({ articles }: { articles: Article[] }) {

@@ -1,5 +1,6 @@
 import { useRemember } from '@inertiajs/react';
 import TabComponent from '@/components/myComponents/common/tab/tabComponent';
+import type { PlayerCareerProps } from '@/types/players';
 import PlayerSeasonAverageBody from './playerSeasonAverageBody';
 import PlayerSeasonAverageRow from './playerSeasonAverageRow';
 import PlayerSeasonAveragesHead from './playerSeasonAveragesHead';
@@ -8,7 +9,7 @@ export default function PlayerCareerTable({
     careerStats,
     seasonStats,
     playerTeams,
-}) {
+}: PlayerCareerProps) {
     const [active, setActive] = useRemember<string>('tab1');
 
     return (

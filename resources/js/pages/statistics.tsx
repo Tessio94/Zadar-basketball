@@ -2,12 +2,12 @@ import { Head, useRemember } from '@inertiajs/react';
 import FilterSeason from '@/components/myComponents/common/filter/filterSeason';
 import TabComponent from '@/components/myComponents/common/tab/tabComponent';
 import StatisticsTable from '@/components/myComponents/stranice/statistika/statisticsTable';
+import type { Season } from '@/types/seasons';
 import type {
     StatsDailyLeader,
     StatsLeader,
     StatsBestPerformance,
-    Season,
-} from '@/types/propTypes';
+} from '@/types/statistics';
 
 export default function Statistics({
     season,
@@ -17,17 +17,18 @@ export default function Statistics({
     bestPerformances,
 }: {
     season: Season;
-    leaders: StatsLeader[];
-    lastRoundStats: StatsDailyLeader[];
-    lastRound: number;
-    bestPerformances: StatsBestPerformance[];
+    leaders: Record<string, StatsLeader>;
+    lastRoundStats: Record<string, StatsDailyLeader>;
+    lastRound: number | null;
+    bestPerformances: Record<string, StatsBestPerformance>;
 }) {
     const [active, setActive] = useRemember<string>('tab1');
 
     const avgLeadersArr = Object.values(leaders);
     const dailyLeadersArr = Object.values(lastRoundStats);
     const bestPerformancesArr = Object.values(bestPerformances);
-
+    console.log('dailyLeaders', dailyLeadersArr);
+    console.log('last round', lastRound);
     return (
         <>
             <Head>
@@ -59,40 +60,36 @@ export default function Statistics({
                     )}
                     {active === 'tab1' &&
                         avgLeadersArr.map((category, i) => {
-                            const { type, title, topFive } = category;
                             return (
                                 <StatisticsTable
                                     key={i}
-                                    title={title}
-                                    type={type}
-                                    leaders={topFive}
+                                    category={category}
                                     seasonId={season.id}
                                 />
                             );
                         })}
                     {active === 'tab2' &&
+                        lastRound !== null &&
                         dailyLeadersArr.map((category, i) => {
-                            const { title, topFive } = category;
                             return (
                                 <StatisticsTable
                                     key={i}
-                                    title={title}
-                                    type="daily"
-                                    leaders={topFive}
+                                    category={{ ...category, type: 'daily' }}
                                     seasonId={season.id}
                                 />
                             );
                         })}
+                    {active === 'tab2' && lastRound === null && (
+                        <p className="p-6 text-center text-slate-300">
+                            Još nema odigranih utakmica u ovoj sezoni.
+                        </p>
+                    )}
                     {active === 'tab3' &&
                         bestPerformancesArr.map((category, i) => {
-                            const { title, topFive } = category;
-
                             return (
                                 <StatisticsTable
                                     key={i}
-                                    title={title}
-                                    type="daily"
-                                    leaders={topFive}
+                                    category={{ ...category, type: 'daily' }}
                                     seasonId={season.id}
                                 />
                             );

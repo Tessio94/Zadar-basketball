@@ -1,8 +1,8 @@
 import { Link } from '@inertiajs/react';
 import { ChevronDown, Trophy, X } from 'lucide-react';
 import { useId, useRef, useState } from 'react';
-import PlayoffBracketCard from './playoffBracketCard';
 import type { PlayoffBracketData, PlayoffSeries } from '@/types/playoffs';
+import PlayoffBracketCard from './playoffBracketCard';
 
 export default function PlayoffBracket({
     bracket,

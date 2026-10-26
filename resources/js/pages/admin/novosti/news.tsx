@@ -12,7 +12,8 @@ import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminM
 import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
 import type { BreadcrumbItem } from '@/types';
-import type { Article, Paginated, ArticleFilters } from '@/types/propTypes';
+import type { Article, ArticleFilters } from '@/types/articles';
+import type { Paginated } from '@/types/pagination';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

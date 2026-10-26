@@ -1,3 +1,5 @@
+import type { GameStatus, PlayoffRound } from './games';
+
 export type PlayoffTeam = {
     id: number;
     name: string;
@@ -14,7 +16,7 @@ export type PlayoffSeriesTeam = {
 export type PlayoffGame = {
     id: number;
     game_date: string;
-    status: string;
+    status: GameStatus;
     home_score: number;
     away_score: number;
     home_team: { id: number; name: string };
@@ -24,7 +26,7 @@ export type PlayoffGame = {
 export type PlayoffSeries = {
     id: string;
     label: string;
-    round: 'quarterfinal' | 'semifinal' | 'final';
+    round: PlayoffRound;
     teams: [PlayoffSeriesTeam, PlayoffSeriesTeam];
     winner: PlayoffTeam | null;
     games: PlayoffGame[];

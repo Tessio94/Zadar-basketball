@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react';
 import { show } from '@/actions/App/Http/Controllers/TeamController';
-import type { TableStandings } from '@/types/propTypes';
+import type { TableStandings } from '@/types/statistics';
 
 export default function StandingRow({
     standing,

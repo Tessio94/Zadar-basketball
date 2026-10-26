@@ -1,4 +1,4 @@
-import type { Article } from '@/types/propTypes';
+import type { Article } from '@/types/articles';
 import EmptyNews from './emptyNews';
 import MainNewsGrid from './MainNewsGrid';
 import SimpleNewsGrid from './SimpleNewsGrid';

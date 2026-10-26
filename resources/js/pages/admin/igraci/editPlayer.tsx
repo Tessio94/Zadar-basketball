@@ -1,6 +1,4 @@
 import { Head, useForm } from '@inertiajs/react';
-// import { ImageIcon } from 'lucide-react';
-// import { useRef } from 'react';
 import {
     index,
     update,
@@ -8,7 +6,8 @@ import {
 import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
-import type { PlayerAdmin, PlayerForm, Season, Team } from '@/types/propTypes';
+import type { PlayerAdmin, PlayerEditForm } from '@/types/players';
+import type { TeamSeasonOption } from '@/types/teams';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -26,24 +25,9 @@ export default function EditPlayer({
     teamSeasons,
 }: {
     player: PlayerAdmin;
-    teamSeasons;
+    teamSeasons: TeamSeasonOption[];
 }) {
-    // const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-    console.log('player', player);
-
-    // const { data, setData, put, processing, errors } = useForm<PlayerForm>({
-    //     first_name: player.first_name || '',
-    //     last_name: player.last_name || '',
-    //     date_of_birth: player.date_of_birth || '',
-    //     height: player.height?.toString() || '',
-    //     position: player.position || '',
-    //     season_id: player.team_seasons[0]?.season_id?.toString() || '',
-    //     team_id: player.team_seasons[0]?.team_id?.toString() || '',
-    //     jersey_number:
-    //         player.team_seasons[0].pivot?.jersey_number?.toString() || '',
-    // });
-    const { data, setData, put, processing, errors } = useForm<PlayerForm>({
+    const { data, setData, put, processing, errors } = useForm<PlayerEditForm>({
         first_name: player.first_name ?? '',
         last_name: player.last_name ?? '',
         date_of_birth: player.date_of_birth ?? '',
@@ -84,14 +68,9 @@ export default function EditPlayer({
 
     function submit(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault();
-        // put(`/admin/players/${player.id}`);
+
         put(update(player.id).url);
     }
-
-    // function submit(e: React.SubmitEvent) {
-    //     e.preventDefault();
-    //     put(update(player.id).url);
-    // }
 
     return (
         <>
@@ -227,138 +206,8 @@ export default function EditPlayer({
                                 </div>
                             )}
                         </div>
-
-                        {/* <div>
-                            <label
-                                htmlFor="slika"
-                                className="mb-1 block font-semibold"
-                            >
-                                Slika
-                            </label>
-                            <input
-                                id="slika"
-                                name="slika"
-                                type="file"
-                                accept=".png,.jpg,.gif,.webp,image/jpeg,image/gif,image/webp,image/png"
-                                onChange={(e) => {
-                                    if (e.target.files && e.target.files[0]) {
-                                        setData('slika', e.target.files[0]);
-                                    }
-                                }}
-                                ref={fileInputRef}
-                                className="sr-only"
-                            />
-                            <button
-                                type="button"
-                                onClick={() => fileInputRef.current?.click()}
-                                className="flex w-fit cursor-pointer flex-row items-center gap-2 rounded bg-black px-4 py-2 text-white transition-colors duration-300 hover:bg-likar4"
-                            >
-                                Odaberi sliku <ImageIcon strokeWidth="1.5" />
-                            </button>
-                            {errors.slika && (
-                                <div className="text-sm text-red-500">
-                                    {errors.slika}
-                                </div>
-                            )}
-                        </div>
-
-                        {slikaPreview && (
-                            <div>
-                                <img
-                                    src={slikaPreview}
-                                    alt="slika igrača"
-                                    className="h-auto w-full rounded"
-                                />
-                            </div>
-                        )} */}
                     </div>
 
-                    {/* <div className="space-y-6 xl:w-1/2 xl:pl-5 2xl:pl-10">
-                        <h3 className="text-xl font-semibold underline-offset-2">
-                            Trenutna Ekipa
-                        </h3>
-                        <div>
-                            <label
-                                htmlFor="team_id"
-                                className="mb-1 block font-semibold"
-                            >
-                                Ekipa
-                            </label>
-                            <select
-                                id="team_id"
-                                name="team_id"
-                                value={data.team_id}
-                                onChange={(e) =>
-                                    setData('team_id', e.target.value)
-                                }
-                                className="w-full rounded border p-2"
-                            >
-                                <option value="">Odaberi ekipu</option>
-                                {teams.map((team) => (
-                                    <option key={team.id} value={team.id}>
-                                        {team.name}
-                                    </option>
-                                ))}
-                            </select>
-                            {errors.team_id && (
-                                <div className="text-sm text-red-500">
-                                    {errors.team_id}
-                                </div>
-                            )}
-                        </div>
-                        <div>
-                            <label
-                                htmlFor="season_id"
-                                className="mb-1 block font-semibold"
-                            >
-                                Sezona
-                            </label>
-                            <select
-                                id="season_id"
-                                name="season_id"
-                                value={data.season_id}
-                                onChange={(e) =>
-                                    setData('season_id', e.target.value)
-                                }
-                                className="w-full rounded border p-2"
-                            >
-                                <option value="">Odaberi sezonu</option>
-                                {seasons.map((season) => (
-                                    <option key={season.id} value={season.id}>
-                                        {season.name}
-                                    </option>
-                                ))}
-                            </select>
-                            {errors.season_id && (
-                                <div className="text-sm text-red-500">
-                                    {errors.season_id}
-                                </div>
-                            )}
-                        </div>
-                        <div>
-                            <label
-                                htmlFor="jersey_number"
-                                className="mb-1 block font-semibold"
-                            >
-                                Broj
-                            </label>
-                            <input
-                                type="number"
-                                id="jersey_number"
-                                name="jersey_number"
-                                value={data.jersey_number}
-                                onChange={(e) =>
-                                    setData('jersey_number', e.target.value)
-                                }
-                                className="w-full rounded border p-2"
-                            />
-                            {errors.jersey_number && (
-                                <div className="text-sm text-red-500">
-                                    {errors.jersey_number}
-                                </div>
-                            )}
-                        </div>
-                    </div> */}
                     <div className="space-y-6 xl:w-1/2 xl:pl-5 2xl:pl-10">
                         <h3 className="text-xl font-semibold">
                             Ekipe i sezone

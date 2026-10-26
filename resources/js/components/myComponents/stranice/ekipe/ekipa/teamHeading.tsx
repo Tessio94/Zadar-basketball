@@ -1,10 +1,9 @@
-import type { Team } from '@/types/propTypes';
+import type { Team } from '@/types/teams';
 
 export default function TeamHeading({ logo, name }: Partial<Team>) {
     return (
         <div className="flex flex-row items-center gap-10 border-b border-likar1 p-5">
             <img
-                // src={logo}
                 src={`/storage/${logo}`}
                 alt={`${name} logo`}
                 className="h-30 w-30 rounded-2xl"

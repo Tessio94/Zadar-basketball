@@ -2,7 +2,7 @@ import { Link } from '@inertiajs/react';
 import { Clock } from 'lucide-react';
 import { show } from '@/actions/App/Http/Controllers/ArticleController';
 import { cn } from '@/lib/utils';
-import type { Article } from '@/types/propTypes';
+import type { Article } from '@/types/articles';
 
 export default function MainNewsCard({
     article,

@@ -4,7 +4,7 @@ import {
     PrevButton,
     NextButton,
 } from '@/components/myComponents/ui/carousel/CarouselArrows';
-import type { GameWithTeams } from '@/types/propTypes';
+import type { GameWithTeams } from '@/types/games';
 import GameHeaderCard from './gameHeaderCard';
 
 const GameHeading = ({ games }: { games: GameWithTeams[] }) => {

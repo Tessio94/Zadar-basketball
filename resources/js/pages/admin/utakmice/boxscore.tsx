@@ -12,14 +12,16 @@ import {
     emptyLine,
     teamTotal,
     statColumns,
-    type EditorLine,
-    type GameData,
-    type PlayerLine,
-    type RosterPlayer,
 } from '@/components/myComponents/stranice/admin/utakmice/types';
+import type {
+    EditorLine,
+    NamedGameData,
+    PlayerLine,
+    RosterPlayer,
+} from '@/types/admin-games';
 
 type Props = {
-    game: GameData;
+    game: NamedGameData;
     roster: RosterPlayer[];
     players: PlayerLine[];
     hasDraft: boolean;

@@ -15,8 +15,6 @@ class PlayerController extends Controller
 {
     public function show(Request $request, Player $player)
     {
-
-
         $player->load([
             'teamSeasons.team',
             'teamSeasons.season',
@@ -113,7 +111,7 @@ class PlayerController extends Controller
         $games = $gamesQuery
             ->whereHas('game')
             ->get()
-            ->sortByDesc(fn ($stat) => $stat->game->game_date)
+            ->sortBy(fn ($stat) => $stat->game->game_date)
             ->values()
             ->map(function ($stat) {
                 $game = $stat->game;

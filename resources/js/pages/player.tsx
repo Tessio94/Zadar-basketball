@@ -3,36 +3,16 @@ import FilterSeason from '@/components/myComponents/common/filter/filterSeason';
 import PlayerCareerTotals from '@/components/myComponents/stranice/igrac/career/playerCareerTotals';
 import PlayerHeader from '@/components/myComponents/stranice/igrac/playerHeader';
 import PlayerStats from '@/components/myComponents/stranice/igrac/playerStats';
-import type {
-    Game,
-    PlayerAverages,
-    PlayerTotals,
-    PlayerWithTeamAndGames,
-} from '@/types/propTypes';
-
-type PlayerProps = {
-    player: PlayerWithTeamAndGames;
-    totals: PlayerTotals;
-    averages: PlayerAverages;
-    season: number;
-    games: Game;
-};
+import type { PlayerPageProps } from '@/types';
 
 export default function player({
     player,
     careerStats,
     seasonStats,
-    seasons,
     games,
     selectedSeason,
-}: PlayerProps) {
+}: PlayerPageProps) {
     const { date_of_birth, first_name, last_name, position, height } = player;
-
-    console.log('player', player);
-    console.log('careerStats', careerStats);
-    console.log('seasonStats', seasonStats);
-    console.log('games', games);
-    console.log('selectedSeason', selectedSeason);
 
     const teamSeason = player.team_seasons?.find(
         (teamSeason) => teamSeason.season_id === selectedSeason,
@@ -41,10 +21,11 @@ export default function player({
     const team = teamSeason?.team;
     const jerseyNumber = teamSeason?.pivot.jersey_number;
 
-    const selectedStats = seasonStats.filter(
+    const selectedStats = seasonStats.find(
         (season) => season.season.id === selectedSeason,
-    )[0];
-    const { averages, totals } = selectedStats.total;
+    );
+
+    const { averages, totals } = (selectedStats ?? careerStats).total;
 
     return (
         <>

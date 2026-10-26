@@ -1,4 +1,4 @@
-import type { GameWithTeams } from '@/types/propTypes';
+import type { GameWithTeams } from '@/types/games';
 import GameCard from './gameCard';
 
 export default function LastFive({ games }: { games: GameWithTeams[] }) {

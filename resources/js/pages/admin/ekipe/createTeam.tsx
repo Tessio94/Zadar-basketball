@@ -8,7 +8,7 @@ import {
 import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
-import type { TeamForm } from '@/types/propTypes';
+import type { TeamCreateForm } from '@/types/teams';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -24,14 +24,16 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function CreateTeam() {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    const { data, setData, post, processing, errors } = useForm<TeamForm>({
-        name: '',
-        short_name: '',
-        logo_color: '',
-        logo: null,
-        city: '',
-        founded_year: '',
-    });
+    const { data, setData, post, processing, errors } = useForm<TeamCreateForm>(
+        {
+            name: '',
+            short_name: '',
+            logo_color: '',
+            logo: null,
+            city: '',
+            founded_year: '',
+        },
+    );
 
     const logoPreview: string | null = data.logo
         ? URL.createObjectURL(data.logo)

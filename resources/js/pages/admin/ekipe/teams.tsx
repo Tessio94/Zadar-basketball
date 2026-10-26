@@ -10,7 +10,8 @@ import Pagination from '@/components/myComponents/common/pagination/Pagination';
 import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
-import type { Team, Paginated } from '@/types/propTypes';
+import type { Paginated } from '@/types/pagination';
+import type { Team } from '@/types/teams';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

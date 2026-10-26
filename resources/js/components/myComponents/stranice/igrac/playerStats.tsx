@@ -1,18 +1,15 @@
-import type {
-    GameStatsWithOpponent,
-    PlayerAverages,
-    PlayerTotals,
-} from '@/types/propTypes';
+import type { GameStatsWithOpponent } from '@/types/games';
+import type { PlayerAverages, PlayerTotals } from '@/types/players';
 import PlayerAveragesRow from './playerAveragesRow';
 import PlayerBoxScoreHeader from './playerBoxScoreHeader';
 import PlayerBoxScoreRow from './playerBoxScoreRow';
 import PlayerTotalsRow from './playerTotalsRow';
 
-interface PlayerStatsProps {
+type PlayerStatsProps = {
     game_stats: GameStatsWithOpponent[];
     totals: PlayerTotals;
     averages: PlayerAverages;
-}
+};
 
 export default function PlayerStats({
     game_stats,

@@ -152,9 +152,14 @@ class StatisticsService
 
     }
 
-    public function lastRoundLeaders()
+    public function lastRoundLeaders(
+        int $seasonId,
+        ?int $lastRound
+    ): array
     {
-        $lastRound = Game::max('round_number');
+        if ($lastRound === null) {
+            return [];
+        }
 
         $lastRoundLeaders = PlayerGameStat::select(
             'player_id',
@@ -171,10 +176,20 @@ class StatisticsService
             DB::raw('SUM(ft_made) as free_throw_made'),
             DB::raw('SUM(efficiency) as efficiency')
         )
-            ->whereHas('game', function($q) use ($lastRound): void {
-                $q->where('round_number', $lastRound);
+            ->whereHas('game', function ($query) use (
+                $seasonId,
+                $lastRound,
+            ): void {
+                $query
+                    ->where('season_id', $seasonId)
+                    ->where('round_number', $lastRound)
+                    ->where('status', 'finished')
+                    ->whereNull('playoff_id');
             })
             ->with([
+                'player.teamSeasons' => function ($query) use ($seasonId): void {
+                    $query->where('season_id', $seasonId);
+                },
                 'player.teamSeasons.team',
             ])
             ->groupBy('player_id')

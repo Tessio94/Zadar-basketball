@@ -1,7 +1,7 @@
 import { Head } from '@inertiajs/react';
 import FilterSeason from '@/components/myComponents/common/filter/filterSeason';
 import TeamCard from '@/components/myComponents/stranice/ekipe/teamCard';
-import type { Team } from '@/types/propTypes';
+import type { Team } from '@/types/teams';
 
 export default function Teams({ teams }: { teams: Team[] }) {
     return (

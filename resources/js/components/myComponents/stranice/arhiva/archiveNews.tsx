@@ -1,4 +1,5 @@
-import type { Article, Paginated } from '@/types/propTypes';
+import type { Article } from '@/types/archive';
+import type { Paginated } from '@/types/pagination';
 import AdditionalNewsCard from '../novosti/dodatneVijesti/additionalNewsCard';
 
 export default function ArchiveNews({

@@ -12,7 +12,8 @@ import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminM
 import AppLayout from '@/layouts/app-layout';
 import { formatDate } from '@/lib/utils';
 import type { BreadcrumbItem } from '@/types';
-import type { Gallery, Paginated } from '@/types/propTypes';
+import type { Gallery } from '@/types/galleries';
+import type { Paginated } from '@/types/pagination';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

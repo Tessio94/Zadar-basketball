@@ -2,7 +2,7 @@ import { Link } from '@inertiajs/react';
 import { show } from '@/actions/App/Http/Controllers/PlayerController';
 import { show as showTeam } from '@/actions/App/Http/Controllers/TeamController';
 import BasketballPlayerIcon from '@/components/myComponents/ui/icons/basketballPlayer';
-import type { GameStatsWithPlayerAndTeam } from '@/types/propTypes';
+import type { GameStatsWithPlayerAndTeam } from '@/types/games';
 
 export default function LeadersRow({
     type,
@@ -61,7 +61,7 @@ export default function LeadersRow({
                 <div className="flex flex-row items-center justify-center">
                     <BasketballPlayerIcon
                         className="team-player-icon h-6 w-6 shrink-0 rounded-full border border-likar3/40 bg-likar4/70 max-[500px]:h-3.5 max-[500px]:w-3.5"
-                        jerseyColor={player.team.logo_color}
+                        jerseyColor={player.team.logo_color ?? '#3f3633'}
                     />
                 </div>
             </td>

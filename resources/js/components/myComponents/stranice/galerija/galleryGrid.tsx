@@ -1,7 +1,8 @@
 import { Link } from '@inertiajs/react';
 import { ArrowRight } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
-import type { Gallery, Paginated } from '@/types/propTypes';
+import type { Gallery } from '@/types/galleries';
+import type { Paginated } from '@/types/pagination';
 
 export default function GalleryGrid({
     galleries,

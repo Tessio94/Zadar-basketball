@@ -1,7 +1,7 @@
 import { Link } from '@inertiajs/react';
 import { edit } from '@/actions/App/Http/Controllers/Admin/ArticleController';
 import { cn, formatRelativeTime } from '@/lib/utils';
-import type { AdminArticleListItem } from '@/types/propTypes';
+import type { AdminArticleListItem } from '@/types/articles';
 
 export default function LastNewsCard({
     article,
