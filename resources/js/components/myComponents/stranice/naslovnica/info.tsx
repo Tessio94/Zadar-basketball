@@ -2,7 +2,7 @@ import ChampionHistory from './championsHistory';
 
 export default function Info() {
     return (
-        <section className="relative w-full bg-[url(/images/design/main-bg2-mb.png)] bg-no-repeat pb-10 max-[400px]:bg-position-[50%_0%] max-[400px]:pt-[600px]! max-sm:pt-[700px] min-[640px]:h-[1559px] min-[890px]:h-[1368px] min-[890px]:bg-[url(/images/design/main-bg2.png)] sm:bg-cover">
+        <section className="relative w-full bg-no-repeat pb-10 max-[400px]:pt-[200px]! max-sm:bg-[url(/images/design/mobile-bg3.png)] max-sm:bg-position-[50%_0%] max-sm:pt-[240px] min-[640px]:h-[1559px] min-[640px]:bg-[url(/images/design/main-bg2-mb.png)] min-[890px]:h-[1368px] min-[890px]:bg-[url(/images/design/main-bg2.png)] sm:bg-cover">
             <div className="absolute inset-0 bg-linear-to-b from-transparent from-40% to-[#000105] to-100%" />
             <div className="relative z-20 flex w-[95%] flex-col items-center overflow-hidden rounded-4xl px-3 py-3 shadow-2xl shadow-likar1 max-sm:mx-auto min-[640px]:absolute min-[640px]:top-[700px] min-[640px]:left-1/2 min-[640px]:-translate-x-1/2 min-[890px]:top-[660px] sm:w-[90%] sm:px-6 lg:w-[80%] xl:top-[610px] xl:w-[60%] xl:py-5">
                 <div className="absolute inset-0 z-0 bg-[url(/images/design/snow.png)] opacity-45" />

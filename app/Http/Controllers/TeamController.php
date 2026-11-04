@@ -58,8 +58,14 @@ class TeamController extends Controller
             !$request->filled('season') ||
             $requestedSeasonId !== $season->id
         ) {
+            // return redirect()->to(
+            //     url()->current() . '?season=' . $season->id
+            // );
             return redirect()->to(
-                url()->current() . '?season=' . $season->id
+                route('teams.show', [
+                    'team' => $team->id,
+                    'season' => $season->id,
+                ], false)
             );
         }
 
