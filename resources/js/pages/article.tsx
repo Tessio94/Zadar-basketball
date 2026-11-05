@@ -1,6 +1,7 @@
 import { Head } from '@inertiajs/react';
 import { Clock } from 'lucide-react';
 import ArticleGallery from '@/components/articles/article-gallery';
+import ArticleTags from '@/components/articles/article-tags';
 import ArticleContent from '@/components/myComponents/stranice/novosti/clanak/articleContent';
 import SideArticleCard from '@/components/myComponents/stranice/novosti/clanak/sideArticleGrid';
 import { formatDateToString, formatDateToYear } from '@/lib/utils';
@@ -88,14 +89,7 @@ export default function Article({
                                         gallery={article.gallery}
                                     />
                                 )}
-                                <div className="mt-3 flex flex-wrap gap-2 text-slate-100">
-                                    <span className="font-jet rounded-xl bg-slate-600 px-2 py-1 font-heading text-sm">
-                                        2025-2026
-                                    </span>
-                                    <span className="font-jet rounded-xl bg-slate-600 px-2 py-1 font-heading text-sm">
-                                        KK vodovod Ballers
-                                    </span>
-                                </div>
+                                <ArticleTags tags={article.tags} />
                             </div>
                             <SideArticleCard articles={lastArticles} />
                         </div>

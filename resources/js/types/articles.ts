@@ -1,4 +1,5 @@
 import type { Gallery } from '@/types/galleries';
+import type { ArticleTag } from '@/types/tags';
 
 export type Article = {
     id: number;
@@ -16,9 +17,12 @@ export type Article = {
     updated_at: string;
 };
 
-export type ArticleDetail = Article & { gallery: Gallery | null };
+export type ArticleWithTags = Article & { tags: ArticleTag[] };
+
+export type ArticleDetail = ArticleWithTags & { gallery: Gallery | null };
 
 export type ArticleForm = {
+    tags_input: string;
     gallery_id: string;
     title: string;
     // published_at: string;

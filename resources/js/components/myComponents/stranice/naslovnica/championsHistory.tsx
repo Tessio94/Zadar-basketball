@@ -1,10 +1,14 @@
-import React from 'react';
+import { Medal, Star, Trophy } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import GoldMedalIcon from '../../ui/icons/goldMedalIcon';
-import MvpIcon from '../../ui/icons/mvpIcon';
-import SilverMedalIcon from '../../ui/icons/silverMedalIcon';
 
-const seasons = [
+type ChampionshipSeason = {
+    season: string;
+    champion: string;
+    runnerUp: string;
+    mvp: string;
+};
+
+const seasons: ChampionshipSeason[] = [
     {
         season: '2020./21.',
         champion: 'Veterani KK Puntamika',
@@ -43,132 +47,192 @@ const seasons = [
     },
 ];
 
+function MvpNames({ name }: { name: string }) {
+    return (
+        <span className="block space-y-1">
+            {name.split(' / ').map((player) => (
+                <span key={player} className="block">
+                    {player}
+                </span>
+            ))}
+        </span>
+    );
+}
+
 export default function ChampionHistory() {
     return (
-        <>
-            <div className="block overflow-hidden rounded-xl max-sm:hidden">
-                <table className="w-full">
+        <div className="w-full min-w-0 font-text text-slate-100">
+            {/* Compact enough for the existing fixed-height desktop section. */}
+            <div className="hidden overflow-hidden rounded-2xl border border-likar3/25 bg-likar4/95 shadow-lg shadow-black/15 sm:block">
+                <table className="w-full table-fixed border-collapse text-left">
+                    <caption className="sr-only">
+                        Prvaci, doprvaci i MVP igrači Likar lige po sezonama
+                    </caption>
+                    <colgroup>
+                        <col className="w-[18%]" />
+                        <col className="w-[28%]" />
+                        <col className="w-[27%]" />
+                        <col className="w-[27%]" />
+                    </colgroup>
                     <thead>
-                        <tr className="rounded-t-xl bg-linear-to-r from-likar3 via-likar1 to-likar3 font-heading text-slate-100 *:p-3 *:text-start *:last:border-0 max-[500px]:*:p-2 2xl:*:px-5">
-                            <th className="text-center! text-xl">Sezona</th>
-                            <th className="text-center!">
-                                <div className="flex items-center justify-center gap-2 text-xl">
+                        <tr className="border-b border-likar3/25 bg-black/20 font-heading text-sm tracking-wide text-slate-300 lg:text-base">
+                            <th
+                                scope="col"
+                                className="px-3 py-4 font-medium lg:px-4"
+                            >
+                                Sezona
+                            </th>
+                            <th
+                                scope="col"
+                                className="px-3 py-4 font-medium text-likar3 lg:px-4"
+                            >
+                                <span className="flex items-center gap-2">
+                                    <Trophy
+                                        className="size-4 shrink-0"
+                                        aria-hidden="true"
+                                    />
                                     Prvak
-                                    <GoldMedalIcon
-                                        width={30}
-                                        height={30}
-                                        fill="#FFD700"
-                                    />
-                                </div>
+                                </span>
                             </th>
-                            <th className="text-center!">
-                                <div className="flex items-center justify-center gap-2 text-xl">
+                            <th
+                                scope="col"
+                                className="px-3 py-4 font-medium lg:px-4"
+                            >
+                                <span className="flex items-center gap-2">
+                                    <Medal
+                                        className="size-4 shrink-0 text-slate-400"
+                                        aria-hidden="true"
+                                    />
                                     Doprvak
-                                    <SilverMedalIcon
-                                        width={30}
-                                        height={30}
-                                        fill="#C0C0C0"
-                                    />
-                                </div>
+                                </span>
                             </th>
-                            <th className="text-center!">
-                                <div className="flex items-center justify-center gap-2 text-xl">
-                                    MVP
-                                    <MvpIcon
-                                        width={30}
-                                        height={30}
-                                        fill="#FFD700"
+                            <th
+                                scope="col"
+                                className="px-3 py-4 font-medium lg:px-4"
+                            >
+                                <span className="flex items-center gap-2">
+                                    <Star
+                                        className="size-4 shrink-0 text-likar3/80"
+                                        aria-hidden="true"
                                     />
-                                </div>
+                                    MVP
+                                </span>
                             </th>
                         </tr>
                     </thead>
-
                     <tbody>
-                        {seasons.map((season, i) => (
-                            <tr
-                                key={i}
-                                className={cn(
-                                    'font-heading text-slate-100 *:border-b *:p-3.5 *:text-start *:last:border-r-0 max-[500px]:*:px-2 max-[500px]:*:py-3 2xl:*:px-5',
-                                    i === seasons.length - 1 && '*:border-b-0',
-                                )}
-                            >
-                                <td className="text-center">{season.season}</td>
-                                <td className="text-center!">
-                                    {season.champion}
-                                </td>
-                                <td className="text-center!">
-                                    {season.runnerUp}
-                                </td>
-                                <td className="text-center!">{season.mvp}</td>
-                            </tr>
-                        ))}
+                        {seasons.map((season, index) => {
+                            const latest = index === seasons.length - 1;
+                            return (
+                                <tr
+                                    key={season.season}
+                                    className={cn(
+                                        'border-b border-white/10 transition-colors last:border-b-0 hover:bg-white/5 motion-reduce:transition-none',
+                                        latest
+                                            ? 'bg-likar3/10'
+                                            : 'even:bg-likar2/50',
+                                    )}
+                                >
+                                    <th
+                                        scope="row"
+                                        className={cn(
+                                            'relative px-3 py-4 align-middle font-heading text-sm font-medium whitespace-nowrap lg:px-4 lg:text-base',
+                                            latest && 'text-likar3',
+                                        )}
+                                    >
+                                        {latest && (
+                                            <span
+                                                aria-hidden="true"
+                                                className="absolute inset-y-3 left-0 w-0.5 rounded-r-full bg-likar3"
+                                            />
+                                        )}
+                                        {season.season}
+                                    </th>
+                                    <td className="px-3 py-4 align-middle font-heading text-base leading-snug font-medium break-words text-slate-50 lg:px-4 lg:text-lg">
+                                        {season.champion}
+                                    </td>
+                                    <td className="px-3 py-4 align-middle text-xs leading-relaxed break-words text-slate-300 lg:px-4 lg:text-sm">
+                                        {season.runnerUp}
+                                    </td>
+                                    <td className="px-3 py-4 align-middle text-xs leading-relaxed break-words text-slate-200 lg:px-4 lg:text-sm">
+                                        <MvpNames name={season.mvp} />
+                                    </td>
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>
-            <table className="table w-full text-slate-100 sm:hidden">
-                <tbody>
-                    {seasons.map((season, i) => (
-                        <React.Fragment key={i}>
-                            <tr className="bg-linear-to-r from-likar3 via-likar1 to-likar3">
-                                <th
-                                    className={cn(
-                                        'w-1/3 border-r p-3 text-center',
-                                        i === 0 && 'rounded-tl-xl',
-                                    )}
-                                >
+
+            <ol
+                aria-label="Osvajači Likar lige po sezonama"
+                className="space-y-3 sm:hidden"
+            >
+                {seasons.map((season, index) => {
+                    const latest = index === seasons.length - 1;
+                    return (
+                        <li
+                            key={season.season}
+                            className={cn(
+                                'relative overflow-hidden rounded-2xl border bg-likar4/95 shadow-lg shadow-black/10',
+                                latest ? 'border-likar3/60' : 'border-white/15',
+                            )}
+                        >
+                            <div className="flex items-center justify-between gap-3 border-b border-white/10 bg-black/15 px-4 py-3">
+                                <span className="text-[10px] font-medium tracking-[0.18em] text-slate-400 uppercase">
                                     Sezona
-                                </th>
-                                <th
-                                    className={cn(
-                                        'p-3 text-center',
-                                        i === 0 && 'rounded-tr-xl',
-                                    )}
-                                >
+                                </span>
+                                <span className="font-heading text-lg font-medium tracking-wide text-likar3">
                                     {season.season}
-                                </th>
-                            </tr>
-
-                            <tr>
-                                <th className="w-1/3 border-r border-b p-3 text-center">
-                                    Prvak
-                                </th>
-                                <td className="border-b p-3 text-center">
-                                    {season.champion}
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th className="w-1/3 border-r border-b p-3 text-center">
-                                    Doprvak
-                                </th>
-                                <td className="border-b p-3 text-center">
-                                    {season.runnerUp}
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <th
-                                    className={cn(
-                                        'w-1/3 border-r p-3 text-center',
-                                        i === seasons.length - 1 && 'border-b',
-                                    )}
-                                >
-                                    MVP
-                                </th>
-                                <td
-                                    className={cn(
-                                        'p-3 text-center',
-                                        i === seasons.length - 1 && 'border-b',
-                                    )}
-                                >
-                                    {season.mvp}
-                                </td>
-                            </tr>
-                        </React.Fragment>
-                    ))}
-                </tbody>
-            </table>
-        </>
+                                </span>
+                            </div>
+                            <div className="flex items-center gap-3 px-4 py-5">
+                                <span className="flex size-11 shrink-0 items-center justify-center rounded-xl border border-likar3/25 bg-likar3/10 text-likar3">
+                                    <Trophy
+                                        className="size-6"
+                                        strokeWidth={1.5}
+                                        aria-hidden="true"
+                                    />
+                                </span>
+                                <div className="min-w-0">
+                                    <p className="mb-1 text-[10px] font-semibold tracking-[0.16em] text-likar3 uppercase">
+                                        Prvak lige
+                                    </p>
+                                    <p className="font-heading text-xl leading-snug font-medium break-words text-slate-50">
+                                        {season.champion}
+                                    </p>
+                                </div>
+                            </div>
+                            <dl className="grid grid-cols-2 border-t border-white/10 bg-black/10">
+                                <div className="min-w-0 border-r border-white/10 px-4 py-3.5">
+                                    <dt className="mb-2 flex items-center gap-1.5 text-[10px] font-medium tracking-wider text-slate-400 uppercase">
+                                        <Medal
+                                            className="size-3.5 shrink-0"
+                                            aria-hidden="true"
+                                        />
+                                        Doprvak
+                                    </dt>
+                                    <dd className="text-xs leading-relaxed break-words text-slate-200">
+                                        {season.runnerUp}
+                                    </dd>
+                                </div>
+                                <div className="min-w-0 px-4 py-3.5">
+                                    <dt className="mb-2 flex items-center gap-1.5 text-[10px] font-medium tracking-wider text-slate-400 uppercase">
+                                        <Star
+                                            className="size-3.5 shrink-0 text-likar3/80"
+                                            aria-hidden="true"
+                                        />
+                                        MVP
+                                    </dt>
+                                    <dd className="text-xs leading-relaxed break-words text-slate-200">
+                                        <MvpNames name={season.mvp} />
+                                    </dd>
+                                </div>
+                            </dl>
+                        </li>
+                    );
+                })}
+            </ol>
+        </div>
     );
 }

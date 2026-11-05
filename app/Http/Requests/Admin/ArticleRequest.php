@@ -7,6 +7,7 @@ namespace App\Http\Requests\Admin;
 use App\Models\Game;
 use App\Support\ArticleHtml;
 use Illuminate\Validation\Rule;
+use App\Services\ArticleTagService;
 use Illuminate\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
@@ -28,6 +29,7 @@ class ArticleRequest extends FormRequest
             'excerpt' => ['nullable', 'string', 'max:2000'],
             'status' => ['required', Rule::in(['published', 'draft'])],
             'published_at' => ['nullable', 'date'],
+            'tags_input' => ['sometimes', 'nullable', 'string', 'max:2000'],
             'gallery_id' => ['nullable', 'integer', Rule::exists('galleries', 'id')],
             'main_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp,gif', 'max:2048'],
         ];
@@ -36,6 +38,13 @@ class ArticleRequest extends FormRequest
     public function after(): array
     {
         return [function(Validator $validator): void {
+            if (! $validator->errors()->has('tags_input')) {
+                try {
+                    app(ArticleTagService::class)->parse($this->string('tags_input')->toString());
+                } catch (ValidationException $exception) {
+                    $validator->errors()->add('tags_input', $exception->errors()['tags_input'][0]);
+                }
+            }
             if ($validator->errors()->has('content')) {
                 return;
             }

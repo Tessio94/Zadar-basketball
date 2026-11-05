@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Tag;
 use Inertia\Inertia;
 use App\Models\Article;
 use App\Models\Gallery;
 use Illuminate\Support\Str;
 use App\Support\ArticleHtml;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Services\ArticleTagService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
@@ -52,16 +55,18 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return Inertia::render('admin/novosti/createArticle', ['galleries' => $this->galleries()]);
+        return Inertia::render('admin/novosti/createArticle', ['galleries' => $this->galleries(), 'tagOptions' => $this->tagOptions()]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ArticleRequest $request, ArticleHtml $html)
+    public function store(ArticleRequest $request, ArticleHtml $html, ArticleTagService $tags)
     {
 
         $validated = $request->validated();
+        $tagInput = $validated['tags_input'] ?? '';
+        unset($validated['tags_input']);
         $validated['content'] = $html->sanitize($validated['content']);
 
         $validated['status'] = $validated['status'] ?? 'draft';
@@ -80,7 +85,10 @@ class ArticleController extends Controller
         $validated['meta_title'] = $validated['title'];
         $validated['meta_description'] = Str::limit(strip_tags($validated['content']), 160);
 
-        Article::create($validated);
+        DB::transaction(function() use ($validated, $tags, $tagInput): void {
+            $article = Article::create($validated);
+            $tags->sync($article, $tagInput);
+        });
 
         return redirect()
             ->route('novosti.index')
@@ -92,11 +100,13 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
+        $article->load('tags');
         $article->published_at = $article->published_at?->format('Y-m-d');
 
         return Inertia::render('admin/novosti/editArticle', [
             'article' => $article,
             'galleries' => $this->galleries(),
+            'tagOptions' => $this->tagOptions(),
         ]);
 
     }
@@ -104,10 +114,12 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ArticleRequest $request, Article $article, ArticleHtml $html)
+    public function update(ArticleRequest $request, Article $article, ArticleHtml $html, ArticleTagService $tags)
     {
 
         $validated = $request->validated();
+        $tagInput = $validated['tags_input'] ?? '';
+        unset($validated['tags_input']);
         $validated['content'] = $html->sanitize($validated['content']);
 
         if ($validated['status'] === 'draft') {
@@ -131,7 +143,13 @@ class ArticleController extends Controller
         }
         $validated['meta_title'] = $validated['title'];
         $validated['meta_description'] = Str::limit(strip_tags($validated['content']), 160);
-        $article->update($validated);
+        DB::transaction(function() use ($article, $validated, $request, $tags, $tagInput): void {
+            $article->update($validated);
+            // Omitted by older clients: preserve. Present but blank: detach all.
+            if ($request->exists('tags_input')) {
+                $tags->sync($article, $tagInput);
+            }
+        });
 
         return redirect()->route('novosti.index');
     }
@@ -148,6 +166,11 @@ class ArticleController extends Controller
         $article->delete();
 
         return redirect()->back();
+    }
+
+    private function tagOptions()
+    {
+        return Tag::query()->orderBy('name')->get(['id', 'name']);
     }
 
     private function galleries()

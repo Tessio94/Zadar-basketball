@@ -6,11 +6,13 @@ import {
     update,
 } from '@/actions/App/Http/Controllers/Admin/ArticleController';
 import ArticleGalleryField from '@/components/admin/article-gallery-field';
+import ArticleTagsField from '@/components/admin/article-tags-field';
 import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
-import type { Article, ArticleEditForm } from '@/types/articles';
+import type { ArticleWithTags, ArticleEditForm } from '@/types/articles';
 import type { GalleryOption } from '@/types/galleries';
+import type { ArticleTag } from '@/types/tags';
 import RichTextEditor from './richTextEditor';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -27,14 +29,17 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function EditArticle({
     article,
     galleries,
+    tagOptions,
 }: {
-    article: Article;
+    article: ArticleWithTags;
     galleries: GalleryOption[];
+    tagOptions: ArticleTag[];
 }) {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const { data, setData, post, transform, processing, errors } =
         useForm<ArticleEditForm>({
+            tags_input: article.tags.map((tag) => tag.name).join(', '),
             gallery_id: article.gallery_id?.toString() ?? '',
             title: article.title ?? '',
             published_at: article?.published_at?.substring(0, 10) ?? '',
@@ -225,6 +230,12 @@ export default function EditArticle({
                     </div>
 
                     <div className="space-y-6 xl:w-1/2 xl:pt-6 xl:pr-5 2xl:pr-10">
+                        <ArticleTagsField
+                            value={data.tags_input}
+                            onChange={(value) => setData('tags_input', value)}
+                            options={tagOptions}
+                            error={errors.tags_input}
+                        />
                         <ArticleGalleryField
                             galleries={galleries}
                             value={data.gallery_id}

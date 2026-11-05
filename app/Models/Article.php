@@ -30,6 +30,11 @@ class Article extends Model
         return $this->belongsTo(Gallery::class);
     }
 
+    public function tags(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class)->orderBy('tags.name');
+    }
+
     protected $casts = [
         'published_at' => 'datetime',
     ];
