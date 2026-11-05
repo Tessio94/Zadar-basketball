@@ -1,6 +1,7 @@
 import { Head, Link, router, useForm } from '@inertiajs/react';
 import type { ReactNode } from 'react';
 import { useEffect } from 'react';
+import GamePeriodFields from '@/components/admin/game-period-fields';
 import BoxscoreTeam from '@/components/myComponents/stranice/admin/utakmice/boxscoreTeam';
 import GameAdminShell, {
     FormErrors,
@@ -13,6 +14,7 @@ import {
     teamTotal,
     statColumns,
 } from '@/components/myComponents/stranice/admin/utakmice/types';
+import type { PeriodScoreDraft } from '@/types/admin-games';
 import type {
     EditorLine,
     NamedGameData,
@@ -25,6 +27,7 @@ type Props = {
     roster: RosterPlayer[];
     players: PlayerLine[];
     hasDraft: boolean;
+    periods: PeriodScoreDraft[];
 };
 export default function Boxscore(props: Props) {
     return (
@@ -34,7 +37,7 @@ export default function Boxscore(props: Props) {
         />
     );
 }
-function BoxscoreEditor({ game, roster, players, hasDraft }: Props) {
+function BoxscoreEditor({ game, roster, players, hasDraft, periods }: Props) {
     // Also show removed draft participants so the admin can explicitly exclude stale entries.
     const displayedRoster = [...roster];
     for (const row of players)
@@ -53,6 +56,7 @@ function BoxscoreEditor({ game, roster, players, hasDraft }: Props) {
             });
     const form = useForm({
         revision: game.revision,
+        periods,
         players: displayedRoster.map((player): EditorLine => {
             const saved = players.find(
                 (p) =>
@@ -115,6 +119,7 @@ function BoxscoreEditor({ game, roster, players, hasDraft }: Props) {
         form.transform((data) => ({
             revision: data.revision,
             intent,
+            periods: data.periods,
             players: data.players
                 .filter((p) => p.played)
                 .map((row) => ({
@@ -196,6 +201,16 @@ function BoxscoreEditor({ game, roster, players, hasDraft }: Props) {
                 className="space-y-6"
             >
                 <FormErrors errors={form.errors} />
+                <GamePeriodFields
+                    periods={form.data.periods}
+                    homeName={game.home_name}
+                    awayName={game.away_name}
+                    homeScore={homeScore}
+                    awayScore={awayScore}
+                    disabled={form.processing}
+                    errors={form.errors}
+                    onChange={(value) => form.setData('periods', value)}
+                />
                 {[
                     {
                         id: game.home_team_id,

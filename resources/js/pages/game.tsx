@@ -36,6 +36,8 @@ const Game = ({ game, leaders, teamTotals }: GameDetailsProps) => {
                 homeScore={home_score}
                 awayTeam={away_team}
                 awayScore={away_score}
+                periods={game.period_scores}
+                status={game.status}
             />
             <TabComponent
                 active={active}

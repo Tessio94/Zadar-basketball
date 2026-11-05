@@ -22,7 +22,13 @@ class Article extends Model
         'main_image',
         'meta_title',
         'meta_description',
+        'gallery_id',
     ];
+
+    public function gallery(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Gallery::class);
+    }
 
     protected $casts = [
         'published_at' => 'datetime',

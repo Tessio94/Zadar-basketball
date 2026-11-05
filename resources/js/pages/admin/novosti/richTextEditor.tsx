@@ -1,101 +1,154 @@
 import { Editor } from '@tinymce/tinymce-react';
 import axios from 'axios';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import type { Editor as TinyEditor } from 'tinymce';
+import GamePicker from '@/components/admin/game-picker';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+} from '@/components/ui/dialog';
+import type { GameOption } from '@/types/games';
 
-type UploadBlobInfo = {
-    blob: () => Blob;
-    filename: () => string;
+type RichTextEditorProps = {
+    value: string;
+    onChange: (content: string) => void;
 };
 
 export default function RichTextEditor({
     value,
     onChange,
-}: {
-    value: string;
-    onChange: (content: string) => void;
-}) {
-    const editorRef = useRef(null);
+}: RichTextEditorProps) {
+    const editorRef = useRef<TinyEditor | null>(null);
+    const bookmarkRef = useRef<ReturnType<
+        TinyEditor['selection']['getBookmark']
+    > | null>(null);
+    const [pickerOpen, setPickerOpen] = useState(false);
+    const pendingGameRef = useRef<GameOption | null>(null);
 
-    const apikey = import.meta.env.VITE_TINYMCE_API_KEY;
+    function chooseGame(game: GameOption) {
+        pendingGameRef.current = game;
+        setPickerOpen(false);
+    }
+
+    // Restore the editor cursor after the modal releases its focus trap.
+    function finishPicking(event: Event) {
+        event.preventDefault();
+        const editor = editorRef.current;
+        if (!editor || editor.removed) return;
+        editor.focus();
+        if (bookmarkRef.current)
+            editor.selection.moveToBookmark(bookmarkRef.current);
+        bookmarkRef.current = null;
+        const game = pendingGameRef.current;
+        pendingGameRef.current = null;
+        if (!game) return;
+        const label = editor.dom.encode(game.label);
+        editor.undoManager.transact(() => {
+            editor.insertContent(
+                `<div class="mceNonEditable likar-game-widget" contenteditable="false" data-likar-widget="game" data-game-id="${game.id}"><strong>Utakmica · ${label}</strong><p>Rezultat, četvrtine i strijelci prikazuju se automatski u objavljenom članku.</p></div><p></p>`,
+            );
+        });
+        onChange(editor.getContent());
+    }
 
     return (
-        <Editor
-            id="content"
-            textareaName="content"
-            apiKey={apikey}
-            onInit={(_evt, editor) => (editorRef.current = editor)}
-            value={value}
-            onEditorChange={(sadrzaj) => onChange(sadrzaj)}
-            init={{
-                height: '100%',
-                menubar: false,
-                relative_urls: false,
-                remove_script_host: false,
-                convert_urls: false,
-                plugins: [
-                    'advlist',
-                    'autolink',
-                    'lists',
-                    'link',
-                    'image',
-                    'charmap',
-                    'code',
-                    'anchor',
-                    'searchreplace',
-                    'visualblocks',
-                    'code',
-                    'fullscreen',
-                    'insertdatetime',
-                    'media',
-                    'table',
-                    'preview',
-                    'help',
-                    'wordcount',
-                ],
-                toolbar:
-                    'undo redo | blocks | ' +
-                    'bold italic forecolor code | alignleft aligncenter ' +
-                    'alignright alignjustify | bullist numlist outdent indent | table link image | ' +
-                    'removeformat | help',
-                content_style:
-                    'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
-                image_caption: true,
-                // image_list: [
-                //     {
-                //         title: 'Luka Bolić',
-                //         value: '/images/articles/article1.jpg',
-                //     },
-                //     {
-                //         title: 'Dinko Kamber',
-                //         value: '/images/articles/article2.jpg',
-                //     },
-                // ],
-                image_uploadtab: true,
-                // images_upload_base_path: '/admin/novosti/upload-image',
-                // images_upload_url: '/admin-panel/novosti/upload-image',
-                automatic_uploads: true,
-                file_picker_types: 'image',
-                // images_upload_credentials: true,
-                images_upload_handler: (blobInfo: UploadBlobInfo) => {
-                    return new Promise((resolve, reject) => {
+        <>
+            <Editor
+                id="content"
+                textareaName="content"
+                apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
+                cloudChannel="8"
+                onInit={(_event, editor) => {
+                    editorRef.current = editor;
+                }}
+                value={value}
+                onEditorChange={onChange}
+                init={{
+                    height: 600,
+                    menubar: false,
+                    relative_urls: false,
+                    remove_script_host: false,
+                    convert_urls: false,
+                    plugins: [
+                        'advlist',
+                        'autolink',
+                        'lists',
+                        'link',
+                        'image',
+                        'charmap',
+                        'code',
+                        'anchor',
+                        'searchreplace',
+                        'visualblocks',
+                        'fullscreen',
+                        'insertdatetime',
+                        'media',
+                        'table',
+                        'preview',
+                        'help',
+                        'wordcount',
+                    ],
+                    toolbar:
+                        'undo redo | blocks | bold italic forecolor code | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | table link image | likarGame | removeformat | help',
+                    noneditable_class: 'mceNonEditable',
+                    extended_valid_elements:
+                        'div[id|class|style|title|dir|lang|align|contenteditable|data-likar-widget|data-game-id]',
+                    content_style:
+                        'body{font-family:Arial,sans-serif;font-size:16px;line-height:1.6}.likar-game-widget{padding:20px;border:1px solid #d97706;border-radius:12px;background:#0f172a;color:#f8fafc;margin:20px 0}.likar-game-widget p{color:#cbd5e1;font-size:13px;margin-bottom:0}',
+                    setup(editor) {
+                        editor.ui.registry.addButton('likarGame', {
+                            text: 'Utakmica',
+                            tooltip: 'Umetni rezultat i statistiku utakmice',
+                            onAction() {
+                                bookmarkRef.current =
+                                    editor.selection.getBookmark(2, true);
+                                setPickerOpen(true);
+                            },
+                        });
+                    },
+                    image_caption: true,
+                    automatic_uploads: true,
+                    file_picker_types: 'image',
+                    images_upload_handler: async (blobInfo) => {
                         const formData = new FormData();
                         formData.append(
                             'file',
                             blobInfo.blob(),
                             blobInfo.filename(),
                         );
-
-                        axios
-                            .post('/admin-panel/novosti/upload-image', formData)
-                            .then((res) => {
-                                resolve(res.data.location);
-                            })
-                            .catch((err) => {
-                                reject(err.response?.data || 'Upload failed');
-                            });
-                    });
-                },
-            }}
-        />
+                        try {
+                            const response = await axios.post<{
+                                location: string;
+                            }>('/admin-panel/novosti/upload-image', formData);
+                            if (typeof response.data.location !== 'string')
+                                throw new Error('Missing image URL');
+                            return response.data.location;
+                        } catch {
+                            throw new Error(
+                                'Slika nije učitana. Provjerite format i veličinu (najviše 5 MB).',
+                            );
+                        }
+                    },
+                }}
+            />
+            <Dialog open={pickerOpen} onOpenChange={setPickerOpen}>
+                <DialogContent
+                    className="sm:max-w-xl"
+                    onCloseAutoFocus={finishPicking}
+                >
+                    <DialogHeader>
+                        <DialogTitle>Umetni utakmicu</DialogTitle>
+                        <DialogDescription>
+                            Odaberite utakmicu. Kartica će se umetnuti na mjesto
+                            pokazivača u tekstu.
+                        </DialogDescription>
+                    </DialogHeader>
+                    {pickerOpen && <GamePicker onSelect={chooseGame} />}
+                </DialogContent>
+            </Dialog>
+        </>
     );
 }

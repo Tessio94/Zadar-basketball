@@ -24,6 +24,7 @@ export type GameBoxscore = Game & {
     away_team: Team;
     home_team: Team;
     player_stats: GameStatsWithPlayerAndTeam[];
+    period_scores: PeriodScore[];
 };
 
 export type GameWithTeams = Game & {
@@ -84,4 +85,36 @@ export type GameLeaders = {
     shootingPercentage: GameStatsWithPlayerAndTeam[];
     threesPercentage: GameStatsWithPlayerAndTeam[];
     efficiency: GameStatsWithPlayerAndTeam[];
+};
+
+export type PeriodScore = {
+    period_number: number;
+    home_score: number;
+    away_score: number;
+};
+
+export type ScoreTeam = Pick<Team, 'id' | 'name' | 'short_name' | 'logo'>;
+
+export type GameSummary = Pick<
+    Game,
+    'id' | 'round_number' | 'game_date' | 'status' | 'home_score' | 'away_score'
+> & {
+    url: string;
+    season_name: string;
+    home_team: ScoreTeam;
+    away_team: ScoreTeam;
+    period_scores: PeriodScore[];
+    scorers: {
+        player_id: number;
+        team_id: number;
+        name: string;
+        points: number;
+        url: string;
+    }[];
+};
+export type GameOption = { id: number; label: string };
+export type GameSearchResult = {
+    data: GameOption[];
+    current_page: number;
+    last_page: number;
 };

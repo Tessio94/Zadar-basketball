@@ -19,3 +19,7 @@ export type Gallery = {
     created_at: string;
     updated_at: string;
 };
+
+export type GalleryOption = Pick<Gallery, 'id' | 'title' | 'slug'> & {
+    images_count: number;
+};

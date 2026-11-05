@@ -22,7 +22,7 @@ class GameBoxscoreService
 
     public function prepare(Game $game): array
     {
-        $game->load(['homeTeam', 'awayTeam', 'playerStats.player', 'playerStats.team']);
+        $game->load(['homeTeam', 'awayTeam', 'playerStats.player', 'playerStats.team', 'periodScores']);
         $stats = $game->playerStats;
 
         // One roster lookup, scoped to the game season AND each player's team.
@@ -35,7 +35,7 @@ class GameBoxscoreService
                 ->whereIn('roster.player_id', $stats->pluck('player_id')->unique()->all())
                 ->select('ts.team_id', 'roster.player_id', 'roster.jersey_number')
                 ->get()
-                ->keyBy(fn (object $row): string => $row->team_id . ':' . $row->player_id);
+                ->keyBy(fn(object $row): string => $row->team_id . ':' . $row->player_id);
 
         foreach ($stats as $stat) {
             $jersey = $jerseys->get($stat->team_id . ':' . $stat->player_id)?->jersey_number;
@@ -57,7 +57,7 @@ class GameBoxscoreService
             'efficiency' => 'efficiency',
         ] as $name => $field) {
             $leaders[$name] = $stats
-                ->sortByDesc(fn (PlayerGameStat $stat): int|float => $field === 'rebounds'
+                ->sortByDesc(fn(PlayerGameStat $stat): int|float => $field === 'rebounds'
                     ? (int) $stat->offensive_rebounds + (int) $stat->defensive_rebounds
                     : (float) $stat->getAttribute($field))
                 ->take(5)

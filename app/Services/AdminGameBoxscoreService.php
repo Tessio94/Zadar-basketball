@@ -16,6 +16,20 @@ class AdminGameBoxscoreService
         'ft_made', 'ft_attempted', 'offensive_rebounds', 'defensive_rebounds', 'assists', 'steals',
         'blocks', 'turnovers', 'fouls', 'plus_minus'];
 
+    public function __construct(private GamePeriodService $periodService)
+    {
+    }
+
+    /** Draft quarters are private, like draft player statistics. */
+    public function editablePeriods(Game $game): array
+    {
+        $draft = DB::table('game_boxscore_drafts')->where('game_id', $game->id)->first();
+
+        return $draft?->periods !== null
+            ? json_decode($draft->periods, true, 512, JSON_THROW_ON_ERROR)
+            : $game->periodScores()->get(['period_number', 'home_score', 'away_score'])->toArray();
+    }
+
     public function roster(Game $game): array
     {
         $rows = [];
@@ -23,10 +37,10 @@ class AdminGameBoxscoreService
             ->whereIn('team_id', [$game->home_team_id, $game->away_team_id])
             ->with('players')->get() as $teamSeason) {
             foreach ($teamSeason->players as $player) {
-                $key = $teamSeason->team_id.':'.$player->id;
+                $key = $teamSeason->team_id . ':' . $player->id;
                 $rows[$key] = [
                     'player_id' => $player->id, 'team_id' => $teamSeason->team_id,
-                    'name' => $player->first_name.' '.$player->last_name,
+                    'name' => $player->first_name . ' ' . $player->last_name,
                     'jersey_number' => $player->pivot->jersey_number,
                     'on_roster' => true,
                 ];
@@ -34,19 +48,21 @@ class AdminGameBoxscoreService
         }
         // Preserve historical participants even when their season roster was subsequently edited.
         foreach ($game->playerStats()->with('player')->get() as $stat) {
-            $key = $stat->team_id.':'.$stat->player_id;
+            $key = $stat->team_id . ':' . $stat->player_id;
             $rows[$key] ??= [
                 'player_id' => $stat->player_id, 'team_id' => $stat->team_id,
-                'name' => $stat->player->first_name.' '.$stat->player->last_name,
+                'name' => $stat->player->first_name . ' ' . $stat->player->last_name,
                 'jersey_number' => null, 'on_roster' => false,
             ];
         }
+
         return array_values($rows);
     }
 
     public static function derived(array $row): array
     {
         $points = 2 * $row['fg2_made'] + 3 * $row['fg3_made'] + $row['ft_made'];
+
         return [
             'points' => $points,
             'efficiency' => $points + $row['offensive_rebounds'] + $row['defensive_rebounds']
@@ -64,19 +80,19 @@ class AdminGameBoxscoreService
             'players.*.is_starter' => ['required', 'boolean'],
         ];
         foreach (self::FIELDS as $field) {
-            $rules['players.*.'.$field] = ['required', 'integer', 'min:'.($field === 'plus_minus' ? -1000 : 0), 'max:1000'];
+            $rules['players.*.' . $field] = ['required', 'integer', 'min:' . ($field === 'plus_minus' ? -1000 : 0), 'max:1000'];
         }
         $validated = Validator::make(['players' => $input], $rules)->validate()['players'];
-        $allowed = array_fill_keys(array_map(fn ($row) => $row['team_id'].':'.$row['player_id'], $this->roster($game)), true);
+        $allowed = array_fill_keys(array_map(fn($row) => $row['team_id'] . ':' . $row['player_id'], $this->roster($game)), true);
         $rows = [];
         $errors = [];
         foreach ($validated as $index => $row) {
-            if (!isset($allowed[$row['team_id'].':'.$row['player_id']])) {
-                $errors["players.$index.player_id"] = 'Igrač nije član ove ekipe u sezoni utakmice. Osvježite popis.';
+            if (! isset($allowed[$row['team_id'] . ':' . $row['player_id']])) {
+                $errors["players.{$index}.player_id"] = 'Igrač nije član ove ekipe u sezoni utakmice. Osvježite popis.';
             }
             foreach (['fg2', 'fg3', 'ft'] as $shot) {
-                if ($row[$shot.'_made'] > $row[$shot.'_attempted']) {
-                    $errors["players.$index.{$shot}_made"] = 'Broj pogodaka ne može biti veći od broja pokušaja.';
+                if ($row[$shot . '_made'] > $row[$shot . '_attempted']) {
+                    $errors["players.{$index}.{$shot}_made"] = 'Broj pogodaka ne može biti veći od broja pokušaja.';
                 }
             }
             $clean = ['player_id' => (int) $row['player_id'], 'team_id' => (int) $row['team_id'], 'is_starter' => (bool) $row['is_starter']];
@@ -86,32 +102,40 @@ class AdminGameBoxscoreService
             $rows[] = $clean + self::derived($clean);
         }
         foreach ([$game->home_team_id, $game->away_team_id] as $teamId) {
-            $team = array_filter($rows, fn ($row) => $row['team_id'] === (int) $teamId);
-            if (count(array_filter($team, fn ($row) => $row['is_starter'])) > 5) {
+            $team = array_filter($rows, fn($row) => $row['team_id'] === (int) $teamId);
+            if (count(array_filter($team, fn($row) => $row['is_starter'])) > 5) {
                 $errors['players'] = 'Ekipa može imati najviše pet startera.';
             }
             if ($publish && count($team) === 0) {
                 $errors['players'] = 'Za objavu unesite igrače i statistiku obje ekipe.';
             }
         }
-        $home = array_sum(array_column(array_filter($rows, fn ($r) => $r['team_id'] === (int) $game->home_team_id), 'points'));
-        $away = array_sum(array_column(array_filter($rows, fn ($r) => $r['team_id'] === (int) $game->away_team_id), 'points'));
+        $home = array_sum(array_column(array_filter($rows, fn($r) => $r['team_id'] === (int) $game->home_team_id), 'points'));
+        $away = array_sum(array_column(array_filter($rows, fn($r) => $r['team_id'] === (int) $game->away_team_id), 'points'));
         if ($publish && $home === $away) {
             $errors['players'] = 'Završena košarkaška utakmica ne može biti neriješena.';
         }
         if ($errors) {
             throw ValidationException::withMessages($errors);
         }
+
         return $rows;
     }
 
     // Caller holds the game row lock, checks revision and wraps this in a transaction.
-    public function save(Game $game, array $rows, bool $publish): void
+    public function save(Game $game, array $rows, bool $publish, array $periods): void
     {
-        if (!$publish) {
+        $result = clone $game;
+        $result->home_score = array_sum(array_column(array_filter($rows, fn($r) => $r['team_id'] === (int) $game->home_team_id), 'points'));
+        $result->away_score = array_sum(array_column(array_filter($rows, fn($r) => $r['team_id'] === (int) $game->away_team_id), 'points'));
+        // Validate before any writes. The caller holds the lock and transaction.
+        $periods = $this->periodService->validate($result, $periods, $publish);
+        if (! $publish) {
             DB::table('game_boxscore_drafts')->updateOrInsert(['game_id' => $game->id], [
+                'periods' => json_encode($periods, JSON_THROW_ON_ERROR),
                 'players' => json_encode($rows, JSON_THROW_ON_ERROR), 'created_at' => now(), 'updated_at' => now(),
             ]);
+
             return;
         }
         $ids = array_column($rows, 'player_id');
@@ -119,9 +143,12 @@ class AdminGameBoxscoreService
         foreach ($rows as $row) {
             $game->playerStats()->updateOrCreate(['player_id' => $row['player_id']], $row);
         }
-        $game->home_score = array_sum(array_column(array_filter($rows, fn ($r) => $r['team_id'] === (int) $game->home_team_id), 'points'));
-        $game->away_score = array_sum(array_column(array_filter($rows, fn ($r) => $r['team_id'] === (int) $game->away_team_id), 'points'));
+        $game->home_score = array_sum(array_column(array_filter($rows, fn($r) => $r['team_id'] === (int) $game->home_team_id), 'points'));
+        $game->away_score = array_sum(array_column(array_filter($rows, fn($r) => $r['team_id'] === (int) $game->away_team_id), 'points'));
         $game->status = 'finished';
+        $game->periodScores()->delete();
+        $game->periodScores()->createMany($periods);
+        $game->unsetRelation('periodScores');
         DB::table('game_boxscore_drafts')->where('game_id', $game->id)->delete();
     }
 }

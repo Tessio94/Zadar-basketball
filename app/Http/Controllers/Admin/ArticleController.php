@@ -6,11 +6,14 @@ namespace App\Http\Controllers\Admin;
 
 use Inertia\Inertia;
 use App\Models\Article;
+use App\Models\Gallery;
 use Illuminate\Support\Str;
+use App\Support\ArticleHtml;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Admin\ArticleRequest;
 
 class ArticleController extends Controller
 {
@@ -28,7 +31,7 @@ class ArticleController extends Controller
         $direction = $validated['direction'] ?? 'desc';
 
         $articles = Article::query()
-            ->when($search, function ($query, $search) {
+            ->when($search, function($query, $search): void {
                 $query->where('title', 'ilike', "%{$search}%");
             })
             ->orderBy('published_at', $direction)
@@ -49,23 +52,17 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return Inertia::render('admin/novosti/createArticle');
+        return Inertia::render('admin/novosti/createArticle', ['galleries' => $this->galleries()]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ArticleRequest $request, ArticleHtml $html)
     {
 
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:articles,slug',
-            'content' => 'required|string',
-            'excerpt' => 'nullable|string',
-            'status' => 'nullable|in:published,draft',
-            'main_image' => 'nullable|image|mimes:jpg,jpeg,png,webp,gif|max:2048',
-        ]);
+        $validated = $request->validated();
+        $validated['content'] = $html->sanitize($validated['content']);
 
         $validated['status'] = $validated['status'] ?? 'draft';
 
@@ -99,6 +96,7 @@ class ArticleController extends Controller
 
         return Inertia::render('admin/novosti/editArticle', [
             'article' => $article,
+            'galleries' => $this->galleries(),
         ]);
 
     }
@@ -106,22 +104,15 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Article $article)
+    public function update(ArticleRequest $request, Article $article, ArticleHtml $html)
     {
 
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:articles,slug,' . $article->id,
-            'excerpt' => 'nullable|string',
-            'content' => 'required|string',
-            'status' => 'required|in:published,draft',
-            'published_at' => 'nullable|date',
-            'main_image' => 'nullable|image|mimes:jpg,jpeg,png,webp,gif|max:2048',
-        ]);
+        $validated = $request->validated();
+        $validated['content'] = $html->sanitize($validated['content']);
 
         if ($validated['status'] === 'draft') {
             $validated['published_at'] = null;
-        } elseif ($article->status === 'draft') {
+        } elseif (empty($validated['published_at'])) {
             $validated['published_at'] = now();
         }
 
@@ -134,6 +125,12 @@ class ArticleController extends Controller
             $validated['main_image'] = $path;
         }
 
+        // A null upload means keep the existing cover, not clear its storage path.
+        if (! $request->hasFile('main_image')) {
+            unset($validated['main_image']);
+        }
+        $validated['meta_title'] = $validated['title'];
+        $validated['meta_description'] = Str::limit(strip_tags($validated['content']), 160);
         $article->update($validated);
 
         return redirect()->route('novosti.index');
@@ -153,8 +150,14 @@ class ArticleController extends Controller
         return redirect()->back();
     }
 
+    private function galleries()
+    {
+        return Gallery::query()->withCount('images')->orderByDesc('date')->orderByDesc('id')->get(['id', 'title', 'slug']);
+    }
+
     public function uploadImage(Request $request)
     {
+        $request->validate(['file' => ['required', 'image', 'mimes:jpg,jpeg,png,webp,gif', 'max:5120']]);
         if ($request->hasFile('file')) {
             $path = $request->file('file')->store('editor-images', 'public');
 

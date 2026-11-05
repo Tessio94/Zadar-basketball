@@ -11,6 +11,7 @@ use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PlayerGameStatController;
+use App\Http\Controllers\Admin\ArticleGameController;
 use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
 use App\Http\Controllers\Admin\GameController as AdminGameController;
@@ -90,6 +91,8 @@ Route::middleware(['auth', 'verified'])->prefix('admin-panel')->group(function()
 
     Route::resource('utakmice', AdminGameController::class)
         ->except(['show'])->parameters(['utakmice' => 'game'])->names('admin.games');
+
+    Route::get('article-games', [ArticleGameController::class, 'index'])->name('admin.article-games.index');
 
     Route::resource('novosti', AdminArticleController::class)
         ->parameters(['novosti' => 'article']);

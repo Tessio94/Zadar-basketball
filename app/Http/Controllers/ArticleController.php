@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\Game;
 use Inertia\Inertia;
 use App\Models\Article;
-use App\Http\Requests\StoreArticleRequest;
-use App\Http\Requests\UpdateArticleRequest;
+use App\Support\ArticleHtml;
+use App\Services\ArticleGameSummary;
 
 class ArticleController extends Controller
 {
@@ -47,19 +48,26 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Article $article)
+    public function show(Article $article, ArticleHtml $html, ArticleGameSummary $summary)
     {
         //
-        abort_if($article->published_at === null, 404);
+        abort_unless($article->status === 'published' && $article->published_at?->isPast(), 404);
+        $article->load('gallery.images');
+        // Sanitize legacy content on output without rewriting stored articles.
+        $article->content = $html->sanitize($article->content);
+        $embeddedGames = Game::query()->whereIn('id', $html->gameIds($article->content))
+            ->with(['homeTeam', 'awayTeam', 'season', 'periodScores', 'playerStats.player'])
+            ->get()->map(fn(Game $game): array => $summary->make($game))->values();
 
-        $lastArticles = Article::whereNotNull('published_at')
+        $lastArticles = Article::where('status', 'published')->where('published_at', '<=', now())
             ->orderBy('published_at', 'desc')
             ->limit(5)
             ->get();
 
         return Inertia::render('article', [
             'lastArticles' => $lastArticles,
-            'article' => $article
+            'article' => $article,
+            'embeddedGames' => $embeddedGames,
         ]);
     }
 }

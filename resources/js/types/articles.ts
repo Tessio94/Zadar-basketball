@@ -1,7 +1,10 @@
+import type { Gallery } from '@/types/galleries';
+
 export type Article = {
     id: number;
     title: string;
     slug: string;
+    gallery_id: number | null;
     content: string;
     excerpt: string | null;
     main_image: string | null;
@@ -13,7 +16,10 @@ export type Article = {
     updated_at: string;
 };
 
+export type ArticleDetail = Article & { gallery: Gallery | null };
+
 export type ArticleForm = {
+    gallery_id: string;
     title: string;
     // published_at: string;
     excerpt: string;

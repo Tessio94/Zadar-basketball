@@ -5,10 +5,12 @@ import {
     index,
     update,
 } from '@/actions/App/Http/Controllers/Admin/ArticleController';
+import ArticleGalleryField from '@/components/admin/article-gallery-field';
 import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem } from '@/types';
 import type { Article, ArticleEditForm } from '@/types/articles';
+import type { GalleryOption } from '@/types/galleries';
 import RichTextEditor from './richTextEditor';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -22,11 +24,18 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function EditArticle({ article }: { article: Article }) {
+export default function EditArticle({
+    article,
+    galleries,
+}: {
+    article: Article;
+    galleries: GalleryOption[];
+}) {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const { data, setData, post, transform, processing, errors } =
         useForm<ArticleEditForm>({
+            gallery_id: article.gallery_id?.toString() ?? '',
             title: article.title ?? '',
             published_at: article?.published_at?.substring(0, 10) ?? '',
             excerpt: article.excerpt ?? '',
@@ -208,9 +217,20 @@ export default function EditArticle({ article }: { article: Article }) {
                                 setData('content', value)
                             }
                         />
+                        {errors.content && (
+                            <p className="text-sm text-red-500">
+                                {errors.content}
+                            </p>
+                        )}
                     </div>
 
                     <div className="space-y-6 xl:w-1/2 xl:pt-6 xl:pr-5 2xl:pr-10">
+                        <ArticleGalleryField
+                            galleries={galleries}
+                            value={data.gallery_id}
+                            onChange={(value) => setData('gallery_id', value)}
+                            error={errors.gallery_id}
+                        />
                         <div>
                             <label
                                 htmlFor="status"

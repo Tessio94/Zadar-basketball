@@ -5,11 +5,13 @@ import {
     index,
     store,
 } from '@/actions/App/Http/Controllers/Admin/ArticleController';
+import ArticleGalleryField from '@/components/admin/article-gallery-field';
 import AdminMainContent from '@/components/myComponents/stranice/admin/ui/adminMainContent';
 import AppLayout from '@/layouts/app-layout';
 import { slugify } from '@/lib/utils';
 import type { BreadcrumbItem } from '@/types';
 import type { ArticleForm } from '@/types/articles';
+import type { GalleryOption } from '@/types/galleries';
 import RichTextEditor from './richTextEditor';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -23,10 +25,15 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function CreateArticle() {
+export default function CreateArticle({
+    galleries,
+}: {
+    galleries: GalleryOption[];
+}) {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const { data, setData, post, processing, errors } = useForm<ArticleForm>({
+        gallery_id: '',
         title: '',
         excerpt: '',
         content: '',
@@ -157,9 +164,20 @@ export default function CreateArticle() {
                                 setData('content', value)
                             }
                         />
+                        {errors.content && (
+                            <p className="text-sm text-red-500">
+                                {errors.content}
+                            </p>
+                        )}
                     </div>
 
                     <div className="space-y-6 xl:w-1/2 xl:pt-6 xl:pr-5 2xl:pr-10">
+                        <ArticleGalleryField
+                            galleries={galleries}
+                            value={data.gallery_id}
+                            onChange={(value) => setData('gallery_id', value)}
+                            error={errors.gallery_id}
+                        />
                         <div>
                             <label
                                 htmlFor="status"

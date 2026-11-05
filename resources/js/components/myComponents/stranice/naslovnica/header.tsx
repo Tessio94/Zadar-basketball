@@ -460,7 +460,7 @@ export default function Header() {
 
                                 <div className="flex items-center justify-center gap-5 px-5 py-3">
                                     <a
-                                        href="https://www.instagram.com/"
+                                        href="https://www.instagram.com/zadarska_kosarkaska_liga_likar/"
                                         target="_blank"
                                         className="group rounded-2xl border border-slate-100/80 bg-slate-100/70 text-pink-600"
                                     >
@@ -479,7 +479,7 @@ export default function Header() {
                                         </svg>
                                     </a>
                                     <a
-                                        href="https://web.facebook.com/"
+                                        href="https://www.facebook.com/likarzadar"
                                         target="_blank"
                                         className="group rounded-2xl border border-slate-100/80 bg-slate-100/70 text-blue-600"
                                     >
@@ -496,7 +496,7 @@ export default function Header() {
                                             <path d="M426.8 64H85.2C73.5 64 64 73.5 64 85.2v341.6c0 11.7 9.5 21.2 21.2 21.2H256V296h-45.9v-56H256v-41.4c0-49.6 34.4-76.6 78.7-76.6 21.2 0 44 1.6 49.3 2.3v51.8h-35.3c-24.1 0-28.7 11.4-28.7 28.2V240h57.4l-7.5 56H320v152h106.8c11.7 0 21.2-9.5 21.2-21.2V85.2c0-11.7-9.5-21.2-21.2-21.2z"></path>
                                         </svg>
                                     </a>
-                                    <a
+                                    {/* <a
                                         href="https://www.youtube.com/"
                                         target="_blank"
                                         className="group rounded-2xl border border-slate-100/80 bg-slate-100/70 text-red-600"
@@ -513,7 +513,7 @@ export default function Header() {
                                         >
                                             <path d="M508.6 148.8c0-45-33.1-81.2-74-81.2C379.2 65 322.7 64 265 64h-18c-57.6 0-114.2 1-169.6 3.6C36.6 67.6 3.5 104 3.5 149 1 184.6-.1 220.2 0 255.8c-.1 35.6 1 71.2 3.4 106.9 0 45 33.1 81.5 73.9 81.5 58.2 2.7 117.9 3.9 178.6 3.8 60.8.2 120.3-1 178.6-3.8 40.9 0 74-36.5 74-81.5 2.4-35.7 3.5-71.3 3.4-107 .2-35.6-.9-71.2-3.3-106.9zM207 353.9V157.4l145 98.2-145 98.3z"></path>
                                         </svg>
-                                    </a>
+                                    </a> */}
                                 </div>
                             </div>
                         </div>

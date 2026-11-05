@@ -50,3 +50,10 @@ export type NamedGameData = GameData & {
     away_name: string;
     season_name: string;
 };
+
+/** Blank inputs stay null in a private draft; published period scores are integers. */
+export type PeriodScoreDraft = {
+    period_number: number;
+    home_score: number | null;
+    away_score: number | null;
+};
