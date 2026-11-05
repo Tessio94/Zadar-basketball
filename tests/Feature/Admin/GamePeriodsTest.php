@@ -13,7 +13,7 @@ use App\Services\AdminGameBoxscoreService;
 
 beforeEach(function(): void {
     $this->withoutVite();
-    $this->actingAs(User::factory()->create());
+    $this->actingAs(User::factory()->admin()->create());
     $this->season = Season::create(['name' => 'Test', 'start_date' => '2025-01-01', 'end_date' => '2027-12-31', 'is_active' => true]);
     $this->home = Team::create(['name' => 'Home']);
     $this->away = Team::create(['name' => 'Away']);

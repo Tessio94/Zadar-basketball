@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\StaffRole;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, TwoFactorAuthenticatable;
@@ -38,6 +39,16 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function canAccessPanel(): bool
+    {
+        return $this->is_active && in_array($this->role, StaffRole::cases(), true);
+    }
+
+    public function isAdministrator(): bool
+    {
+        return $this->canAccessPanel() && $this->role === StaffRole::Admin;
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -47,6 +58,8 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
+            'role' => StaffRole::class,
+            'is_active' => 'boolean',
             'password' => 'hashed',
             'two_factor_confirmed_at' => 'datetime',
         ];

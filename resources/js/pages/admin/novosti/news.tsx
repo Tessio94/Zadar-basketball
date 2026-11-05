@@ -1,4 +1,4 @@
-import { Head, Link, router } from '@inertiajs/react';
+import { Head, Link, router, usePage } from '@inertiajs/react';
 import { Plus, Search } from 'lucide-react';
 import { useState } from 'react';
 import {
@@ -29,7 +29,7 @@ export default function News({
     articles: Paginated<Article>;
     filters: ArticleFilters;
 }) {
-    console.log('articles', articles);
+    const { auth } = usePage().props;
     const [search, setSearch] = useState(filters.search ?? '');
 
     const submitSearch = (e: React.FormEvent) => {
@@ -130,7 +130,11 @@ export default function News({
                                         <th className="text-center!">No.</th>
                                         <th style={{ width: '70%' }}>Naslov</th>
                                         <th
-                                            colSpan={2}
+                                            colSpan={
+                                                auth.permissions.deleteContent
+                                                    ? 2
+                                                    : 1
+                                            }
                                             className="text-center!"
                                         >
                                             Akcije
@@ -169,27 +173,29 @@ export default function News({
                                                     Uredi
                                                 </Link>
                                             </td>
-                                            <td className="text-center!">
-                                                <button
-                                                    type="button"
-                                                    onClick={() => {
-                                                        if (
-                                                            confirm(
-                                                                'Jeste li sigurni da želite izbrisati ovaj članak?',
-                                                            )
-                                                        ) {
-                                                            router.delete(
-                                                                destroy(
-                                                                    article.id,
-                                                                ).url,
-                                                            );
-                                                        }
-                                                    }}
-                                                    className="cursor-pointer rounded-lg bg-likar3 px-6 py-2 text-center! font-semibold text-slate-100 transition-colors duration-300 hover:bg-likar4 hover:text-slate-100"
-                                                >
-                                                    Izbriši
-                                                </button>
-                                            </td>
+                                            {auth.permissions.deleteContent && (
+                                                <td className="text-center!">
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => {
+                                                            if (
+                                                                confirm(
+                                                                    'Jeste li sigurni da želite izbrisati ovaj članak?',
+                                                                )
+                                                            ) {
+                                                                router.delete(
+                                                                    destroy(
+                                                                        article.id,
+                                                                    ).url,
+                                                                );
+                                                            }
+                                                        }}
+                                                        className="cursor-pointer rounded-lg bg-likar3 px-6 py-2 text-center! font-semibold text-slate-100 transition-colors duration-300 hover:bg-likar4 hover:text-slate-100"
+                                                    >
+                                                        Izbriši
+                                                    </button>
+                                                </td>
+                                            )}
                                         </tr>
                                     ))}
                                 </tbody>

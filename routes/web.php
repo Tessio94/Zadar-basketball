@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GameController;
@@ -10,16 +9,16 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\PlayerGameStatController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ArticleGameController;
-use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
-use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
 use App\Http\Controllers\Admin\GameController as AdminGameController;
+use App\Http\Controllers\Admin\TeamController as AdminTeamController;
 use App\Http\Controllers\Admin\PlayerController as AdminPlayerController;
 use App\Http\Controllers\Admin\SeasonController as AdminSeasonController;
-use App\Http\Controllers\Admin\TeamController as AdminTeamController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
+use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
 
 /**
  *  Navigation menu pages
@@ -79,57 +78,40 @@ Route::get('galerija/{gallery:slug}', [GalleryController::class, 'show'])->name(
 /**
  *  admin panel pages
  */
-Route::middleware(['auth', 'verified'])->prefix('admin-panel')->group(function(): void {
-
+Route::middleware(['auth', 'verified', 'can:access-admin'])->prefix('admin-panel')->group(function(): void {
     Route::get('/', [DashboardController::class, 'index'])->name('admin.panel');
 
-     Route::get('utakmice/{game}/boxscore', [AdminGameController::class, 'boxscore'])->name('admin.games.boxscore');
+    Route::middleware('can:manage-league')->group(function(): void {
+        Route::get('utakmice/{game}/boxscore', [AdminGameController::class, 'boxscore'])->name('admin.games.boxscore');
+        Route::put('utakmice/{game}/boxscore', [AdminGameController::class, 'saveBoxscore'])->name('admin.games.boxscore.save');
+        Route::delete('utakmice/{game}/boxscore/draft', [AdminGameController::class, 'discardDraft'])->name('admin.games.draft.destroy');
+        Route::resource('utakmice', AdminGameController::class)
+            ->except(['show'])->parameters(['utakmice' => 'game'])->names('admin.games');
+        Route::resource('ekipe', AdminTeamController::class)->parameters(['ekipe' => 'team']);
+        Route::resource('sezone', AdminSeasonController::class)->parameters(['sezone' => 'season']);
+        Route::resource('igraci', AdminPlayerController::class)->parameters(['igraci' => 'player']);
+    });
 
-    Route::put('utakmice/{game}/boxscore', [AdminGameController::class, 'saveBoxscore'])->name('admin.games.boxscore.save');
+    Route::middleware('can:manage-content')->group(function(): void {
+        Route::get('article-games', [ArticleGameController::class, 'index'])->name('admin.article-games.index');
+        Route::post('novosti/upload-image', [AdminArticleController::class, 'uploadImage']);
+        Route::resource('novosti', AdminArticleController::class)
+            ->except(['destroy'])->parameters(['novosti' => 'article']);
+        Route::resource('galerije', AdminGalleryController::class)
+            ->except(['show', 'destroy'])->parameters(['galerije' => 'gallery']);
 
-    Route::delete('utakmice/{game}/boxscore/draft', [AdminGameController::class, 'discardDraft'])->name('admin.games.draft.destroy');
+        Route::delete('galerije/{gallery}/images/{image}', [AdminGalleryController::class, 'destroyImage'])
+            ->name('galerije.images.destroy');
+        Route::patch('galerije/{gallery}/images/reorder', [AdminGalleryController::class, 'reorderImages'])
+            ->name('galerije.images.reorder');
+        Route::patch('galerije/{gallery}/images/{image}', [AdminGalleryController::class, 'updateImage'])
+            ->whereNumber('image')->name('galerije.images.update');
+    });
 
-    Route::resource('utakmice', AdminGameController::class)
-        ->except(['show'])->parameters(['utakmice' => 'game'])->names('admin.games');
-
-    Route::get('article-games', [ArticleGameController::class, 'index'])->name('admin.article-games.index');
-
-    Route::resource('novosti', AdminArticleController::class)
-        ->parameters(['novosti' => 'article']);
-
-    Route::post('novosti/upload-image', [AdminArticleController::class, 'uploadImage']);
-
-    Route::resource('ekipe', AdminTeamController::class)
-        ->parameters(['ekipe' => 'team']);
-
-    Route::resource('sezone', AdminSeasonController::class)
-        ->parameters(['sezone' => 'season']);
-
-    Route::resource('igraci', AdminPlayerController::class)
-        ->parameters(['igraci' => 'player']);
-
-    Route::resource('galerije', AdminGalleryController::class)
-            ->except(['show'])
-            ->parameters(['galerije' => 'gallery']);
-
-    Route::delete(
-        'galerije/{gallery}/images/{image}',
-        [AdminGalleryController::class, 'destroyImage']
-    )->name('galerije.images.destroy');
-
-    Route::patch(
-        'galerije/{gallery}/images/reorder',
-        [AdminGalleryController::class, 'reorderImages']
-    )->name('galerije.images.reorder');
-
-    Route::patch(
-        'galerije/{gallery}/images/{image}',
-        [AdminGalleryController::class, 'updateImage']
-    )
-        ->whereNumber('image')
-        ->name('galerije.images.update');
-
-
+    Route::middleware('can:delete-content')->group(function(): void {
+        Route::delete('novosti/{article}', [AdminArticleController::class, 'destroy'])->name('novosti.destroy');
+        Route::delete('galerije/{gallery}', [AdminGalleryController::class, 'destroy'])->name('galerije.destroy');
+    });
 });
 
 require __DIR__ . '/settings.php';

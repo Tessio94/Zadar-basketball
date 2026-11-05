@@ -2,20 +2,17 @@
 
 declare(strict_types=1);
 
-test('registration screen can be rendered', function(): void {
-    $response = $this->get(route('register'));
+use Illuminate\Support\Facades\Route;
 
-    $response->assertOk();
-});
-
-test('new users can register', function(): void {
-    $response = $this->post(route('register.store'), [
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => 'password',
-        'password_confirmation' => 'password',
-    ]);
-
-    $this->assertAuthenticated();
-    $response->assertRedirect(route('dashboard', absolute: false));
+test('registration routes are not exposed', function(): void {
+    expect(Route::has('register'))->toBeFalse();
+    expect(Route::has('register.store'))->toBeFalse();
+    $this->get('/register')->assertNotFound();
+    $this->post('/register', [
+        'name' => 'Visitor',
+        'email' => 'visitor@example.test',
+        'password' => 'NotARealPassword123!',
+        'password_confirmation' => 'NotARealPassword123!',
+    ])->assertNotFound();
+    $this->assertDatabaseCount('users', 0);
 });

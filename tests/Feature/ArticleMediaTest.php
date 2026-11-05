@@ -54,7 +54,7 @@ beforeEach(function(): void {
 });
 
 it('persists a gallery selection and game marker through article create and edit', function(): void {
-    $this->actingAs(User::factory()->create());
+    $this->actingAs(User::factory()->admin()->create());
     $gallery = Gallery::create(['title' => 'Fotografije', 'slug' => 'fotografije']);
     $this->get(route('novosti.create'))->assertOk()->assertInertia(fn(Assert $page) => $page
         ->component('admin/novosti/createArticle')->where('galleries.0.id', $gallery->id)->where('galleries.0.images_count', 0));
@@ -84,7 +84,7 @@ it('does not delete an article when its linked gallery is deleted', function(): 
 });
 
 it('rejects missing galleries and forged or deleted game references', function(): void {
-    $this->actingAs(User::factory()->create());
+    $this->actingAs(User::factory()->admin()->create());
     $this->post(route('novosti.store'), ['title' => 'Test', 'slug' => 'invalid', 'status' => 'draft', 'gallery_id' => 99999,
         'content' => '<div data-likar-widget="game" data-game-id="99999">Game</div>'])
         ->assertSessionHasErrors(['gallery_id', 'content']);
@@ -126,7 +126,7 @@ it('does not publish drafts or future articles', function(): void {
 it('searches games through the authenticated endpoint and exposes public quarters', function(): void {
     $game = mediaGame();
     $this->get(route('admin.article-games.index'))->assertRedirect(route('login'));
-    $this->actingAs(User::factory()->create());
+    $this->actingAs(User::factory()->admin()->create());
     $this->getJson(route('admin.article-games.index', ['search' => $game->id]))->assertOk()->assertJsonPath('data.0.id', $game->id);
     $game->periodScores()->createMany(mediaPeriods());
     expect($game->periodScores()->count())->toBe(4);

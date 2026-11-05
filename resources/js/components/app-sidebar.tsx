@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import {
     // BookOpen,
     Dribbble,
@@ -28,10 +28,13 @@ import {
 } from '@/components/ui/sidebar';
 import { panel } from '@/routes/admin';
 import type { NavItem } from '@/types';
+import type { StaffPermissions } from '@/types/auth';
 import AppLogo from './app-logo';
 import SeasonCalendar from './myComponents/ui/icons/seasonCalendar';
 
-const mainNavItems: NavItem[] = [
+type StaffNavItem = NavItem & { permission?: keyof StaffPermissions };
+
+const mainNavItems: StaffNavItem[] = [
     {
         title: 'Admin panel',
         href: panel(),
@@ -39,21 +42,25 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Ekipe',
+        permission: 'manageLeague',
         href: adminTeamController(),
         icon: ShieldHalfIcon,
     },
     {
         title: 'Igrači',
+        permission: 'manageLeague',
         href: adminPlayerController(),
         icon: User2Icon,
     },
     {
         title: 'Utakmice',
+        permission: 'manageLeague',
         href: '/admin-panel/utakmice',
         icon: Dribbble,
     },
     {
         title: 'Sezone',
+        permission: 'manageLeague',
         href: adminSeasonController(),
         icon: SeasonCalendar,
     },
@@ -83,6 +90,10 @@ const mainNavItems: NavItem[] = [
 // ];
 
 export function AppSidebar() {
+    const { auth } = usePage().props;
+    const visibleItems = mainNavItems.filter(
+        (item) => !item.permission || auth.permissions[item.permission],
+    );
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
@@ -98,7 +109,7 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain items={visibleItems} />
             </SidebarContent>
 
             <SidebarFooter>

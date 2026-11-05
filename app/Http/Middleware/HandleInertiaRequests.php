@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use App\Models\Season;
 use App\Models\Team;
+use App\Models\Season;
 use Inertia\Middleware;
 use Illuminate\Http\Request;
 
@@ -44,18 +44,23 @@ class HandleInertiaRequests extends Middleware
             'name' => config('app.name'),
             'auth' => [
                 'user' => $request->user(),
+                'permissions' => [
+                    'manageLeague' => $request->user()?->can('manage-league') ?? false,
+                    'manageContent' => $request->user()?->can('manage-content') ?? false,
+                    'deleteContent' => $request->user()?->can('delete-content') ?? false,
+                ],
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'flash' => [
-                'success' => fn () => $request->session()->get('success'),
-                'error' => fn () => $request->session()->get('error'),
+                'success' => fn() => $request->session()->get('success'),
+                'error' => fn() => $request->session()->get('error'),
             ],
-            'seasons' => fn () => Season::orderByDesc('start_date')
+            'seasons' => fn() => Season::orderByDesc('start_date')
                 ->get([
                     'id',
                     'name',
                     'is_active',
-            ]),
+                ]),
         ];
 
         // if (! $request->is('admin-panel/*')) {

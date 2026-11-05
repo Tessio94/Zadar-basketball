@@ -22,7 +22,7 @@ beforeEach(function(): void {
 });
 
 it('creates reusable tags, normalizes whitespace and ignores case duplicates', function(): void {
-    $this->actingAs(User::factory()->create());
+    $this->actingAs(User::factory()->admin()->create());
     $input = ['title' => 'Finale', 'slug' => 'finale', 'content' => '<p>Finale.</p>', 'status' => 'published',
         'tags_input' => '  Doigravanje, doigravanje , KK   Zadar, , Četvrtfinale '];
     $this->post(route('novosti.store'), $input)->assertSessionHasNoErrors();
@@ -36,7 +36,7 @@ it('creates reusable tags, normalizes whitespace and ignores case duplicates', f
 });
 
 it('supports replacing, explicitly clearing and preserving omitted tags on edit', function(): void {
-    $this->actingAs(User::factory()->create());
+    $this->actingAs(User::factory()->admin()->create());
     $article = taggedArticle();
     app(ArticleTagService::class)->sync($article, '2025-2026, Doigravanje');
     $input = ['title' => $article->title, 'slug' => $article->slug, 'status' => 'published', 'content' => '<p>Izmjena.</p>'];
@@ -50,7 +50,7 @@ it('supports replacing, explicitly clearing and preserving omitted tags on edit'
 });
 
 it('validates tag length and count before writing the article', function(): void {
-    $this->actingAs(User::factory()->create());
+    $this->actingAs(User::factory()->admin()->create());
     $input = ['title' => 'Test', 'slug' => 'test', 'status' => 'draft', 'content' => '<p>Test.</p>'];
     foreach ([str_repeat('č', 61), implode(',', range(1, 11)), ['invalid']] as $tags) {
         $this->post(route('novosti.store'), [...$input, 'tags_input' => $tags])->assertSessionHasErrors('tags_input');

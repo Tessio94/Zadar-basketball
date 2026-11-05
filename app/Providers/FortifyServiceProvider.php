@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Features;
-use App\Actions\Fortify\CreateNewUser;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Cache\RateLimiting\Limit;
 use App\Actions\Fortify\ResetUserPassword;
@@ -30,6 +31,18 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Fortify::authenticateUsing(function(Request $request): ?User {
+            $email = Str::lower(trim((string) $request->input('email')));
+            $user = User::where('email', $email)->first();
+
+            if ($user && $user->canAccessPanel() &&
+                Hash::check((string) $request->input('password'), $user->password)) {
+                return $user;
+            }
+
+            return null;
+        });
+
         $this->configureActions();
         $this->configureViews();
         $this->configureRateLimiting();
@@ -41,7 +54,6 @@ class FortifyServiceProvider extends ServiceProvider
     private function configureActions(): void
     {
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
-        Fortify::createUsersUsing(CreateNewUser::class);
     }
 
     /**
@@ -51,7 +63,6 @@ class FortifyServiceProvider extends ServiceProvider
     {
         Fortify::loginView(fn(Request $request) => Inertia::render('auth/login', [
             'canResetPassword' => Features::enabled(Features::resetPasswords()),
-            'canRegister' => Features::enabled(Features::registration()),
             'status' => $request->session()->get('status'),
         ]));
 
@@ -67,8 +78,6 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::verifyEmailView(fn(Request $request) => Inertia::render('auth/verify-email', [
             'status' => $request->session()->get('status'),
         ]));
-
-        Fortify::registerView(fn() => Inertia::render('auth/register'));
 
         Fortify::twoFactorChallengeView(fn() => Inertia::render('auth/two-factor-challenge'));
 

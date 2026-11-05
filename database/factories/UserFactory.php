@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\StaffRole;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -29,12 +30,30 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
+            'role' => null,
+            'is_active' => false,
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
             'two_factor_confirmed_at' => null,
         ];
+    }
+
+    public function admin(): static
+    {
+        return $this->state(fn(array $attributes): array => [
+            'role' => StaffRole::Admin,
+            'is_active' => true,
+        ]);
+    }
+
+    public function editor(): static
+    {
+        return $this->state(fn(array $attributes): array => [
+            'role' => StaffRole::Editor,
+            'is_active' => true,
+        ]);
     }
 
     /**

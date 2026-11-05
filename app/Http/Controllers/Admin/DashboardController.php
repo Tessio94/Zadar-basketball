@@ -1,17 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Article;
 use App\Models\Game;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\Article;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        if (! $request->user()->can('manage-league')) {
+            return to_route('novosti.index');
+        }
+
         // $upcomingGames = Game::query()
         //     ->where('date', '>=', now())
         //     ->orderBy('date')
@@ -24,7 +30,6 @@ class DashboardController extends Controller
             ->orderByDesc('game_date')
             ->limit(5)
             ->get();
-
 
         $lastNews = Article::query()
             ->latest()

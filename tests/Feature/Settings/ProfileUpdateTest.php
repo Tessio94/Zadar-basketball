@@ -5,7 +5,7 @@ declare(strict_types=1);
 use App\Models\User;
 
 test('profile page is displayed', function(): void {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
 
     $response = $this
         ->actingAs($user)
@@ -15,7 +15,7 @@ test('profile page is displayed', function(): void {
 });
 
 test('profile information can be updated', function(): void {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
 
     $response = $this
         ->actingAs($user)
@@ -36,7 +36,7 @@ test('profile information can be updated', function(): void {
 });
 
 test('email verification status is unchanged when the email address is unchanged', function(): void {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
 
     $response = $this
         ->actingAs($user)
@@ -52,36 +52,12 @@ test('email verification status is unchanged when the email address is unchanged
     expect($user->refresh()->email_verified_at)->not->toBeNull();
 });
 
-test('user can delete their account', function(): void {
-    $user = User::factory()->create();
+test('staff accounts cannot delete themselves through profile settings', function(): void {
+    $user = User::factory()->admin()->create();
 
-    $response = $this
-        ->actingAs($user)
-        ->delete(route('profile.destroy'), [
-            'password' => 'password',
-        ]);
-
-    $response
-        ->assertSessionHasNoErrors()
-        ->assertRedirect(route('home'));
-
-    $this->assertGuest();
-    expect($user->fresh())->toBeNull();
-});
-
-test('correct password must be provided to delete account', function(): void {
-    $user = User::factory()->create();
-
-    $response = $this
-        ->actingAs($user)
-        ->from(route('profile.edit'))
-        ->delete(route('profile.destroy'), [
-            'password' => 'wrong-password',
-        ]);
-
-    $response
-        ->assertSessionHasErrors('password')
-        ->assertRedirect(route('profile.edit'));
+    $this->actingAs($user)->delete('/settings/profile', [
+        'password' => 'password',
+    ])->assertStatus(405);
 
     expect($user->fresh())->not->toBeNull();
 });

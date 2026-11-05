@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Models\Game;
+use App\Models\Team;
+use App\Models\User;
 use App\Models\Player;
 use App\Models\Season;
-use App\Models\Team;
 use App\Models\TeamSeason;
-use App\Models\User;
-use App\Services\AdminGameBoxscoreService;
 use Illuminate\Support\Facades\DB;
+use App\Services\AdminGameBoxscoreService;
 
-beforeEach(function () {
+beforeEach(function(): void {
     $this->withoutVite();
-    $this->actingAs(User::factory()->create());
+    $this->actingAs(User::factory()->admin()->create());
     $this->season = Season::create(['name' => 'Test', 'start_date' => '2025-01-01', 'end_date' => '2027-12-31', 'is_active' => true]);
     $this->home = Team::create(['name' => 'Home']);
     $this->away = Team::create(['name' => 'Away']);
@@ -32,36 +34,36 @@ beforeEach(function () {
         'playoff_id' => null, 'playoff_round' => null,
     ];
     $this->game = Game::create([...$this->schedule, 'status' => 'scheduled']);
-    $this->url = '/admin-panel/utakmice/'.$this->game->id;
+    $this->url = '/admin-panel/utakmice/' . $this->game->id;
 });
 
-it('requires authentication on game mutations', function () {
+it('requires authentication on game mutations', function(): void {
     auth()->logout();
     $this->post('/admin-panel/utakmice', $this->schedule)->assertRedirect('/login');
-    $this->put($this->url.'/boxscore', [])->assertRedirect('/login');
+    $this->put($this->url . '/boxscore', [])->assertRedirect('/login');
     $this->delete($this->url)->assertRedirect('/login');
 });
 
-it('creates scheduled games and rejects a team playing itself', function () {
+it('creates scheduled games and rejects a team playing itself', function(): void {
     $this->post('/admin-panel/utakmice', [...$this->schedule, 'home_team_id' => $this->away->id])->assertSessionHasErrors('home_team_id');
     $this->post('/admin-panel/utakmice', $this->schedule)->assertSessionHasNoErrors()->assertRedirect();
     $this->assertDatabaseCount('games', 2);
 });
 
-it('rejects teams and playoffs from another season', function () {
+it('rejects teams and playoffs from another season', function(): void {
     $other = Season::create(['name' => 'Other', 'start_date' => '2024-01-01', 'end_date' => '2024-12-31']);
     $this->post('/admin-panel/utakmice', [...$this->schedule, 'season_id' => $other->id])->assertSessionHasErrors('home_team_id');
-    $playoff = \App\Models\Playoff::create(['season_id' => $other->id, 'name' => 'Other playoffs']);
+    $playoff = App\Models\Playoff::create(['season_id' => $other->id, 'name' => 'Other playoffs']);
     $this->post('/admin-panel/utakmice', [...$this->schedule, 'playoff_id' => $playoff->id, 'playoff_round' => 'final'])->assertSessionHasErrors('playoff_id');
 });
 
-it('saves drafts privately and publishes scores computed from shooting', function () {
+it('saves drafts privately and publishes scores computed from shooting', function(): void {
     $payload = ['revision' => 0, 'intent' => 'draft', 'players' => $this->rows];
-    $this->put($this->url.'/boxscore', $payload)->assertSessionHasNoErrors();
+    $this->put($this->url . '/boxscore', $payload)->assertSessionHasNoErrors();
     $this->assertDatabaseCount('game_boxscore_drafts', 1);
     $this->assertDatabaseCount('player_game_stats', 0);
     expect($this->game->fresh()->status)->toBe('scheduled');
-    $this->put($this->url.'/boxscore', [...$payload, 'revision' => 1, 'intent' => 'publish'])->assertSessionHasNoErrors();
+    $this->put($this->url . '/boxscore', [...$payload, 'revision' => 1, 'intent' => 'publish'])->assertSessionHasNoErrors();
     $game = $this->game->fresh();
     expect($game->status)->toBe('finished')->and($game->home_score)->toBe(4)->and($game->away_score)->toBe(1);
     $this->assertDatabaseCount('player_game_stats', 2);
@@ -70,82 +72,86 @@ it('saves drafts privately and publishes scores computed from shooting', functio
     // A draft correction must leave the published result intact.
     $rows = $this->rows;
     $rows[0]['fg2_made'] = 3;
-    $this->put($this->url.'/boxscore', ['revision' => 2, 'intent' => 'draft', 'players' => $rows])->assertSessionHasNoErrors();
+    $this->put($this->url . '/boxscore', ['revision' => 2, 'intent' => 'draft', 'players' => $rows])->assertSessionHasNoErrors();
     expect($this->game->fresh()->home_score)->toBe(4);
 });
 
-it('rejects impossible shooting and never partially saves a bad boxscore', function () {
+it('rejects impossible shooting and never partially saves a bad boxscore', function(): void {
     $this->rows[1]['ft_made'] = 5;
-    $this->put($this->url.'/boxscore', ['revision' => 0, 'intent' => 'publish', 'players' => $this->rows])->assertSessionHasErrors('players.1.ft_made');
+    $this->put($this->url . '/boxscore', ['revision' => 0, 'intent' => 'publish', 'players' => $this->rows])->assertSessionHasErrors('players.1.ft_made');
     $this->assertDatabaseCount('player_game_stats', 0);
     expect($this->game->fresh()->admin_revision)->toBe(0);
 });
 
-it('rejects duplicate players, wrong team membership and negative counts', function () {
-    $this->put($this->url.'/boxscore', ['revision' => 0, 'intent' => 'draft', 'players' => [$this->rows[0], $this->rows[0]]])->assertSessionHasErrors('players.0.player_id');
-    $rows = $this->rows; $rows[0]['team_id'] = $this->away->id;
-    $this->put($this->url.'/boxscore', ['revision' => 0, 'intent' => 'draft', 'players' => $rows])->assertSessionHasErrors('players.0.player_id');
-    $rows = $this->rows; $rows[0]['assists'] = -1;
-    $this->put($this->url.'/boxscore', ['revision' => 0, 'intent' => 'draft', 'players' => $rows])->assertSessionHasErrors('players.0.assists');
+it('rejects duplicate players, wrong team membership and negative counts', function(): void {
+    $this->put($this->url . '/boxscore', ['revision' => 0, 'intent' => 'draft', 'players' => [$this->rows[0], $this->rows[0]]])->assertSessionHasErrors('players.0.player_id');
+    $rows = $this->rows;
+    $rows[0]['team_id'] = $this->away->id;
+    $this->put($this->url . '/boxscore', ['revision' => 0, 'intent' => 'draft', 'players' => $rows])->assertSessionHasErrors('players.0.player_id');
+    $rows = $this->rows;
+    $rows[0]['assists'] = -1;
+    $this->put($this->url . '/boxscore', ['revision' => 0, 'intent' => 'draft', 'players' => $rows])->assertSessionHasErrors('players.0.assists');
 });
 
-it('allows incomplete drafts but rejects missing teams and ties on publication', function () {
-    $this->put($this->url.'/boxscore', ['revision' => 0, 'intent' => 'publish', 'players' => []])->assertSessionHasErrors('players');
-    $rows = $this->rows; $rows[0]['fg2_made'] = 0; $rows[1]['ft_made'] = 0;
-    $this->put($this->url.'/boxscore', ['revision' => 0, 'intent' => 'publish', 'players' => $rows])->assertSessionHasErrors('players');
-    $this->put($this->url.'/boxscore', ['revision' => 0, 'intent' => 'draft', 'players' => []])->assertSessionHasNoErrors();
+it('allows incomplete drafts but rejects missing teams and ties on publication', function(): void {
+    $this->put($this->url . '/boxscore', ['revision' => 0, 'intent' => 'publish', 'players' => []])->assertSessionHasErrors('players');
+    $rows = $this->rows;
+    $rows[0]['fg2_made'] = 0;
+    $rows[1]['ft_made'] = 0;
+    $this->put($this->url . '/boxscore', ['revision' => 0, 'intent' => 'publish', 'players' => $rows])->assertSessionHasErrors('players');
+    $this->put($this->url . '/boxscore', ['revision' => 0, 'intent' => 'draft', 'players' => []])->assertSessionHasNoErrors();
 });
 
-it('rejects stale saves and deletes without overwriting newer work', function () {
+it('rejects stale saves and deletes without overwriting newer work', function(): void {
     $this->put($this->url, [...$this->schedule, 'revision' => 0, 'round_number' => 2])->assertSessionHasNoErrors();
-    $this->put($this->url.'/boxscore', ['revision' => 0, 'intent' => 'draft', 'players' => $this->rows])->assertSessionHasErrors('revision');
+    $this->put($this->url . '/boxscore', ['revision' => 0, 'intent' => 'draft', 'players' => $this->rows])->assertSessionHasErrors('revision');
     $this->delete($this->url, ['revision' => 0])->assertSessionHasErrors('revision');
     expect($this->game->fresh()->round_number)->toBe(2);
 });
 
-it('locks game participants once a draft exists', function () {
-    $this->put($this->url.'/boxscore', ['revision' => 0, 'intent' => 'draft', 'players' => $this->rows])->assertSessionHasNoErrors();
+it('locks game participants once a draft exists', function(): void {
+    $this->put($this->url . '/boxscore', ['revision' => 0, 'intent' => 'draft', 'players' => $this->rows])->assertSessionHasNoErrors();
     $this->put($this->url, [...$this->schedule, 'revision' => 1, 'home_team_id' => $this->away->id, 'away_team_id' => $this->home->id])->assertSessionHasErrors('home_team_id');
 });
 
-it('does not publish future fixtures', function () {
+it('does not publish future fixtures', function(): void {
     $this->game->update(['game_date' => now()->addDay()]);
-    $this->put($this->url.'/boxscore', ['revision' => 0, 'intent' => 'publish', 'players' => $this->rows])->assertSessionHasErrors('players');
+    $this->put($this->url . '/boxscore', ['revision' => 0, 'intent' => 'publish', 'players' => $this->rows])->assertSessionHasErrors('players');
 });
 
-it('preserves existing historical participants after roster changes', function () {
-    $this->put($this->url.'/boxscore', ['revision' => 0, 'intent' => 'publish', 'players' => $this->rows])->assertSessionHasNoErrors();
+it('preserves existing historical participants after roster changes', function(): void {
+    $this->put($this->url . '/boxscore', ['revision' => 0, 'intent' => 'publish', 'players' => $this->rows])->assertSessionHasNoErrors();
     DB::table('team_season_players')->delete();
-    $this->put($this->url.'/boxscore', ['revision' => 1, 'intent' => 'publish', 'players' => $this->rows])->assertSessionHasNoErrors();
+    $this->put($this->url . '/boxscore', ['revision' => 1, 'intent' => 'publish', 'players' => $this->rows])->assertSessionHasNoErrors();
 });
 
-it('deletes a game with its published statistics and draft', function () {
-    $this->put($this->url.'/boxscore', ['revision' => 0, 'intent' => 'publish', 'players' => $this->rows])->assertSessionHasNoErrors();
-    $this->put($this->url.'/boxscore', ['revision' => 1, 'intent' => 'draft', 'players' => $this->rows])->assertSessionHasNoErrors();
+it('deletes a game with its published statistics and draft', function(): void {
+    $this->put($this->url . '/boxscore', ['revision' => 0, 'intent' => 'publish', 'players' => $this->rows])->assertSessionHasNoErrors();
+    $this->put($this->url . '/boxscore', ['revision' => 1, 'intent' => 'draft', 'players' => $this->rows])->assertSessionHasNoErrors();
     $this->delete($this->url, ['revision' => 2])->assertSessionHasNoErrors()->assertRedirect('/admin-panel/utakmice');
     $this->assertDatabaseCount('games', 0);
     $this->assertDatabaseCount('player_game_stats', 0);
     $this->assertDatabaseCount('game_boxscore_drafts', 0);
 });
 
-it('discards only the private draft and advances the edit revision', function () {
-    $this->put($this->url.'/boxscore', ['revision' => 0, 'intent' => 'publish', 'players' => $this->rows])->assertSessionHasNoErrors();
-    $this->put($this->url.'/boxscore', ['revision' => 1, 'intent' => 'draft', 'players' => $this->rows])->assertSessionHasNoErrors();
-    $this->delete($this->url.'/boxscore/draft', ['revision' => 2])->assertSessionHasNoErrors();
+it('discards only the private draft and advances the edit revision', function(): void {
+    $this->put($this->url . '/boxscore', ['revision' => 0, 'intent' => 'publish', 'players' => $this->rows])->assertSessionHasNoErrors();
+    $this->put($this->url . '/boxscore', ['revision' => 1, 'intent' => 'draft', 'players' => $this->rows])->assertSessionHasNoErrors();
+    $this->delete($this->url . '/boxscore/draft', ['revision' => 2])->assertSessionHasNoErrors();
     $this->assertDatabaseCount('game_boxscore_drafts', 0);
     $this->assertDatabaseCount('player_game_stats', 2);
     expect($this->game->fresh()->home_score)->toBe(4)->and($this->game->fresh()->admin_revision)->toBe(3);
 });
 
-it('loads season jersey zero and existing participants into the boxscore page', function () {
-    $this->get($this->url.'/boxscore')->assertOk()->assertInertia(fn (\Inertia\Testing\AssertableInertia $page) => $page
+it('loads season jersey zero and existing participants into the boxscore page', function(): void {
+    $this->get($this->url . '/boxscore')->assertOk()->assertInertia(fn(Inertia\Testing\AssertableInertia $page) => $page
         ->component('admin/utakmice/boxscore')->has('roster', 2)
         ->where('roster.0.jersey_number', 0)->where('hasDraft', false));
 });
 
-it('ignores supplied points and efficiency and calculates them on the server', function () {
+it('ignores supplied points and efficiency and calculates them on the server', function(): void {
     $this->rows[0]['points'] = 999;
     $this->rows[0]['efficiency'] = 999;
-    $this->put($this->url.'/boxscore', ['revision' => 0, 'intent' => 'publish', 'players' => $this->rows])->assertSessionHasNoErrors();
+    $this->put($this->url . '/boxscore', ['revision' => 0, 'intent' => 'publish', 'players' => $this->rows])->assertSessionHasNoErrors();
     $this->assertDatabaseHas('player_game_stats', ['game_id' => $this->game->id, 'team_id' => $this->home->id, 'points' => 4, 'efficiency' => 4]);
 });

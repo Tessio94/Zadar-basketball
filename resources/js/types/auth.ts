@@ -1,5 +1,15 @@
+export type StaffRole = 'admin' | 'editor';
+
+export type StaffPermissions = {
+    manageLeague: boolean;
+    manageContent: boolean;
+    deleteContent: boolean;
+};
+
 export type User = {
     id: number;
+    role: StaffRole | null;
+    is_active: boolean;
     name: string;
     email: string;
     avatar?: string;
@@ -12,6 +22,7 @@ export type User = {
 
 export type Auth = {
     user: User;
+    permissions: StaffPermissions;
 };
 
 export type TwoFactorSetupData = {

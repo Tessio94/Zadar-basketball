@@ -1,4 +1,4 @@
-import { Head, Link, router } from '@inertiajs/react';
+import { Head, Link, router, usePage } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 
 import {
@@ -27,6 +27,7 @@ export default function Galleries({
 }: {
     galleries: Paginated<Gallery>;
 }) {
+    const { auth } = usePage().props;
     return (
         <>
             <Head title="Admin panel | Galerija" />
@@ -56,7 +57,11 @@ export default function Galleries({
                                         <th style={{ width: '70%' }}>Naslov</th>
                                         <th className="text-center!">Datum</th>
                                         <th
-                                            colSpan={2}
+                                            colSpan={
+                                                auth.permissions.deleteContent
+                                                    ? 2
+                                                    : 1
+                                            }
                                             className="text-center!"
                                         >
                                             Akcije
@@ -93,27 +98,29 @@ export default function Galleries({
                                                     Uredi
                                                 </Link>
                                             </td>
-                                            <td className="text-center!">
-                                                <button
-                                                    type="button"
-                                                    onClick={() => {
-                                                        if (
-                                                            confirm(
-                                                                'Jeste li sigurni da želite izbrisati ovaj članak?',
-                                                            )
-                                                        ) {
-                                                            router.delete(
-                                                                destroy(
-                                                                    gallery.id,
-                                                                ).url,
-                                                            );
-                                                        }
-                                                    }}
-                                                    className="cursor-pointer rounded-lg bg-likar3 px-6 py-2 text-center! font-semibold text-slate-100 transition-colors duration-300 hover:bg-likar4 hover:text-slate-100"
-                                                >
-                                                    Izbriši
-                                                </button>
-                                            </td>
+                                            {auth.permissions.deleteContent && (
+                                                <td className="text-center!">
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => {
+                                                            if (
+                                                                confirm(
+                                                                    'Jeste li sigurni da želite izbrisati ovaj članak?',
+                                                                )
+                                                            ) {
+                                                                router.delete(
+                                                                    destroy(
+                                                                        gallery.id,
+                                                                    ).url,
+                                                                );
+                                                            }
+                                                        }}
+                                                        className="cursor-pointer rounded-lg bg-likar3 px-6 py-2 text-center! font-semibold text-slate-100 transition-colors duration-300 hover:bg-likar4 hover:text-slate-100"
+                                                    >
+                                                        Izbriši
+                                                    </button>
+                                                </td>
+                                            )}
                                         </tr>
                                     ))}
                                 </tbody>

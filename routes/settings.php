@@ -8,15 +8,14 @@ use App\Http\Controllers\Settings\ProfileController;
 use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\TwoFactorAuthenticationController;
 
-Route::middleware(['auth'])->group(function(): void {
+Route::middleware(['auth', 'can:access-admin'])->group(function(): void {
     Route::redirect('settings', '/settings/profile');
 
     Route::get('settings/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('settings/profile', [ProfileController::class, 'update'])->name('profile.update');
 });
 
-Route::middleware(['auth', 'verified'])->group(function(): void {
-    Route::delete('settings/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::middleware(['auth', 'verified', 'can:access-admin'])->group(function(): void {
 
     Route::get('settings/password', [PasswordController::class, 'edit'])->name('user-password.edit');
 
