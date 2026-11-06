@@ -1,0 +1,31 @@
+name: Validate ARM64 deployment
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: deployment-check-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: PHP tests TypeScript ESLint and asset builds
+        run: docker build --target build --tag likar-check:${{ github.sha }} .
+      - name: Runtime image builds
+        run: |
+          docker build --target app --tag likar-app:${{ github.sha }} .
+          docker build --target ssr --tag likar-ssr:${{ github.sha }} .
+          docker build --target web --tag likar-web:${{ github.sha }} .
+      - name: Caddy configuration validation
+        run: >-
+          docker run --rm --env DOMAIN=example.com --env ACME_EMAIL=ci@example.com
+          --entrypoint caddy likar-web:${{ github.sha }}
+          validate --config /etc/caddy/Caddyfile --adapter caddyfile
