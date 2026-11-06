@@ -151,7 +151,9 @@ class ArticleController extends Controller
             }
         });
 
-        return redirect()->route('novosti.index');
+        return redirect()
+                ->route('novosti.index')
+                ->with('success', 'Članak uspješno izmijenjen!');
     }
 
     /**
@@ -165,7 +167,9 @@ class ArticleController extends Controller
 
         $article->delete();
 
-        return redirect()->back();
+        return redirect()
+                ->back()
+                ->with('success', 'Članak uspješno izbrisan!');;
     }
 
     private function tagOptions()
