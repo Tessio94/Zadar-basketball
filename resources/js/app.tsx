@@ -10,7 +10,7 @@ import LandingLayout from './layouts/landing/landing-layout';
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-const appName = 'Likar Krombacher | Zadar';
+const appName = 'Likar | Zadar';
 
 createInertiaApp({
     title: (title) => (title ? title : appName),

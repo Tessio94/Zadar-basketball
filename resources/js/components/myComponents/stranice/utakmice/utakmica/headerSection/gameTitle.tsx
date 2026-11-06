@@ -9,11 +9,11 @@ export default function GameTitle() {
             >
                 <img
                     src="/images/design/logo.png"
-                    alt="Likar Krombacher logo"
+                    alt="Likar Zadar logo"
                     className="h-8 w-8"
                 />
                 <h3 className="font-heading text-2xl font-semibold text-slate-100">
-                    Likar Krombacher
+                    Likar Zadar
                 </h3>
             </Link>
         </div>

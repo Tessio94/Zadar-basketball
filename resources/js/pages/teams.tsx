@@ -7,7 +7,7 @@ export default function Teams({ teams }: { teams: Team[] }) {
     return (
         <>
             <Head>
-                <title>Ekipe | Likar Krombacher</title>
+                <title>Ekipe | Likar Zadar</title>
                 <meta name="description" content="Your page description" />
             </Head>
             <section className="px-[5%] py-10 xl:my-5">

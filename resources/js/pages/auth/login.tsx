@@ -18,7 +18,7 @@ type Props = {
 const Login = ({ status, canResetPassword }: Props) => {
     return (
         <>
-            <Head title="Prijava | Likar Krombacher" />
+            <Head title="Prijava | Likar Zadar" />
 
             <Form
                 {...store.form()}

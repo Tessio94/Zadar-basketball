@@ -18,7 +18,7 @@ if [[ -z $app_key ]]; then app_key="base64:$(openssl rand -base64 32)"; fi
 db_password=$(openssl rand -hex 32)
 postgres_password=$(openssl rand -hex 32)
 cat > "$shared/app.env" <<EOF
-APP_NAME="Likar Krombacher"
+APP_NAME="Likar Zadar"
 APP_ENV=production
 APP_KEY=$app_key
 APP_DEBUG=false
@@ -49,7 +49,7 @@ MAIL_PORT=587
 MAIL_USERNAME=REPLACE_WITH_SMTP_USERNAME
 MAIL_PASSWORD=REPLACE_WITH_SMTP_PASSWORD
 MAIL_FROM_ADDRESS=noreply@$domain
-MAIL_FROM_NAME="Likar Krombacher"
+MAIL_FROM_NAME="Likar Zadar"
 EOF
 cat > "$shared/db.env" <<EOF
 POSTGRES_DB=likar

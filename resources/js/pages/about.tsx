@@ -5,10 +5,10 @@ export default function About() {
     return (
         <>
             <Head>
-                <title>O nama | Likar Krombacher</title>
+                <title>O nama | Likar Zadar</title>
                 <meta
                     name="description"
-                    content="Upoznaj LIKAR Krombacher Zadar — ligu košarkaških amatera i rekreativaca. Od prvih utakmica u Jazinama do susreta na Višnjiku."
+                    content="Upoznaj LIKAR Zadar — ligu košarkaških amatera i rekreativaca. Od prvih utakmica u Jazinama do susreta na Višnjiku."
                 />
             </Head>
             <div className="px-[5%] pt-10 pb-16 font-text text-slate-100 **:box-border max-md:pt-6 max-md:pb-10 motion-reduce:[&_a]:transition-none [&_a:focus-visible]:outline-[3px] [&_a:focus-visible]:outline-offset-[6px] [&_a:focus-visible]:outline-likar3 [&_a:focus-visible]:outline-solid">
@@ -18,7 +18,7 @@ export default function About() {
                         aria-labelledby="about-title"
                     >
                         <div className="flex justify-between gap-4 border-b border-likar2 px-[5%] py-6 text-[10px] font-bold tracking-[0.2em] text-slate-200/70 uppercase max-md:px-[6%] max-md:py-5 max-md:text-[9px] max-md:tracking-[0.12em] md:bg-[linear-gradient(90deg,transparent_0%,transparent_60%,#3f3633_100%)] [&>span:first-child]:text-likar3 max-md:[&>span:last-child]:hidden">
-                            <span>LIKAR Krombacher Zadar</span>
+                            <span>LIKAR Zadar</span>
                             <span>Liga košarkaških amatera i rekreativaca</span>
                         </div>
 

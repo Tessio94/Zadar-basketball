@@ -30,7 +30,7 @@ export default function player({
     return (
         <>
             <Head>
-                <title>{`${first_name} ${last_name} | Likar Krombacher`}</title>
+                <title>{`${first_name} ${last_name} | Likar Zadar`}</title>
                 <meta
                     name="description"
                     content={`Pogledaj statistiku za ${first_name} ${last_name} – prosjek poena, asistencija, skokova i učinak po utakmici.`}

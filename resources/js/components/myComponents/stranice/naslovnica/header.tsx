@@ -58,7 +58,7 @@ export default function Header() {
                         <div className="hidden flex-col items-start justify-center gap-1 xl:flex">
                             <h1 className="font-heading text-2xl font-semibold text-slate-100">
                                 Likar{' '}
-                                <span className="text-likar3">Krombacher</span>
+                                <span className="text-likar3">Zadar</span>
                             </h1>
                             <p className="font-heading text-xl font-normal text-slate-300">
                                 Liga košarkaških amatera
@@ -268,7 +268,7 @@ export default function Header() {
                                         <h1 className="font-heading text-xl font-semibold text-slate-100">
                                             Likar{' '}
                                             <span className="text-likar3">
-                                                Krombacher
+                                                Zadar
                                             </span>
                                         </h1>
                                         <p className="font-heading text-sm font-normal text-slate-300">

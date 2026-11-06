@@ -7,7 +7,7 @@ export default function Welcome() {
     return (
         <>
             <Head>
-                <title>Likar Krombacher | Zadar</title>
+                <title>Likar | Zadar</title>
                 <meta name="description" content="Your page description" />
             </Head>
             <Landing />

@@ -8,7 +8,7 @@ x-app: &app
     context: .
     target: app
     args:
-      VITE_APP_NAME: Likar Krombacher
+      VITE_APP_NAME: Likar Zadar
       VITE_TINYMCE_API_KEY: ${VITE_TINYMCE_API_KEY:-}
   env_file: /opt/likar/shared/app.env
   volumes: [/opt/likar/shared/storage:/var/www/html/storage]
@@ -64,7 +64,7 @@ services:
       context: .
       target: ssr
       args:
-        VITE_APP_NAME: Likar Krombacher
+        VITE_APP_NAME: Likar Zadar
         VITE_TINYMCE_API_KEY: ${VITE_TINYMCE_API_KEY:-}
     healthcheck:
       test: [CMD, node, -e, "fetch('http://127.0.0.1:13714/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
@@ -82,7 +82,7 @@ services:
       context: .
       target: web
       args:
-        VITE_APP_NAME: Likar Krombacher
+        VITE_APP_NAME: Likar Zadar
         VITE_TINYMCE_API_KEY: ${VITE_TINYMCE_API_KEY:-}
     environment:
       DOMAIN: ${DOMAIN:?Set domain}

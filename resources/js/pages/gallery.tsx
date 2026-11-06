@@ -8,10 +8,10 @@ export default function Gallery({ gallery }: { gallery: Gallery }) {
     return (
         <>
             <Head>
-                <title>{`${gallery.title} | Likar Krombacher`}</title>
+                <title>{`${gallery.title} | Likar Zadar`}</title>
                 <meta
                     name="description"
-                    content={`Galerija fotografija: ${gallery.title} | Likar Krombacher`}
+                    content={`Galerija fotografija: ${gallery.title} | Likar Zadar`}
                 />
             </Head>
 

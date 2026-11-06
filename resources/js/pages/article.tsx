@@ -23,8 +23,8 @@ export default function Article({
                 <title>
                     {article.meta_title
                         ? article.meta_title
-                        : `Dobrodošli na službenu stranicu Likar Krombacher - Lige
-                    košarkaških amatera i rekreativaca | Likar Krombacher`}
+                        : `Dobrodošli na službenu stranicu Likar Zadar - Lige
+                    košarkaških amatera i rekreativaca | Likar Zadar`}
                 </title>
                 <meta
                     name="description"

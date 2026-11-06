@@ -19,8 +19,8 @@ export default function Archive({
             <Head>
                 <title>
                     {activeTag
-                        ? `${activeTag.name} | Arhiva | Likar Krombacher`
-                        : 'Arhiva | Likar Krombacher'}
+                        ? `${activeTag.name} | Arhiva | Likar Zadar`
+                        : 'Arhiva | Likar Zadar'}
                 </title>
                 <meta name="description" content="Your page description" />
             </Head>

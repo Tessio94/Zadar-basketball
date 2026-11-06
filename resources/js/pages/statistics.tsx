@@ -32,7 +32,7 @@ export default function Statistics({
     return (
         <>
             <Head>
-                <title>Statistika | Likar Krombacher</title>
+                <title>Statistika | Likar Zadar</title>
                 <meta name="description" content="Your page description" />
             </Head>
             <section className="px-[5%] py-10 xl:my-5">

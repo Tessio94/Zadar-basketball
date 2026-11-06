@@ -23,7 +23,7 @@ COPY . .
 RUN touch .env && mkdir -p bootstrap/cache storage/framework/cache/data \
     storage/framework/sessions storage/framework/views storage/logs \
     storage/app/public storage/app/private && composer dump-autoload --optimize
-ARG VITE_APP_NAME="Likar Krombacher"
+ARG VITE_APP_NAME="Likar Zadar"
 ARG VITE_TINYMCE_API_KEY=""
 ENV VITE_APP_NAME=${VITE_APP_NAME} VITE_TINYMCE_API_KEY=${VITE_TINYMCE_API_KEY}
 RUN npm ci && npm run types && npm run lint:check && npm run build:ssr

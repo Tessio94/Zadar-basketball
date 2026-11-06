@@ -34,7 +34,7 @@ export default function Team({
     return (
         <>
             <Head>
-                <title>{`${name} | Likar Krombacher`}</title>
+                <title>{`${name} | Likar Zadar`}</title>
                 <meta
                     name="description"
                     content={`Pogledajte roster, raspored utakmica i statistiku ekipe ${name}`}

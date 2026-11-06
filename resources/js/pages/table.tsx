@@ -25,10 +25,10 @@ export default function Table({
     return (
         <>
             <Head>
-                <title>Tablica | Likar Krombacher</title>
+                <title>Tablica | Likar Zadar</title>
                 <meta
                     name="description"
-                    content="Poredak, raspored i doigravanje lige Likar Krombacher Zadar."
+                    content="Poredak, raspored i doigravanje lige Likar Zadar."
                 />
             </Head>
             <section id="tablica" className="px-[5%] py-10 xl:my-5">

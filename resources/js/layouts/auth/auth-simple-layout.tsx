@@ -19,7 +19,7 @@ export default function AuthSimpleLayout({
                             <div className="mb-1 flex h-9 w-9 items-center justify-center rounded-md">
                                 <img
                                     src="/images/design/logo.png"
-                                    alt="Likar Krombacher logo"
+                                    alt="Likar Zadar logo"
                                 />
                             </div>
                             <span className="sr-only">{title}</span>
