@@ -1,6 +1,6 @@
 #!/bin/bash
 set -Eeuo pipefail
-umask 027
+umask 022
 root=/opt/likar
 [[ $# -ge 1 && $1 =~ ^[0-9a-f]{40}$ ]] || { echo 'Supply a full 40-character Git commit SHA.' >&2; exit 1; }
 sha=$1
