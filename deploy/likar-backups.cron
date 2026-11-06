@@ -1,0 +1,6 @@
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+MAILTO=""
+15 */6 * * * deploy /bin/bash /opt/likar/current/deploy/backup.sh db >> /var/log/likar-backup.log 2>&1
+30 2 * * * deploy /bin/bash /opt/likar/current/deploy/backup.sh full >> /var/log/likar-backup.log 2>&1
+30 4 * * 0 deploy /bin/bash /opt/likar/current/deploy/restic-maintenance.sh >> /var/log/likar-backup.log 2>&1

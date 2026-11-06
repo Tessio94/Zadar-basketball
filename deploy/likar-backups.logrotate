@@ -1,0 +1,10 @@
+/var/log/likar-backup.log {
+    weekly
+    rotate 8
+    compress
+    delaycompress
+    missingok
+    notifempty
+    copytruncate
+    su deploy deploy
+}

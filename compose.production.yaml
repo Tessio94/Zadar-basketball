@@ -1,0 +1,111 @@
+name: likar
+x-logging: &logging
+  driver: json-file
+  options: {max-size: "10m", max-file: "3"}
+x-app: &app
+  image: likar-app:${RELEASE_TAG:?Set release tag}
+  build:
+    context: .
+    target: app
+    args:
+      VITE_APP_NAME: Likar Krombacher
+      VITE_TINYMCE_API_KEY: ${VITE_TINYMCE_API_KEY:-}
+  env_file: /opt/likar/shared/app.env
+  volumes: [/opt/likar/shared/storage:/var/www/html/storage]
+  restart: unless-stopped
+  init: true
+  logging: *logging
+  security_opt: [no-new-privileges:true]
+  networks: [backend]
+  depends_on:
+    db: {condition: service_healthy}
+services:
+  db:
+    image: postgres:18-bookworm
+    env_file: /opt/likar/shared/db.env
+    volumes:
+      - postgres_data:/var/lib/postgresql
+      - ./deploy/init-db.sh:/docker-entrypoint-initdb.d/10-likar.sh:ro
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U postgres -d likar']
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    command: [postgres, -c, max_connections=50, -c, shared_buffers=256MB]
+    shm_size: 256mb
+    mem_limit: 2g
+    restart: unless-stopped
+    logging: *logging
+    networks: [backend]
+  app:
+    <<: *app
+    mem_limit: 1536m
+    stop_signal: SIGQUIT
+    stop_grace_period: 130s
+    healthcheck:
+      test: [CMD-SHELL, 'SCRIPT_NAME=/ping SCRIPT_FILENAME=/ping REQUEST_METHOD=GET cgi-fcgi -bind -connect 127.0.0.1:9000 | grep -q pong']
+      interval: 15s
+      timeout: 5s
+      start_period: 45s
+      retries: 6
+  worker:
+    <<: *app
+    command: [php, artisan, queue:work, --sleep=3, --tries=3, --timeout=60, --max-time=3600]
+    mem_limit: 512m
+    stop_grace_period: 90s
+  scheduler:
+    <<: *app
+    command: [php, artisan, schedule:work]
+    mem_limit: 256m
+    stop_grace_period: 90s
+  ssr:
+    image: likar-ssr:${RELEASE_TAG:?Set release tag}
+    build:
+      context: .
+      target: ssr
+      args:
+        VITE_APP_NAME: Likar Krombacher
+        VITE_TINYMCE_API_KEY: ${VITE_TINYMCE_API_KEY:-}
+    healthcheck:
+      test: [CMD, node, -e, "fetch('http://127.0.0.1:13714/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 6
+    mem_limit: 512m
+    restart: unless-stopped
+    init: true
+    logging: *logging
+    networks: [backend]
+  web:
+    image: likar-web:${RELEASE_TAG:?Set release tag}
+    build:
+      context: .
+      target: web
+      args:
+        VITE_APP_NAME: Likar Krombacher
+        VITE_TINYMCE_API_KEY: ${VITE_TINYMCE_API_KEY:-}
+    environment:
+      DOMAIN: ${DOMAIN:?Set domain}
+      ACME_EMAIL: ${ACME_EMAIL:?Set certificate email}
+    ports: ['80:80', '443:443', '443:443/udp']
+    volumes:
+      - /opt/likar/shared/storage/app/public:/var/www/html/storage/app/public:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    healthcheck:
+      test: [CMD, wget, -q, --spider, http://127.0.0.1:8080/healthz]
+      interval: 15s
+      timeout: 5s
+      retries: 6
+    depends_on:
+      app: {condition: service_healthy}
+    mem_limit: 256m
+    restart: unless-stopped
+    logging: *logging
+    networks: [backend]
+networks:
+  backend:
+volumes:
+  postgres_data: {name: likar_postgres18}
+  caddy_data: {name: likar_caddy_data}
+  caddy_config: {name: likar_caddy_config}

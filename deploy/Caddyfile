@@ -1,0 +1,36 @@
+{
+    email {$ACME_EMAIL}
+}
+www.{$DOMAIN} {
+    redir https://{$DOMAIN}{uri} permanent
+}
+{$DOMAIN} {
+    root * /var/www/html/public
+    encode zstd gzip
+    log
+    request_body {
+        max_size 128MB
+    }
+    header {
+        X-Content-Type-Options nosniff
+        Referrer-Policy strict-origin-when-cross-origin
+        -Server
+    }
+    handle /storage/* {
+        @executable path_regexp executable (?i)\.(php[0-9]?|phtml|phar)(/|$)
+        respond @executable 404
+        file_server
+    }
+    handle {
+        php_fastcgi app:9000 {
+            env HTTPS on
+        }
+        file_server
+    }
+    handle_errors 502 503 504 {
+        respond "The site is temporarily unavailable. Please try again shortly." 503
+    }
+}
+http://:8080 {
+    respond /healthz "ok" 200
+}
