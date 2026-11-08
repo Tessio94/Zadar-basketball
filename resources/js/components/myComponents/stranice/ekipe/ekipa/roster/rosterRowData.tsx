@@ -5,7 +5,7 @@ import BasketballPlayerIcon from '@/components/myComponents/ui/icons/basketballP
 export default function RosterRowData({
     id,
     name,
-    dateOfBirth,
+    // dateOfBirth,
     age,
     height,
     position,
@@ -14,7 +14,7 @@ export default function RosterRowData({
 }: {
     id: number;
     name: string;
-    dateOfBirth: string | null;
+    // dateOfBirth: string | null;
     age: number;
     height: number | null;
     position: string | null;
@@ -37,12 +37,14 @@ export default function RosterRowData({
                     {name}
                 </Link>
             </td>
-            <td className="p-1 text-center text-nowrap">
+            {/* <td className="p-1 text-center text-nowrap">
                 {dateOfBirth?.split('T')[0].split('-').reverse().join('/')}
+            </td> */}
+            <td className="p-1 text-center text-nowrap">
+                {isNaN(age) ? '—' : `${age}`}
             </td>
-            <td className="p-1 text-center text-nowrap">{age}</td>
-            <td className="p-1 text-center text-nowrap">{height}</td>
-            <td className="p-1 text-center text-nowrap">{position}</td>
+            <td className="p-1 text-center text-nowrap">{height ?? '—'}</td>
+            <td className="p-1 text-center text-nowrap">{position ?? '—'}</td>
         </tr>
     );
 }

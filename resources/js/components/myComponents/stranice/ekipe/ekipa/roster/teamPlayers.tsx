@@ -55,7 +55,7 @@ export default function TeamPlayers({
                                         key={id}
                                         id={id}
                                         name={name}
-                                        dateOfBirth={date_of_birth}
+                                        // dateOfBirth={date_of_birth}
                                         age={age}
                                         height={height}
                                         position={position}

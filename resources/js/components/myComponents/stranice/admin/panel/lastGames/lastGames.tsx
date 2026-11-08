@@ -8,7 +8,7 @@ export default function LastGames({ games }: { games: GameWithTeams[] }) {
             <h3 className="p-5 text-lg font-semibold text-slate-100">
                 Zadnje utakmice
             </h3>
-            <div className="mx-5 flex flex-col rounded-2xl bg-likar2 p-2.5">
+            <div className="mx-5 flex flex-col rounded-2xl bg-likar2 p-2.5 max-[450px]:mx-3">
                 <div className="rounded-t-xl rounded-b-xl bg-linear-to-r from-likar2 to-likar1">
                     {games.map((game) => (
                         <LastGamesCard game={game} key={game.id} />
