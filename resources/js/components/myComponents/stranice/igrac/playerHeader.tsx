@@ -20,6 +20,20 @@ export default function PlayerHeader({
 }) {
     const name = first_name + ' ' + last_name;
 
+    const datumRodenja = new Date(date_of_birth ?? '');
+    const today = new Date();
+
+    let age = today.getFullYear() - datumRodenja.getFullYear();
+
+    const monthDiff = today.getMonth() - datumRodenja.getMonth();
+
+    if (
+        monthDiff < 0 ||
+        (monthDiff === 0 && today.getDate() < datumRodenja.getDate())
+    ) {
+        age--;
+    }
+
     return (
         <div
             className="flex flex-col justify-between gap-5 border-b border-likar1 bg-[url('/images/design/snow4.jpg')] bg-cover bg-position-[100%_100%] bg-no-repeat px-[5%] py-10 shadow-xl shadow-likar4 md:flex-row md:justify-center lg:gap-15 xl:items-stretch 2xl:gap-20"
@@ -56,19 +70,15 @@ export default function PlayerHeader({
                             Broj
                         </p>
                         <p className="border-likar3/40 bg-likar4/60 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 max-sm:border-b sm:border-r xl:px-5 xl:text-3xl">
-                            {jerseyNumber ?? '-'}
+                            {jerseyNumber ?? '—'}
                         </p>
                     </div>
                     <div>
                         <p className="border-likar3/40 bg-slate-900 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 sm:border-r sm:border-b xl:px-5 xl:text-3xl">
-                            Datum rođenja
+                            Godine
                         </p>
                         <p className="border-likar3/40 bg-likar4/60 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 max-sm:border-b sm:border-r xl:px-5 xl:text-3xl">
-                            {date_of_birth
-                                ?.split('T')[0]
-                                .split('-')
-                                .reverse()
-                                .join('/')}
+                            {isNaN(age) ? '—' : `${age}`}
                         </p>
                     </div>
                     <div>
@@ -76,7 +86,7 @@ export default function PlayerHeader({
                             Visina
                         </p>
                         <p className="border-likar3/40 bg-likar4/60 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 max-sm:border-b sm:border-r xl:px-5 xl:text-3xl">
-                            {height}
+                            {height ?? '—'}
                         </p>
                     </div>
                     <div>
@@ -84,7 +94,7 @@ export default function PlayerHeader({
                             Pozicija
                         </p>
                         <p className="bg-likar4/60 px-3.5 py-2 text-center font-heading text-2xl font-semibold text-slate-100 xl:px-5 xl:text-3xl">
-                            {position}
+                            {position ?? '—'}
                         </p>
                     </div>
                 </div>

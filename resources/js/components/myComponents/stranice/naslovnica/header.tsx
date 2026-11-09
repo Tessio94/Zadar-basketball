@@ -2,6 +2,7 @@ import { Link, usePage } from '@inertiajs/react';
 import {
     ArchiveIcon,
     CalendarDays,
+    ChartColumn,
     ChevronRight,
     HomeIcon,
     Images,
@@ -57,8 +58,7 @@ export default function Header() {
                         />
                         <div className="hidden flex-col items-start justify-center gap-1 xl:flex">
                             <h1 className="font-heading text-2xl font-semibold text-slate-100">
-                                Likar{' '}
-                                <span className="text-likar3">Zadar</span>
+                                Likar <span className="text-likar3">Zadar</span>
                             </h1>
                             <p className="font-heading text-xl font-normal text-slate-300">
                                 Liga košarkaških amatera
@@ -256,7 +256,7 @@ export default function Header() {
                         )}
                     >
                         <div className="absolute inset-0 -z-10 bg-linear-to-r from-likar3 to-likar4/90" />
-                        <div className="scrollbar-slate flex h-full max-h-screen flex-col justify-between overflow-y-auto px-3 pt-2">
+                        <div className="scrollbar-slate flex h-full max-h-screen flex-col justify-between gap-8 overflow-y-auto px-3 pt-2">
                             <div>
                                 <div className="flex flex-row items-center gap-1.5 border-b border-slate-100/80 pb-3">
                                     <img
@@ -366,6 +366,29 @@ export default function Header() {
                                                     </p>
                                                     <p className="text-[11px] text-slate-200/80">
                                                         Sezona i doigravanje
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <ChevronRight className="text-slate-100" />
+                                        </Link>
+                                    </li>
+                                    <li className="w-full">
+                                        <Link
+                                            href="/statistika"
+                                            className={cn(
+                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-3 text-2xl text-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-likar4 motion-reduce:transition-none',
+                                                path === '/statistika' &&
+                                                    'bg-[url(/images/design/snow.png)] text-likar3 [&_svg]:text-likar3 [&>div]:border-likar3',
+                                            )}
+                                        >
+                                            <div className="flex flex-row items-center gap-2">
+                                                <ChartColumn className="h-11 w-11 shrink-0 rounded-lg bg-likar2 p-2 text-slate-200/80" />
+                                                <div>
+                                                    <p className="font-heading tracking-wide capitalize">
+                                                        Statistika
+                                                    </p>
+                                                    <p className="text-[11px] text-slate-200/80">
+                                                        Individualna statistika
                                                     </p>
                                                 </div>
                                             </div>
