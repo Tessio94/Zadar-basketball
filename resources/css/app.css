@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap');
 @import 'tailwindcss';
 
 @import 'tw-animate-css';
@@ -410,12 +411,13 @@ select,
 .title-orange {
   margin-top: 45px;
   position: relative;
-  font-family: "Permanent Marker", cursive;
+  /* font-family: "Permanent Marker", cursive; */
+  font-family: "Kalam", cursive;
   font-size: clamp(16px, 38px, 45px);;
   letter-spacing: -0.04em;
   color: #ff6418;
-  transform: rotate(-3deg);
-  transform-origin: left center;
+  /* transform: rotate(-3deg); */
+  /* transform-origin: left center; */
   margin-left: 2px;
   text-shadow:
     3px 4px 0 rgba(0, 0, 0, 0.35);

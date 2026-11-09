@@ -19,21 +19,31 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $mainArticles = Article::where('status', 'published')->where('published_at', '<=', now())
-            ->orderBy('published_at', 'desc')
-            ->limit(5)
-            ->get();
+        $publishedArticles = Article::query()
+        ->with([
+            'tags' => fn ($query) => $query
+                ->select('tags.id', 'tags.name')
+                ->orderBy('tags.name'),
+        ])
+        ->where('status', 'published')
+        ->where('published_at', '<=', now())
+        ->orderByDesc('published_at')
+        ->orderByDesc('id');
 
-        $additionalArticles = Article::where('status', 'published')->where('published_at', '<=', now())
-            ->orderBy('published_at', 'desc')
-            ->skip(5)
-            ->limit(4)
-            ->get();
+    $mainArticles = (clone $publishedArticles)
+        ->limit(5)
+        ->get();
 
-        return Inertia::render('news', [
-            'mainArticles' => $mainArticles,
-            'additionalArticles' => $additionalArticles,
-        ]);
+    $additionalArticles = (clone $publishedArticles)
+        ->skip(5)
+        ->limit(4)
+        ->get();
+
+    return Inertia::render('news', [
+        'mainArticles' => $mainArticles,
+        'additionalArticles' => $additionalArticles,
+    ]);
+
     }
 
     public function archive(Request $request)

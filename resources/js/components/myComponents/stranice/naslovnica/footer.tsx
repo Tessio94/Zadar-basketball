@@ -17,8 +17,7 @@ export default function Footer() {
                         />
                         <div className="hidden flex-col items-start justify-center gap-1 xl:flex">
                             <h1 className="font-heading text-2xl font-semibold text-slate-100">
-                                Likar{' '}
-                                <span className="text-likar3">Zadar</span>
+                                Likar <span className="text-likar3">Zadar</span>
                             </h1>
                             <p className="font-heading text-xl font-normal text-slate-300">
                                 Liga košarkaških amatera
@@ -89,7 +88,7 @@ export default function Footer() {
                         </a> */}
                     </div>
                 </div>
-                <div className="flex flex-col items-stretch gap-5 rounded-2xl bg-likar4/60 p-5 xl:col-span-3 2xl:col-span-2">
+                <div className="flex flex-col items-stretch gap-5 rounded-2xl bg-likar4/70 p-5 xl:col-span-3 2xl:col-span-2">
                     <h5 className="font-heading text-2xl tracking-widest text-slate-100">
                         Natjecanje
                     </h5>
@@ -124,7 +123,7 @@ export default function Footer() {
                     </ul>
                 </div>
                 <div className="flex flex-col items-stretch gap-8 md:gap-5 xl:col-span-2">
-                    <div className="flex flex-col items-stretch gap-5 rounded-2xl bg-likar4/60 p-5">
+                    <div className="flex flex-col items-stretch gap-5 rounded-2xl bg-likar4/70 p-5">
                         <h5 className="font-heading text-2xl tracking-widest text-slate-100">
                             Vijesti
                         </h5>
@@ -149,7 +148,7 @@ export default function Footer() {
                             </li>
                         </ul>
                     </div>
-                    <div className="flex flex-col items-stretch gap-5 rounded-2xl bg-likar4/60 p-5">
+                    <div className="flex flex-col items-stretch gap-5 rounded-2xl bg-likar4/70 p-5">
                         <h5 className="font-heading text-2xl tracking-widest text-slate-100">
                             Ostalo
                         </h5>
@@ -175,21 +174,21 @@ export default function Footer() {
                         </ul>
                     </div>
                 </div>
-                <div className="flex flex-col items-stretch gap-5 rounded-2xl bg-likar4/60 p-5 xl:col-span-3">
+                <div className="flex flex-col items-stretch gap-5 rounded-2xl bg-likar4/70 p-5 xl:col-span-3">
                     <h5 className="font-heading text-2xl tracking-widest text-slate-100">
                         Pratite nas
                     </h5>
                     <ul className="flex flex-col items-stretch text-lg text-slate-100/80">
                         <li className="flex flex-row items-center gap-2 border-b border-likar3/50 pb-1.5">
-                            <MapPinCheckInside className="shrink-0 rounded-full bg-likar4/60 p-1 text-likar3" />
+                            <MapPinCheckInside className="shrink-0 rounded-full bg-likar4/70 p-1 text-likar3" />
                             <p>Višnjik, Dvorana 3</p>
                         </li>
                         <li className="flex flex-row items-center gap-2 border-b border-likar3/50 py-1.5">
-                            <Clock1 className="shrink-0 rounded-full bg-likar4/60 p-1 text-likar3" />
+                            <Clock1 className="shrink-0 rounded-full bg-likar4/70 p-1 text-likar3" />
                             <p>Nedjelja, jutarnji termini</p>
                         </li>
                         <li className="flex flex-row items-center gap-2 pt-1.5">
-                            <Mail className="shrink-0 rounded-full bg-likar4/60 p-1 text-likar3" />
+                            <Mail className="shrink-0 rounded-full bg-likar4/70 p-1 text-likar3" />
                             <a
                                 href="mailto:likarzadar@gmail.com"
                                 className="hover:underline"
@@ -200,7 +199,7 @@ export default function Footer() {
                     </ul>
                 </div>
             </div>
-            <div className="border-t-2 border-likar3/60 bg-likar4/60 px-10 py-2.5 max-[450px]:px-4 sm:px-12 lg:px-16 xl:px-18 2xl:px-20">
+            <div className="border-t-2 border-likar3/60 bg-likar4/70 px-10 py-2.5 max-[450px]:px-4 sm:px-12 lg:px-16 xl:px-18 2xl:px-20">
                 <p className="text-slate-100/80">
                     Sva prava pridržana Likar Zadar © 2026
                 </p>

@@ -63,7 +63,7 @@ export default function ChampionHistory() {
     return (
         <div className="w-full min-w-0 font-text text-slate-100">
             {/* Compact enough for the existing fixed-height desktop section. */}
-            <div className="hidden overflow-hidden rounded-2xl border border-likar3/25 bg-likar4/95 shadow-lg shadow-black/15 sm:block">
+            <div className="hidden overflow-hidden rounded-2xl border border-likar3/25 bg-likar4/70 shadow-lg shadow-black/15 sm:block">
                 <table className="w-full table-fixed border-collapse text-left">
                     <caption className="sr-only">
                         Prvaci, doprvaci i MVP igrači Likar lige po sezonama
