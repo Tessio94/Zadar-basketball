@@ -258,7 +258,7 @@ export default function Header() {
                         <div className="absolute inset-0 -z-10 bg-linear-to-r from-likar3 to-likar4/90" />
                         <div className="scrollbar-slate flex h-full max-h-screen flex-col justify-between gap-8 overflow-y-auto px-3 pt-2">
                             <div>
-                                <div className="flex flex-row items-center gap-1.5 border-b border-slate-100/80 pb-3">
+                                <div className="flex flex-row items-center gap-1.5 border-b border-slate-100/80 pb-2.5">
                                     <img
                                         src="/images/design/logo.png"
                                         alt=""
@@ -277,12 +277,12 @@ export default function Header() {
                                     </div>
                                 </div>
 
-                                <ul className="flex flex-col border-b border-b-slate-100/80 py-3 text-2xl">
+                                <ul className="flex flex-col border-b border-b-slate-100/80 py-2.5 text-2xl">
                                     <li className="w-full">
                                         <Link
                                             href="/"
                                             className={cn(
-                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-3 text-2xl text-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-likar4 motion-reduce:transition-none',
+                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-2.5 text-2xl text-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-likar4 motion-reduce:transition-none',
                                                 path === '/' &&
                                                     'bg-[url(/images/design/snow.png)] text-likar3 [&_svg]:text-likar3 [&>div]:border-likar3',
                                             )}
@@ -306,7 +306,7 @@ export default function Header() {
                                         <Link
                                             href="/novosti"
                                             className={cn(
-                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-3 text-2xl text-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-likar4 motion-reduce:transition-none',
+                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-2.5 text-2xl text-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-likar4 motion-reduce:transition-none',
                                                 path === '/novosti' &&
                                                     'bg-[url(/images/design/snow.png)] text-likar3 [&_svg]:text-likar3 [&>div]:border-likar3',
                                             )}
@@ -329,7 +329,7 @@ export default function Header() {
                                         <Link
                                             href="/utakmice"
                                             className={cn(
-                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-3 text-2xl text-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-likar4 motion-reduce:transition-none',
+                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-2.5 text-2xl text-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-likar4 motion-reduce:transition-none',
                                                 path === '/utakmice' &&
                                                     'bg-[url(/images/design/snow.png)] text-likar3 [&_svg]:text-likar3 [&>div]:border-likar3',
                                             )}
@@ -353,7 +353,7 @@ export default function Header() {
                                         <Link
                                             href="/tablica"
                                             className={cn(
-                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-3 text-2xl text-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-likar4 motion-reduce:transition-none',
+                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-2.5 text-2xl text-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-likar4 motion-reduce:transition-none',
                                                 path === '/tablica' &&
                                                     'bg-[url(/images/design/snow.png)] text-likar3 [&_svg]:text-likar3 [&>div]:border-likar3',
                                             )}
@@ -376,7 +376,7 @@ export default function Header() {
                                         <Link
                                             href="/statistika"
                                             className={cn(
-                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-3 text-2xl text-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-likar4 motion-reduce:transition-none',
+                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-2.5 text-2xl text-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-likar4 motion-reduce:transition-none',
                                                 path === '/statistika' &&
                                                     'bg-[url(/images/design/snow.png)] text-likar3 [&_svg]:text-likar3 [&>div]:border-likar3',
                                             )}
@@ -399,7 +399,7 @@ export default function Header() {
                                         <Link
                                             href="/ekipe"
                                             className={cn(
-                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-3 text-2xl text-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-likar4 motion-reduce:transition-none',
+                                                'relative flex w-full cursor-pointer flex-row items-center justify-between rounded-2xl border border-transparent px-3 py-2.5 text-2xl text-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-likar4 motion-reduce:transition-none',
                                                 path === '/ekipe' &&
                                                     'bg-[url(/images/design/snow.png)] text-likar3 [&_svg]:text-likar3 [&>div]:border-likar3',
                                             )}
@@ -421,7 +421,7 @@ export default function Header() {
                                 </ul>
                             </div>
                             <div>
-                                <ul className="flex flex-row gap-2.5 border-b border-b-slate-100/80 py-3 text-2xl">
+                                <ul className="flex flex-row gap-2.5 border-b border-b-slate-100/80 py-2.5 text-2xl">
                                     <li className="w-full">
                                         <Link
                                             href="/o-nama"
@@ -481,7 +481,7 @@ export default function Header() {
                                     </li>
                                 </ul>
 
-                                <div className="flex items-center justify-center gap-5 px-5 py-3">
+                                <div className="flex items-center justify-center gap-5 px-5 py-2.5">
                                     <a
                                         href="https://www.instagram.com/zadarska_kosarkaska_liga_likar/"
                                         target="_blank"
