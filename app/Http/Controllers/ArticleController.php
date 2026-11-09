@@ -81,7 +81,7 @@ class ArticleController extends Controller
 
         $season = $request->filled('season')
                 ? Season::findOrFail($request->integer('season'))
-                : Season::where('is_active', true)->firstOrFail();
+                : Season::where('is_active', true)->first();
 
         $embeddedGames = Game::query()->whereIn('id', $html->gameIds($article->content))
             ->with(['homeTeam', 'awayTeam', 'season', 'periodScores', 'playerStats.player'])
@@ -96,7 +96,7 @@ class ArticleController extends Controller
             'lastArticles' => $lastArticles,
             'article' => $article,
             'embeddedGames' => $embeddedGames,
-            'season' => $season->name
+            'season' => $season?->name
         ]);
     }
 }

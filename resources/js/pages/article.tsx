@@ -17,7 +17,7 @@ export default function Article({
     article: ArticleDetail;
     embeddedGames: GameSummary[];
     lastArticles: Article[];
-    season: string;
+    season: string | null;
 }) {
     return (
         <>
@@ -52,9 +52,11 @@ export default function Article({
 
                         <div className="article-hero-content absolute bottom-0 left-0 z-20 w-full px-5 pt-14 pb-6">
                             <div className="z-20 flex flex-col gap-4">
-                                <span className="font-jet w-fit rounded-xl bg-slate-600 px-2 py-1 font-heading text-sm text-slate-100 transition-colors duration-300 group-hover:bg-likar1">
-                                    {season}
-                                </span>
+                                {season && (
+                                    <span className="font-jet w-fit rounded-xl bg-slate-600 px-2 py-1 font-heading text-sm text-slate-100 transition-colors duration-300 group-hover:bg-likar1">
+                                        {season}
+                                    </span>
+                                )}
                                 <p className="font-text text-sm text-slate-100">
                                     {article.title}
                                 </p>
