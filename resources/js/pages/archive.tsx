@@ -1,11 +1,11 @@
 import { Head, Link } from '@inertiajs/react';
 import Pagination from '@/components/myComponents/common/pagination/Pagination';
 import ArchiveNews from '@/components/myComponents/stranice/arhiva/archiveNews';
+import type { ArticleCardData } from '@/components/myComponents/stranice/novosti/articleCard';
 import EmptyNews from '@/components/myComponents/stranice/novosti/glavneVijesti/emptyNews';
 import { archive } from '@/routes';
 import type { Paginated } from '@/types/pagination';
 import type { ArticleTag } from '@/types/tags';
-import type { ArticleCardData } from '@/components/myComponents/stranice/novosti/articleCard';
 
 export default function Archive({
     articles,
