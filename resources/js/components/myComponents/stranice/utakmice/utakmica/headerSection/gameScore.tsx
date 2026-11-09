@@ -21,7 +21,7 @@ export default function GameScore({
 }) {
     return (
         <section className="px-[5%] py-3">
-            <div className="flex flex-row flex-wrap items-stretch justify-between overflow-hidden rounded-xl border border-likar3/40 bg-likar4/60">
+            <div className="flex flex-row flex-wrap items-stretch justify-between overflow-hidden rounded-xl border border-likar3/40 bg-likar4/60 p-2.5">
                 <Link
                     href={show(homeTeam.id)}
                     className="pointer-events-none flex w-1/2 flex-row items-center justify-between gap-5 border-r border-slate-100 px-3 max-xl:order-1 max-xl:border-b max-xl:border-b-slate-100 max-xl:py-3 max-xl:pt-3 max-sm:flex-col max-sm:justify-start xl:w-1/3"
@@ -29,9 +29,9 @@ export default function GameScore({
                     <img
                         src={`/storage/${homeTeam.logo}`}
                         alt={`${homeTeam.name} logo`}
-                        className="pointer-events-auto aspect-square cursor-pointer rounded-2xl max-lg:w-30 max-sm:w-25"
+                        className="pointer-events-auto aspect-square w-35 cursor-pointer rounded-2xl max-lg:w-30 max-sm:w-25"
                     />
-                    <p className="pointer-events-auto mx-auto cursor-pointer font-heading text-2xl font-semibold text-slate-100 hover:underline">
+                    <p className="pointer-events-auto mx-auto cursor-pointer font-heading text-2xl font-semibold text-slate-100 hover:underline 2xl:text-3xl">
                         {homeTeam.name}
                     </p>
                 </Link>
@@ -64,13 +64,13 @@ export default function GameScore({
                     href={show(awayTeam.id)}
                     className="pointer-events-none flex w-1/2 flex-row items-center justify-between gap-5 border-l border-slate-100 px-3 max-xl:order-2 max-xl:border-b max-xl:border-b-slate-100 max-xl:py-3 max-sm:flex-col-reverse xl:w-1/3"
                 >
-                    <p className="pointer-events-auto mx-auto cursor-pointer font-heading text-2xl font-semibold text-slate-100 hover:underline">
+                    <p className="pointer-events-auto mx-auto cursor-pointer font-heading text-2xl font-semibold text-slate-100 hover:underline 2xl:text-3xl">
                         {awayTeam.name}
                     </p>
                     <img
                         src={`/storage/${awayTeam.logo}`}
                         alt={`${awayTeam.name} logo`}
-                        className="pointer-events-auto aspect-square cursor-pointer rounded-2xl max-lg:w-30 max-sm:w-25"
+                        className="pointer-events-auto aspect-square w-35 cursor-pointer rounded-2xl max-lg:w-30 max-sm:w-25"
                     />
                 </Link>
             </div>
