@@ -8,7 +8,7 @@ export default function BoxScoreTotalsRow({
     if (!totals.has_stats) {
         return (
             <tr className="bg-likar1/60 text-slate-100">
-                <td colSpan={23} className="p-3 text-center text-sm">
+                <td colSpan={23} className="p-3 text-center text-base">
                     Statistika još nije dostupna.
                 </td>
             </tr>

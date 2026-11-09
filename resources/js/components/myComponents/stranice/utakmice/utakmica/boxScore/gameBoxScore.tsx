@@ -35,63 +35,74 @@ export default function GameBoxScore({
                             {team.name}
                         </p>
                     </Link>
-                    <div className="flex flex-row items-center gap-5 p-3 text-xl">
-                        <p className="font-heading font-semibold text-slate-100">
-                            Trener:
-                        </p>
-                        <p className="font-heading font-semibold text-slate-100">
-                            Ivan Ivanović
-                        </p>
-                    </div>
                 </div>
                 <div className="scrollbar overflow-x-auto scrollbar-thumb-likar3 scrollbar-track-slate-900">
                     <table className="w-full bg-likar2">
                         <BoxScoreHeader />
+
                         <tbody>
-                            <tr className="bg-likar4">
-                                <th></th>
-                                <th colSpan={999}>
-                                    <span className="text-slate-100">
-                                        Prva petorka
-                                    </span>
-                                </th>
-                            </tr>
-                            {players.map((player) => {
-                                return (
-                                    player.is_starter && (
-                                        <BoxScoreRow
-                                            player={player}
-                                            key={player.id}
-                                        />
-                                    )
-                                );
-                            })}
-                            <tr className="bg-likar4">
-                                <th></th>
-                                <th colSpan={999}>
-                                    <span className="text-slate-100">
-                                        Klupa
-                                    </span>
-                                </th>
-                            </tr>
-                            {players.map((player) => {
-                                return (
-                                    !player.is_starter && (
-                                        <BoxScoreRow
-                                            player={player}
-                                            key={player.id}
-                                        />
-                                    )
-                                );
-                            })}
-                            <tr className="bg-likar4">
-                                <th></th>
-                                <th colSpan={999}>
-                                    <span className="text-slate-100">
-                                        Ukupno Ekipa
-                                    </span>
-                                </th>
-                            </tr>
+                            {!totals.has_stats ? (
+                                <>
+                                    <tr className="bg-likar4">
+                                        <th colSpan={999}></th>
+                                    </tr>
+                                    <tr className="bg-likar4">
+                                        <th colSpan={999}></th>
+                                    </tr>
+
+                                    <tr className="bg-likar4">
+                                        <th colSpan={999}></th>
+                                    </tr>
+                                </>
+                            ) : (
+                                <>
+                                    <tr className="bg-likar4">
+                                        <th></th>
+                                        <th colSpan={999}>
+                                            <span className="text-slate-100">
+                                                Prva petorka
+                                            </span>
+                                        </th>
+                                    </tr>
+                                    {players.map((player) => {
+                                        return (
+                                            player.is_starter && (
+                                                <BoxScoreRow
+                                                    player={player}
+                                                    key={player.id}
+                                                />
+                                            )
+                                        );
+                                    })}
+                                    <tr className="bg-likar4">
+                                        <th></th>
+                                        <th colSpan={999}>
+                                            <span className="text-slate-100">
+                                                Klupa
+                                            </span>
+                                        </th>
+                                    </tr>
+                                    {players.map((player) => {
+                                        return (
+                                            !player.is_starter && (
+                                                <BoxScoreRow
+                                                    player={player}
+                                                    key={player.id}
+                                                />
+                                            )
+                                        );
+                                    })}
+                                    <tr className="bg-likar4">
+                                        <th></th>
+                                        <th colSpan={999}>
+                                            <span className="text-slate-100">
+                                                Ukupno Ekipa
+                                            </span>
+                                        </th>
+                                    </tr>
+                                </>
+                            )}
+
                             <BoxScoreTotalsRow totals={totals} />
                         </tbody>
                     </table>
