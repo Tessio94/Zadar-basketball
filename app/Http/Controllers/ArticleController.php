@@ -8,6 +8,7 @@ use App\Models\Tag;
 use App\Models\Game;
 use Inertia\Inertia;
 use App\Models\Article;
+use App\Models\Season;
 use App\Support\ArticleHtml;
 use Illuminate\Http\Request;
 use App\Services\ArticleGameSummary;
@@ -69,13 +70,19 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Article $article, ArticleHtml $html, ArticleGameSummary $summary)
+    public function show(Request $request, Article $article, ArticleHtml $html, ArticleGameSummary $summary)
     {
         //
+
         abort_unless($article->status === 'published' && $article->published_at?->isPast(), 404);
         $article->load(['gallery.images', 'tags']);
         // Sanitize legacy content on output without rewriting stored articles.
         $article->content = $html->sanitize($article->content);
+
+        $season = $request->filled('season')
+                ? Season::findOrFail($request->integer('season'))
+                : Season::where('is_active', true)->firstOrFail();
+
         $embeddedGames = Game::query()->whereIn('id', $html->gameIds($article->content))
             ->with(['homeTeam', 'awayTeam', 'season', 'periodScores', 'playerStats.player'])
             ->get()->map(fn(Game $game): array => $summary->make($game))->values();
@@ -89,6 +96,7 @@ class ArticleController extends Controller
             'lastArticles' => $lastArticles,
             'article' => $article,
             'embeddedGames' => $embeddedGames,
+            'season' => $season->name
         ]);
     }
 }

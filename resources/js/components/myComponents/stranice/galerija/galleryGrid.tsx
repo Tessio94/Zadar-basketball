@@ -31,7 +31,7 @@ export default function GalleryGrid({
                                 className="transition-transform duration-300"
                             />
                         </div>
-                        <div className="absolute top-1/5 right-0 bottom-0 left-0 bg-linear-to-b from-transparent to-slate-900 transition-transform duration-300 xl:translate-y-full xl:group-hover:translate-y-0" />
+                        <div className="absolute top-0 right-0 bottom-0 left-0 bg-linear-to-b from-slate-900/10 via-slate-900/80 via-35% to-slate-900 transition-transform duration-300 xl:translate-y-full xl:group-hover:translate-y-0" />
                         <div className="absolute top-1/2 left-1/2 flex w-fit max-w-full grow -translate-y-1/2 flex-col justify-between gap-3 p-3 opacity-100 transition-all delay-200 duration-300 max-xl:-translate-x-1/2 xl:opacity-0 xl:group-odd:-translate-x-full xl:group-even:translate-x-full xl:group-odd:group-hover:-translate-x-1/2 xl:group-odd:group-hover:opacity-100 xl:group-even:group-hover:-translate-x-1/2 xl:group-even:group-hover:opacity-100">
                             <h5 className="text-center font-heading text-lg font-semibold text-slate-100">
                                 {gallery.title}
