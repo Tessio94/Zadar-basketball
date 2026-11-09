@@ -1,12 +1,12 @@
 import { Link } from '@inertiajs/react';
 import { CalendarDays } from 'lucide-react';
 import { show } from '@/actions/App/Http/Controllers/ArticleController';
-import { cn } from '@/lib/utils';
 import {
     articleCardDate,
     type ArticleCardData,
 } from '@/components/myComponents/stranice/novosti/articleCard';
 import ArticleCardTags from '@/components/myComponents/stranice/novosti/ArticleCardTags';
+import { cn } from '@/lib/utils';
 
 export default function MainNewsCard({
     article,

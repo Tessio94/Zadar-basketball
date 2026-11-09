@@ -3,15 +3,15 @@ import Pagination from '@/components/myComponents/common/pagination/Pagination';
 import ArchiveNews from '@/components/myComponents/stranice/arhiva/archiveNews';
 import EmptyNews from '@/components/myComponents/stranice/novosti/glavneVijesti/emptyNews';
 import { archive } from '@/routes';
-import type { Article } from '@/types/archive';
 import type { Paginated } from '@/types/pagination';
 import type { ArticleTag } from '@/types/tags';
+import type { ArticleCardData } from '@/components/myComponents/stranice/novosti/articleCard';
 
 export default function Archive({
     articles,
     activeTag,
 }: {
-    articles: Paginated<Article>;
+    articles: Paginated<ArticleCardData>;
     activeTag: ArticleTag | null;
 }) {
     return (

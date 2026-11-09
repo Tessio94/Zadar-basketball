@@ -1,11 +1,11 @@
-import type { Article } from '@/types/archive';
 import type { Paginated } from '@/types/pagination';
+import type { ArticleCardData } from '../novosti/articleCard';
 import AdditionalNewsCard from '../novosti/dodatneVijesti/additionalNewsCard';
 
 export default function ArchiveNews({
     articles,
 }: {
-    articles: Paginated<Article>;
+    articles: Paginated<ArticleCardData>;
 }) {
     return (
         <div className="grid w-fit items-stretch gap-10 rounded-2xl sm:grid-cols-2 xl:grid-cols-4">

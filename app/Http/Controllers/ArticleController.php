@@ -51,6 +51,11 @@ class ArticleController extends Controller
         $filters = $request->validate(['tag' => ['nullable', 'integer', 'min:1']]);
         $activeTag = isset($filters['tag']) ? Tag::findOrFail($filters['tag'], ['id', 'name']) : null;
         $articles = Article::where('status', 'published')->where('published_at', '<=', now())
+            ->with([
+            'tags' => fn ($query) => $query
+                ->select('tags.id', 'tags.name')
+                ->orderBy('tags.name'),
+            ])
             ->when($activeTag, fn($query) => $query->whereHas('tags', fn($tags) => $tags->where('tags.id', $activeTag->id)))
             ->latest('published_at')->orderByDesc('id')
             ->paginate(10)->withQueryString();
