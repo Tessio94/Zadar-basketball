@@ -87,9 +87,12 @@ class ArticleController extends Controller
             ->with(['homeTeam', 'awayTeam', 'season', 'periodScores', 'playerStats.player'])
             ->get()->map(fn(Game $game): array => $summary->make($game))->values();
 
-        $lastArticles = Article::where('status', 'published')->where('published_at', '<=', now())
-            ->orderBy('published_at', 'desc')
-            ->limit(5)
+        $lastArticles = Article::query()
+            ->where('status', 'published')
+            ->where('published_at', '<=', now())
+            ->where('id', '!=', $article->getKey())
+            ->orderByDesc('published_at')
+            ->orderByDesc('id')
             ->get();
 
         return Inertia::render('article', [
