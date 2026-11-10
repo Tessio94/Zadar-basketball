@@ -49,7 +49,7 @@ export default function AdditionalNewsCard({
                         className={cn(
                             'absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-10',
                             horizontal
-                                ? 'rounded-2xl sm:rounded-l-2xl sm:rounded-r-none'
+                                ? 'rounded-t-2xl sm:rounded-l-2xl sm:rounded-r-none'
                                 : 'rounded-t-2xl',
                         )}
                     />
