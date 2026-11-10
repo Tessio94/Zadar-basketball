@@ -1,10 +1,10 @@
 import { Link } from '@inertiajs/react';
 import { ArrowUpRight, CalendarDays } from 'lucide-react';
 import { show } from '@/actions/App/Http/Controllers/ArticleController';
+import { cn } from '@/lib/utils';
 import { articleCardDate, articleCardImage } from '../articleCard';
 import type { ArticleCardData } from '../articleCard';
 import ArticleCardTags from '../ArticleCardTags';
-import { cn } from '@/lib/utils';
 
 type AdditionalNewsCardProps = {
     article: ArticleCardData;
