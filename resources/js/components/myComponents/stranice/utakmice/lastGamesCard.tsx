@@ -30,7 +30,7 @@ export default function LastGamesCard({ game }: { game: GameWithTeams }) {
                             {game.status === 'finished' ? (
                                 <Link
                                     href={show(game.id)}
-                                    className="rounded-xl border border-likar3/30 bg-slate-950/40 px-2.5 py-2 font-heading text-xl leading-none font-semibold tracking-wide text-slate-100 tabular-nums shadow-sm transition-colors duration-300 group-hover:border-likar3/60 group-hover:bg-slate-950/60 hover:underline motion-reduce:transition-none max-[450px]:px-1.5 max-[450px]:py-1.5 max-[450px]:text-lg sm:px-4 sm:text-2xl"
+                                    className="flex items-center justify-center rounded-xl border border-likar3/30 bg-slate-950/40 px-2.5 py-2 text-center font-heading text-xl leading-none font-semibold tracking-wide text-slate-100 tabular-nums shadow-sm transition-colors duration-300 group-hover:border-likar3/60 group-hover:bg-slate-950/60 hover:underline motion-reduce:transition-none max-[450px]:px-1.5 max-[450px]:py-1.5 max-[450px]:text-lg sm:px-4 sm:text-2xl"
                                 >
                                     {game.home_score} - {game.away_score}
                                 </Link>
