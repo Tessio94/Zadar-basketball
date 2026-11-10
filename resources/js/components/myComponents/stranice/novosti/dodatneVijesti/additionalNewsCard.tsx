@@ -4,6 +4,7 @@ import { show } from '@/actions/App/Http/Controllers/ArticleController';
 import { articleCardDate, articleCardImage } from '../articleCard';
 import type { ArticleCardData } from '../articleCard';
 import ArticleCardTags from '../ArticleCardTags';
+import { cn } from '@/lib/utils';
 
 type AdditionalNewsCardProps = {
     article: ArticleCardData;
@@ -28,9 +29,12 @@ export default function AdditionalNewsCard({
                 }`}
             >
                 <div
-                    className={`relative isolate aspect-[16/10] overflow-hidden rounded-t-2xl bg-slate-950/40 ${
-                        horizontal ? 'sm:aspect-auto sm:min-h-64' : ''
-                    }`}
+                    className={cn(
+                        'relative isolate aspect-[16/10] overflow-hidden bg-slate-950/40',
+                        horizontal
+                            ? 'rounded-t-2xl sm:aspect-auto sm:min-h-64 sm:rounded-r-none! sm:rounded-b-2xl'
+                            : 'rounded-t-2xl',
+                    )}
                     style={{
                         viewTransitionName: `article-image-${article.id}`,
                     }}
@@ -42,7 +46,12 @@ export default function AdditionalNewsCard({
                         height={750}
                         loading="lazy"
                         decoding="async"
-                        className="absolute inset-0 size-full rounded-t-2xl object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-10"
+                        className={cn(
+                            'absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-10',
+                            horizontal
+                                ? 'rounded-2xl sm:rounded-l-2xl sm:rounded-r-none'
+                                : 'rounded-t-2xl',
+                        )}
                     />
                 </div>
 
