@@ -56,10 +56,13 @@ class GameBoxscoreService
             'threesPercentage' => 'fg3_percentage',
             'efficiency' => 'efficiency',
         ] as $name => $field) {
+            $value = static fn (PlayerGameStat $stat): int|float => $field === 'rebounds'
+                ? (float) ($stat->offensive_rebounds + $stat->defensive_rebounds)
+                : (float) $stat->getAttribute($field);
+
             $leaders[$name] = $stats
-                ->sortByDesc(fn(PlayerGameStat $stat): int|float => $field === 'rebounds'
-                    ? (int) $stat->offensive_rebounds + (int) $stat->defensive_rebounds
-                    : (float) $stat->getAttribute($field))
+                ->filter(static fn (PlayerGameStat $stat): bool => $value($stat) !== 0.0)
+                ->sortByDesc($value)
                 ->take(5)
                 ->values();
         }

@@ -27,8 +27,7 @@ export default function Statistics({
     const avgLeadersArr = Object.values(leaders);
     const dailyLeadersArr = Object.values(lastRoundStats);
     const bestPerformancesArr = Object.values(bestPerformances);
-    console.log('dailyLeaders', dailyLeadersArr);
-    console.log('last round', lastRound);
+
     return (
         <>
             <Head>

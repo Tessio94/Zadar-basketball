@@ -31,13 +31,13 @@ export default function LeadersRow({
                 return player.steals;
 
             case 'shootingPercentage':
-                return player.fg_percentage;
+                return `${player.fg_percentage}%`;
 
             case 'madeThrees':
                 return player.fg3_made;
 
             case 'threesPercentage':
-                return player.fg3_percentage;
+                return `${player.fg3_percentage}%`;
 
             case 'efficiency':
                 return player.efficiency;
@@ -49,7 +49,7 @@ export default function LeadersRow({
 
     return (
         <tr
-            className="text-center text-slate-100 first:border-b-2! first:border-b-likar1! odd:bg-likar2 even:bg-likar2/60 first:[&_img]:h-10 first:[&_img]:w-10 max-[500px]:first:[&_img]:h-6 max-[500px]:first:[&_img]:w-6 first:[&_svg]:h-10 first:[&_svg]:w-10 max-[500px]:first:[&_svg]:h-6 max-[500px]:first:[&_svg]:w-6 first:[&_td]:text-lg first:[&_td]:font-semibold max-[500px]:first:[&_td]:text-base"
+            className="text-center text-slate-100 first:border-b-2! first:border-b-likar1! first:bg-likar4/60! odd:bg-likar2 even:bg-likar2/60 first:[&_img]:h-10 first:[&_img]:w-10 max-[500px]:first:[&_img]:h-6 max-[500px]:first:[&_img]:w-6 first:[&_svg]:h-10 first:[&_svg]:w-10 max-[500px]:first:[&_svg]:h-6 max-[500px]:first:[&_svg]:w-6 first:[&_td]:text-lg first:[&_td]:font-semibold max-[500px]:first:[&_td]:text-base"
             style={
                 {
                     '--team-color': player.team.logo_color ?? 'transparent',

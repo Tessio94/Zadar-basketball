@@ -62,54 +62,79 @@ export default function GameLeaders({
                         Asistencije
                     </h3>
                     <hr className="my-2 border border-likar2" />
-                    <table className="w-full overflow-hidden rounded-t-xl rounded-b-xl">
-                        <tbody>
-                            {assists.map((player, i) => (
-                                <LeadersRow
-                                    type="assists"
-                                    key={player.id}
-                                    player={player}
-                                    place={i + 1}
-                                />
-                            ))}
-                        </tbody>
-                    </table>
+                    {assists.length > 0 ? (
+                        <table className="w-full overflow-hidden rounded-t-xl rounded-b-xl">
+                            <tbody>
+                                {assists.map((player, i) => (
+                                    <LeadersRow
+                                        type="assists"
+                                        key={player.id}
+                                        player={player}
+                                        place={i + 1}
+                                    />
+                                ))}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <div className="flex min-h-28 flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-likar3/25 bg-likar2/40 px-4 py-6 text-center">
+                            <p className="font-text text-sm text-slate-400">
+                                Na ovoj utakmici nema zabilježenih asistencija.
+                            </p>
+                        </div>
+                    )}
                 </div>
                 <div className="p-3 max-[500px]:px-1.5 max-[500px]:py-3">
                     <h3 className="font-heading text-xl font-semibold text-slate-100">
                         Blokade
                     </h3>
                     <hr className="my-2 border border-likar2" />
-                    <table className="w-full overflow-hidden rounded-t-xl rounded-b-xl">
-                        <tbody>
-                            {blocks.map((player, i) => (
-                                <LeadersRow
-                                    type="blocks"
-                                    key={player.id}
-                                    player={player}
-                                    place={i + 1}
-                                />
-                            ))}
-                        </tbody>
-                    </table>
+                    {blocks.length > 0 ? (
+                        <table className="w-full overflow-hidden rounded-t-xl rounded-b-xl">
+                            <tbody>
+                                {blocks.map((player, i) => (
+                                    <LeadersRow
+                                        type="blocks"
+                                        key={player.id}
+                                        player={player}
+                                        place={i + 1}
+                                    />
+                                ))}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <div className="flex min-h-28 flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-likar3/25 bg-likar2/40 px-4 py-6 text-center">
+                            <p className="font-text text-sm text-slate-400">
+                                Na ovoj utakmici nema zabilježenih blokada.
+                            </p>
+                        </div>
+                    )}
                 </div>
                 <div className="p-3 max-[500px]:px-1.5 max-[500px]:py-3">
                     <h3 className="font-heading text-xl font-semibold text-slate-100">
                         Ukradene
                     </h3>
                     <hr className="my-2 border border-likar2" />
-                    <table className="w-full overflow-hidden rounded-t-xl rounded-b-xl">
-                        <tbody>
-                            {steals.map((player, i) => (
-                                <LeadersRow
-                                    type="steals"
-                                    key={player.id}
-                                    player={player}
-                                    place={i + 1}
-                                />
-                            ))}
-                        </tbody>
-                    </table>
+                    {steals.length > 0 ? (
+                        <table className="w-full overflow-hidden rounded-t-xl rounded-b-xl">
+                            <tbody>
+                                {steals.map((player, i) => (
+                                    <LeadersRow
+                                        type="steals"
+                                        key={player.id}
+                                        player={player}
+                                        place={i + 1}
+                                    />
+                                ))}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <div className="flex min-h-28 flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-likar3/25 bg-likar2/40 px-4 py-6 text-center">
+                            <p className="font-text text-sm text-slate-400">
+                                Na ovoj utakmici nema zabilježenih ukradenih
+                                lopti.
+                            </p>
+                        </div>
+                    )}
                 </div>
                 <div className="p-3 max-[500px]:px-1.5 max-[500px]:py-3">
                     <h3 className="font-heading text-xl font-semibold text-slate-100">
@@ -134,18 +159,26 @@ export default function GameLeaders({
                         Ubačene trice
                     </h3>
                     <hr className="my-2 border border-likar2" />
-                    <table className="w-full overflow-hidden rounded-t-xl rounded-b-xl">
-                        <tbody>
-                            {madeThrees.map((player, i) => (
-                                <LeadersRow
-                                    type="madeThrees"
-                                    key={player.id}
-                                    player={player}
-                                    place={i + 1}
-                                />
-                            ))}
-                        </tbody>
-                    </table>
+                    {madeThrees.length > 0 ? (
+                        <table className="w-full overflow-hidden rounded-t-xl rounded-b-xl">
+                            <tbody>
+                                {madeThrees.map((player, i) => (
+                                    <LeadersRow
+                                        type="madeThrees"
+                                        key={player.id}
+                                        player={player}
+                                        place={i + 1}
+                                    />
+                                ))}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <div className="flex min-h-28 flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-likar3/25 bg-likar2/40 px-4 py-6 text-center">
+                            <p className="font-text text-sm text-slate-400">
+                                Na ovoj utakmici nema ubačenih trica.
+                            </p>
+                        </div>
+                    )}
                 </div>
                 <div className="p-3 max-[500px]:px-1.5 max-[500px]:py-3">
                     <h3 className="font-heading text-xl font-semibold text-slate-100">

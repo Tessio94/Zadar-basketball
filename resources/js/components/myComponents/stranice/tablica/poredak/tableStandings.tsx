@@ -43,7 +43,9 @@ export default function TableStandings({
                                     <th className="border-r border-likar4 p-2 uppercase">
                                         RAZ
                                     </th>
-                                    <th className="p-2 uppercase">POS 5</th>
+                                    <th className="p-2 text-nowrap uppercase">
+                                        POS 5
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>

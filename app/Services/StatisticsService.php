@@ -99,7 +99,9 @@ class StatisticsService
             DB::raw('ROUND((SUM(ft_made)::decimal / NULLIF(SUM(ft_attempted),0)) * 100, 1) as ftprc')
         )
             ->whereHas('game', function ($query) use ($seasonId): void {
-                $query->where('season_id', $seasonId);
+                $query
+                    ->where('season_id', $seasonId)
+                    ->where('status', 'finished');
             })
             ->when($teamId, function($query) use ($teamId): void {
                 $query->where('team_id', $teamId);
@@ -110,7 +112,7 @@ class StatisticsService
                 'player.teamSeasons.team',
             ])
             ->groupBy('player_id')
-            ->havingRaw('COUNT(*) >= 3')
+            // ->havingRaw('COUNT(*) >= 3')
             ->get()
             ->each->setAppends([]);
 
@@ -261,6 +263,7 @@ class StatisticsService
             ->whereHas('game', function ($query) use ($seasonId): void {
                 $query
                     ->where('season_id', $seasonId)
+                    ->where('status', 'finished')
                     ->whereNull('playoff_id');
             })
             ->with([
