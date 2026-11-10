@@ -16,7 +16,11 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function CreateGallery() {
+export default function CreateGallery({
+    defaultListed = true,
+}: {
+    defaultListed?: boolean;
+}) {
     return (
         <>
             <Head title="Admin panel | Galerija" />
@@ -26,7 +30,7 @@ export default function CreateGallery() {
                     Nova galerija
                 </h1>
 
-                <GalleryForm />
+                <GalleryForm defaultListed={defaultListed} />
             </section>
         </>
     );

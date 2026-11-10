@@ -22,12 +22,13 @@ class ArticleHtml
         $config->set('Core.Encoding', 'UTF-8');
         $config->set('Cache.SerializerPath', storage_path('framework/cache/htmlpurifier'));
         $config->set('HTML.DefinitionID', 'likar-article-v1');
-        $config->set('HTML.DefinitionRev', 1);
+        $config->set('HTML.DefinitionRev', 2);
         $config->set('URI.AllowedSchemes', ['http' => true, 'https' => true, 'mailto' => true]);
         $config->set('HTML.TargetBlank', true);
         if ($definition = $config->maybeGetRawHTMLDefinition()) {
             $definition->addAttribute('div', 'data-likar-widget', 'Enum#game');
             $definition->addAttribute('div', 'data-game-id', 'Number');
+            $definition->addAttribute('div', 'data-game-display', 'Enum#preview,results');
             $definition->addAttribute('div', 'contenteditable', 'Enum#false');
             $definition->addElement('figure', 'Block', 'Flow', 'Common');
             $definition->addElement('figcaption', 'Block', 'Flow', 'Common');

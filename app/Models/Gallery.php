@@ -11,10 +11,12 @@ class Gallery extends Model
         'title',
         'slug',
         'date',
+        'is_listed',
     ];
 
     protected $casts = [
         'date' => 'date',
+        'is_listed' => 'boolean',
     ];
 
     public function images(): HasMany

@@ -179,7 +179,7 @@ class ArticleController extends Controller
 
     private function galleries()
     {
-        return Gallery::query()->withCount('images')->orderByDesc('date')->orderByDesc('id')->get(['id', 'title', 'slug']);
+        return Gallery::query()->withCount('images')->orderByDesc('date')->orderByDesc('id')->get(['id', 'title', 'slug', 'is_listed']);
     }
 
     public function uploadImage(Request $request)

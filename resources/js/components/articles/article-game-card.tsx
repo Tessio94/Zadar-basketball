@@ -2,6 +2,7 @@ import { Link } from '@inertiajs/react';
 import { ArrowUpRight, Trophy } from 'lucide-react';
 import PeriodScoreTable from '@/components/games/period-score-table';
 import { publicImageUrl } from '@/lib/article-media';
+import type { GameEmbedDisplay } from '@/types/articles';
 import type { GameSummary, ScoreTeam } from '@/types/games';
 
 function TeamHeading({ team }: { team: ScoreTeam }) {
@@ -28,14 +29,21 @@ function TeamHeading({ team }: { team: ScoreTeam }) {
     );
 }
 
-export default function ArticleGameCard({ game }: { game: GameSummary }) {
-    const scheduled = game.status === 'scheduled';
-    const status =
-        game.status === 'finished'
-            ? 'Konačni rezultat'
-            : scheduled
-              ? 'Najava utakmice'
-              : 'Utakmica u tijeku / prekidu';
+type ArticleGameCardProps = {
+    game: GameSummary;
+    display?: GameEmbedDisplay;
+};
+
+export default function ArticleGameCard({
+    game,
+    display = 'results',
+}: ArticleGameCardProps) {
+    const preview = display === 'preview' || game.status === 'scheduled';
+    const status = preview
+        ? 'Najava utakmice'
+        : game.status === 'finished'
+          ? 'Konačni rezultat'
+          : 'Utakmica u tijeku / prekidu';
 
     return (
         <section
@@ -54,7 +62,7 @@ export default function ArticleGameCard({ game }: { game: GameSummary }) {
                 <TeamHeading team={game.home_team} />
                 <div className="text-center">
                     <p className="font-heading text-3xl font-bold tracking-tight text-white tabular-nums sm:text-4xl">
-                        {scheduled
+                        {preview
                             ? 'VS'
                             : `${game.home_score} : ${game.away_score}`}
                     </p>
@@ -71,7 +79,7 @@ export default function ArticleGameCard({ game }: { game: GameSummary }) {
                 </div>
                 <TeamHeading team={game.away_team} />
             </div>
-            {!scheduled && (
+            {!preview && (
                 <PeriodScoreTable
                     periods={game.period_scores}
                     homeName={game.home_team.short_name ?? game.home_team.name}
@@ -81,7 +89,7 @@ export default function ArticleGameCard({ game }: { game: GameSummary }) {
                     status={game.status}
                 />
             )}
-            {!scheduled && (
+            {!preview && (
                 <details open className="border-t border-white/10 px-4 py-3">
                     <summary className="cursor-pointer text-sm font-semibold text-slate-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-likar3">
                         Strijelci i poeni

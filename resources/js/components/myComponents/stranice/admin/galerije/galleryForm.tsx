@@ -23,14 +23,24 @@ type ExistingImage = {
     caption: string | null;
 };
 
-export default function GalleryForm({ gallery }: { gallery?: Gallery }) {
+type GalleryFormProps = {
+    gallery?: Gallery;
+    defaultListed?: boolean;
+};
+
+export default function GalleryForm({
+    gallery,
+    defaultListed = true,
+}: GalleryFormProps) {
     const isEditing = Boolean(gallery);
 
     const [existingImages, setExistingImages] = useState<ExistingImage[]>(
         gallery?.images ?? [],
     );
 
-    const { data, setData, post, put, processing, errors } = useForm<{
+    const { data, setData, post, processing, errors } = useForm<{
+        _method: 'post' | 'put';
+        is_listed: boolean;
         title: string;
         slug: string;
         date: string;
@@ -40,6 +50,8 @@ export default function GalleryForm({ gallery }: { gallery?: Gallery }) {
         newAlts: Record<number, string>;
         newCaptions: Record<number, string>;
     }>({
+        _method: gallery ? 'put' : 'post',
+        is_listed: gallery?.is_listed ?? defaultListed,
         title: gallery?.title ?? '',
         slug: gallery?.slug ?? '',
         date: gallery?.date ? gallery.date.substring(0, 10) : '',
@@ -64,15 +76,8 @@ export default function GalleryForm({ gallery }: { gallery?: Gallery }) {
     const submit = (event: React.SubmitEvent) => {
         event.preventDefault();
 
-        if (isEditing) {
-            put(update(gallery!.id).url, {
-                forceFormData: true,
-            });
-
-            return;
-        }
-
-        post(store().url, {
+        // POST + method spoofing lets PHP parse multipart uploads on updates too.
+        post(gallery ? update(gallery.id).url : store().url, {
             forceFormData: true,
         });
     };
@@ -171,6 +176,37 @@ export default function GalleryForm({ gallery }: { gallery?: Gallery }) {
                 <h2 className="mb-6 text-xl font-semibold">
                     Podaci o galeriji
                 </h2>
+
+                <div className="mb-6 rounded-lg border border-slate-200 bg-slate-50 p-4">
+                    <label className="flex cursor-pointer items-start gap-3">
+                        <input
+                            type="checkbox"
+                            checked={data.is_listed}
+                            onChange={(event) =>
+                                setData('is_listed', event.target.checked)
+                            }
+                            aria-describedby="gallery-listing-help"
+                            className="mt-1 size-4 shrink-0 accent-likar3"
+                        />
+                        <span className="font-medium">
+                            Prikaži na stranici Galerije
+                        </span>
+                    </label>
+                    <p
+                        id="gallery-listing-help"
+                        className="mt-2 text-sm text-slate-600"
+                    >
+                        Isključite za galeriju uz članak. Fotografije će i dalje
+                        biti dostupne u povezanom članku i preko izravne
+                        poveznice, ali galerija neće biti na javnom popisu
+                        galerija.
+                    </p>
+                    {errors.is_listed && (
+                        <p className="mt-2 text-sm text-red-600">
+                            {errors.is_listed}
+                        </p>
+                    )}
+                </div>
 
                 <div className="grid gap-6 md:grid-cols-2">
                     <div>

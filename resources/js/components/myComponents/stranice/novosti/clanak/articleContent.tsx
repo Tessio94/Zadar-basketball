@@ -1,6 +1,7 @@
 import parse, { Element, attributesToProps } from 'html-react-parser';
 import ArticleGameCard from '@/components/articles/article-game-card';
 import useFancybox from '@/hooks/use-fancybox';
+import { gameEmbedDisplay } from '@/lib/article-game-widget';
 import { lightboxCaption } from '@/lib/article-media';
 import type { GameSummary } from '@/types/games';
 
@@ -35,7 +36,12 @@ export default function ArticleContent({
                             Number(node.attribs['data-game-id']),
                         );
                         return game ? (
-                            <ArticleGameCard game={game} />
+                            <ArticleGameCard
+                                game={game}
+                                display={gameEmbedDisplay(
+                                    node.attribs['data-game-display'],
+                                )}
+                            />
                         ) : (
                             <p className="rounded-xl border border-white/10 px-4 py-3 text-sm text-slate-400">
                                 Ova utakmica više nije dostupna.

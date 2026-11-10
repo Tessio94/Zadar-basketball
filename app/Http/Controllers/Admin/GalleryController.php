@@ -29,9 +29,11 @@ class GalleryController extends Controller
         ]);
     }
 
-    public function create(): Response
+    public function create(Request $request): Response
     {
-        return Inertia::render('admin/galerije/createGallery');
+        return Inertia::render('admin/galerije/createGallery', [
+            'defaultListed' => $request->query('context') !== 'article',
+        ]);
     }
 
     public function store(Request $request): RedirectResponse
@@ -40,6 +42,7 @@ class GalleryController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['required', 'string', 'max:255', 'unique:galleries,slug'],
             'date' => ['nullable', 'date'],
+            'is_listed' => ['sometimes', 'boolean'],
 
             'images' => ['nullable', 'array'],
             'images.*' => [
@@ -60,6 +63,7 @@ class GalleryController extends Controller
                 'title' => $validated['title'],
                 'slug' => $validated['slug'],
                 'date' => $validated['date'] ?? null,
+                'is_listed' => $validated['is_listed'] ?? true,
             ]);
 
             $this->storeImages($gallery, $request);
@@ -93,6 +97,7 @@ class GalleryController extends Controller
                 'unique:galleries,slug,' . $gallery->id,
             ],
             'date' => ['nullable', 'date'],
+            'is_listed' => ['sometimes', 'boolean'],
 
             'images' => ['nullable', 'array'],
             'images.*' => [
@@ -113,6 +118,7 @@ class GalleryController extends Controller
                 'title' => $validated['title'],
                 'slug' => $validated['slug'],
                 'date' => $validated['date'] ?? null,
+                'is_listed' => $validated['is_listed'] ?? $gallery->is_listed,
             ]);
 
             $this->storeImages($gallery, $request);

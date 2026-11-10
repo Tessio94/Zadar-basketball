@@ -76,7 +76,14 @@ export default function Galleries({
                                             className="*:border-r *:p-5 *:text-start *:last:border-0 even:bg-slate-200/60 max-[500px]:*:px-2 max-[500px]:*:py-3"
                                         >
                                             <td>{gallery.id}</td>
-                                            <td>{gallery.title}</td>
+                                            <td>
+                                                <p>{gallery.title}</p>
+                                                <span className="mt-1 inline-block rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-600">
+                                                    {gallery.is_listed
+                                                        ? 'Na stranici Galerije'
+                                                        : 'Izvan popisa galerija'}
+                                                </span>
+                                            </td>
                                             <td>
                                                 {gallery.date
                                                     ? formatDate(

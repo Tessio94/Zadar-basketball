@@ -14,12 +14,16 @@ export type Gallery = {
     title: string;
     slug: string;
     date: string | null;
+    is_listed: boolean;
     images: GalleryImage[];
     images_count?: number;
     created_at: string;
     updated_at: string;
 };
 
-export type GalleryOption = Pick<Gallery, 'id' | 'title' | 'slug'> & {
+export type GalleryOption = Pick<
+    Gallery,
+    'id' | 'title' | 'slug' | 'is_listed'
+> & {
     images_count: number;
 };

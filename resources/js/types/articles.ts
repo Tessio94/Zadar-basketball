@@ -45,3 +45,6 @@ export type ArticleFilters = {
     search?: string;
     direction?: 'asc' | 'desc';
 };
+
+/** Stored per article widget; missing attributes on older widgets mean results. */
+export type GameEmbedDisplay = 'preview' | 'results';

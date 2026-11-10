@@ -15,6 +15,7 @@ class GalleryController extends Controller
     public function index(): Response
     {
         $galleries = Gallery::query()
+            ->where('is_listed', true)
             ->withCount('images')
             ->with([
                 'images' => fn ($query) => $query
