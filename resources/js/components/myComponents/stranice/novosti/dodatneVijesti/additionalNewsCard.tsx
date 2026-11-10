@@ -28,7 +28,7 @@ export default function AdditionalNewsCard({
                 }`}
             >
                 <div
-                    className={`relative isolate aspect-[16/10] overflow-hidden bg-slate-950/40 ${
+                    className={`relative isolate aspect-[16/10] overflow-hidden rounded-t-2xl bg-slate-950/40 ${
                         horizontal ? 'sm:aspect-auto sm:min-h-64' : ''
                     }`}
                     style={{
@@ -42,7 +42,7 @@ export default function AdditionalNewsCard({
                         height={750}
                         loading="lazy"
                         decoding="async"
-                        className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                        className="absolute inset-0 size-full rounded-t-2xl object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-10"
                     />
                 </div>
 

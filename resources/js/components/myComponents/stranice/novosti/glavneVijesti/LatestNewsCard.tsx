@@ -23,7 +23,7 @@ export default function LatestNewsCard({
                 className="group flex h-full min-w-0 flex-col overflow-hidden rounded-3xl border border-likar1 bg-likar4 shadow-xl shadow-black/15 transition-colors duration-300 hover:border-likar3 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-likar3 motion-reduce:transition-none lg:grid lg:grid-cols-[1.20fr_0.8fr]"
             >
                 <div
-                    className="relative isolate aspect-[16/10] overflow-hidden bg-slate-950/40 lg:aspect-auto lg:min-h-96"
+                    className="relative isolate aspect-[16/10] overflow-hidden rounded-tl-3xl bg-slate-950/40 max-lg:rounded-tl-2xl max-lg:rounded-tr-2xl lg:aspect-auto lg:min-h-96 lg:rounded-bl-3xl"
                     style={{
                         viewTransitionName: `article-image-${article.id}`,
                     }}
@@ -35,7 +35,7 @@ export default function LatestNewsCard({
                         height={750}
                         loading="eager"
                         decoding="async"
-                        className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                        className="absolute inset-0 size-full rounded-tl-3xl object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100 max-lg:rounded-tl-2xl max-lg:rounded-tr-2xl lg:rounded-bl-3xl"
                     />
                     <div
                         aria-hidden="true"
