@@ -41,7 +41,7 @@ const seasons: ChampionshipSeason[] = [
     },
     {
         season: '2025./26.',
-        champion: 'KK Sfinga Staffords',
+        champion: 'KK Sfinga Staffordi',
         runnerUp: 'Veterani KK Voštarnica',
         mvp: 'Toni Kolanović',
     },
