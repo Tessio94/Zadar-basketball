@@ -8,6 +8,7 @@ type StatisticsTableProps = {
     seasonId?: number;
     jerseyColor?: string;
     loading?: 'eager' | 'lazy';
+    titleHref?: string;
 };
 
 export default function StatisticsTable({
@@ -15,10 +16,11 @@ export default function StatisticsTable({
     seasonId,
     jerseyColor,
     loading = 'lazy',
+    titleHref,
 }: StatisticsTableProps) {
     return (
         <div className="flex flex-col p-3">
-            <StatisticsTableTitle title={category.title} />
+            <StatisticsTableTitle title={category.title} href={titleHref} />
             <hr className="my-2 border border-likar2" />
             <div className="relative grow overflow-hidden rounded-xl border border-likar1 shadow-xl shadow-likar1">
                 <div className="scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar h-full overflow-x-auto scrollbar-thumb-likar3 scrollbar-track-slate-900">

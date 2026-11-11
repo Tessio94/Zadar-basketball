@@ -4,9 +4,11 @@ import TeamResultsRow from './teamResultsRow';
 export default function TeamResults({
     seasonName,
     games,
+    team_id,
 }: {
     seasonName: string;
     games: GameWithTeams[];
+    team_id: number;
 }) {
     return (
         <div className="p-5">
@@ -19,7 +21,11 @@ export default function TeamResults({
                         <table className="w-full overflow-hidden">
                             <tbody>
                                 {games.map((game) => (
-                                    <TeamResultsRow game={game} key={game.id} />
+                                    <TeamResultsRow
+                                        game={game}
+                                        key={game.id}
+                                        team_id={team_id}
+                                    />
                                 ))}
                             </tbody>
                         </table>

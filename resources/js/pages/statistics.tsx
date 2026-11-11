@@ -16,16 +16,18 @@ export default function Statistics({
     lastRoundStats,
     lastRound,
     bestPerformances,
+    categoryLinks,
 }: {
     season: Season;
     leaders: Record<string, StatsLeader>;
     lastRoundStats: Record<string, StatsDailyLeader>;
     lastRound: number | null;
     bestPerformances: Record<string, StatsBestPerformance>;
+    categoryLinks: Record<string, string>;
 }) {
     const [active, setActive] = useRemember<string>('tab1');
 
-    const avgLeadersArr = Object.values(leaders);
+    const avgLeadersArr = Object.entries(leaders);
     const dailyLeadersArr = Object.values(lastRoundStats);
     const bestPerformancesArr = Object.values(bestPerformances);
 
@@ -60,16 +62,14 @@ export default function Statistics({
                         </div>
                     )}
                     {active === 'tab1' &&
-                        avgLeadersArr.map((category, i) => {
-                            return (
-                                <StatisticsTable
-                                    key={i}
-                                    category={category}
-                                    seasonId={season.id}
-                                    loading={i < 2 ? 'eager' : 'lazy'}
-                                />
-                            );
-                        })}
+                        avgLeadersArr.map(([key, category]) => (
+                            <StatisticsTable
+                                key={key}
+                                category={category}
+                                seasonId={season.id}
+                                titleHref={categoryLinks[key]}
+                            />
+                        ))}
                     {active === 'tab2' &&
                         lastRound !== null &&
                         dailyLeadersArr.map((category, i) => {

@@ -11,6 +11,7 @@ use App\Http\Controllers\ResultController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\PlayerGameStatController;
+use App\Http\Controllers\SeasonLeaderboardController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ArticleGameController;
 use App\Http\Controllers\Admin\GameController as AdminGameController;
@@ -38,6 +39,9 @@ Route::get('tablica', [ResultController::class, 'index'])->name('table');
 
 // statistika
 Route::get('statistika', [PlayerGameStatController::class, 'index'])->name('stats.index');
+
+Route::get('statistika/{category}', SeasonLeaderboardController::class)
+    ->name('stats.category');
 
 /**
  *  Non-menu pages

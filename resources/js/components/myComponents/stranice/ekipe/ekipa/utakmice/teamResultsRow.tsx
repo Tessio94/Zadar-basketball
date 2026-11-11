@@ -1,10 +1,16 @@
 import { Link } from '@inertiajs/react';
 import { show } from '@/actions/App/Http/Controllers/GameController';
 import { show as showTeam } from '@/actions/App/Http/Controllers/TeamController';
-import { formatDate, formatTime } from '@/lib/utils';
+import { cn, formatDate, formatTime } from '@/lib/utils';
 import type { GameWithTeams } from '@/types/games';
 
-export default function TeamResultsRow({ game }: { game: GameWithTeams }) {
+export default function TeamResultsRow({
+    game,
+    team_id,
+}: {
+    game: GameWithTeams;
+    team_id: number;
+}) {
     const {
         id,
         game_date,
@@ -17,6 +23,8 @@ export default function TeamResultsRow({ game }: { game: GameWithTeams }) {
     } = game;
 
     const date = new Date(game_date);
+
+    const homeTeamSelected: boolean = team_id === home_team_id;
 
     return (
         <tr className="text-slate-100 odd:bg-likar2 even:bg-likar2/60">
@@ -56,7 +64,20 @@ export default function TeamResultsRow({ game }: { game: GameWithTeams }) {
                     {away_team.name}
                 </Link>
             </td>
-            <td className="p-2 text-center text-nowrap">
+            <td
+                className={cn(
+                    'p-2 text-center text-nowrap',
+                    homeTeamSelected && home_score > away_score
+                        ? 'bg-green-500/30'
+                        : homeTeamSelected && home_score < away_score
+                          ? 'bg-red-500/30'
+                          : !homeTeamSelected && home_score < away_score
+                            ? 'bg-green-500/30'
+                            : !homeTeamSelected && home_score > away_score
+                              ? 'bg-red-500/30'
+                              : 'bg-slate-400/30',
+                )}
+            >
                 <Link href={show(id)} className="hover:underline">
                     {home_score} - {away_score}
                 </Link>

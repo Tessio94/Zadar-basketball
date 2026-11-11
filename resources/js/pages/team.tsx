@@ -5,11 +5,11 @@ import LastFive from '@/components/myComponents/stranice/ekipe/ekipa/lastFive/la
 import TeamPlayers from '@/components/myComponents/stranice/ekipe/ekipa/roster/teamPlayers';
 import TeamHeading from '@/components/myComponents/stranice/ekipe/ekipa/teamHeading';
 import TeamResults from '@/components/myComponents/stranice/ekipe/ekipa/utakmice/teamResults';
-import StatisticsTable from '@/components/myComponents/stranice/statistika/statisticsTable';
 import Seo from '@/components/seo';
+import TeamStatistics from '@/components/teams/team-statistics';
 import type { GameWithTeams } from '@/types/games';
 import type { Season } from '@/types/seasons';
-import type { StatsLeader } from '@/types/statistics';
+import type { TeamSeasonStatistics } from '@/types/team-statistics';
 import type { Team, TeamSeason } from '@/types/teams';
 
 export default function Team({
@@ -22,15 +22,13 @@ export default function Team({
     team: Team;
     teamSeason: TeamSeason;
     games: GameWithTeams[];
-    stats: Record<string, StatsLeader>;
+    stats: TeamSeasonStatistics;
     season: Season;
 }) {
     const [active, setActive] = useRemember<string>('tab1');
 
     const { logo, name, logo_color } = team;
     const { players } = teamSeason;
-
-    const teamLeaders = Object.values(stats);
 
     return (
         <>
@@ -67,23 +65,16 @@ export default function Team({
                             <TeamResults
                                 seasonName={season.name}
                                 games={games}
+                                team_id={team.id}
                             />
                         )}
                         {active === 'tab3' && (
-                            <div className="mx-auto w-full rounded-2xl bg-likar1/30 p-2 sm:grid sm:items-stretch sm:gap-10 lg:grid-cols-2">
-                                {teamLeaders.map((category, i) => {
-                                    return (
-                                        <StatisticsTable
-                                            key={i}
-                                            category={category}
-                                            seasonId={season.id}
-                                            jerseyColor={
-                                                logo_color ?? '#3f3633'
-                                            }
-                                        />
-                                    );
-                                })}
-                            </div>
+                            <TeamStatistics
+                                stats={stats}
+                                seasonId={season.id}
+                                seasonName={season.name}
+                                jerseyColor={logo_color ?? '#3f3633'}
+                            />
                         )}
                     </div>
                     {games.length > 0 && <LastFive games={games} />}

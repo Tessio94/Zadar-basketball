@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 use App\Models\Game;
 use App\Models\Team;
 use Inertia\Inertia;
-use App\Services\StatisticsService;
+use App\Services\TeamStatisticsService;
 use App\Models\Season;
 use Illuminate\Http\Request;
 
@@ -33,7 +33,7 @@ class TeamController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, Team $team, StatisticsService $stats)
+    public function show(Request $request, Team $team, TeamStatisticsService $stats)
     {
         // Load only seasons in which this team participates.
         $team->load('seasons:id,name,start_date,is_active');
@@ -96,10 +96,7 @@ class TeamController extends Controller
             'team' => $team,
             'teamSeason' => $teamSeason,
             'games' => $games,
-            'stats' => $stats->seasonLeaders(
-                 seasonId: $season->id,
-                 teamId: $team->id,
-            ),
+            'stats' => $stats->forTeamSeason($teamSeason),
         ]);
     }
 }

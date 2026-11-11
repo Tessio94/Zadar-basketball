@@ -7,11 +7,7 @@ import type { AppLayoutProps } from '@/types';
 export default ({ children, breadcrumbs, ...props }: AppLayoutProps) => (
     <AppLayoutTemplate breadcrumbs={breadcrumbs} {...props}>
         <Head>
-            <meta
-                head-key="robots"
-                name="robots"
-                content="noindex, follow"
-            />{' '}
+            <meta head-key="robots" name="robots" content="noindex, follow" />
         </Head>
         <Toaster />
         <FlashMessages />

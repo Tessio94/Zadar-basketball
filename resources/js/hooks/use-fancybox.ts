@@ -6,7 +6,9 @@ import '@fancyapps/ui/dist/fancybox/fancybox.css';
 const DEFAULT_OPTIONS: Partial<FancyboxOptions> = {};
 
 // Keep provided options stable (module constant or useMemo) to avoid rebinding.
-export default function useFancybox(options: Partial<FancyboxOptions> = DEFAULT_OPTIONS) {
+export default function useFancybox(
+    options: Partial<FancyboxOptions> = DEFAULT_OPTIONS,
+) {
     const [root, setRoot] = useState<HTMLElement | null>(null);
 
     useEffect(() => {

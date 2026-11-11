@@ -33,8 +33,10 @@ export default function BoxScoreRow({
 
     return (
         <tr className="text-slate-100 odd:[&>td]:bg-likar2odd even:[&>td]:bg-likar2even">
-            <td className="p-1 text-center text-nowrap">
-                {player.jersey_number ?? '—'}
+            <td className="p-1 text-center text-nowrap tabular-nums">
+                <span className="inline-block min-w-8 rounded-md bg-slate-900/55 px-1.5 py-1 text-xs font-semibold text-slate-300">
+                    {player.jersey_number ?? '—'}
+                </span>
             </td>
             <td className="sticky left-0 z-100 p-1 text-center text-nowrap">
                 <Link

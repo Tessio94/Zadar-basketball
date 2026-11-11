@@ -8,6 +8,7 @@ use Inertia\Inertia;
 use App\Services\StatisticsService;
 use App\Models\Game;
 use App\Models\Season;
+use App\Services\SeasonLeaderboardService;
 use Illuminate\Http\Request;
 
 class PlayerGameStatController extends Controller
@@ -38,6 +39,7 @@ class PlayerGameStatController extends Controller
             ),
             'lastRound' => $lastRound,
             'bestPerformances' => $stats->seasonBestPerformances($season->id),
+            'categoryLinks' => SeasonLeaderboardService::links($season->id),
         ]);
 
     }
