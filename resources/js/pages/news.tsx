@@ -1,6 +1,6 @@
-import { Head } from '@inertiajs/react';
 import AdditionalNews from '@/components/myComponents/stranice/novosti/additionalNews';
 import MainNews from '@/components/myComponents/stranice/novosti/glavneVijesti/mainNews';
+import Seo from '@/components/seo';
 import type { Article } from '@/types/articles';
 
 export default function Novosti({
@@ -12,10 +12,11 @@ export default function Novosti({
 }) {
     return (
         <>
-            <Head>
-                <title>Novosti | Likar Zadar</title>
-                <meta name="description" content="Your page description" />
-            </Head>
+            <Seo
+                title="Novosti | Likar Zadar"
+                description="Najnovije vijesti iz LIKAR lige Zadar: najave utakmica, izvještaji, rezultati i obavijesti za igrače i navijače."
+                url="/novosti"
+            />
             <section
                 aria-labelledby="latest-news-heading"
                 className="px-[5%] py-10 xl:my-5"

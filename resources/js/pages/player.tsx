@@ -1,8 +1,8 @@
-import { Head } from '@inertiajs/react';
 import FilterSeason from '@/components/myComponents/common/filter/filterSeason';
 import PlayerCareerTotals from '@/components/myComponents/stranice/igrac/career/playerCareerTotals';
 import PlayerHeader from '@/components/myComponents/stranice/igrac/playerHeader';
 import PlayerStats from '@/components/myComponents/stranice/igrac/playerStats';
+import Seo from '@/components/seo';
 import type { PlayerPageProps } from '@/types';
 
 export default function player({
@@ -12,7 +12,8 @@ export default function player({
     games,
     selectedSeason,
 }: PlayerPageProps) {
-    const { date_of_birth, first_name, last_name, position, height } = player;
+    const { id, date_of_birth, first_name, last_name, position, height } =
+        player;
 
     const teamSeason = player.team_seasons?.find(
         (teamSeason) => teamSeason.season_id === selectedSeason,
@@ -29,13 +30,11 @@ export default function player({
 
     return (
         <>
-            <Head>
-                <title>{`${first_name} ${last_name} | Likar Zadar`}</title>
-                <meta
-                    name="description"
-                    content={`Pogledaj statistiku za ${first_name} ${last_name} – prosjek poena, asistencija, skokova i učinak po utakmici.`}
-                />
-            </Head>
+            <Seo
+                title={`${first_name} ${last_name} | Likar Zadar`}
+                description={`Pogledaj statistiku za ${first_name} ${last_name} – prosjek poena, asistencija, skokova i učinak po utakmici.`}
+                url={`/igrac/${id}`}
+            />
             <section className="px-[5%] py-10 xl:my-5">
                 <div className="flex flex-col items-start justify-between gap-10 xl:flex-row">
                     <div className="mx-auto w-full overflow-hidden rounded-2xl bg-likar1/30">

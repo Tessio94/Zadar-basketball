@@ -11,6 +11,10 @@ export default function Intro() {
                             src="/images/design/trophy.svg"
                             alt=""
                             className="h-20 w-20 rounded-full bg-likar1 p-2.5"
+                            width={80}
+                            height={80}
+                            loading="eager"
+                            decoding="async"
                         />
                         <h4 className="text-center font-heading text-2xl font-semibold text-slate-100">
                             Amaterska liga
@@ -34,7 +38,11 @@ export default function Intro() {
                         </p>
                     </div>
                     <div className="flex w-full flex-col items-center justify-center gap-8 rounded-4xl bg-likar4/70 px-6 py-8 shadow-2xl shadow-likar1 transition-all duration-300 transform-3d hover:-translate-y-3 hover:rotate-x-12 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.6)] max-lg:col-span-2 max-sm:col-span-1 sm:w-fit">
-                        <ChartColumn className="h-20 w-20 rounded-full bg-likar1 p-2.5 text-slate-100" />
+                        <ChartColumn
+                            width={80}
+                            height={80}
+                            className="h-20 w-20 rounded-full bg-likar1 p-2.5 text-slate-100"
+                        />
                         <h4 className="text-center font-heading text-2xl font-semibold text-slate-100">
                             Statistika i tablice
                         </h4>

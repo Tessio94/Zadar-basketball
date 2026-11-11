@@ -20,7 +20,7 @@ export default function GameLeaders({
 
     return (
         <section className="px-[5%] py-10 xl:my-5">
-            <div className="mx-auto grid w-full items-stretch gap-10 rounded-2xl bg-likar1/30 p-2 lg:grid-cols-2">
+            <div className="mx-auto grid w-full items-stretch gap-3 rounded-2xl bg-likar1/30 p-2 sm:gap-5 lg:grid-cols-2 lg:gap-10">
                 <div className="p-3 max-[500px]:px-1.5 max-[500px]:py-3">
                     <h3 className="font-heading text-xl font-semibold text-slate-100">
                         Poeni

@@ -55,6 +55,8 @@ export default function Header() {
                             src="/images/design/logo.png"
                             alt=""
                             className="h-22 w-22"
+                            width={88}
+                            height={88}
                         />
                         <div className="hidden flex-col items-start justify-center gap-1 xl:flex">
                             <h1 className="font-heading text-2xl font-semibold text-slate-100">
@@ -263,6 +265,8 @@ export default function Header() {
                                         src="/images/design/logo.png"
                                         alt=""
                                         className="h-18 w-18"
+                                        width={72}
+                                        height={72}
                                     />
                                     <div className="flex-col items-start justify-center gap-1 xl:flex">
                                         <h1 className="font-heading text-xl font-semibold text-slate-100">

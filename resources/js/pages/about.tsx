@@ -1,16 +1,15 @@
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { Clock1, Mail, MapPinCheckInside } from 'lucide-react';
+import Seo from '@/components/seo';
 
 export default function About() {
     return (
         <>
-            <Head>
-                <title>O nama | Likar Zadar</title>
-                <meta
-                    name="description"
-                    content="Upoznaj LIKAR Zadar — ligu košarkaških amatera i rekreativaca. Od prvih utakmica u Jazinama do susreta na Višnjiku."
-                />
-            </Head>
+            <Seo
+                title="O nama | Likar Zadar"
+                description="Upoznajte LIKAR Zadar, ligu košarkaških amatera i rekreativaca. Saznajte više o povijesti lige i utakmicama na Višnjiku."
+                url="/o-nama"
+            />
             <div className="px-[5%] pt-10 pb-16 font-text text-slate-100 **:box-border max-md:pt-6 max-md:pb-10 motion-reduce:[&_a]:transition-none [&_a:focus-visible]:outline-[3px] [&_a:focus-visible]:outline-offset-[6px] [&_a:focus-visible]:outline-likar3 [&_a:focus-visible]:outline-solid">
                 <div className="mx-auto overflow-hidden rounded-3xl border border-likar1 bg-likar4/60 shadow-xl shadow-likar3/60 max-md:rounded-2xl">
                     <section

@@ -1,5 +1,6 @@
-import { Form, Head } from '@inertiajs/react';
+import { Form } from '@inertiajs/react';
 import InputError from '@/components/input-error';
+import Seo from '@/components/seo';
 import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -18,7 +19,12 @@ type Props = {
 const Login = ({ status, canResetPassword }: Props) => {
     return (
         <>
-            <Head title="Prijava | Likar Zadar" />
+            <Seo
+                title="Prijava | Likar Zadar"
+                description="Prijava za administraciju stranice."
+                url="/login"
+                noindex
+            />
 
             <Form
                 {...store.form()}

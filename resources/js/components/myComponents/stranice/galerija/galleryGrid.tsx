@@ -11,7 +11,7 @@ export default function GalleryGrid({
 }) {
     return (
         <div className="grid w-fit items-start gap-10 rounded-2xl sm:grid-cols-2 xl:grid-cols-4">
-            {galleries.data.map((gallery: Gallery) => {
+            {galleries.data.map((gallery: Gallery, index: number) => {
                 return (
                     <Link
                         key={gallery.id}
@@ -27,7 +27,8 @@ export default function GalleryGrid({
                                         : '/images/design/landing.jpg'
                                 }
                                 alt=""
-                                loading="lazy"
+                                loading={index <= 3 ? 'eager' : 'lazy'}
+                                decoding="async"
                                 className="transition-transform duration-300"
                             />
                         </div>

@@ -1,9 +1,9 @@
-import { Head } from '@inertiajs/react';
 import { Clock } from 'lucide-react';
 import ArticleGallery from '@/components/articles/article-gallery';
 import ArticleTags from '@/components/articles/article-tags';
 import ArticleContent from '@/components/myComponents/stranice/novosti/clanak/articleContent';
 import SideArticleCard from '@/components/myComponents/stranice/novosti/clanak/sideArticleGrid';
+import Seo from '@/components/seo';
 import { formatDateToString } from '@/lib/utils';
 import type { Article, ArticleDetail } from '@/types/articles';
 import type { GameSummary } from '@/types/games';
@@ -21,22 +21,24 @@ export default function Article({
 }) {
     return (
         <>
-            <Head>
-                <title>
-                    {article.meta_title
-                        ? article.meta_title
-                        : `Dobrodošli na službenu stranicu Likar Zadar - Lige
-                    košarkaških amatera i rekreativaca | Likar Zadar`}
-                </title>
-                <meta
-                    name="description"
-                    content={
-                        article.meta_description
-                            ? article.meta_description
-                            : `Your description here`
-                    }
-                />
-            </Head>
+            <Seo
+                title={`${article.meta_title?.trim() || article.title} | Likar Zadar`}
+                description={
+                    article.excerpt?.trim() ||
+                    article.meta_description?.trim() ||
+                    `Pročitajte članak „${article.title}“ i aktualnosti iz LIKAR lige Zadar.`
+                }
+                url={`/novosti/${article.id}`}
+                image={
+                    article.main_image
+                        ? `/storage/${article.main_image}`
+                        : undefined
+                }
+                imageAlt={article.title}
+                type="article"
+                publishedAt={article.published_at}
+                modifiedAt={article.updated_at}
+            />
             <section className="mx-auto my-5 max-[450px]:px-4! max-2xl:px-18 max-xl:px-16 max-lg:px-12 max-sm:px-10 sm:my-5 sm:mb-10 2xl:max-w-300">
                 <div className="rounded-4xl border border-likar1 bg-likar2 shadow-2xl shadow-likar1">
                     <div className="relative h-[65vh] sm:h-[85vh]">

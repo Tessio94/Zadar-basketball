@@ -1,8 +1,9 @@
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import Pagination from '@/components/myComponents/common/pagination/Pagination';
 import ArchiveNews from '@/components/myComponents/stranice/arhiva/archiveNews';
 import type { ArticleCardData } from '@/components/myComponents/stranice/novosti/articleCard';
 import EmptyNews from '@/components/myComponents/stranice/novosti/glavneVijesti/emptyNews';
+import Seo from '@/components/seo';
 import { archive } from '@/routes';
 import type { Paginated } from '@/types/pagination';
 import type { ArticleTag } from '@/types/tags';
@@ -16,14 +17,15 @@ export default function Archive({
 }) {
     return (
         <>
-            <Head>
-                <title>
-                    {activeTag
+            <Seo
+                title={
+                    activeTag
                         ? `${activeTag.name} | Arhiva | Likar Zadar`
-                        : 'Arhiva | Likar Zadar'}
-                </title>
-                <meta name="description" content="Your page description" />
-            </Head>
+                        : 'Arhiva | Likar Zadar'
+                }
+                description="	Pregledajte arhivu vijesti LIKAR lige Zadar. Pronađite ranije najave, izvještaje s utakmica i obavijesti iz lige."
+                url="/arhiva"
+            />
             <section className="px-[5%] py-10 xl:my-5">
                 <h2 className="mb-10 font-heading text-5xl font-semibold text-slate-100">
                     Arhiva vijesti

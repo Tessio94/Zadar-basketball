@@ -1,5 +1,5 @@
-import { Head } from '@inertiajs/react';
 import GalleryCarousel from '@/components/myComponents/stranice/galerija/galleryCarousel';
+import Seo from '@/components/seo';
 import { formatDate } from '@/lib/utils';
 import type { Gallery } from '@/types/galleries';
 
@@ -7,13 +7,17 @@ export default function Gallery({ gallery }: { gallery: Gallery }) {
     const date = gallery.date || gallery.created_at;
     return (
         <>
-            <Head>
-                <title>{`${gallery.title} | Likar Zadar`}</title>
-                <meta
-                    name="description"
-                    content={`Galerija fotografija: ${gallery.title} | Likar Zadar`}
-                />
-            </Head>
+            <Seo
+                title={`${gallery.title} | Likar Zadar`}
+                description={`Fotogalerija „${gallery.title}“ iz LIKAR lige Zadar. Pogledajte fotografije s utakmica i događanja lige.`}
+                url={`/galerija/${gallery.slug}`}
+                image={
+                    gallery.images[0]
+                        ? `/storage/${gallery.images[0].path}`
+                        : undefined
+                }
+                imageAlt={gallery.images[0]?.alt || gallery.title}
+            />
 
             <section className="px-[5%] py-10 xl:my-5">
                 <div className="mb-10 flex flex-col items-start gap-5">

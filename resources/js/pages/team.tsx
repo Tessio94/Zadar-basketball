@@ -1,4 +1,4 @@
-import { Head, useRemember } from '@inertiajs/react';
+import { useRemember } from '@inertiajs/react';
 import FilterSeason from '@/components/myComponents/common/filter/filterSeason';
 import TabComponent from '@/components/myComponents/common/tab/tabComponent';
 import LastFive from '@/components/myComponents/stranice/ekipe/ekipa/lastFive/lastFive';
@@ -6,6 +6,7 @@ import TeamPlayers from '@/components/myComponents/stranice/ekipe/ekipa/roster/t
 import TeamHeading from '@/components/myComponents/stranice/ekipe/ekipa/teamHeading';
 import TeamResults from '@/components/myComponents/stranice/ekipe/ekipa/utakmice/teamResults';
 import StatisticsTable from '@/components/myComponents/stranice/statistika/statisticsTable';
+import Seo from '@/components/seo';
 import type { GameWithTeams } from '@/types/games';
 import type { Season } from '@/types/seasons';
 import type { StatsLeader } from '@/types/statistics';
@@ -33,13 +34,11 @@ export default function Team({
 
     return (
         <>
-            <Head>
-                <title>{`${name} | Likar Zadar`}</title>
-                <meta
-                    name="description"
-                    content={`Pogledajte roster, raspored utakmica i statistiku ekipe ${name}`}
-                />
-            </Head>
+            <Seo
+                title={`${name} | Likar Zadar`}
+                description={`Ekipa ${name} u LIKAR ligi Zadar. Pogledajte sastav, rezultate utakmica i statistiku igrača za sezonu ${season.name}.`}
+                url={`/ekipe/${team.id}?season=${season.id}`}
+            />
             <section className="px-[5%] py-10 xl:my-5">
                 <div className="flex flex-col items-start justify-between gap-10 xl:flex-row">
                     <div className="mx-auto w-full rounded-2xl bg-likar1/30">

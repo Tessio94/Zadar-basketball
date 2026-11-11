@@ -6,6 +6,8 @@ export default function TeamHeading({ logo, name }: Partial<Team>) {
             <img
                 src={`/storage/${logo}`}
                 alt={`${name} logo`}
+                loading="eager"
+                decoding="async"
                 className="h-30 w-30 rounded-2xl"
             />
             <h2 className="font-heading text-4xl font-semibold text-slate-100">

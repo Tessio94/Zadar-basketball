@@ -37,6 +37,8 @@ export default function ResultRow({ game }: { game: GameWithTeams }) {
                     <img
                         src={`/storage/${home_team.logo}`}
                         alt={`${home_team.name} logo`}
+                        loading="lazy"
+                        decoding="async"
                         className="h-6 w-6 shrink-0 rounded-full bg-white"
                     />
                     <span>{home_team.name}</span>
@@ -65,6 +67,8 @@ export default function ResultRow({ game }: { game: GameWithTeams }) {
                     <img
                         src={`/storage/${away_team.logo}`}
                         alt={`${away_team.name} logo`}
+                        loading="lazy"
+                        decoding="async"
                         className="h-6 w-6 shrink-0 rounded-full bg-white"
                     />
                     {away_team.name}

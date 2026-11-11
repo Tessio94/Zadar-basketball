@@ -1,15 +1,17 @@
-import { Head } from '@inertiajs/react';
 import FilterSeason from '@/components/myComponents/common/filter/filterSeason';
 import TeamCard from '@/components/myComponents/stranice/ekipe/teamCard';
+import Seo from '@/components/seo';
 import type { Team } from '@/types/teams';
 
 export default function Teams({ teams }: { teams: Team[] }) {
     return (
         <>
-            <Head>
-                <title>Ekipe | Likar Zadar</title>
-                <meta name="description" content="Your page description" />
-            </Head>
+            <Seo
+                title="Ekipe | Likar Zadar"
+                description="	Upoznajte ekipe LIKAR lige Zadar. Pogledajte njihove igrače, raspored utakmica, rezultate i sezonsku statistiku."
+                url="/ekipe"
+            />
+
             <section className="px-[5%] py-10 xl:my-5">
                 <div className="mb-10 flex flex-row items-center justify-between">
                     <h1 className="font-heading text-4xl font-semibold text-slate-100">
@@ -18,8 +20,8 @@ export default function Teams({ teams }: { teams: Team[] }) {
                     <FilterSeason />
                 </div>
                 <div className="mx-auto grid w-full items-stretch gap-10 rounded-2xl bg-likar1/30 p-2.5 sm:grid-cols-2 xl:grid-cols-3">
-                    {teams.map((team) => (
-                        <TeamCard key={team.id} ekipa={team} />
+                    {teams.map((team, i) => (
+                        <TeamCard key={team.id} ekipa={team} i={i} />
                     ))}
                 </div>
             </section>

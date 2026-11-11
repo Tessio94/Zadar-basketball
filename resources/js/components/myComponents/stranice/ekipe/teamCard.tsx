@@ -2,7 +2,7 @@ import { Link } from '@inertiajs/react';
 import { show } from '@/actions/App/Http/Controllers/TeamController';
 import type { Team } from '@/types/teams';
 
-export default function TeamCard({ ekipa }: { ekipa: Team }) {
+export default function TeamCard({ ekipa, i }: { ekipa: Team; i: number }) {
     return (
         <Link href={show(ekipa.id)}>
             <div
@@ -19,6 +19,8 @@ export default function TeamCard({ ekipa }: { ekipa: Team }) {
                 <img
                     src={`storage/${ekipa.logo}`}
                     alt={`${ekipa.name} logo`}
+                    loading={i < 3 ? 'eager' : 'lazy'}
+                    decoding="async"
                     className="h-37.5 w-37.5 rounded-full bg-likar1 transition-transform duration-300 group-hover:scale-90 group-hover:rotate-360"
                 />
             </div>

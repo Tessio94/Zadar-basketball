@@ -14,6 +14,9 @@ export default function Footer() {
                             src="/images/design//logo.png"
                             className="h-22 w-22"
                             alt="Likar Zadar"
+                            height={88}
+                            width={88}
+                            loading="lazy"
                         />
                         <div className="hidden flex-col items-start justify-center gap-1 xl:flex">
                             <h1 className="font-heading text-2xl font-semibold text-slate-100">

@@ -8,6 +8,7 @@ type StatisticsAverageRowProps = {
     index: number;
     seasonId?: number;
     jerseyColor?: string;
+    loading?: 'eager' | 'lazy';
 } & (
     | { type: 'avg'; leader: TopFiveAvg }
     | { type: 'pcg'; leader: TopFivePcg }
@@ -15,7 +16,7 @@ type StatisticsAverageRowProps = {
 );
 
 export default function StatisticsAverageRow(props: StatisticsAverageRowProps) {
-    const { index, seasonId, jerseyColor } = props;
+    const { index, seasonId, jerseyColor, loading = 'lazy' } = props;
     const { player } = props.leader;
 
     const team = player.team_seasons.find(
@@ -38,6 +39,8 @@ export default function StatisticsAverageRow(props: StatisticsAverageRowProps) {
                             alt={`${team.name} logo`}
                             height={40}
                             width={40}
+                            loading={loading}
+                            decoding="async"
                             className="inline-block rounded-full border border-slate-100/80"
                         />
                     </Link>

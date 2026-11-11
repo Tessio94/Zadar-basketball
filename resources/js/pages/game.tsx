@@ -4,6 +4,7 @@ import GameBoxScore from '@/components/myComponents/stranice/utakmice/utakmica/b
 import GameScore from '@/components/myComponents/stranice/utakmice/utakmica/headerSection/gameScore';
 import GameTitle from '@/components/myComponents/stranice/utakmice/utakmica/headerSection/gameTitle';
 import GameLeaders from '@/components/myComponents/stranice/utakmice/utakmica/leaders/gameLeaders';
+import Seo from '@/components/seo';
 import GameLayout from '@/layouts/game/game-layout';
 import type { GameDetailsProps } from '@/types/game-boxscore';
 
@@ -30,6 +31,15 @@ const Game = ({ game, leaders, teamTotals }: GameDetailsProps) => {
 
     return (
         <>
+            <Seo
+                title={`${game.home_team.name} — ${game.away_team.name} | Likar Zadar`}
+                description={
+                    game.status === 'finished'
+                        ? `${game.home_team.name} ${game.home_score} : ${game.away_score} ${game.away_team.name}. Rezultat, statistika igrača i zapisnik utakmice LIKAR lige Zadar.`
+                        : `Najava utakmice ${game.home_team.name} — ${game.away_team.name}. Pogledajte raspored i informacije o utakmici LIKAR lige Zadar.`
+                }
+                url={`/utakmice/${game.id}`}
+            />
             <GameTitle />
             <GameScore
                 homeTeam={home_team}

@@ -7,12 +7,14 @@ type StatisticsTableProps = {
     category: StatsLeader | (StatsDailyLeader & { type: 'daily' });
     seasonId?: number;
     jerseyColor?: string;
+    loading?: 'eager' | 'lazy';
 };
 
 export default function StatisticsTable({
     category,
     seasonId,
     jerseyColor,
+    loading = 'lazy',
 }: StatisticsTableProps) {
     return (
         <div className="flex flex-col p-3">
@@ -35,6 +37,7 @@ export default function StatisticsTable({
                                         seasonId={seasonId}
                                         index={i}
                                         jerseyColor={jerseyColor}
+                                        loading={loading}
                                     />
                                 ))}
                             {category.type === 'pcg' &&
@@ -46,6 +49,7 @@ export default function StatisticsTable({
                                         seasonId={seasonId}
                                         index={i}
                                         jerseyColor={jerseyColor}
+                                        loading={loading}
                                     />
                                 ))}
                             {category.type === 'daily' &&
@@ -57,6 +61,7 @@ export default function StatisticsTable({
                                         seasonId={seasonId}
                                         index={i}
                                         jerseyColor={jerseyColor}
+                                        loading={loading}
                                     />
                                 ))}
                         </tbody>

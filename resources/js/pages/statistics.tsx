@@ -1,7 +1,8 @@
-import { Head, useRemember } from '@inertiajs/react';
+import { useRemember } from '@inertiajs/react';
 import FilterSeason from '@/components/myComponents/common/filter/filterSeason';
 import TabComponent from '@/components/myComponents/common/tab/tabComponent';
 import StatisticsTable from '@/components/myComponents/stranice/statistika/statisticsTable';
+import Seo from '@/components/seo';
 import type { Season } from '@/types/seasons';
 import type {
     StatsDailyLeader,
@@ -30,10 +31,11 @@ export default function Statistics({
 
     return (
         <>
-            <Head>
-                <title>Statistika | Likar Zadar</title>
-                <meta name="description" content="Your page description" />
-            </Head>
+            <Seo
+                title={`Statistika ${season.name} | Likar Zadar`}
+                description={`Statistika LIKAR lige Zadar za sezonu ${season.name}. Pratite najbolje strijelce, skakače, asistente i ostale vodeće igrače lige.`}
+                url={`/statistika?season=${season.id}`}
+            />
             <section className="px-[5%] py-10 xl:my-5">
                 <TabComponent
                     active={active}
@@ -64,6 +66,7 @@ export default function Statistics({
                                     key={i}
                                     category={category}
                                     seasonId={season.id}
+                                    loading={i < 2 ? 'eager' : 'lazy'}
                                 />
                             );
                         })}
@@ -75,6 +78,7 @@ export default function Statistics({
                                     key={i}
                                     category={{ ...category, type: 'daily' }}
                                     seasonId={season.id}
+                                    loading={i < 2 ? 'eager' : 'lazy'}
                                 />
                             );
                         })}
@@ -90,6 +94,7 @@ export default function Statistics({
                                     key={i}
                                     category={{ ...category, type: 'daily' }}
                                     seasonId={season.id}
+                                    loading={i < 2 ? 'eager' : 'lazy'}
                                 />
                             );
                         })}
