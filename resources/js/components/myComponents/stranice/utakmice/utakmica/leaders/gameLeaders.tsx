@@ -26,36 +26,52 @@ export default function GameLeaders({
                         Poeni
                     </h3>
                     <hr className="my-2 border border-likar2" />
-                    <table className="w-full overflow-hidden rounded-t-xl rounded-b-xl">
-                        <tbody>
-                            {points.map((player, i) => (
-                                <LeadersRow
-                                    type="points"
-                                    key={player.id}
-                                    player={player}
-                                    place={i + 1}
-                                />
-                            ))}
-                        </tbody>
-                    </table>
+                    {points.length > 0 ? (
+                        <table className="w-full overflow-hidden rounded-t-xl rounded-b-xl">
+                            <tbody>
+                                {points.map((player, i) => (
+                                    <LeadersRow
+                                        type="points"
+                                        key={player.id}
+                                        player={player}
+                                        place={i + 1}
+                                    />
+                                ))}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <div className="flex min-h-28 flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-likar3/25 bg-likar2/40 px-4 py-6 text-center">
+                            <p className="font-text text-sm text-slate-400">
+                                Na ovoj utakmici nema zabilježenih poena.
+                            </p>
+                        </div>
+                    )}
                 </div>
                 <div className="p-3 max-[500px]:px-1.5 max-[500px]:py-3">
                     <h3 className="font-heading text-xl font-semibold text-slate-100">
                         Skokovi
                     </h3>
                     <hr className="my-2 border border-likar2" />
-                    <table className="w-full overflow-hidden rounded-t-xl rounded-b-xl">
-                        <tbody>
-                            {rebounds.map((player, i) => (
-                                <LeadersRow
-                                    type="rebounds"
-                                    key={player.id}
-                                    player={player}
-                                    place={i + 1}
-                                />
-                            ))}
-                        </tbody>
-                    </table>
+                    {rebounds.length > 0 ? (
+                        <table className="w-full overflow-hidden rounded-t-xl rounded-b-xl">
+                            <tbody>
+                                {rebounds.map((player, i) => (
+                                    <LeadersRow
+                                        type="rebounds"
+                                        key={player.id}
+                                        player={player}
+                                        place={i + 1}
+                                    />
+                                ))}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <div className="flex min-h-28 flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-likar3/25 bg-likar2/40 px-4 py-6 text-center">
+                            <p className="font-text text-sm text-slate-400">
+                                Na ovoj utakmici nema zabilježenih skokova.
+                            </p>
+                        </div>
+                    )}
                 </div>
                 <div className="p-3 max-[500px]:px-1.5 max-[500px]:py-3">
                     <h3 className="font-heading text-xl font-semibold text-slate-100">
@@ -141,18 +157,26 @@ export default function GameLeaders({
                         Postotak šuta
                     </h3>
                     <hr className="my-2 border border-likar2" />
-                    <table className="w-full overflow-hidden rounded-t-xl rounded-b-xl">
-                        <tbody>
-                            {shootingPercentage.map((player, i) => (
-                                <LeadersRow
-                                    type="shootingPercentage"
-                                    key={player.id}
-                                    player={player}
-                                    place={i + 1}
-                                />
-                            ))}
-                        </tbody>
-                    </table>
+                    {shootingPercentage.length > 0 ? (
+                        <table className="w-full overflow-hidden rounded-t-xl rounded-b-xl">
+                            <tbody>
+                                {shootingPercentage.map((player, i) => (
+                                    <LeadersRow
+                                        type="shootingPercentage"
+                                        key={player.id}
+                                        player={player}
+                                        place={i + 1}
+                                    />
+                                ))}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <div className="flex min-h-28 flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-likar3/25 bg-likar2/40 px-4 py-6 text-center">
+                            <p className="font-text text-sm text-slate-400">
+                                Na ovoj utakmici nema zabilježenih šuteva.
+                            </p>
+                        </div>
+                    )}
                 </div>
                 <div className="p-3 max-[500px]:px-1.5 max-[500px]:py-3">
                     <h3 className="font-heading text-xl font-semibold text-slate-100">
@@ -185,36 +209,54 @@ export default function GameLeaders({
                         Postotak šuta za tri poena
                     </h3>
                     <hr className="my-2 border border-likar2" />
-                    <table className="w-full overflow-hidden rounded-t-xl rounded-b-xl">
-                        <tbody>
-                            {threesPercentage.map((player, i) => (
-                                <LeadersRow
-                                    type="threesPercentage"
-                                    key={player.id}
-                                    player={player}
-                                    place={i + 1}
-                                />
-                            ))}
-                        </tbody>
-                    </table>
+                    {threesPercentage.length > 0 ? (
+                        <table className="w-full overflow-hidden rounded-t-xl rounded-b-xl">
+                            <tbody>
+                                {threesPercentage.map((player, i) => (
+                                    <LeadersRow
+                                        type="threesPercentage"
+                                        key={player.id}
+                                        player={player}
+                                        place={i + 1}
+                                    />
+                                ))}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <div className="flex min-h-28 flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-likar3/25 bg-likar2/40 px-4 py-6 text-center">
+                            <p className="font-text text-sm text-slate-400">
+                                Na ovoj utakmici nema zabilježenih šuteva za
+                                tri.
+                            </p>
+                        </div>
+                    )}
                 </div>
                 <div className="p-3 max-[500px]:px-1.5 max-[500px]:py-3">
                     <h3 className="font-heading text-xl font-semibold text-slate-100">
                         Indeks uspješnosti
                     </h3>
                     <hr className="my-2 border border-likar2" />
-                    <table className="w-full overflow-hidden rounded-t-xl rounded-b-xl">
-                        <tbody>
-                            {efficiency.map((player, i) => (
-                                <LeadersRow
-                                    type="efficiency"
-                                    key={player.id}
-                                    player={player}
-                                    place={i + 1}
-                                />
-                            ))}
-                        </tbody>
-                    </table>
+                    {efficiency.length > 0 ? (
+                        <table className="w-full overflow-hidden rounded-t-xl rounded-b-xl">
+                            <tbody>
+                                {efficiency.map((player, i) => (
+                                    <LeadersRow
+                                        type="efficiency"
+                                        key={player.id}
+                                        player={player}
+                                        place={i + 1}
+                                    />
+                                ))}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <div className="flex min-h-28 flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-likar3/25 bg-likar2/40 px-4 py-6 text-center">
+                            <p className="font-text text-sm text-slate-400">
+                                Na ovoj utakmici nema zabilježenog indeksa
+                                efikasnosti.
+                            </p>
+                        </div>
+                    )}
                 </div>
             </div>
         </section>
