@@ -52,6 +52,7 @@
 
         @viteReactRefresh
         @vite(['resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
+        @include('partials.site-name')
         @inertiaHead
     </head>
     <body class="font-sans antialiased">
