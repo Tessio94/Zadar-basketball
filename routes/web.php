@@ -12,6 +12,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\PlayerGameStatController;
 use App\Http\Controllers\SeasonLeaderboardController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ArticleGameController;
 use App\Http\Controllers\Admin\GameController as AdminGameController;
@@ -24,6 +25,13 @@ use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
 /**
  *  Navigation menu pages
  */
+
+// Public XML sitemaps. Child files stay at the root to cover the whole site.
+Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap.index');
+Route::get('sitemap-{section}-{page}.xml', [SitemapController::class, 'show'])
+    ->where('section', '[a-z]+')
+    ->where('page', '[1-9][0-9]{0,5}')
+    ->name('sitemap.show');
 
 // naslovnica
 Route::get('/', fn() => Inertia::render('welcome'))->name('home');
