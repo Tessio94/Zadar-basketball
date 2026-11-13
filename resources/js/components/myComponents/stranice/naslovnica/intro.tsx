@@ -20,7 +20,7 @@ export default function Intro() {
                             Amaterska liga
                         </h4>
                         <p className="text-center font-text text-xl text-slate-100">
-                            Natjecanje za rekretivne košarkaše
+                            Natjecanje za rekreativne košarkaše
                         </p>
                     </div>
                     <div className="flex w-full flex-col items-center justify-center gap-8 rounded-4xl bg-likar4/70 px-6 py-8 shadow-2xl shadow-likar1 transition-all duration-300 transform-3d hover:-translate-y-3 hover:rotate-x-12 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.6)] sm:w-fit">
