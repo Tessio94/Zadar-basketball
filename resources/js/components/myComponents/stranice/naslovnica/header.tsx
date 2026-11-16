@@ -79,7 +79,7 @@ export default function Header() {
                                 )}
                             >
                                 <Link
-                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 md:px-2.5 xl:text-lg 2xl:px-5 2xl:text-[20px]"
+                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 md:px-2 xl:px-2.5 xl:text-lg 2xl:px-5 2xl:text-[20px]"
                                     href="/"
                                 >
                                     Naslovnica
@@ -94,10 +94,25 @@ export default function Header() {
                                 )}
                             >
                                 <Link
-                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 md:px-2.5 xl:text-lg 2xl:px-5 2xl:text-[20px]"
+                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 md:px-2 xl:px-2.5 xl:text-lg 2xl:px-5 2xl:text-[20px]"
                                     href="/novosti"
                                 >
                                     Novosti
+                                </Link>
+                            </li>
+                            <li
+                                className={cn(
+                                    'relative',
+                                    path === '/utakmice'
+                                        ? 'rounded-full bg-likar1/70'
+                                        : "before:absolute before:top-[calc(100%-6px)] before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-[calc(100%-6px)] after:right-full after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 md:before:right-2.5 md:after:left-2.5 2xl:before:right-5 2xl:after:left-5",
+                                )}
+                            >
+                                <Link
+                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 md:px-2 xl:px-2.5 xl:text-lg 2xl:px-5 2xl:text-[20px]"
+                                    href="/utakmice"
+                                >
+                                    Utakmice
                                 </Link>
                             </li>
 
@@ -110,7 +125,7 @@ export default function Header() {
                                 )}
                             >
                                 <Link
-                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 md:px-2.5 xl:text-lg 2xl:px-5 2xl:text-[20px]"
+                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 md:px-2 xl:px-2.5 xl:text-lg 2xl:px-5 2xl:text-[20px]"
                                     href="/tablica"
                                 >
                                     Tablica
@@ -126,7 +141,7 @@ export default function Header() {
                                 )}
                             >
                                 <Link
-                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 md:px-2.5 xl:text-lg 2xl:px-5 2xl:text-[20px]"
+                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 md:px-2 xl:px-2.5 xl:text-lg 2xl:px-5 2xl:text-[20px]"
                                     href="/statistika"
                                 >
                                     Statistika
@@ -141,7 +156,7 @@ export default function Header() {
                                 )}
                             >
                                 <Link
-                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 md:px-2.5 xl:text-lg 2xl:px-5 2xl:text-[20px]"
+                                    className="inline-block cursor-pointer py-1.5 font-heading text-base font-semibold text-slate-100 md:px-2 xl:px-2.5 xl:text-lg 2xl:px-5 2xl:text-[20px]"
                                     href="/ekipe"
                                 >
                                     Ekipe
@@ -155,14 +170,14 @@ export default function Header() {
                             <ul className="flex flex-row items-center py-1 max-lg:justify-around xl:py-1.5">
                                 <li
                                     className={cn(
-                                        'border-r border-r-slate-100 md:px-2.5 2xl:px-3',
+                                        'border-r border-r-slate-100 md:px-5 xl:px-2.5 2xl:px-3',
                                         path === '/o-nama'
                                             ? 'text-likar3'
                                             : 'text-slate-100',
                                     )}
                                 >
                                     <Link
-                                        className="relative inline-block cursor-pointer rounded-lg font-heading text-sm font-semibold before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 xl:text-lg"
+                                        className="relative inline-block cursor-pointer rounded-lg font-heading text-base font-semibold before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 xl:text-lg"
                                         href="/o-nama"
                                     >
                                         O nama
@@ -170,14 +185,14 @@ export default function Header() {
                                 </li>
                                 <li
                                     className={cn(
-                                        'border-r border-r-slate-100 md:px-2.5 2xl:px-3',
+                                        'border-r border-r-slate-100 md:px-5 xl:px-2.5 2xl:px-3',
                                         path === '/arhiva'
                                             ? 'text-likar3'
                                             : 'text-slate-100',
                                     )}
                                 >
                                     <Link
-                                        className="relative inline-block cursor-pointer rounded-lg font-heading text-sm font-semibold before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 xl:text-lg"
+                                        className="relative inline-block cursor-pointer rounded-lg font-heading text-base font-semibold before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 xl:text-lg"
                                         href="/arhiva"
                                     >
                                         Arhiva
@@ -186,14 +201,14 @@ export default function Header() {
 
                                 <li
                                     className={cn(
-                                        'md:px-2.5 2xl:px-3',
+                                        'md:px-5 xl:px-2.5 2xl:px-3',
                                         path === '/galerija'
                                             ? 'text-likar3'
                                             : 'text-slate-100',
                                     )}
                                 >
                                     <Link
-                                        className="relative inline-block cursor-pointer rounded-lg font-heading text-sm font-semibold before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 xl:text-lg"
+                                        className="relative inline-block cursor-pointer rounded-lg font-heading text-base font-semibold before:absolute before:top-full before:right-0 before:left-full before:h-0.5 before:bg-slate-100 before:transition-all before:duration-300 after:absolute after:top-full after:right-full after:left-0 after:h-0.5 after:bg-slate-100 after:transition-all after:duration-300 after:content-[''] hover:before:left-1/2 hover:after:right-1/2 xl:text-lg"
                                         href="/galerija"
                                     >
                                         Galerija
