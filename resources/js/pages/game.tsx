@@ -7,6 +7,7 @@ import GameLeaders from '@/components/myComponents/stranice/utakmice/utakmica/le
 import Seo from '@/components/seo';
 import GameLayout from '@/layouts/game/game-layout';
 import type { GameDetailsProps } from '@/types/game-boxscore';
+import BoxScoreLegend from '@/components/myComponents/stranice/utakmice/utakmica/boxScore/boxScoreLegend';
 
 const Game = ({ game, leaders, teamTotals }: GameDetailsProps) => {
     const [active, setActive] = useRemember<string>('tab1');
@@ -70,6 +71,7 @@ const Game = ({ game, leaders, teamTotals }: GameDetailsProps) => {
                         players={awayPlayers}
                         totals={teamTotals.away}
                     />
+                    <BoxScoreLegend />
                 </>
             )}
             {active === 'tab2' && <GameLeaders leaders={leaders} />}

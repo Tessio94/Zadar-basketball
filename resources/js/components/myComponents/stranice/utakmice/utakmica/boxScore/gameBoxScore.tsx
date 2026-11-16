@@ -37,7 +37,7 @@ export default function GameBoxScore({
                     </Link>
                 </div>
                 <div className="scrollbar overflow-x-auto scrollbar-thumb-likar3 scrollbar-track-slate-900">
-                    <table className="w-full bg-likar2">
+                    <table className="w-full border-separate border-spacing-0 bg-likar2">
                         <BoxScoreHeader />
 
                         <tbody>
