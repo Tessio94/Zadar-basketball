@@ -1,5 +1,6 @@
 import { useRemember } from '@inertiajs/react';
 import TabComponent from '@/components/myComponents/common/tab/tabComponent';
+import BoxScoreLegend from '@/components/myComponents/stranice/utakmice/utakmica/boxScore/boxScoreLegend';
 import GameBoxScore from '@/components/myComponents/stranice/utakmice/utakmica/boxScore/gameBoxScore';
 import GameScore from '@/components/myComponents/stranice/utakmice/utakmica/headerSection/gameScore';
 import GameTitle from '@/components/myComponents/stranice/utakmice/utakmica/headerSection/gameTitle';
@@ -7,7 +8,6 @@ import GameLeaders from '@/components/myComponents/stranice/utakmice/utakmica/le
 import Seo from '@/components/seo';
 import GameLayout from '@/layouts/game/game-layout';
 import type { GameDetailsProps } from '@/types/game-boxscore';
-import BoxScoreLegend from '@/components/myComponents/stranice/utakmice/utakmica/boxScore/boxScoreLegend';
 
 const Game = ({ game, leaders, teamTotals }: GameDetailsProps) => {
     const [active, setActive] = useRemember<string>('tab1');
