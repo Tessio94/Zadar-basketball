@@ -41,7 +41,7 @@ export default function StatisticsAverageRow(props: StatisticsAverageRowProps) {
                             width={40}
                             loading={loading}
                             decoding="async"
-                            className="inline-block rounded-full border border-slate-100/80"
+                            className="inline-block h-10 w-10 shrink-0 rounded-full border border-slate-100/80 max-[560px]:h-6 max-[560px]:w-6"
                         />
                     </Link>
                 ) : (
