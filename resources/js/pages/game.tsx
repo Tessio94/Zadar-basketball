@@ -29,6 +29,8 @@ const Game = ({ game, leaders, teamTotals }: GameDetailsProps) => {
     const awayPlayers = player_stats.filter(
         (player) => player.team_id === away_team_id,
     );
+    const awaitingBoxscore =
+        game.status === 'finished' && player_stats.length === 0;
 
     return (
         <>
@@ -50,16 +52,30 @@ const Game = ({ game, leaders, teamTotals }: GameDetailsProps) => {
                 periods={game.period_scores}
                 status={game.status}
             />
-            <TabComponent
-                active={active}
-                setActive={setActive}
-                tabs={[
-                    { id: 'tab1', title: 'Statistika utakmice' },
-                    { id: 'tab2', title: 'Najbolji pojedinci' },
-                ]}
-                className="mt-15 mb-10"
-            />
-            {active === 'tab1' && (
+            {awaitingBoxscore ? (
+                <section className="mx-auto my-10 px-[5%]">
+                    <div className="rounded-2xl border border-likar3/30 bg-likar2 p-6 text-center sm:p-8">
+                        <h2 className="font-heading text-2xl font-semibold text-slate-100">
+                            Rezultat je objavljen
+                        </h2>
+                        <p className="mt-2 font-text text-sm leading-relaxed text-slate-300 sm:text-base">
+                            Statistika igrača i najbolji pojedinci bit će
+                            dostupni nakon unosa zapisnika.
+                        </p>
+                    </div>
+                </section>
+            ) : (
+                <TabComponent
+                    active={active}
+                    setActive={setActive}
+                    tabs={[
+                        { id: 'tab1', title: 'Statistika utakmice' },
+                        { id: 'tab2', title: 'Najbolji pojedinci' },
+                    ]}
+                    className="mt-15 mb-10"
+                />
+            )}
+            {!awaitingBoxscore && active === 'tab1' && (
                 <>
                     <GameBoxScore
                         team={home_team}
@@ -74,7 +90,9 @@ const Game = ({ game, leaders, teamTotals }: GameDetailsProps) => {
                     <BoxScoreLegend />
                 </>
             )}
-            {active === 'tab2' && <GameLeaders leaders={leaders} />}
+            {!awaitingBoxscore && active === 'tab2' && (
+                <GameLeaders leaders={leaders} />
+            )}
         </>
     );
 };

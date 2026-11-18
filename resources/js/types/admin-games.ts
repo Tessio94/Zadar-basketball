@@ -46,6 +46,7 @@ export type GameScheduleForm = {
 };
 
 export type NamedGameData = GameData & {
+    has_boxscore: boolean;
     home_name: string;
     away_name: string;
     season_name: string;

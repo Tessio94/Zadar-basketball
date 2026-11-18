@@ -1,3 +1,4 @@
+import type { Page } from '@inertiajs/core';
 import { Head, Link, router, useForm } from '@inertiajs/react';
 import type { ReactNode } from 'react';
 import { useEffect } from 'react';
@@ -14,10 +15,10 @@ import {
     teamTotal,
     statColumns,
 } from '@/components/myComponents/stranice/admin/utakmice/types';
-import type { PeriodScoreDraft } from '@/types/admin-games';
 import type {
     EditorLine,
     NamedGameData,
+    PeriodScoreDraft,
     PlayerLine,
     RosterPlayer,
 } from '@/types/admin-games';
@@ -30,14 +31,10 @@ type Props = {
     periods: PeriodScoreDraft[];
 };
 export default function Boxscore(props: Props) {
-    return (
-        <BoxscoreEditor
-            key={`${props.game.id}:${props.game.revision}`}
-            {...props}
-        />
-    );
+    return <BoxscoreEditor key={props.game.id} {...props} />;
 }
-function BoxscoreEditor({ game, roster, players, hasDraft, periods }: Props) {
+
+function editorRoster({ roster, players }: Pick<Props, 'roster' | 'players'>) {
     // Also show removed draft participants so the admin can explicitly exclude stale entries.
     const displayedRoster = [...roster];
     for (const row of players)
@@ -54,11 +51,16 @@ function BoxscoreEditor({ game, roster, players, hasDraft, periods }: Props) {
                 jersey_number: null,
                 on_roster: false,
             });
-    const form = useForm({
-        revision: game.revision,
-        periods,
-        players: displayedRoster.map((player): EditorLine => {
-            const saved = players.find(
+
+    return displayedRoster;
+}
+
+function editorData(props: Props) {
+    return {
+        revision: props.game.revision,
+        periods: props.periods,
+        players: editorRoster(props).map((player): EditorLine => {
+            const saved = props.players.find(
                 (p) =>
                     p.player_id === player.player_id &&
                     p.team_id === player.team_id,
@@ -72,7 +74,24 @@ function BoxscoreEditor({ game, roster, players, hasDraft, periods }: Props) {
                 played: !!saved,
             };
         }),
-    });
+    };
+}
+
+function BoxscoreEditor(props: Props) {
+    const { game, hasDraft } = props;
+    const displayedRoster = editorRoster(props);
+    const form = useForm(editorData(props));
+
+    function refreshSavedData(page: Page, keepPlayerEdits = false) {
+        // Every successful mutation redirects back to this same typed editor page.
+        const saved = editorData((page as Page<Props>).props);
+        form.setDefaults(saved);
+        // Publishing only quarters must not discard unsaved player input or mark
+        // it saved. The default player data still comes from the private draft.
+        form.setData(
+            keepPlayerEdits ? { ...saved, players: form.data.players } : saved,
+        );
+    }
     useEffect(() => {
         const beforeUnload = (event: BeforeUnloadEvent) => {
             if (form.isDirty && !form.processing) {
@@ -108,30 +127,50 @@ function BoxscoreEditor({ game, roster, players, hasDraft, periods }: Props) {
             form.data.players.filter((p) => p.team_id === game.away_team_id),
         ),
     ).points;
-    function save(intent: 'draft' | 'publish') {
+    const quarterHomeScore = form.data.periods.reduce(
+        (sum, row) => sum + (row.home_score ?? 0),
+        0,
+    );
+    const quarterAwayScore = form.data.periods.reduce(
+        (sum, row) => sum + (row.away_score ?? 0),
+        0,
+    );
+    function save(intent: 'draft' | 'publish' | 'score') {
         if (
-            intent === 'publish' &&
+            intent !== 'draft' &&
             !confirm(
-                `Objaviti konačan rezultat ${homeScore} : ${awayScore}? Ovo ažurira javni zapisnik i poredak.`,
+                intent === 'score'
+                    ? `Objaviti konačan rezultat ${quarterHomeScore} : ${quarterAwayScore} iz četvrtina? Rezultat i poredak bit će ažurirani. Statistika igrača neće se objaviti.`
+                    : `Objaviti konačan rezultat ${homeScore} : ${awayScore}? Ovo ažurira javni zapisnik i poredak.`,
             )
         )
             return;
-        form.transform((data) => ({
-            revision: data.revision,
-            intent,
-            periods: data.periods,
-            players: data.players
-                .filter((p) => p.played)
-                .map((row) => ({
-                    player_id: row.player_id,
-                    team_id: row.team_id,
-                    is_starter: row.is_starter,
-                    ...Object.fromEntries(
-                        statColumns.map(([key]) => [key, row[key]]),
-                    ),
-                })),
-        }));
-        form.put(`${base}/${game.id}/boxscore`, { preserveScroll: true });
+        form.transform((data) => {
+            const result = {
+                revision: data.revision,
+                intent,
+                periods: data.periods,
+            };
+            if (intent === 'score') return result;
+
+            return {
+                ...result,
+                players: data.players
+                    .filter((p) => p.played)
+                    .map((row) => ({
+                        player_id: row.player_id,
+                        team_id: row.team_id,
+                        is_starter: row.is_starter,
+                        ...Object.fromEntries(
+                            statColumns.map(([key]) => [key, row[key]]),
+                        ),
+                    })),
+            };
+        });
+        form.put(`${base}/${game.id}/boxscore`, {
+            preserveScroll: true,
+            onSuccess: (page) => refreshSavedData(page, intent === 'score'),
+        });
     }
     function update(
         playerId: number,
@@ -169,10 +208,14 @@ function BoxscoreEditor({ game, roster, players, hasDraft, periods }: Props) {
                     </h2>
                     <div className="text-center">
                         <p className="text-3xl font-bold text-orange-400 tabular-nums sm:text-5xl">
-                            {homeScore} : {awayScore}
+                            {form.data.periods.length > 0
+                                ? `${quarterHomeScore} : ${quarterAwayScore}`
+                                : `${homeScore} : ${awayScore}`}
                         </p>
                         <p className="mt-2 text-xs text-slate-400">
-                            Pregled unosa
+                            {form.data.periods.length > 0
+                                ? 'Zbroj četvrtina'
+                                : 'Zbroj poena igrača'}
                         </p>
                     </div>
                     <h2 className="text-lg font-semibold sm:text-2xl">
@@ -184,14 +227,19 @@ function BoxscoreEditor({ game, roster, players, hasDraft, periods }: Props) {
                         ? `Javno objavljeno: ${game.home_score} : ${game.away_score}`
                         : 'Zakazana utakmica · rezultat još nije objavljen'}
                     {hasDraft ? ' · Postoji spremljen nacrt' : ''}
+                    {game.status === 'finished' && !game.has_boxscore
+                        ? ' · Statistika igrača još nije objavljena'
+                        : ''}
                 </p>
             </div>
             <div className="rounded-xl border border-blue-100 bg-blue-50 p-4 text-sm leading-relaxed text-blue-950">
-                <strong>Označite igrače koji su nastupili.</strong> Zatim
-                unesite statistiku; poeni, skokovi, EFF i ekipni zbrojevi
-                računaju se automatski. MIN su cijele minute, +/− se unosi
-                ručno. Pokušaji uključuju i pogođene šuteve. Neoznačeni igrači
-                ne ulaze u statistiku nastupa.
+                <strong>Rezultat možete objaviti prije statistike.</strong>{' '}
+                Unesite četvrtine i odaberite „Objavi samo rezultat”. Za cijeli
+                zapisnik označite igrače koji su nastupili, a zatim unesite
+                statistiku; poeni, skokovi, EFF i ekipni zbrojevi računaju se
+                automatski. MIN su cijele minute, +/− se unosi ručno. Pokušaji
+                uključuju i pogođene šuteve. Neoznačeni igrači ne ulaze u
+                statistiku nastupa.
             </div>
             <form
                 onSubmit={(e) => {
@@ -211,6 +259,21 @@ function BoxscoreEditor({ game, roster, players, hasDraft, periods }: Props) {
                     errors={form.errors}
                     onChange={(value) => form.setData('periods', value)}
                 />
+                <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-orange-200 bg-orange-50 p-4">
+                    <p className="max-w-2xl text-sm leading-relaxed text-slate-700">
+                        Sve četiri četvrtine i eventualni produžeci dovoljni su
+                        za objavu konačnog rezultata. Unos igrača ostaje u
+                        obrascu; za nastavak kasnije spremite ga kao nacrt.
+                    </p>
+                    <button
+                        type="button"
+                        disabled={form.processing}
+                        className={buttonClass}
+                        onClick={() => save('score')}
+                    >
+                        Objavi samo rezultat
+                    </button>
+                </div>
                 {[
                     {
                         id: game.home_team_id,
@@ -246,7 +309,9 @@ function BoxscoreEditor({ game, roster, players, hasDraft, periods }: Props) {
                                   : hasDraft
                                     ? 'Nacrt spremljen'
                                     : game.status === 'finished'
-                                      ? 'Objavljeni zapisnik'
+                                      ? game.has_boxscore
+                                          ? 'Objavljeni zapisnik'
+                                          : 'Rezultat objavljen · statistika čeka unos'
                                       : 'Spremno za unos'}
                         </p>
                         <p className="mt-1 text-xs text-slate-500">
@@ -267,11 +332,15 @@ function BoxscoreEditor({ game, roster, players, hasDraft, periods }: Props) {
                                     )
                                         return;
                                     form.transform(() => ({
-                                        revision: game.revision,
+                                        revision: form.data.revision,
                                     }));
                                     form.delete(
                                         `${base}/${game.id}/boxscore/draft`,
-                                        { preserveScroll: true },
+                                        {
+                                            preserveScroll: true,
+                                            onSuccess: (page) =>
+                                                refreshSavedData(page),
+                                        },
                                     );
                                 }}
                             >
@@ -295,7 +364,9 @@ function BoxscoreEditor({ game, roster, players, hasDraft, periods }: Props) {
                             }}
                         >
                             {game.status === 'finished'
-                                ? 'Objavi ispravak'
+                                ? game.has_boxscore
+                                    ? 'Objavi ispravak'
+                                    : 'Objavi statistiku'
                                 : 'Završi i objavi'}
                         </button>
                     </div>

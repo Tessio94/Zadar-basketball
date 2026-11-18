@@ -28,6 +28,7 @@ class GameController extends Controller
             'status' => ['nullable', Rule::in(['scheduled', 'finished'])],
         ]);
         $games = Game::with(['season:id,name', 'homeTeam:id,name', 'awayTeam:id,name'])
+            ->withExists('playerStats')
             ->when($filters['season_id'] ?? null, fn($q, $id) => $q->where('season_id', $id))
             ->when($filters['status'] ?? null, fn($q, $status) => $q->where('status', $status))
             ->orderByDesc('game_date')->orderByDesc('id')->paginate(15)->withQueryString();
@@ -36,6 +37,7 @@ class GameController extends Controller
             ...$this->gameData($game), 'season_name' => $game->season->name,
             'home_name' => $game->homeTeam->name, 'away_name' => $game->awayTeam->name,
             'has_draft' => $draftIds->contains($game->id),
+            'has_boxscore' => (bool) $game->player_stats_exists,
         ]);
 
         return Inertia::render('admin/utakmice/games', [
@@ -111,7 +113,8 @@ class GameController extends Controller
 
         return Inertia::render('admin/utakmice/boxscore', [
             'game' => [...$this->gameData($game), 'home_name' => $game->homeTeam->name,
-                'away_name' => $game->awayTeam->name, 'season_name' => $game->season->name],
+                'away_name' => $game->awayTeam->name, 'season_name' => $game->season->name,
+                'has_boxscore' => $game->playerStats()->exists()],
             'roster' => $service->roster($game), 'players' => $players, 'hasDraft' => $draft !== null,
             'periods' => $service->editablePeriods($game),
         ]);
@@ -121,27 +124,37 @@ class GameController extends Controller
     {
         $input = $request->validate([
             'revision' => ['required', 'integer', 'min:0'],
-            'intent' => ['required', Rule::in(['draft', 'publish'])],
-            'players' => ['present', 'array', 'max:100'],
-            'periods' => ['sometimes', 'array', 'list', 'max:20'],
+            'intent' => ['required', Rule::in(['draft', 'publish', 'score'])],
+            // Result-only requests never validate or write player statistics.
+            'players' => [Rule::excludeIf($request->input('intent') === 'score'), 'present', 'array', 'max:100'],
+            'periods' => ['required_if:intent,score', 'array', 'list', 'max:20'],
         ]);
         DB::transaction(function() use ($request, $game, $input, $service): void {
             $game = Game::whereKey($game->id)->lockForUpdate()->firstOrFail();
             $this->checkRevision($game, $request);
             $publish = $input['intent'] === 'publish';
-            if ($publish && CarbonImmutable::parse($game->game_date, config('app.timezone'))->isFuture()) {
-                throw ValidationException::withMessages(['players' => 'Buduća utakmica ne može biti završena. Provjerite termin.']);
+            if ($input['intent'] !== 'draft' && CarbonImmutable::parse($game->game_date, config('app.timezone'))->isFuture()) {
+                throw ValidationException::withMessages([
+                    $input['intent'] === 'score' ? 'periods' : 'players' => 'Buduća utakmica ne može biti završena. Provjerite termin.',
+                ]);
             }
-            $rows = $service->validatePlayers($game, $input['players'], $publish);
-            // Older clients must also validate the existing breakdown when correcting totals.
-            $periods = $input['periods'] ?? $service->editablePeriods($game);
-            $service->save($game, $rows, $publish, $periods);
+            if ($input['intent'] === 'score') {
+                $service->publishScore($game, $input['periods']);
+            } else {
+                $rows = $service->validatePlayers($game, $input['players'], $publish);
+                // Older clients must also validate the existing breakdown when correcting totals.
+                $periods = $input['periods'] ?? $service->editablePeriods($game);
+                $service->save($game, $rows, $publish, $periods);
+            }
             $game->admin_revision++;
             $game->save();
         });
 
-        return redirect(self::BASE . '/' . $game->id . '/boxscore')->with('success',
-            $input['intent'] === 'publish' ? 'Rezultat i statistika su objavljeni.' : 'Nacrt je spremljen. Javni rezultati nisu promijenjeni.');
+        return redirect(self::BASE . '/' . $game->id . '/boxscore')->with('success', match ($input['intent']) {
+            'score' => 'Rezultat po četvrtinama je objavljen. Statistiku igrača možete objaviti zasebno.',
+            'publish' => 'Rezultat i statistika su objavljeni.',
+            default => 'Nacrt je spremljen. Javni rezultati nisu promijenjeni.',
+        });
     }
 
     public function discardDraft(Request $request, Game $game)

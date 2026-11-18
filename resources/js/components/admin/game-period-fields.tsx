@@ -62,8 +62,9 @@ export default function GamePeriodFields({
             </legend>
             <p className="mb-4 text-sm leading-relaxed text-slate-600">
                 Unesite poene postignute u svakoj četvrtini, a ne ukupan
-                rezultat do tog trenutka. Nacrt može biti nepotpun. Pri objavi
-                zbroj mora odgovarati poenima igrača:{' '}
+                rezultat do tog trenutka. Nacrt može biti nepotpun. „Objavi samo
+                rezultat” objavljuje zbroj četvrtina bez unosa igrača. Kod
+                objave cijelog zapisnika zbroj mora odgovarati poenima igrača:{' '}
                 <strong>
                     {homeScore} : {awayScore}
                 </strong>
@@ -72,8 +73,9 @@ export default function GamePeriodFields({
             {periods.length === 0 ? (
                 <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-4">
                     <p className="mb-3 text-sm text-slate-600">
-                        Raspodjela nije unesena. Za stare utakmice može ostati
-                        nepoznata.
+                        Raspodjela nije unesena. Za objavu samo rezultata
+                        unesite sve četiri četvrtine. Kod cijelog zapisnika
+                        raspodjela za stare utakmice može ostati nepoznata.
                     </p>
                     <button
                         type="button"
@@ -198,7 +200,7 @@ export default function GamePeriodFields({
                             ? 'Unesite oba rezultata za svaku četvrtinu prije objave.'
                             : matches
                               ? 'Zbroj četvrtina odgovara poenima igrača.'
-                              : 'Zbroj četvrtina još ne odgovara poenima igrača.'}
+                              : 'Rezultat je spreman za zasebnu objavu ako utakmica ima pobjednika. Za objavu cijelog zapisnika još treba uskladiti poene igrača.'}
                     </p>
                     <div className="mt-4 flex flex-wrap gap-3 text-sm">
                         <button

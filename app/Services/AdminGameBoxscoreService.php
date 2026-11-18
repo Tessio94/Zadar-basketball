@@ -123,6 +123,46 @@ class AdminGameBoxscoreService
     }
 
     // Caller holds the game row lock, checks revision and wraps this in a transaction.
+    public function publishScore(Game $game, array $periods): void
+    {
+        // Normalize input before summing, then apply the existing publication rules
+        // (complete quarters, consecutive overtimes and a non-tied final score).
+        $periods = $this->periodService->validate($game, $periods, false);
+        if ($periods === []) {
+            throw ValidationException::withMessages(['periods' => 'Za objavu samo rezultata unesite sve četiri četvrtine.']);
+        }
+        $result = clone $game;
+        $result->home_score = array_sum(array_column($periods, 'home_score'));
+        $result->away_score = array_sum(array_column($periods, 'away_score'));
+        $periods = $this->periodService->validate($result, $periods, true);
+
+        // Quarter-only corrections must not contradict an already public boxscore.
+        // Read stored points; never recalculate or update existing player rows here.
+        if ($game->playerStats()->exists()) {
+            $home = (int) $game->playerStats()->where('team_id', $game->home_team_id)->sum('points');
+            $away = (int) $game->playerStats()->where('team_id', $game->away_team_id)->sum('points');
+            if ($result->home_score !== $home || $result->away_score !== $away) {
+                throw ValidationException::withMessages([
+                    'periods' => "Zbroj četvrtina mora odgovarati objavljenim poenima igrača ({$home} : {$away}). Za promjenu konačnog rezultata ispravite i objavite cijeli zapisnik.",
+                ]);
+            }
+        }
+
+        $game->home_score = $result->home_score;
+        $game->away_score = $result->away_score;
+        $game->status = 'finished';
+        $game->periodScores()->delete();
+        $game->periodScores()->createMany($periods);
+        $game->unsetRelation('periodScores');
+
+        // Keep saved player drafts private and make their quarters match the result
+        // just published, so reopening the editor cannot restore older quarters.
+        DB::table('game_boxscore_drafts')->where('game_id', $game->id)->update([
+            'periods' => json_encode($periods, JSON_THROW_ON_ERROR), 'updated_at' => now(),
+        ]);
+    }
+
+    // Caller holds the game row lock, checks revision and wraps this in a transaction.
     public function save(Game $game, array $rows, bool $publish, array $periods): void
     {
         $result = clone $game;

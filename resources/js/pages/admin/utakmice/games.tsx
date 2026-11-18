@@ -126,6 +126,12 @@ export default function Games({ games, seasons, filters }: Props) {
                                             ? 'Završena'
                                             : 'Zakazana'}
                                     </span>
+                                    {game.status === 'finished' &&
+                                        !game.has_boxscore && (
+                                            <p className="mt-2 text-xs text-slate-500">
+                                                Statistika čeka unos
+                                            </p>
+                                        )}
                                     {game.has_draft && (
                                         <p className="mt-2 text-xs text-amber-700">
                                             Spremljen nacrt

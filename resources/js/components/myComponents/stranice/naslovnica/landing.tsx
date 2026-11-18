@@ -10,7 +10,7 @@ export default function Landing() {
 
             <picture>
                 <source
-                    media="(width < 640px)"
+                    media="(width < 550px)"
                     srcSet="/images/design/bg-shadow-mob.png"
                     type="image/png"
                 />
