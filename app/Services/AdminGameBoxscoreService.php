@@ -122,6 +122,35 @@ class AdminGameBoxscoreService
         return $rows;
     }
 
+    // All publish paths run under the controller's row lock and revision check.
+    public function publishTotal(Game $game, int $home, int $away): void
+    {
+        if ($home === $away) {
+            throw ValidationException::withMessages(['away_score' => 'Konačni rezultat košarkaške utakmice ne može biti neriješen.']);
+        }
+        if ($game->periodScores()->exists() || $game->playerStats()->exists()) {
+            throw ValidationException::withMessages(['home_score' => 'Četvrtine ili statistika igrača već su objavljeni. Rezultat ispravite u odgovarajućem dijelu zapisnika.']);
+        }
+
+        // The controller saves this row. No period, player or draft writes here.
+        $game->fill(['home_score' => $home, 'away_score' => $away, 'status' => 'finished']);
+    }
+
+    private function checkAnnouncedTotal(Game $game, int $home, int $away, string $field): void
+    {
+        if ($game->status !== 'finished' || ($home === (int) $game->home_score && $away === (int) $game->away_score)) {
+            return;
+        }
+        // Adding details must reconcile to the official total. Correcting an
+        // existing set of quarters / boxscore still uses its original workflow.
+        $isCorrection = $field === 'periods' ? $game->periodScores()->exists() : $game->playerStats()->exists();
+        if (! $isCorrection) {
+            throw ValidationException::withMessages([
+                $field => "Zbroj ({$home} : {$away}) ne odgovara objavljenom rezultatu ({$game->home_score} : {$game->away_score}). Provjerite unos. Ako je objavljeni rezultat pogrešan, najprije ga ispravite.",
+            ]);
+        }
+    }
+
     // Caller holds the game row lock, checks revision and wraps this in a transaction.
     public function publishScore(Game $game, array $periods): void
     {
@@ -129,12 +158,13 @@ class AdminGameBoxscoreService
         // (complete quarters, consecutive overtimes and a non-tied final score).
         $periods = $this->periodService->validate($game, $periods, false);
         if ($periods === []) {
-            throw ValidationException::withMessages(['periods' => 'Za objavu samo rezultata unesite sve četiri četvrtine.']);
+            throw ValidationException::withMessages(['periods' => 'Za objavu četvrtina unesite sve četiri. Ako znate samo konačni rezultat, objavite ga zasebno.']);
         }
         $result = clone $game;
         $result->home_score = array_sum(array_column($periods, 'home_score'));
         $result->away_score = array_sum(array_column($periods, 'away_score'));
         $periods = $this->periodService->validate($result, $periods, true);
+        $this->checkAnnouncedTotal($game, $result->home_score, $result->away_score, 'periods');
 
         // Quarter-only corrections must not contradict an already public boxscore.
         // Read stored points; never recalculate or update existing player rows here.
@@ -178,13 +208,14 @@ class AdminGameBoxscoreService
 
             return;
         }
+        $this->checkAnnouncedTotal($game, $result->home_score, $result->away_score, 'players');
         $ids = array_column($rows, 'player_id');
         $game->playerStats()->whereNotIn('player_id', $ids)->delete();
         foreach ($rows as $row) {
             $game->playerStats()->updateOrCreate(['player_id' => $row['player_id']], $row);
         }
-        $game->home_score = array_sum(array_column(array_filter($rows, fn($r) => $r['team_id'] === (int) $game->home_team_id), 'points'));
-        $game->away_score = array_sum(array_column(array_filter($rows, fn($r) => $r['team_id'] === (int) $game->away_team_id), 'points'));
+        $game->home_score = $result->home_score;
+        $game->away_score = $result->away_score;
         $game->status = 'finished';
         $game->periodScores()->delete();
         $game->periodScores()->createMany($periods);

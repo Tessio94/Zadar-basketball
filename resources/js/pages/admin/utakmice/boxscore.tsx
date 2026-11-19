@@ -2,6 +2,7 @@ import type { Page } from '@inertiajs/core';
 import { Head, Link, router, useForm } from '@inertiajs/react';
 import type { ReactNode } from 'react';
 import { useEffect } from 'react';
+import GameFinalScoreForm from '@/components/admin/game-final-score-form';
 import GamePeriodFields from '@/components/admin/game-period-fields';
 import BoxscoreTeam from '@/components/myComponents/stranice/admin/utakmice/boxscoreTeam';
 import GameAdminShell, {
@@ -28,8 +29,10 @@ type Props = {
     roster: RosterPlayer[];
     players: PlayerLine[];
     hasDraft: boolean;
+    hasPublishedPeriods: boolean;
     periods: PeriodScoreDraft[];
 };
+type SaveIntent = 'total' | 'score' | 'draft' | 'publish';
 export default function Boxscore(props: Props) {
     return <BoxscoreEditor key={props.game.id} {...props} />;
 }
@@ -58,6 +61,10 @@ function editorRoster({ roster, players }: Pick<Props, 'roster' | 'players'>) {
 function editorData(props: Props) {
     return {
         revision: props.game.revision,
+        home_score:
+            props.game.status === 'finished' ? props.game.home_score : null,
+        away_score:
+            props.game.status === 'finished' ? props.game.away_score : null,
         periods: props.periods,
         players: editorRoster(props).map((player): EditorLine => {
             const saved = props.players.find(
@@ -78,19 +85,31 @@ function editorData(props: Props) {
 }
 
 function BoxscoreEditor(props: Props) {
-    const { game, hasDraft } = props;
+    const { game, hasDraft, hasPublishedPeriods } = props;
+    const canEditTotal = !hasPublishedPeriods && !game.has_boxscore;
+    const totalOnlyPublished = canEditTotal && game.status === 'finished';
     const displayedRoster = editorRoster(props);
     const form = useForm(editorData(props));
 
-    function refreshSavedData(page: Page, keepPlayerEdits = false) {
+    function refreshSavedData(page: Page, intent: SaveIntent | 'discard') {
         // Every successful mutation redirects back to this same typed editor page.
         const saved = editorData((page as Page<Props>).props);
         form.setDefaults(saved);
-        // Publishing only quarters must not discard unsaved player input or mark
-        // it saved. The default player data still comes from the private draft.
-        form.setData(
-            keepPlayerEdits ? { ...saved, players: form.data.players } : saved,
-        );
+        // Keep inputs that this button did not send. Defaults stay at the server
+        // values, so genuinely unsaved edits still trigger the leave-page warning.
+        form.setData({
+            ...saved,
+            ...(intent === 'total' ? { periods: form.data.periods } : {}),
+            ...(intent === 'total' || intent === 'score'
+                ? { players: form.data.players }
+                : {}),
+            ...(intent === 'draft'
+                ? {
+                      home_score: form.data.home_score,
+                      away_score: form.data.away_score,
+                  }
+                : {}),
+        });
     }
     useEffect(() => {
         const beforeUnload = (event: BeforeUnloadEvent) => {
@@ -135,17 +154,39 @@ function BoxscoreEditor(props: Props) {
         (sum, row) => sum + (row.away_score ?? 0),
         0,
     );
-    function save(intent: 'draft' | 'publish' | 'score') {
-        if (
-            intent !== 'draft' &&
-            !confirm(
-                intent === 'score'
-                    ? `Objaviti konačan rezultat ${quarterHomeScore} : ${quarterAwayScore} iz četvrtina? Rezultat i poredak bit će ažurirani. Statistika igrača neće se objaviti.`
-                    : `Objaviti konačan rezultat ${homeScore} : ${awayScore}? Ovo ažurira javni zapisnik i poredak.`,
-            )
-        )
-            return;
+    let preview = `${homeScore} : ${awayScore}`;
+    let previewLabel = 'Zbroj poena igrača';
+    if (totalOnlyPublished) {
+        preview = `${game.home_score} : ${game.away_score}`;
+        previewLabel = 'Konačni rezultat';
+    } else if (form.data.periods.length > 0) {
+        preview = `${quarterHomeScore} : ${quarterAwayScore}`;
+        previewLabel = 'Zbroj četvrtina';
+    } else if (
+        canEditTotal &&
+        (form.data.home_score !== null || form.data.away_score !== null)
+    ) {
+        preview = `${form.data.home_score ?? '–'} : ${form.data.away_score ?? '–'}`;
+        previewLabel = 'Unos konačnog rezultata';
+    }
+    function save(intent: SaveIntent) {
+        if (intent !== 'draft') {
+            const question = {
+                total: `Objaviti konačni rezultat ${game.home_name} ${form.data.home_score} : ${form.data.away_score} ${game.away_name}? Četvrtine i statistika neće se objaviti.`,
+                score: `Objaviti rezultat ${quarterHomeScore} : ${quarterAwayScore} po četvrtinama? Statistika igrača neće se objaviti.`,
+                publish: `Objaviti cijeli zapisnik s rezultatom ${homeScore} : ${awayScore}?`,
+            }[intent];
+            if (!window.confirm(question)) return;
+        }
         form.transform((data) => {
+            if (intent === 'total') {
+                return {
+                    revision: data.revision,
+                    intent,
+                    home_score: data.home_score,
+                    away_score: data.away_score,
+                };
+            }
             const result = {
                 revision: data.revision,
                 intent,
@@ -169,7 +210,7 @@ function BoxscoreEditor(props: Props) {
         });
         form.put(`${base}/${game.id}/boxscore`, {
             preserveScroll: true,
-            onSuccess: (page) => refreshSavedData(page, intent === 'score'),
+            onSuccess: (page) => refreshSavedData(page, intent),
         });
     }
     function update(
@@ -208,14 +249,10 @@ function BoxscoreEditor(props: Props) {
                     </h2>
                     <div className="text-center">
                         <p className="text-3xl font-bold text-orange-400 tabular-nums sm:text-5xl">
-                            {form.data.periods.length > 0
-                                ? `${quarterHomeScore} : ${quarterAwayScore}`
-                                : `${homeScore} : ${awayScore}`}
+                            {preview}
                         </p>
                         <p className="mt-2 text-xs text-slate-400">
-                            {form.data.periods.length > 0
-                                ? 'Zbroj četvrtina'
-                                : 'Zbroj poena igrača'}
+                            {previewLabel}
                         </p>
                     </div>
                     <h2 className="text-lg font-semibold sm:text-2xl">
@@ -232,14 +269,34 @@ function BoxscoreEditor(props: Props) {
                         : ''}
                 </p>
             </div>
+            <FormErrors errors={form.errors} />
+            {canEditTotal && (
+                <GameFinalScoreForm
+                    homeName={game.home_name}
+                    awayName={game.away_name}
+                    scores={form.data}
+                    errors={form.errors}
+                    processing={form.processing}
+                    published={totalOnlyPublished}
+                    unchanged={
+                        totalOnlyPublished &&
+                        form.data.home_score === game.home_score &&
+                        form.data.away_score === game.away_score
+                    }
+                    onChange={(field, value) => form.setData(field, value)}
+                    onPublish={() => save('total')}
+                />
+            )}
             <div className="rounded-xl border border-blue-100 bg-blue-50 p-4 text-sm leading-relaxed text-blue-950">
-                <strong>Rezultat možete objaviti prije statistike.</strong>{' '}
-                Unesite četvrtine i odaberite „Objavi samo rezultat”. Za cijeli
-                zapisnik označite igrače koji su nastupili, a zatim unesite
-                statistiku; poeni, skokovi, EFF i ekipni zbrojevi računaju se
-                automatski. MIN su cijele minute, +/− se unosi ručno. Pokušaji
-                uključuju i pogođene šuteve. Neoznačeni igrači ne ulaze u
-                statistiku nastupa.
+                <strong>
+                    Četvrtine možete objaviti prije statistike igrača.
+                </strong>{' '}
+                Unesite ih i odaberite „Objavi četvrtine”. Za cijeli zapisnik
+                označite igrače koji su nastupili, a zatim unesite statistiku;
+                poeni, skokovi, EFF i ekipni zbrojevi računaju se automatski.
+                MIN su cijele minute, +/− se unosi ručno. Pokušaji uključuju i
+                pogođene šuteve. Neoznačeni igrači ne ulaze u statistiku
+                nastupa.
             </div>
             <form
                 onSubmit={(e) => {
@@ -248,7 +305,6 @@ function BoxscoreEditor(props: Props) {
                 }}
                 className="space-y-6"
             >
-                <FormErrors errors={form.errors} />
                 <GamePeriodFields
                     periods={form.data.periods}
                     homeName={game.home_name}
@@ -259,21 +315,24 @@ function BoxscoreEditor(props: Props) {
                     errors={form.errors}
                     onChange={(value) => form.setData('periods', value)}
                 />
-                <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-orange-200 bg-orange-50 p-4">
-                    <p className="max-w-2xl text-sm leading-relaxed text-slate-700">
-                        Sve četiri četvrtine i eventualni produžeci dovoljni su
-                        za objavu konačnog rezultata. Unos igrača ostaje u
-                        obrascu; za nastavak kasnije spremite ga kao nacrt.
-                    </p>
-                    <button
-                        type="button"
-                        disabled={form.processing}
-                        className={buttonClass}
-                        onClick={() => save('score')}
-                    >
-                        Objavi samo rezultat
-                    </button>
-                </div>
+                {form.data.periods.length > 0 && (
+                    <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-orange-200 bg-orange-50 p-4">
+                        <p className="max-w-2xl text-sm leading-relaxed text-slate-700">
+                            Sve četiri četvrtine i eventualni produžeci dovoljni
+                            su za objavu konačnog rezultata. Unos igrača ostaje
+                            u obrascu; za nastavak kasnije spremite ga kao
+                            nacrt.
+                        </p>
+                        <button
+                            type="button"
+                            disabled={form.processing}
+                            className={buttonClass}
+                            onClick={() => save('score')}
+                        >
+                            Objavi četvrtine
+                        </button>
+                    </div>
+                )}
                 {[
                     {
                         id: game.home_team_id,
@@ -315,7 +374,8 @@ function BoxscoreEditor(props: Props) {
                                       : 'Spremno za unos'}
                         </p>
                         <p className="mt-1 text-xs text-slate-500">
-                            Nacrt je privatan. Objava mijenja javne rezultate.
+                            Nacrt sprema samo četvrtine i unos igrača. Ne
+                            mijenja javni rezultat.
                         </p>
                     </div>
                     <div className="flex flex-wrap gap-3">
@@ -339,7 +399,10 @@ function BoxscoreEditor(props: Props) {
                                         {
                                             preserveScroll: true,
                                             onSuccess: (page) =>
-                                                refreshSavedData(page),
+                                                refreshSavedData(
+                                                    page,
+                                                    'discard',
+                                                ),
                                         },
                                     );
                                 }}

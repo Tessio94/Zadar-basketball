@@ -103,6 +103,7 @@ class GameController extends Controller
     public function boxscore(Game $game, AdminGameBoxscoreService $service)
     {
         $game->load(['homeTeam:id,name', 'awayTeam:id,name', 'season:id,name']);
+        $game->loadExists(['playerStats', 'periodScores']);
         $draft = DB::table('game_boxscore_drafts')->where('game_id', $game->id)->first();
         $players = $draft ? json_decode($draft->players, true, 512, JSON_THROW_ON_ERROR)
             : $game->playerStats()->get()->map(fn($row) => [
@@ -114,7 +115,8 @@ class GameController extends Controller
         return Inertia::render('admin/utakmice/boxscore', [
             'game' => [...$this->gameData($game), 'home_name' => $game->homeTeam->name,
                 'away_name' => $game->awayTeam->name, 'season_name' => $game->season->name,
-                'has_boxscore' => $game->playerStats()->exists()],
+                'has_boxscore' => (bool) $game->player_stats_exists],
+            'hasPublishedPeriods' => (bool) $game->period_scores_exists,
             'roster' => $service->roster($game), 'players' => $players, 'hasDraft' => $draft !== null,
             'periods' => $service->editablePeriods($game),
         ]);
@@ -122,25 +124,36 @@ class GameController extends Controller
 
     public function saveBoxscore(Request $request, Game $game, AdminGameBoxscoreService $service)
     {
+        // Twenty periods of at most 999 points each, as in GamePeriodService.
+        $totalRules = ['exclude_unless:intent,total', 'bail', 'required', 'numeric', 'integer', 'between:0,19980'];
         $input = $request->validate([
             'revision' => ['required', 'integer', 'min:0'],
-            'intent' => ['required', Rule::in(['draft', 'publish', 'score'])],
-            // Result-only requests never validate or write player statistics.
-            'players' => [Rule::excludeIf($request->input('intent') === 'score'), 'present', 'array', 'max:100'],
-            'periods' => ['required_if:intent,score', 'array', 'list', 'max:20'],
+            'intent' => ['required', Rule::in(['draft', 'publish', 'score', 'total'])],
+            'home_score' => $totalRules,
+            'away_score' => $totalRules,
+            'players' => ['exclude_if:intent,total,score', 'present', 'array', 'max:100'],
+            'periods' => ['exclude_if:intent,total', 'required_if:intent,score', 'array', 'list', 'max:20'],
+        ], [
+            'home_score.required' => 'Unesite konačan broj poena domaćina.',
+            'away_score.required' => 'Unesite konačan broj poena gosta.',
         ]);
         DB::transaction(function() use ($request, $game, $input, $service): void {
             $game = Game::whereKey($game->id)->lockForUpdate()->firstOrFail();
             $this->checkRevision($game, $request);
-            $publish = $input['intent'] === 'publish';
             if ($input['intent'] !== 'draft' && CarbonImmutable::parse($game->game_date, config('app.timezone'))->isFuture()) {
-                throw ValidationException::withMessages([
-                    $input['intent'] === 'score' ? 'periods' : 'players' => 'Buduća utakmica ne može biti završena. Provjerite termin.',
-                ]);
+                $field = match ($input['intent']) {
+                    'total' => 'home_score',
+                    'score' => 'periods',
+                    default => 'players',
+                };
+                throw ValidationException::withMessages([$field => 'Buduća utakmica ne može biti završena. Provjerite termin.']);
             }
-            if ($input['intent'] === 'score') {
+            if ($input['intent'] === 'total') {
+                $service->publishTotal($game, (int) $input['home_score'], (int) $input['away_score']);
+            } elseif ($input['intent'] === 'score') {
                 $service->publishScore($game, $input['periods']);
             } else {
+                $publish = $input['intent'] === 'publish';
                 $rows = $service->validatePlayers($game, $input['players'], $publish);
                 // Older clients must also validate the existing breakdown when correcting totals.
                 $periods = $input['periods'] ?? $service->editablePeriods($game);
@@ -151,6 +164,7 @@ class GameController extends Controller
         });
 
         return redirect(self::BASE . '/' . $game->id . '/boxscore')->with('success', match ($input['intent']) {
+            'total' => 'Konačni rezultat je objavljen. Četvrtine i statistiku igrača možete unijeti naknadno.',
             'score' => 'Rezultat po četvrtinama je objavljen. Statistiku igrača možete objaviti zasebno.',
             'publish' => 'Rezultat i statistika su objavljeni.',
             default => 'Nacrt je spremljen. Javni rezultati nisu promijenjeni.',
