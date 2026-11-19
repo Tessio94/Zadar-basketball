@@ -1,7 +1,7 @@
 const legend = [
     ['NO', 'mjesto na ljestvici'],
     ['OU', 'odigrane utakmice'],
-    ['BOD', 'bodovi'],
+    ['BOD', '2 boda za pobjedu, 1 bod za poraz'],
     ['ZAB', 'zabijeni poeni'],
     ['PRI', 'primljeni poeni'],
     ['RAZ', 'razlika u poenima'],
