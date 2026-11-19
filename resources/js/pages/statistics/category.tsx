@@ -21,8 +21,8 @@ export default function SeasonLeaderboard({
 }: SeasonLeaderboardPageProps) {
     const percentage = category.type === 'pcg';
     const headers = percentage
-        ? ['Poredak', 'Tim', 'Igrač', 'Ubačaji', 'Pokušaji', 'Prosjek']
-        : ['Poredak', 'Tim', 'Igrač', 'Utakmice', 'Ukupno', 'Prosjek'];
+        ? ['', 'Tim', 'Igrač', 'Ubačaji', 'Pokušaji', 'Prosjek']
+        : ['', 'Tim', 'Igrač', 'Utakmice', 'Ukupno', 'Prosjek'];
     const canonical = `${category.url}${leaders.current_page > 1 ? `&page=${leaders.current_page}` : ''}`;
 
     return (
@@ -77,7 +77,7 @@ export default function SeasonLeaderboard({
                                 tabIndex={0}
                                 className="scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar overflow-x-auto scrollbar-thumb-likar3 scrollbar-track-slate-900 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-likar3"
                             >
-                                <table className="w-full min-w-[700px] font-text text-sm sm:text-base">
+                                <table className="w-full min-w-[550px] font-text text-sm sm:text-base md:min-w-[700px]">
                                     <caption className="sr-only">
                                         {category.title}, sezona {season.name}.
                                         Stranica {leaders.current_page}.
@@ -90,8 +90,8 @@ export default function SeasonLeaderboard({
                                                     scope="col"
                                                     className={
                                                         header === 'Igrač'
-                                                            ? 'min-w-60 px-4 py-3 text-left font-medium'
-                                                            : 'px-4 py-3 text-center font-medium whitespace-nowrap'
+                                                            ? 'px-2 py-3 text-left font-medium max-md:w-px md:min-w-60 md:px-4 md:py-3'
+                                                            : 'px-2 py-3 text-center font-medium whitespace-nowrap md:px-4 md:py-3'
                                                     }
                                                 >
                                                     {header}
@@ -120,12 +120,12 @@ export default function SeasonLeaderboard({
                                                     key={player.id}
                                                     className="border-b border-white/5 text-slate-100 last:border-b-0 odd:bg-likar2 even:bg-likar2/60"
                                                 >
-                                                    <td className="px-4 py-3 text-center tabular-nums">
+                                                    <td className="px-2 py-2 text-center tabular-nums md:px-4 md:py-3">
                                                         {(leaders.from ?? 1) +
                                                             index}
                                                         .
                                                     </td>
-                                                    <td className="px-4 py-3">
+                                                    <td className="px-2 py-2 md:px-4 md:py-3">
                                                         <div className="flex items-center justify-center gap-1.5">
                                                             {player.teams
                                                                 .length ===
@@ -189,7 +189,7 @@ export default function SeasonLeaderboard({
                                                     </td>
                                                     <th
                                                         scope="row"
-                                                        className="px-4 py-3 text-left font-normal"
+                                                        className="px-2 py-2 text-left font-normal md:px-4 md:py-3"
                                                     >
                                                         <div className="flex items-center gap-3">
                                                             <BasketballPlayerIcon
@@ -200,7 +200,7 @@ export default function SeasonLeaderboard({
                                                                         ?.logo_color ??
                                                                     '#3f3633'
                                                                 }
-                                                                className="size-10 shrink-0 rounded-full border border-slate-100/30 bg-likar4 p-0.5"
+                                                                className="hidden size-10 shrink-0 rounded-full border border-slate-100/30 bg-likar4 p-0.5 md:inline"
                                                             />
                                                             {player.teams
                                                                 .length > 0 ? (
@@ -224,17 +224,17 @@ export default function SeasonLeaderboard({
                                                             )}
                                                         </div>
                                                     </th>
-                                                    <td className="px-4 py-3 text-center tabular-nums">
+                                                    <td className="px-2 py-2 text-center tabular-nums md:px-4 md:py-3">
                                                         {percentage
                                                             ? entry.total
                                                             : entry.games}
                                                     </td>
-                                                    <td className="px-4 py-3 text-center tabular-nums">
+                                                    <td className="px-2 py-2 text-center tabular-nums md:px-4 md:py-3">
                                                         {percentage
                                                             ? entry.attempted
                                                             : entry.total}
                                                     </td>
-                                                    <td className="px-4 py-3 text-center font-semibold whitespace-nowrap text-orange-200 tabular-nums">
+                                                    <td className="px-2 py-2 text-center font-semibold whitespace-nowrap text-orange-200 tabular-nums md:px-4 md:py-3">
                                                         {entry.value === null
                                                             ? '—'
                                                             : `${numberFormatter.format(entry.value)}${percentage ? '%' : ''}`}
