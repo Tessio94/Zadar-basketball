@@ -9,6 +9,7 @@ export type TableStandings = {
     losses: number;
     name: string;
     played: number;
+    points: number;
     scored: number;
     wins: number;
     form: ('W' | 'L')[];

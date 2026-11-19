@@ -73,6 +73,7 @@ class StandingsService
                 'played' => $played,
                 'wins' => $wins,
                 'losses' => $losses,
+                'points' => 2 * $wins + $losses,
                 'scored' => $scored,
                 'allowed' => $allowed,
                 'difference' => $scored - $allowed,
@@ -80,6 +81,7 @@ class StandingsService
             ];
         })
             ->sortBy([
+                ['points', 'desc'],
                 ['wins', 'desc'],
                 ['difference', 'desc'],
                 ['id', 'asc'],

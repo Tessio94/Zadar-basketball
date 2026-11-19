@@ -18,6 +18,7 @@ export default function StandingRow({
         played,
         wins,
         losses,
+        points,
         scored,
         allowed,
         difference,
@@ -44,9 +45,7 @@ export default function StandingRow({
                 </Link>
             </td>
             <td className="border-r border-likar4 p-2 text-center">{played}</td>
-            <td className="border-r border-likar4 p-2 text-center">
-                {+wins * 2 + +losses}
-            </td>
+            <td className="border-r border-likar4 p-2 text-center">{points}</td>
             <td className="border-r border-likar4 p-2 text-center">{wins}</td>
             <td className="border-r border-likar4 p-2 text-center">{losses}</td>
             <td className="border-r border-likar4 p-2 text-center">{scored}</td>
