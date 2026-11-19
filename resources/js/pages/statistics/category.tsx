@@ -77,7 +77,7 @@ export default function SeasonLeaderboard({
                                 tabIndex={0}
                                 className="scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar overflow-x-auto scrollbar-thumb-likar3 scrollbar-track-slate-900 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-likar3"
                             >
-                                <table className="w-full min-w-[550px] font-text text-sm sm:text-base md:min-w-[700px]">
+                                <table className="w-full min-w-[550px] font-text text-sm max-[500px]:min-w-[350px] sm:text-base md:min-w-[700px]">
                                     <caption className="sr-only">
                                         {category.title}, sezona {season.name}.
                                         Stranica {leaders.current_page}.
@@ -172,7 +172,7 @@ export default function SeasonLeaderboard({
                                                                                             : 'lazy'
                                                                                     }
                                                                                     decoding="async"
-                                                                                    className="size-9 rounded-full border border-slate-100/30 bg-white object-contain"
+                                                                                    className="size-9 rounded-full border border-slate-100/30 bg-white object-contain max-[500px]:size-6"
                                                                                 />
                                                                             ) : (
                                                                                 <span className="text-xs">
