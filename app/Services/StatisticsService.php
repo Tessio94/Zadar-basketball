@@ -16,11 +16,19 @@ class StatisticsService
 
     private function buildAvgLeaderboard(string $title, string $type, $collection, string $avgKey, string $totalKey, ?string $totalKeyTwo = null)
     {
+
+    $sortOrder = [
+        static fn ($left, $right): int => ($left->{$avgKey} === null) <=> ($right->{$avgKey} === null),
+        [$avgKey, 'desc'],
+        [$totalKey, 'desc'],
+        ['player_id', 'asc'],
+    ];
+
         return $type === self::TYPE_AVG ? [
             'title' => $title,
             'type' => $type,
             'topFive' => $collection
-                ->sortByDesc($avgKey)
+                ->sortBy($sortOrder)
                 ->take(5)
                 ->map(fn($p) => [
                     'player' => $p->player,
@@ -34,7 +42,7 @@ class StatisticsService
                 'title' => $title,
                 'type' => $type,
                 'topFive' => $collection
-                    ->sortByDesc($avgKey)
+                    ->sortBy($sortOrder)
                     ->take(5)
                     ->map(fn($p) => [
                         'player' => $p->player,
