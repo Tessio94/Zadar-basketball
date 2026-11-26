@@ -77,11 +77,12 @@ export default function PlayerSeasonAverageRow({
                 <td className="p-1 text-center text-nowrap">{ft_made}</td>
                 <td className="p-1 text-center text-nowrap">{ft_attempted}</td>
                 <td className="p-1 text-center text-nowrap">{ft_percentage}</td>
-                <td className="p-1 text-center text-nowrap">
-                    {offensive_rebounds}
-                </td>
+
                 <td className="p-1 text-center text-nowrap">
                     {defensive_rebounds}
+                </td>
+                <td className="p-1 text-center text-nowrap">
+                    {offensive_rebounds}
                 </td>
                 <td className="p-1 text-center text-nowrap">{turnovers}</td>
             </tr>
